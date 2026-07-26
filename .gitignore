@@ -1,0 +1,11 @@
+# Original uncompressed banner (109 MB — exceeds GitHub's 100 MB limit; web version is used instead)
+video banner/skydanceproduction project.MP4
+
+# Temp render files
+assets/*-raw.mp4
+
+# Source docs (private)
+*.rtf
+
+# OS
+.DS_Store

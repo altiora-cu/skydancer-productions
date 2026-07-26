@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>SkyDancer Productions · Luxury Event Entertainment · Miami</title>
+<meta name="description" content="SkyDancer Productions — luxury event entertainment in Miami. Professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
+  --gold:#e6c25c; --gold-grad:linear-gradient(120deg,#b8912f,#f6e0a0 45%,#e6c25c 70%,#b8912f);
+  --brand:linear-gradient(115deg,#ff2d78,#8b3bff 45%,#18e6d8);
+  --glass:rgba(255,255,255,.055); --glass-brd:rgba(255,255,255,.14);
+  --shadow:0 30px 80px -34px rgba(0,0,0,.85); --r:20px;
+  --cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 2.5l6.2 16.5 2.5-6.7 6.7-2.5z' fill='%23f6e0a0' stroke='%232b0f13' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2;
+}
+*{margin:0;padding:0;box-sizing:border-box;cursor:var(--cur),auto}
+input,textarea{cursor:text}
+html{scroll-behavior:smooth}
+body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.6}
+body.no-scroll{overflow:hidden}
+h1,h2,h3,.disp{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.03em;line-height:1.1}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+::selection{background:#ff2d78;color:#fff}
+[hidden]{display:none!important}
+.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.brand-text{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.svg-ic{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block}
+.glass{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+
+/* TOP BAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:flex-end;padding:16px 22px;pointer-events:none}
+.topbar>*{pointer-events:auto}
+.lang{display:flex;gap:2px;background:rgba(10,7,18,.5);border:1px solid var(--line);border-radius:999px;padding:4px;backdrop-filter:blur(14px)}
+.lang button{background:none;border:0;color:var(--muted);font-weight:700;font-size:.72rem;letter-spacing:.12em;padding:6px 12px;border-radius:999px}
+.lang button.on{background:var(--gold-grad);color:#1a1206}
+
+/* HERO */
+.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 30%,transparent,rgba(5,4,10,.28) 62%,rgba(5,4,10,.82)),linear-gradient(180deg,rgba(5,4,10,.26),transparent 32%,transparent 64%,rgba(5,4,10,.78))}
+.hero .glow{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 40% at 50% 42%,rgba(246,224,160,.14),transparent 70%)}
+.hero-inner{position:relative;z-index:5;text-align:center;padding:0 20px}
+.hero .kicker{opacity:0;animation:rise 1s .3s forwards}
+.logo3d{margin:14px 0 8px;perspective:900px}
+.logo3d .line{font-family:'Cinzel',serif;font-weight:900;text-transform:uppercase;transform-style:preserve-3d;animation:float3d 7s ease-in-out infinite}
+.logo3d .sky{display:block;font-size:clamp(3rem,13vw,9rem);letter-spacing:.02em;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 rgba(120,90,20,.35)) drop-shadow(0 14px 30px rgba(0,0,0,.55));position:relative}
+.logo3d .sky::after{content:"SKYDANCER";position:absolute;inset:0;z-index:-1;color:#2a1e05;transform:translateZ(-1px);text-shadow:1px 1px 0 #241a06,2px 2px 0 #201705,3px 3px 0 #1b1304,4px 4px 0 #160f03,5px 5px 0 #120c02,6px 6px 14px rgba(0,0,0,.7)}
+.logo3d .prod{display:block;font-size:clamp(.8rem,3.4vw,1.5rem);letter-spacing:.62em;margin-top:.4em;font-weight:700;color:var(--ink);text-indent:.62em;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.logo3d .prod b{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.shimmer{position:relative;overflow:hidden}
+.shimmer::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-18deg);animation:sweep 5.5s ease-in-out infinite}
+.hero-tag{margin-top:18px;color:#efe7ff;letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;opacity:0;animation:rise 1s .6s forwards;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+/* MENU BUTTON — profesional, sobrio */
+.menu-btn{position:relative;margin-top:46px;display:inline-flex;align-items:center;gap:15px;overflow:hidden;background:rgba(12,8,22,.32);color:var(--ink);padding:17px 42px;border-radius:999px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;font-size:.8rem;backdrop-filter:blur(12px);transition:.4s;opacity:0;animation:rise 1s .9s forwards;border:1px solid rgba(246,224,160,.55)}
+.menu-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--gold-grad);transform:translateY(101%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.menu-btn:hover{color:#1a1206;border-color:transparent;box-shadow:0 18px 40px -18px rgba(246,224,160,.55)}
+.menu-btn:hover::before{transform:translateY(0)}
+.menu-btn .bars{display:inline-flex;flex-direction:column;gap:4px}
+.menu-btn .bars span{width:20px;height:2px;background:currentColor;border-radius:2px;transition:.3s}
+
+/* MENU — split editorial: Liana full-left, contenido a la derecha */
+.menu{position:fixed;inset:0;z-index:90;opacity:0;visibility:hidden;transition:.5s;overflow-y:auto;background:#2b0f13}
+.menu.open{opacity:1;visibility:visible}
+.menu-back{position:fixed;top:22px;left:22px;z-index:6;display:inline-flex;align-items:center;gap:10px;background:rgba(43,15,19,.62);color:#fff;border:1px solid rgba(255,255,255,.3);padding:11px 22px;border-radius:999px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;transition:.3s;backdrop-filter:blur(8px)}
+.menu-back:hover{background:#2b0f13;transform:translateX(-3px)}
+.menu-split{display:grid;grid-template-columns:44% 56%;min-height:100vh}
+/* LEFT — Liana a pantalla completa con fondo diseñado */
+.menu-photo{position:sticky;top:0;align-self:start;height:100vh;overflow:hidden;background:radial-gradient(120% 90% at 30% 18%,#5a2a2c,#2b0f13 68%,#170508)}
+.menu-photo video,.menu-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 16%;z-index:1}
+.menu-photo .mp-pattern{position:absolute;inset:0;z-index:2;opacity:.16;pointer-events:none;mix-blend-mode:soft-light;background-image:radial-gradient(rgba(246,224,160,.9) 1px,transparent 1.5px);background-size:22px 22px}
+.menu-photo .mp-glow{position:absolute;left:-20%;bottom:-8%;width:75%;height:52%;z-index:2;background:radial-gradient(circle,rgba(246,224,160,.42),transparent 70%);filter:blur(34px);pointer-events:none}
+.menu-photo .mp-scrim{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(23,5,8,.4),transparent 24%,transparent 50%,rgba(23,5,8,.92)),linear-gradient(90deg,transparent 68%,rgba(23,5,8,.5))}
+.menu-photo .mp-name{position:absolute;left:34px;right:24px;bottom:36px;z-index:4}
+.menu-photo .mp-name .k{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:#f6e0a0;font-weight:800;display:block;margin-bottom:7px}
+.menu-photo .mp-name b{font-family:'Cinzel';font-weight:900;font-size:clamp(1.9rem,4vw,3rem);color:#fff;display:block;line-height:1;text-shadow:0 4px 26px rgba(0,0,0,.65)}
+.menu-photo .mp-name .role{display:block;margin-top:9px;color:rgba(255,255,255,.85);font-size:.78rem;letter-spacing:.04em}
+/* RIGHT — contenido claro */
+.menu-content{position:relative;z-index:1;padding:90px 52px 60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:22px;background:linear-gradient(165deg,#f2e9e3 0%,#e9d1c6 58%,#ddb9ac 100%)}
+.menu-content .eyebrow{color:#8a4a45;opacity:.95}
+.menu-nav{display:flex;flex-direction:column;gap:12px;align-items:stretch;max-width:540px}
+.menu-nav a{width:100%;display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.62);border:1px solid rgba(122,58,60,.16);transition:.3s;color:#2b0f13}
+.menu-nav a .ic{width:42px;height:42px;flex:none;border-radius:11px;display:grid;place-items:center;color:#7a3a3c;background:#fff;border:1px solid rgba(122,58,60,.14)}
+.menu-nav a .txt{font-family:'Cinzel';font-weight:700;font-size:clamp(1.02rem,2vw,1.3rem);color:#2b0f13}
+.menu-nav a .go{margin-left:auto;transition:.3s;color:#a75f5b}
+.menu-nav a:hover{background:linear-gradient(120deg,#b8912f,#f6e0a0 60%,#e6c25c);border-color:transparent;transform:translateX(5px);box-shadow:0 18px 36px -22px rgba(43,15,19,.7)}
+.menu-nav a:hover .ic{background:#2b0f13;color:#f6e0a0;border-color:#2b0f13}
+.menu-nav a:hover .go{color:#2b0f13}
+.founder-bio{max-width:560px;border-top:1px solid rgba(122,58,60,.22);padding-top:20px}
+.founder-bio .k{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:800}
+.founder-bio h3{font-family:'Cinzel';font-size:1.45rem;color:#2b0f13;margin:4px 0 2px}
+.founder-bio .role{font-size:.76rem;color:#7a3a3c;font-weight:700;margin-bottom:12px}
+.founder-bio p{font-size:.82rem;line-height:1.55;color:#4a2a2c;margin-bottom:9px}
+.founder-bio .artists{font-weight:700;color:#7a3a3c}
+.menu-contact{display:flex;flex-direction:column;gap:9px;color:#5a2a2c;font-size:.88rem;font-weight:600}
+.menu-contact a,.menu-contact span{display:inline-flex;align-items:center;gap:10px}
+.menu-contact .svg-ic{width:18px;height:18px;stroke-width:1.7}
+.menu-contact a:hover{color:#2b0f13;text-decoration:underline}
+/* --- Right panel · creative polish --- */
+.menu-content{overflow:hidden;border-top:3px solid transparent;border-image:linear-gradient(90deg,#b8912f,#f6e0a0,#e6c25c) 1}
+.menu-content::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(122,58,60,.08) 1px,transparent 1.6px);background-size:20px 20px;-webkit-mask-image:radial-gradient(130% 100% at 82% 2%,#000,transparent 72%);mask-image:radial-gradient(130% 100% at 82% 2%,#000,transparent 72%)}
+.menu-content::after{content:"S";position:absolute;top:-9%;right:-3%;z-index:0;font-family:'Cinzel';font-weight:900;font-size:clamp(13rem,30vw,27rem);line-height:1;color:transparent;-webkit-text-stroke:2px rgba(184,145,47,.16);pointer-events:none}
+.menu-content>*{position:relative;z-index:1}
+.mc-brand{display:flex;align-items:center;gap:14px;margin-bottom:4px}
+.mc-brand .wm{font-family:'Cinzel';font-weight:900;letter-spacing:.16em;font-size:.98rem;color:#5a2a2c;white-space:nowrap}
+.mc-brand .wm .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mc-brand .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(122,58,60,.4),transparent)}
+.mc-brand .em{font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:700}
+.menu-nav{counter-reset:mnav}
+.menu-nav a{counter-increment:mnav;position:relative;overflow:hidden}
+.menu-nav a::before{content:counter(mnav,decimal-leading-zero);font-family:'Cinzel';font-weight:900;font-size:.8rem;color:#b8912f;min-width:20px;text-align:center}
+.menu-nav a::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold-grad);transform:scaleY(0);transform-origin:top;transition:.3s}
+.menu-nav a:hover::after{transform:scaleY(1)}
+.menu-nav a:hover::before{color:#2b0f13}
+.menu-nav a .go{transition:transform .3s,color .3s}
+.menu-nav a:hover .go{transform:translateX(4px)}
+.founder-bio{position:relative;padding-left:20px}
+.founder-bio::before{content:"";position:absolute;left:0;top:22px;bottom:6px;width:2px;background:linear-gradient(#b8912f,rgba(184,145,47,0))}
+.founder-bio .k{display:inline-block;padding:4px 11px;border:1px solid rgba(184,145,47,.45);border-radius:999px;color:#8a4a45}
+.founder-bio h3{font-size:1.5rem}
+.menu-contact{flex-direction:row;flex-wrap:wrap;gap:10px}
+.menu-contact a,.menu-contact span{background:rgba(255,255,255,.55);border:1px solid rgba(122,58,60,.16);padding:9px 14px;border-radius:999px;font-size:.76rem;color:#5a2a2c;transition:.3s}
+.menu-contact a .svg-ic,.menu-contact span .svg-ic{color:#a75f5b}
+.menu-contact a:hover{background:#fff;text-decoration:none;color:#2b0f13;border-color:rgba(184,145,47,.55);transform:translateY(-2px)}
+
+/* VIEWS + aurora */
+.view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
+.view.active{opacity:1;visibility:visible;transform:none}
+.view-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:rgba(10,7,18,.55);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.view-bar .vb-back,.view-bar .vb-menu{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);color:var(--ink);padding:11px 20px;border-radius:999px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;transition:.3s;background:rgba(255,255,255,.05)}
+.view-bar .vb-back:hover{border-color:var(--gold);transform:translateX(-3px)}
+.view-bar .vb-menu:hover{border-color:var(--gold)}
+.view-bar .vb-title{font-family:'Cinzel';letter-spacing:.14em;text-transform:uppercase;font-size:.88rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.view-body{position:relative;z-index:1;padding:64px 0 110px}
+.aurora{position:sticky;top:0;height:0;z-index:0}
+.aurora::before{content:"";position:absolute;top:0;left:0;right:0;height:100svh;pointer-events:none;background:radial-gradient(48% 42% at 12% 8%,var(--a1),transparent 70%),radial-gradient(46% 40% at 88% 4%,var(--a2),transparent 72%),radial-gradient(60% 50% at 78% 88%,var(--a3),transparent 74%),radial-gradient(50% 46% at 20% 92%,var(--a1),transparent 76%),linear-gradient(180deg,var(--abase),var(--abase))}
+#view-about{--abase:#0d0710;--a1:rgba(230,140,120,.24);--a2:rgba(150,60,72,.26);--a3:rgba(246,224,160,.16)}
+#view-services{--abase:#0a0714;--a1:rgba(255,45,120,.22);--a2:rgba(139,59,255,.26);--a3:rgba(24,230,216,.14)}
+#view-gallery{--abase:#080718;--a1:rgba(123,47,247,.26);--a2:rgba(24,230,216,.20);--a3:rgba(255,45,120,.18)}
+#view-contact{--abase:#061010;--a1:rgba(24,230,216,.22);--a2:rgba(38,120,140,.24);--a3:rgba(246,224,160,.16)}
+.sec-head{max-width:760px;margin-bottom:44px}
+.sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
+.sec-head p{color:var(--muted);font-size:1.05rem}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+.about-copy p{color:#d9d0ee;margin-bottom:16px;font-size:1.04rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.stat{border-radius:var(--r);padding:20px 14px;text-align:center}
+.stat b{font-family:'Cinzel';font-size:1.8rem;display:block;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat small{color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+.about-media{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--glass-brd);box-shadow:var(--shadow);aspect-ratio:9/13;background:#000}
+.about-media video{width:100%;height:100%;object-fit:cover}
+.about-media .fg{position:absolute;inset:0;box-shadow:inset 0 0 90px rgba(230,120,120,.28);pointer-events:none}
+.exp{margin-top:72px}
+.acc{display:flex;flex-direction:column;gap:14px;margin-top:26px}
+.acc-item{border-radius:16px;overflow:hidden;transition:.3s}
+.acc-item.open{border-color:rgba(246,224,160,.5);box-shadow:0 20px 50px -34px rgba(230,120,120,.6)}
+.acc-btn{width:100%;display:flex;align-items:center;gap:16px;padding:20px 24px;background:none;border:0;color:var(--ink);text-align:left;font-family:'Cinzel';font-size:1.08rem;font-weight:700}
+.acc-btn .ai{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;color:var(--gold);background:rgba(246,224,160,.12);border:1px solid var(--glass-brd)}
+.acc-btn .ac{margin-left:auto;font-size:1.5rem;color:var(--gold);transition:.35s;line-height:1}
+.acc-item.open .ac{transform:rotate(45deg)}
+.acc-panel{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.acc-panel ul{list-style:none;padding:2px 24px 22px 84px;display:flex;flex-direction:column;gap:9px}
+.acc-panel li{color:var(--muted);font-size:.95rem;position:relative;padding-left:16px}
+.acc-panel li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
+
+/* ===== SERVICES · STORE ===== */
+.shop-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
+.shop-note{border-left:3px solid var(--gold);border-radius:14px;padding:14px 20px;color:#e8def7;font-size:.9rem;margin:14px 0 30px;max-width:840px}
+.shop-perks{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
+.perk{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.04em;color:#1a1206;background:linear-gradient(120deg,#f6e0a0,#e6c25c)}
+.perk.ghost{background:none;border:1px solid var(--glass-brd);color:var(--muted)}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.prod{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:.35s;background:rgba(255,255,255,.05);border:1px solid var(--glass-brd)}
+.prod:hover{transform:translateY(-5px);border-color:rgba(246,224,160,.5);box-shadow:var(--shadow)}
+.prod-thumb{position:relative;aspect-ratio:3/4;overflow:hidden;display:grid;place-items:center}
+.prod-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.prod-thumb .ph-ic{position:relative;z-index:0;color:rgba(255,255,255,.9)}
+.prod-thumb .ph-ic .svg-ic{width:40px;height:40px;stroke-width:1.3;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
+.prod-thumb::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.55));pointer-events:none}
+.prod-badge{position:absolute;top:9px;right:9px;z-index:3;font-family:'Cinzel';font-weight:700;font-size:.66rem;color:#1a1206;background:linear-gradient(120deg,#f6e0a0,#e6c25c);padding:4px 9px;border-radius:999px}
+.prod-badge.custom{background:rgba(10,7,20,.8);color:#f6e0a0;border:1px solid rgba(246,224,160,.5)}
+.prod-view{position:absolute;left:9px;bottom:9px;z-index:3;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:999px;display:inline-flex;gap:6px;align-items:center;backdrop-filter:blur(4px)}
+.prod-view .svg-ic{width:14px;height:14px}
+.prod-body{padding:12px;display:flex;flex-direction:column;gap:9px}
+.prod-body h3{font-size:.9rem;line-height:1.25}
+.prod-add{border:1px solid var(--glass-brd);background:rgba(255,255,255,.04);color:var(--ink);padding:10px;border-radius:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.64rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:6px}
+.prod-add:hover{border-color:var(--gold)}
+.prod-add.in{background:var(--gold-grad);color:#1a1206;border-color:transparent}
+.pg1{background:linear-gradient(150deg,#ff2d78,#8b3bff)}.pg2{background:linear-gradient(150deg,#8b3bff,#18e6d8)}
+.pg3{background:linear-gradient(150deg,#e6c25c,#ff2d78)}.pg4{background:linear-gradient(150deg,#18e6d8,#3b2a7a)}
+.pg5{background:linear-gradient(150deg,#ff6a3d,#b8912f)}.pg6{background:linear-gradient(150deg,#7b2ff7,#ff2d78)}
+/* product modal */
+.pm-overlay{position:fixed;inset:0;z-index:115;background:rgba(4,3,10,.8);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.35s;display:grid;place-items:center;padding:20px}
+.pm-overlay.open{opacity:1;visibility:visible}
+.pm-card{width:min(520px,100%);max-height:92svh;overflow-y:auto;border-radius:22px;background:#0d0a18;border:1px solid rgba(246,224,160,.4);box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform:translateY(20px) scale(.98);transition:.4s cubic-bezier(.3,.7,.2,1)}
+.pm-overlay.open .pm-card{transform:none}
+.pm-img{position:relative;aspect-ratio:16/11;overflow:hidden;display:grid;place-items:center}
+.pm-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.pm-img .ph-ic{position:relative;z-index:0;color:rgba(255,255,255,.92)}
+.pm-img .ph-ic .svg-ic{width:70px;height:70px;stroke-width:1.2}
+.pm-close{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.4);color:#fff;font-size:1.3rem;backdrop-filter:blur(6px);transition:.3s}
+.pm-close:hover{border-color:#ff2d78;transform:rotate(90deg)}
+.pm-info{padding:24px 26px 28px}
+.pm-info .k{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.pm-info h2{font-size:1.7rem;margin:8px 0 6px}
+.pm-price{font-family:'Cinzel';font-weight:700;font-size:1.3rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
+.pm-price small{font-family:'Manrope';font-weight:500;font-size:.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;-webkit-text-fill-color:var(--muted);margin-right:6px}
+.pm-desc{color:#cfc6e6;font-size:.96rem;line-height:1.6;margin-bottom:22px}
+.pm-add{width:100%;border:0;padding:16px;border-radius:12px;background:var(--gold-grad);color:#1a1206;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:9px}
+.pm-add:hover{filter:brightness(1.07)}
+.pm-add.in{background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink)}
+
+/* GALLERY */
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px}
+.gal{border-radius:18px;overflow:hidden;position:relative;border:1px solid var(--glass-brd);display:flex;align-items:flex-end;padding:20px;color:#fff;transition:.4s}
+.gal:hover{transform:scale(1.02);border-color:rgba(246,224,160,.55)}
+.gal.big{grid-column:span 2;grid-row:span 2}.gal.wide{grid-column:span 2}
+.gal .lab{position:relative;z-index:2}.gal .lab b{font-family:'Cinzel';font-size:1.1rem;display:block}
+.gal .lab small{color:rgba(255,255,255,.78);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.gal .ov{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.7))}
+.gal video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.g1{background:linear-gradient(140deg,#ff2d78,#8b3bff)}.g2{background:linear-gradient(140deg,#8b3bff,#18e6d8)}
+.g3{background:linear-gradient(140deg,#e6c25c,#ff2d78)}.g4{background:linear-gradient(140deg,#18e6d8,#3b2a7a)}
+.g5{background:linear-gradient(140deg,#ff6a3d,#b8912f)}.g6{background:linear-gradient(140deg,#7b2ff7,#ff2d78)}
+.gal-note{color:var(--muted);font-size:.85rem;margin-top:20px;text-align:center}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+.cinfo a.row{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);transition:.3s}
+.cinfo a.row:hover{padding-left:8px}
+.cinfo .ci-ico{width:46px;height:46px;border-radius:12px;color:var(--gold);background:rgba(246,224,160,.12);border:1px solid var(--glass-brd);display:grid;place-items:center;flex:none}
+.cinfo small{color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:.66rem}
+.cinfo b{display:block;font-size:1.02rem;font-weight:600}
+.travel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.tv{border-radius:14px;padding:18px}
+.tv b{font-family:'Cinzel';color:var(--gold);display:block;margin-bottom:6px;font-size:.95rem}
+.tv span{color:var(--muted);font-size:.85rem}
+.cform{border-radius:24px;padding:30px}
+.cform label{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
+.cform input,.cform textarea{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--glass-brd);border-radius:12px;padding:13px 15px;color:var(--ink);font-family:inherit;font-size:.95rem;transition:.25s}
+.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,194,92,.14)}
+.btn-primary{margin-top:20px;width:100%;border:0;padding:16px;border-radius:12px;background:var(--gold-grad);color:#1a1206;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem;transition:.3s}
+.btn-primary:hover{filter:brightness(1.08);box-shadow:0 16px 40px -14px rgba(230,194,92,.7)}
+.view-foot{border-top:1px solid var(--line);margin-top:70px;padding-top:34px;text-align:center;color:var(--muted);font-size:.82rem}
+.view-foot .fl{font-family:'Cinzel';font-weight:900;letter-spacing:.14em;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
+.view-foot .fl .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* CART */
+.cart-fab{position:fixed;bottom:26px;right:26px;z-index:80;width:64px;height:64px;border-radius:50%;background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);display:grid;place-items:center;transition:.4s;transform:translateY(120px)}
+.cart-fab .svg-ic{width:26px;height:26px;stroke:#1a1206}
+.cart-fab.show{transform:none}
+.cart-fab .count{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#ff2d78;color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 6px;border:2px solid var(--bg)}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:110;background:#0b0813;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s cubic-bezier(.5,0,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 80px -30px rgba(0,0,0,.9)}
+.cart-panel.open{transform:none}
+.cart-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.cart-head h3{font-size:1.2rem}
+.cart-head .x{background:none;border:0;color:var(--muted);font-size:1.6rem;line-height:1}
+.cart-head .x:hover{color:#ff2d78}
+.cart-items{flex:1;overflow-y:auto;padding:12px 24px}
+.cart-empty{text-align:center;color:var(--muted);padding:60px 20px;font-size:.92rem}
+.cart-empty .svg-ic{width:40px;height:40px;margin:0 auto 14px;opacity:.5;stroke:var(--muted)}
+.clear-all{width:100%;margin:10px 0 4px;background:none;border:1px solid var(--line);color:var(--muted);padding:11px;border-radius:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;transition:.3s}
+.clear-all:hover{border-color:#ff2d78;color:#ff2d78}
+.ci{display:flex;gap:12px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}
+.ci .ci-i{width:40px;height:40px;border-radius:10px;color:var(--gold);background:rgba(246,224,160,.12);display:grid;place-items:center;flex:none}
+.ci .ci-i .svg-ic{width:20px;height:20px}
+.ci .ci-m{flex:1;min-width:0}.ci .ci-m b{font-size:.92rem;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci .ci-m span{color:var(--gold);font-size:.82rem}
+.ci .rm{background:none;border:1px solid var(--line);color:var(--muted);width:30px;height:30px;border-radius:8px;transition:.25s;flex:none}
+.ci .rm:hover{border-color:#ff2d78;color:#ff2d78}
+.cart-foot{border-top:1px solid var(--line);padding:20px 24px}
+.cart-row{display:flex;justify-content:space-between;margin-bottom:10px;color:var(--muted);font-size:.9rem}
+.cart-row.disc{color:#18e6d8}
+.cart-row.total{color:var(--ink);font-size:1.15rem;font-family:'Cinzel';font-weight:700;padding-top:12px;border-top:1px solid var(--line);margin-top:6px}
+.cart-row.total b{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cart-hint{color:var(--muted);font-size:.72rem;margin:8px 0 14px;line-height:1.5}
+.cart-actions{display:grid;gap:10px}
+.cart-actions .wa{background:linear-gradient(120deg,#1faf5a,#25d366);color:#062;font-weight:800}
+.cart-actions .em{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink)}
+.cart-actions button{padding:15px;border-radius:12px;border:0;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:8px}
+.cart-actions button:hover{filter:brightness(1.08)}
+.overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
+.overlay-dim.on{opacity:1;visibility:visible}
+.toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,140px);z-index:130;background:var(--gold-grad);color:#1a1206;padding:14px 26px;border-radius:999px;font-weight:700;font-size:.85rem;box-shadow:var(--shadow);transition:.4s;white-space:nowrap}
+.toast.show{transform:translate(-50%,0)}
+
+@keyframes float3d{0%,100%{transform:rotateX(6deg) rotateY(-4deg) translateY(0)}50%{transform:rotateX(2deg) rotateY(4deg) translateY(-8px)}}
+@keyframes floatPhoto{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes tilt3d{0%,100%{transform:perspective(600px) rotateX(0) rotateY(-8deg)}50%{transform:perspective(600px) rotateX(6deg) rotateY(8deg)}}
+@keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
+@keyframes rise{to{opacity:1;transform:none}}
+
+@media(max-width:960px){
+  .menu-split{grid-template-columns:1fr}
+  .menu-photo{position:relative;height:60vh;min-height:380px}
+  .menu-content{padding:44px 24px 56px;justify-content:flex-start;gap:20px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:repeat(2,1fr)}
+  .about-media{max-width:400px;margin:0 auto}
+}
+@media(max-width:600px){
+  .view-body{padding:46px 0 90px}.wrap{padding:0 18px}
+  .gal-grid,.travel{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
+  .menu-photo{height:52vh;min-height:340px}
+  .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
+  .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
+  .cart-fab{bottom:20px;right:20px}.acc-panel ul{padding-left:24px}
+  .menu-content{padding:40px 20px 54px}
+  .menu-content::after{font-size:8rem;top:-2%;right:-1%}
+  .founder-bio p{font-size:.86rem}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div></div>
+
+<!-- HERO -->
+<header class="hero" id="home">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
+    <source src="video%20banner/skydanceproduction%20project.MP4" type="video/mp4" />
+  </video>
+  <div class="veil"></div><div class="glow"></div>
+  <div class="hero-inner">
+    <div class="kicker eyebrow" data-i18n="hero.kicker">Luxury Event Entertainment · Miami</div>
+    <div class="logo3d"><div class="line"><span class="sky shimmer">SkyDancer</span><span class="prod" data-i18n="hero.prod">PROD<b>U</b>CTIONS</span></div></div>
+    <div class="hero-tag" data-i18n="hero.tag">Dancers · Hora Loca · Greeters · Live Shows</div>
+    <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
+  </div>
+</header>
+
+<!-- MENU -->
+<div class="menu" id="menu">
+  <button class="menu-back" id="menuBack"><span>←</span><span data-i18n="menu.back">Back</span></button>
+  <div class="menu-split">
+    <div class="menu-photo">
+      <video autoplay muted loop playsinline preload="metadata" poster="assets/liana-founder.jpg"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video>
+      <div class="mp-pattern"></div><div class="mp-glow"></div><div class="mp-scrim"></div>
+      <div class="mp-name"><span class="k" data-i18n="founder.meet">Meet the Founder</span><b>Liana del Toro</b><span class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</span></div>
+    </div>
+    <div class="menu-content">
+      <div class="mc-brand"><span class="wm"><span class="s">SKY</span>DANCER</span><span class="ln"></span><span class="em">Productions</span></div>
+      <div class="eyebrow" data-i18n="menu.explore">Explore</div>
+      <nav class="menu-nav">
+        <a data-view="view-about"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="nav.about">About the Company</span><span class="go" data-ic="arrow"></span></a>
+        <a data-view="view-services"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="nav.services">Services &amp; Pricing</span><span class="go" data-ic="arrow"></span></a>
+        <a data-view="view-gallery"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="nav.gallery">Gallery &amp; Artists</span><span class="go" data-ic="arrow"></span></a>
+        <a data-view="view-contact"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="nav.contact">Contact &amp; Booking</span><span class="go" data-ic="arrow"></span></a>
+      </nav>
+      <div class="menu-contact">
+        <a href="tel:+17869924543"><span data-ic="phone"></span>+1 786-992-4543</a>
+        <a href="mailto:Skydancerproduction@gmail.com"><span data-ic="mail"></span>Skydancerproduction@gmail.com</a>
+        <span><span data-ic="pin"></span>Coral Gables · Miami, FL</span>
+      </div>
+      <div class="founder-bio">
+          <div class="k" data-i18n="founder.meet">Meet the Founder</div>
+          <h3>Liana del Toro</h3>
+          <div class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</div>
+          <div class="lang-en">
+            <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
+            <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
+            <p>She has performed with internationally renowned artists including <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal, Timbalive</span> and many others, and has been part of productions at the Kaseya Center, performing before audiences of more than 18,000 people.</p>
+          </div>
+          <div class="lang-es" hidden>
+            <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
+            <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
+            <p>Ha actuado con artistas de renombre internacional como <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal, Timbalive</span> y muchos otros, y ha sido parte de producciones en el Kaseya Center, actuando ante audiencias de más de 18,000 personas.</p>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW: ABOUT -->
+<section class="view" id="view-about">
+  <div class="aurora"></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.about">About the Company</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-body"><div class="wrap">
+    <div class="about-grid">
+      <div class="about-copy">
+        <div class="eyebrow" data-i18n="about.eyebrow">About the Company</div>
+        <h2 class="gold-text" data-i18n="about.title">Premium entertainment, unforgettable moments</h2>
+        <p data-i18n="about.p1">SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.</p>
+        <p data-i18n="about.p2">From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.</p>
+        <div class="stats">
+          <div class="stat glass"><b>3+</b><small data-i18n="about.s1">Years at Art Basel</small></div>
+          <div class="stat glass"><b>15+</b><small data-i18n="about.s2">Signature Services</small></div>
+          <div class="stat glass"><b>18K+</b><small data-i18n="about.s3">Audience · Kaseya Center</small></div>
+        </div>
+      </div>
+      <div class="about-media"><video autoplay muted loop playsinline preload="metadata"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
+    </div>
+    <div class="exp">
+      <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
+      <div class="acc" id="accordion">
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="trophy"></span><span data-i18n="creds.c1t">Featured Events</span><span class="ac">+</span></button><div class="acc-panel"><ul><li data-i18n="creds.c1a">Art Basel Miami — 3 consecutive years</li><li>Sagamore Hotel Miami Beach</li><li>National Hotel Miami Beach</li><li>SLS Hotel Miami Beach</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="glass"></span><span data-i18n="creds.c2t">Restaurants &amp; Nightlife</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Giselle Miami</li><li>Kuba Cabana</li><li>Wet Brickell</li><li>Casa Ya'X</li><li>MAÜ Miami</li><li>The Moon Wynwood</li><li>Villa Azur Miami Beach</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="masks"></span><span data-i18n="creds.c3t">Theater Productions</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>La Scala Miami</li><li>Flamingo Theater Bar</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="film"></span><span data-i18n="creds.c4t">Music Videos &amp; TV</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>El Chacal</li><li>Micha</li><li>Timbalive</li><li data-i18n="creds.c4a">Cuban bands &amp; live TV shows</li></ul></div></div>
+      </div>
+    </div>
+    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
+  </div></div>
+</section>
+
+<!-- VIEW: SERVICES (store) -->
+<section class="view" id="view-services">
+  <div class="aurora"></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.services">Services &amp; Pricing</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-body"><div class="wrap">
+    <div class="shop-head">
+      <div><div class="eyebrow" data-i18n="svc.eyebrow">The Store</div><h2 class="gold-text" style="font-size:clamp(2rem,5vw,3rem);margin-top:8px" data-i18n="svc.title">Build your show</h2></div>
+    </div>
+    <div class="shop-perks">
+      <span class="perk" data-i18n="perk.p1">Book 2 · save 5%</span>
+      <span class="perk" data-i18n="perk.p2">Book 3+ · save 10%</span>
+      <span class="perk ghost" data-i18n="perk.p3">Returning clients · 10% off</span>
+    </div>
+    <div class="shop-note glass" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.</div>
+    <div class="shop-grid" id="shopGrid"></div>
+    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
+  </div></div>
+</section>
+
+<!-- VIEW: GALLERY -->
+<section class="view" id="view-gallery">
+  <div class="aurora"></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.gallery">Gallery &amp; Artists</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-body"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-i18n="gal.eyebrow">Gallery &amp; Artists</div><h2 class="gold-text" data-i18n="gal.title">The stage is ours</h2><p data-i18n="gal.sub">A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.</p></div>
+    <div class="gal-grid">
+      <div class="gal big"><video autoplay muted loop playsinline preload="metadata"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
+      <div class="gal g1"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
+      <div class="gal g2"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
+      <div class="gal g3 wide"><div class="ov"></div><div class="lab"><b data-i18n="gal.k3">Champagne Dress Experience</b><small>Luxury Hospitality</small></div></div>
+      <div class="gal g4"><div class="ov"></div><div class="lab"><b data-i18n="gal.k4">LED Robot Show</b><small>Futuristic</small></div></div>
+      <div class="gal g5"><div class="ov"></div><div class="lab"><b data-i18n="gal.k5">Fire Performers</b><small>Spectacle</small></div></div>
+      <div class="gal g6 wide"><div class="ov"></div><div class="lab"><b data-i18n="gal.k6">Live Sax &amp; Drums</b><small>Live Music</small></div></div>
+    </div>
+    <p class="gal-note" data-i18n="gal.note">Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.</p>
+    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
+  </div></div>
+</section>
+
+<!-- VIEW: CONTACT -->
+<section class="view" id="view-contact">
+  <div class="aurora"></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.contact">Contact &amp; Booking</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-body"><div class="wrap">
+    <div class="sec-head"><div class="eyebrow" data-i18n="con.eyebrow">Contact &amp; Booking</div><h2 class="brand-text" data-i18n="con.title">Let's design your event</h2><p data-i18n="con.sub">Tell us your vision — we'll craft a custom production and quote for your date and venue.</p></div>
+    <div class="contact-grid">
+      <div class="cinfo">
+        <a class="row" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="ci-ico" data-ic="chat"></span><span><small>WhatsApp</small><b>+1 786-992-4543</b></span></a>
+        <a class="row" href="tel:+17869924543"><span class="ci-ico" data-ic="phone"></span><span><small data-i18n="con.call">Call us</small><b>+1 786-992-4543</b></span></a>
+        <a class="row" href="mailto:Skydancerproduction@gmail.com"><span class="ci-ico" data-ic="mail"></span><span><small>Email</small><b>Skydancerproduction@gmail.com</b></span></a>
+        <a class="row" href="#"><span class="ci-ico" data-ic="pin"></span><span><small data-i18n="con.based">Based in</small><b>Coral Gables · Miami, FL</b></span></a>
+        <div style="margin-top:30px"><div class="eyebrow" data-i18n="travel.eyebrow">Travel Policy</div>
+          <div class="travel">
+            <div class="tv glass"><b>Miami-Dade</b><span data-i18n="travel.t1">No travel fee.</span></div>
+            <div class="tv glass"><b>Broward · Palm Beach</b><span data-i18n="travel.t2">Travel fees may apply.</span></div>
+            <div class="tv glass"><b data-i18n="travel.t3t">Rest of Florida</b><span data-i18n="travel.t3">Custom travel quote by location.</span></div>
+            <div class="tv glass"><b data-i18n="travel.t4t">Out of State</b><span data-i18n="travel.t4">Transport &amp; accommodation quoted separately.</span></div>
+          </div>
+        </div>
+      </div>
+      <form class="cform glass" id="quoteForm" onsubmit="return false">
+        <div class="eyebrow" data-i18n="con.formtitle">Request a Quote</div>
+        <label data-i18n="con.fname">Full name</label><input id="qName" type="text" placeholder="Your name" />
+        <label data-i18n="con.fdate">Event date</label><input id="qDate" type="text" placeholder="MM/DD/YYYY" />
+        <label data-i18n="con.fvenue">Venue / City</label><input id="qVenue" type="text" placeholder="Venue, city" />
+        <label data-i18n="con.fmsg">Your vision</label><textarea id="qMsg" rows="3" placeholder="Tell us about your event..."></textarea>
+        <button class="btn-primary" id="formSend" data-i18n="con.send">Send via WhatsApp</button>
+      </form>
+    </div>
+    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span>© <span id="yr"></span> · <span data-i18n="foot.rights">All rights reserved.</span></span></div>
+  </div></div>
+</section>
+
+<!-- PRODUCT MODAL -->
+<div class="pm-overlay" id="pmOverlay"><div class="pm-card" id="pmCard"></div></div>
+
+<!-- CART -->
+<button class="cart-fab" id="cartFab" aria-label="Quote cart"><span data-ic="cart"></span><span class="count" id="cartCount">0</span></button>
+<div class="overlay-dim" id="dim"></div>
+<aside class="cart-panel" id="cartPanel" aria-label="Quote">
+  <div class="cart-head"><h3 data-i18n="cart.title">Your Quote</h3><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-foot">
+    <div class="cart-row"><span data-i18n="cart.subtotal">Subtotal (from)</span><span id="sub">$0</span></div>
+    <div class="cart-row disc" id="discRow" hidden><span id="discLbl">Discount</span><span id="disc">-$0</span></div>
+    <div class="cart-row total"><span data-i18n="cart.total">Estimated total</span><b id="tot">$0</b></div>
+    <p class="cart-hint" data-i18n="cart.hint">Estimate based on starting prices. A final custom quote is confirmed by our team based on date, venue and requirements.</p>
+    <div class="cart-actions">
+      <button class="wa" id="cartWA"><span data-ic="chat"></span><span data-i18n="cart.wa">Request via WhatsApp</span></button>
+      <button class="em" id="cartEmail"><span data-ic="mail"></span><span data-i18n="cart.email">Request via Email</span></button>
+    </div>
+  </div>
+</aside>
+<div class="toast" id="toast"></div>
+
+<script>
+const ICONS={
+ dancers:'<path d="M9 18V5l10-2v10"/><circle cx="6.5" cy="18" r="2.6"/><circle cx="16" cy="16" r="2.6"/>',
+ gogo:'<path d="M12 3l2.1 5.3L20 9l-4.4 3.7L17 19l-5-3.1L7 19l1.4-6.3L4 9l5.9-.7z"/>',
+ greeters:'<circle cx="12" cy="12" r="9"/><path d="M12 7l1.3 3 3.2.3-2.4 2.1.8 3.1-2.9-1.7-2.9 1.7.8-3.1L7.5 10.3l3.2-.3z"/>',
+ robot:'<rect x="5" y="8" width="14" height="11" rx="2.5"/><path d="M12 4.5v3.5M9.5 13h0M14.5 13h0M9.5 16h5"/><circle cx="12" cy="3.4" r="1.1"/>',
+ fire:'<path d="M12 2.5c.6 3.2 4.2 4.3 4.2 8.5a4.2 4.2 0 0 1-8.4 0c0-2 .8-3.2 1.6-4.3.3 1.4 1.2 1.8 2 1.8-.4-2 .1-4.2.6-6z"/>',
+ sax:'<path d="M4 12c1.6-3.6 3.2 3.6 4.8 0S12 8.4 13.6 12s3.2 3.6 4.8 0"/><circle cx="20" cy="8" r="1.2"/>',
+ drummer:'<ellipse cx="12" cy="15" rx="7" ry="4"/><path d="M5 15v-2M19 15v-2"/><path d="M8 11l4-6M16 11l-2-3"/>',
+ champagne:'<path d="M8 3h8l-1.4 7a2.6 2.6 0 0 1-5.2 0zM12 12.5V18M9 21h6"/>',
+ horaloca:'<path d="M4 20l5.5-13 8.5 8.5zM14.5 6.5l1-2.5M18 8.5l2.5-1M17 12l2.5 1"/>',
+ choreo:'<path d="M4.5 6.5c0 6 2 9 4.5 9s4.5-3 4.5-9c-3-1-6-1-9 0z"/><path d="M14 9.2c2.6-.5 4.6 0 5.5.9.2 5.5-1.8 8.4-3.9 8.4-1 0-1.9-.8-2.3-1.9"/>',
+ themed:'<path d="M12 3l3.8 4.6L12 21 8.2 7.6z"/><path d="M6.5 7.6h11"/>',
+ interactive:'<circle cx="9.5" cy="12" r="4.8"/><circle cx="14.5" cy="12" r="4.8"/>',
+ photobooth:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><circle cx="12" cy="13.5" r="3.4"/><path d="M8 7l1.4-2h5.2L16 7"/>',
+ custom:'<path d="M6 4.5h12l3 4.5-9 10.5L3 9z"/><path d="M3 9h18M9 4.5 6 9l6 10.5L18 9l-3-4.5"/>',
+ coord:'<rect x="3" y="9" width="18" height="11" rx="1.5"/><path d="M3.4 9l17.6-3M7.5 8.4l1-3M12.5 7.4l1-3M17.5 6.4l1-3"/>',
+ diamond:'<path d="M6 4.5h12l3 4.5-9 10.5L3 9z"/><path d="M3 9h18"/>',
+ star:'<path d="M12 3l2.1 5.3L20 9l-4.4 3.7L17 19l-5-3.1L7 19l1.4-6.3L4 9l5.9-.7z"/>',
+ camera:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><circle cx="12" cy="13.5" r="3.4"/><path d="M8 7l1.4-2h5.2L16 7"/>',
+ chat:'<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/>',
+ phone:'<path d="M5 4h3.5l1.6 4.2-2 1.3a11 11 0 0 0 4.9 4.9l1.3-2 4.2 1.6V18a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+ mail:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/>',
+ pin:'<path d="M12 21s7-6.4 7-12a7 7 0 1 0-14 0c0 5.6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+ arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+ eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+ trophy:'<path d="M7 4h10v3.5a5 5 0 0 1-10 0zM5 5H3v1.5A3.5 3.5 0 0 0 6.5 10M19 5h2v1.5A3.5 3.5 0 0 1 17.5 10M9.5 14h5l-.8 5H10.3z"/>',
+ glass:'<path d="M8 3h8l-1.4 7a2.6 2.6 0 0 1-5.2 0zM12 12.5V18M9 21h6"/>',
+ masks:'<path d="M4.5 6.5c0 6 2 9 4.5 9s4.5-3 4.5-9c-3-1-6-1-9 0z"/><path d="M14 9.2c2.6-.5 4.6 0 5.5.9.2 5.5-1.8 8.4-3.9 8.4-1 0-1.9-.8-2.3-1.9"/>',
+ film:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
+ cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
+};
+const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.custom}</svg>`;
+document.querySelectorAll('[data-ic]').forEach(el=>el.innerHTML=svg(el.dataset.ic));
+
+const SERVICES=[
+ {id:'dancers',price:350,name:{en:'Professional Dancers',es:'Bailarines Profesionales'},desc:{en:'Trained in Latin, Salsa, Reggaeton, Brazilian, Cabaret, Burlesque, Contemporary and themed styles. Custom choreography and themed costumes match your event concept, brand or dress code.',es:'Formados en Latino, Salsa, Reggaetón, Brasileño, Cabaret, Burlesque, Contemporáneo y temáticos. Coreografía y vestuario a medida según tu concepto, marca o dress code.'}},
+ {id:'gogo',price:275,name:{en:'Gogo Dancers',es:'Gogo Dancers'},desc:{en:'High-energy entertainment for nightclubs, festivals, rooftop parties, private events and brand activations. Costumes and styles from elegant to themed productions.',es:'Entretenimiento de alta energía para clubes, festivales, rooftops, eventos privados y activaciones de marca. Vestuarios y estilos de elegante a producciones temáticas.'}},
+ {id:'greeters',price:350,name:{en:'Luxury Greeters',es:'Anfitrionas de Lujo'},desc:{en:'Elegant or themed greeters welcome guests, assist with photo opportunities and enhance the atmosphere from the moment attendees arrive. Costumes customizable to your theme, brand or palette.',es:'Anfitrionas elegantes o temáticas reciben a los invitados, apoyan en las fotos y elevan la atmósfera desde el primer momento. Vestuario personalizable a tu tema, marca o paleta.'}},
+ {id:'robot',price:500,name:{en:'LED Robot Show',es:'Show de Robots LED'},desc:{en:'Futuristic LED robot performances that command attention at grand openings, luxury events and brand activations.',es:'Espectáculos futuristas de robots LED que captan toda la atención en aperturas, eventos de lujo y activaciones de marca.'}},
+ {id:'fire',price:500,name:{en:'Fire Performer',es:'Espectáculo de Fuego'},desc:{en:'Breathtaking choreographed fire routines with music, precision and strict safety standards. Perfect for grand openings, luxury events, festivals and private parties — per venue regulations.',es:'Impactantes rutinas coreografiadas de fuego con música, precisión y estrictos estándares de seguridad. Ideal para aperturas, eventos de lujo, festivales y fiestas privadas — según regulaciones del venue.'}},
+ {id:'sax',price:450,name:{en:'Live Saxophonist',es:'Saxofonista en Vivo'},desc:{en:'Solo or alongside a DJ — the perfect atmosphere for cocktail hours, weddings, luxury dinners, corporate events and nightlife experiences.',es:'Solo o junto a un DJ — la atmósfera perfecta para cócteles, bodas, cenas de lujo, eventos corporativos y experiencias nocturnas.'}},
+ {id:'drummer',price:350,name:{en:'Live Drummer',es:'Baterista en Vivo'},desc:{en:'Unmatched energy solo or alongside DJs and dancers — an interactive experience that keeps guests engaged. Ideal for weddings, clubs, festivals, corporate events and private celebrations.',es:'Energía inigualable solo o junto a DJs y bailarines — una experiencia interactiva que mantiene a los invitados enganchados. Ideal para bodas, clubes, festivales, eventos corporativos y celebraciones privadas.'}},
+ {id:'champagne',price:1200,name:{en:'Champagne Dress Experience',es:'Champagne Dress Experience'},desc:{en:'Luxury, hospitality and visual impact combined. A beautifully costumed performer welcomes guests while serving champagne or signature beverages. Ideal for weddings, VIP events, grand openings and galas — dress styles customizable to your palette or theme.',es:'Lujo, hospitalidad e impacto visual combinados. Una performer con un vestuario espectacular recibe a los invitados mientras sirve champagne o bebidas de autor. Ideal para bodas, eventos VIP, aperturas y galas — el vestido se personaliza a tu paleta o tema.'}},
+ {id:'horaloca',price:1100,name:{en:'Hora Loca',es:'Hora Loca'},desc:{en:'The signature Miami party explosion — performers, props, energy and pure celebration that transforms any moment into an unforgettable experience.',es:'La explosión de fiesta insignia de Miami — performers, props, energía y pura celebración que transforma cualquier momento en una experiencia inolvidable.'}},
+ {id:'choreo',price:1200,name:{en:'Choreographed Shows',es:'Shows Coreografiados'},desc:{en:'Full themed productions with custom choreography, costumes and music — designed for galas, stages, corporate events and celebrations.',es:'Producciones temáticas completas con coreografía, vestuario y música a medida — diseñadas para galas, escenarios, eventos corporativos y celebraciones.'}},
+ {id:'themed',price:0,name:{en:'Themed Entertainment',es:'Entretenimiento Temático'},desc:{en:'Concept-driven acts and characters built entirely around your event theme, brand and vision.',es:'Actos y personajes conceptuales creados totalmente en torno a tu temática, marca y visión.'}},
+ {id:'interactive',price:0,name:{en:'Interactive Performances',es:'Performances Interactivos'},desc:{en:'Roaming, immersive acts that engage guests directly and keep the energy alive throughout the night.',es:'Actos itinerantes e inmersivos que involucran a los invitados directamente y mantienen la energía toda la noche.'}},
+ {id:'photobooth',price:0,name:{en:'Photobooth Experience',es:'Experiencia Photobooth'},desc:{en:'A branded, styled photo experience that becomes the highlight of your event and a lasting keepsake for guests.',es:'Una experiencia fotográfica con estilo y marca que se convierte en el highlight del evento y un recuerdo para los invitados.'}},
+ {id:'custom',price:0,name:{en:'Custom Event Productions',es:'Producciones a Medida'},desc:{en:'End-to-end bespoke productions designed around your vision, brand and venue — from concept to showtime.',es:'Producciones a medida de principio a fin diseñadas en torno a tu visión, marca y locación — del concepto al show.'}},
+ {id:'coord',price:0,name:{en:'Event Entertainment Coordination',es:'Coordinación de Entretenimiento'},desc:{en:'We coordinate every performer and moment so your event runs flawlessly from start to finish.',es:'Coordinamos cada performer y cada momento para que tu evento fluya a la perfección de principio a fin.'}}
+];
+
+const I18N={
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Hora Loca · Greeters · Live Shows','hero.menu':'Menu',
+  'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
+  'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
+  'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
+  'about.eyebrow':'About the Company','about.title':'Premium entertainment, unforgettable moments','about.p1':'SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.','about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.','about.s1':'Years at Art Basel','about.s2':'Signature Services','about.s3':'Audience · Kaseya Center',
+  'creds.eyebrow':'Our Experience','creds.title':'Tap each section to explore','creds.sub':'A track record across luxury venues, festivals, theaters and television productions.','creds.c1t':'Featured Events','creds.c1a':'Art Basel Miami — 3 consecutive years','creds.c2t':'Restaurants & Nightlife','creds.c3t':'Theater Productions','creds.c4t':'Music Videos & TV','creds.c4a':'Cuban bands & live TV shows',
+  'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
+  'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
+  'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Champagne Dress Experience','gal.k4':'LED Robot Show','gal.k5':'Fire Performers','gal.k6':'Live Sax & Drums','gal.note':'Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.',
+  'con.eyebrow':'Contact & Booking','con.title':"Let's design your event",'con.sub':"Tell us your vision — we'll craft a custom production and quote for your date and venue.",'con.call':'Call us','con.based':'Based in','con.formtitle':'Request a Quote','con.fname':'Full name','con.fdate':'Event date','con.fvenue':'Venue / City','con.fmsg':'Your vision','con.send':'Send via WhatsApp',
+  'travel.eyebrow':'Travel Policy','travel.t1':'No travel fee.','travel.t2':'Travel fees may apply.','travel.t3t':'Rest of Florida','travel.t3':'Custom travel quote by location.','travel.t4t':'Out of State','travel.t4':'Transport & accommodation quoted separately.',
+  'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
+  'cart.title':'Your Quote','cart.subtotal':'Subtotal (from)','cart.total':'Estimated total','cart.hint':'Estimate based on starting prices. A final custom quote is confirmed by our team based on date, venue and requirements.','cart.wa':'Request via WhatsApp','cart.email':'Request via Email',
+  'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Your quote is empty. Add services to build your event.','ui.added':'Added to quote','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Quote cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Hora Loca · Anfitrionas · Shows en Vivo','hero.menu':'Menú',
+  'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
+  'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
+  'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
+  'about.eyebrow':'Sobre la Compañía','about.title':'Entretenimiento premium, momentos inolvidables','about.p1':'SkyDancer Productions es una compañía de entretenimiento de lujo con base en Miami que ofrece performers de clase mundial, shows coreografiados y experiencias inmersivas para los eventos más exclusivos del sur de la Florida.','about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.','about.s1':'Años en Art Basel','about.s2':'Servicios Insignia','about.s3':'Público · Kaseya Center',
+  'creds.eyebrow':'Nuestra Experiencia','creds.title':'Toca cada sección para explorar','creds.sub':'Trayectoria en venues de lujo, festivales, teatros y producciones de televisión.','creds.c1t':'Eventos Destacados','creds.c1a':'Art Basel Miami — 3 años consecutivos','creds.c2t':'Restaurantes y Nightlife','creds.c3t':'Producciones de Teatro','creds.c4t':'Videos Musicales y TV','creds.c4a':'Bandas cubanas y shows de TV en vivo',
+  'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
+  'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
+  'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Champagne Dress Experience','gal.k4':'Show de Robots LED','gal.k5':'Espectáculo de Fuego','gal.k6':'Sax y Batería en Vivo','gal.note':'¿Quieres tus fotos de eventos y retratos de performers aquí? Colócalas en la carpeta “gallery” y se pueden agregar al instante.',
+  'con.eyebrow':'Contacto y Reservas','con.title':'Diseñemos tu evento','con.sub':'Cuéntanos tu visión — crearemos una producción y cotización a medida para tu fecha y locación.','con.call':'Llámanos','con.based':'Ubicados en','con.formtitle':'Solicita una Cotización','con.fname':'Nombre completo','con.fdate':'Fecha del evento','con.fvenue':'Locación / Ciudad','con.fmsg':'Tu visión','con.send':'Enviar por WhatsApp',
+  'travel.eyebrow':'Política de Viaje','travel.t1':'Sin cargo por traslado.','travel.t2':'Pueden aplicar cargos de traslado.','travel.t3t':'Resto de Florida','travel.t3':'Cotización de traslado según la locación.','travel.t4t':'Fuera del Estado','travel.t4':'Transporte y hospedaje se cotizan por separado.',
+  'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL','foot.rights':'Todos los derechos reservados.',
+  'cart.title':'Tu Cotización','cart.subtotal':'Subtotal (desde)','cart.total':'Total estimado','cart.hint':'Estimado basado en precios iniciales. Nuestro equipo confirma la cotización final según fecha, locación y requerimientos.','cart.wa':'Solicitar por WhatsApp','cart.email':'Solicitar por Email',
+  'ui.add':'Agregar','ui.remove':'Quitar','ui.view':'Ver','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Tu cotización está vacía. Agrega servicios para armar tu evento.','ui.added':'Agregado a la cotización','ui.removed':'Eliminado','ui.clear':'Vaciar todo','ui.cleared':'Cotización vaciada','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)','ui.needfill':'Por favor agrega tu nombre primero.'}
+};
+
+let lang=localStorage.getItem('sdp_lang')||'en',cart=[],currentView=null,pmId=null;
+const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
+const money=n=>'$'+n.toLocaleString('en-US');const t=k=>(I18N[lang][k]??k);
+const priceHtml=s=>s.price>0?`<small>${t('ui.from')}</small>${money(s.price)}`:t('ui.quote');
+const badgeHtml=s=>s.price>0?`<span class="prod-badge">${t('ui.from')} ${money(s.price)}</span>`:`<span class="prod-badge custom">${t('ui.quote')}</span>`;
+
+/* STORE grid */
+function renderShop(){
+  const g=document.getElementById('shopGrid');
+  g.innerHTML=SERVICES.map((s,i)=>{const inCart=cart.includes(s.id);
+    return `<article class="prod" data-open="${s.id}">
+      <div class="prod-thumb pg${(i%6)+1}">
+        <img src="assets/services/${s.id}.jpg" alt="${s.name[lang]}" loading="lazy" onerror="this.remove()">
+        <span class="ph-ic">${svg(s.id)}</span>
+        ${badgeHtml(s)}
+        <span class="prod-view">${svg('eye')}${t('ui.view')}</span>
+      </div>
+      <div class="prod-body"><h3>${s.name[lang]}</h3>
+        <button class="prod-add ${inCart?'in':''}" data-add="${s.id}">${inCart?'✓ '+t('ui.remove'):'＋ '+t('ui.add')}</button>
+      </div></article>`;}).join('');
+  g.querySelectorAll('.prod-view svg,.prod-thumb .ph-ic svg').forEach(()=>{});
+  g.querySelectorAll('[data-open]').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('[data-add]'))return;openProduct(c.dataset.open);}));
+  g.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();toggle(b.dataset.add);}));
+}
+/* PRODUCT modal: foto arriba, descripción y precio abajo */
+function openProduct(id){pmId=id;const s=SERVICES.find(x=>x.id===id);const i=SERVICES.indexOf(s);const inCart=cart.includes(id);
+  document.getElementById('pmCard').innerHTML=`
+    <div class="pm-img pg${(i%6)+1}">
+      <img src="assets/services/${id}.jpg" alt="${s.name[lang]}" onerror="this.remove()">
+      <span class="ph-ic">${svg(id)}</span>
+      <button class="pm-close" id="pmClose" aria-label="Close">&times;</button>
+    </div>
+    <div class="pm-info">
+      <div class="k">SkyDancer</div><h2>${s.name[lang]}</h2>
+      <div class="pm-price">${priceHtml(s)}</div>
+      <p class="pm-desc">${s.desc[lang]}</p>
+      <button class="pm-add ${inCart?'in':''}" id="pmAdd">${inCart?'✓ '+t('ui.remove'):'＋ '+t('ui.add')}</button>
+    </div>`;
+  document.getElementById('pmClose').onclick=closeProduct;
+  document.getElementById('pmAdd').onclick=()=>{toggle(id);const on=cart.includes(id);const b=document.getElementById('pmAdd');b.className='pm-add '+(on?'in':'');b.textContent=(on?'✓ '+t('ui.remove'):'＋ '+t('ui.add'));};
+  document.getElementById('pmOverlay').classList.add('open');document.body.classList.add('no-scroll');
+}
+function closeProduct(){document.getElementById('pmOverlay').classList.remove('open');pmId=null;if(!currentView)document.body.classList.remove('no-scroll');}
+document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')closeProduct();});
+
+function toggle(id){const i=cart.indexOf(id);if(i>-1){cart.splice(i,1);toast(t('ui.removed'));}else{cart.push(id);toast(t('ui.added'));}renderShop();renderCart();}
+function clearCart(){if(!cart.length)return;cart=[];toast(t('ui.cleared'));renderShop();renderCart();}
+function discountRate(){const c=cart.length;if(c>=3)return{rate:.10,lbl:t('ui.disc3')};if(c>=2)return{rate:.05,lbl:t('ui.disc2')};return{rate:0,lbl:''};}
+function totals(){let sub=0,hasCustom=false;cart.forEach(id=>{const s=SERVICES.find(x=>x.id===id);if(s.price>0)sub+=s.price;else hasCustom=true;});const d=discountRate();const disc=Math.round(sub*d.rate);return{sub,disc,total:sub-disc,lbl:d.lbl,hasCustom};}
+function renderCart(){const box=document.getElementById('cartItems');document.getElementById('cartCount').textContent=cart.length;
+  document.getElementById('cartFab').classList.toggle('show',cart.length>0);
+  if(!cart.length){box.innerHTML=`<div class="cart-empty">${svg('cart')}${t('ui.empty')}</div>`;}
+  else{box.innerHTML=`<button class="clear-all" id="clearAll">✕ ${t('ui.clear')}</button>`+cart.map(id=>{const s=SERVICES.find(x=>x.id===id);
+      const pr=s.price>0?`<span>${t('ui.from')} ${money(s.price)}</span>`:`<span>${t('ui.quote')}</span>`;
+      return `<div class="ci"><div class="ci-i">${svg(s.id)}</div><div class="ci-m"><b>${s.name[lang]}</b>${pr}</div><button class="rm" data-rm="${id}" aria-label="Remove">✕</button></div>`;}).join('');
+    box.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>toggle(b.dataset.rm));document.getElementById('clearAll').onclick=clearCart;}
+  const T=totals();document.getElementById('sub').textContent=(T.sub===0&&T.hasCustom)?t('ui.quote'):money(T.sub);
+  const dr=document.getElementById('discRow');if(T.disc>0){dr.hidden=false;document.getElementById('discLbl').textContent=T.lbl;document.getElementById('disc').textContent='-'+money(T.disc);}else dr.hidden=true;
+  let tot=T.total>0?money(T.total):'';if(T.hasCustom)tot+=(T.total>0?' + '+t('ui.quote'):t('ui.quote'));if(!tot)tot=money(0);document.getElementById('tot').textContent=tot;}
+function buildMessage(){const T=totals(),L=lang;let m=(L==='es'?'Hola SkyDancer Productions 👋 Me gustaría cotizar:':'Hi SkyDancer Productions 👋 I would like a quote for:')+'\n\n';
+  cart.forEach(id=>{const s=SERVICES.find(x=>x.id===id);m+='• '+s.name[L]+(s.price>0?'  ('+t('ui.from')+' '+money(s.price)+')':'  ('+t('ui.quote')+')')+'\n';});m+='\n';
+  if(T.sub>0)m+=(L==='es'?'Subtotal (desde): ':'Subtotal (from): ')+money(T.sub)+'\n';if(T.disc>0)m+=T.lbl+': -'+money(T.disc)+'\n';
+  if(T.total>0)m+=(L==='es'?'Total estimado: ':'Estimated total: ')+money(T.total)+(T.hasCustom?' + '+t('ui.quote'):'')+'\n';else if(T.hasCustom)m+=(L==='es'?'Total: Cotización personalizada':'Total: Custom quote')+'\n';
+  m+='\n'+(L==='es'?'(Estimado basado en precios iniciales — quedo atento a la cotización final.)':'(Estimate based on starting prices — looking forward to the final quote.)');return m;}
+function sendWA(){if(!cart.length){toast(t('ui.empty'));return;}window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(buildMessage()),'_blank');}
+function sendEmail(){if(!cart.length){toast(t('ui.empty'));return;}const s=lang==='es'?'Solicitud de cotización — SkyDancer':'Quote request — SkyDancer';window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(s)+'&body='+encodeURIComponent(buildMessage());}
+
+document.getElementById('formSend').onclick=()=>{const n=document.getElementById('qName').value.trim();if(!n){toast(t('ui.needfill'));return;}
+  const d=document.getElementById('qDate').value.trim(),v=document.getElementById('qVenue').value.trim(),msg=document.getElementById('qMsg').value.trim(),L=lang;
+  let m=(L==='es'?'Hola SkyDancer 👋 Solicito información:':'Hi SkyDancer 👋 I would like info:')+'\n\n'+(L==='es'?'Nombre: ':'Name: ')+n+'\n';
+  if(d)m+=(L==='es'?'Fecha: ':'Date: ')+d+'\n';if(v)m+=(L==='es'?'Locación: ':'Venue: ')+v+'\n';if(msg)m+=(L==='es'?'Detalles: ':'Details: ')+msg+'\n';
+  if(cart.length)m+='\n'+buildMessage();window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');};
+
+document.querySelectorAll('.acc-btn').forEach(b=>b.onclick=()=>{const it=b.closest('.acc-item'),p=it.querySelector('.acc-panel'),open=it.classList.contains('open');
+  document.querySelectorAll('.acc-item').forEach(x=>{x.classList.remove('open');x.querySelector('.acc-panel').style.maxHeight=null;});
+  if(!open){it.classList.add('open');p.style.maxHeight=p.scrollHeight+'px';}});
+
+function applyLang(){document.documentElement.lang=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
+  document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();}
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.lang;localStorage.setItem('sdp_lang',lang);applyLang();});
+
+const menu=document.getElementById('menu');
+function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');}
+function closeMenu(){menu.classList.remove('open');if(!currentView)document.body.classList.remove('no-scroll');}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');}
+function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));currentView=null;}
+function backToMenu(){hideViews();openMenu();}
+document.getElementById('openMenu').onclick=openMenu;
+document.getElementById('menuBack').onclick=()=>{closeMenu();window.scrollTo(0,0);};
+document.querySelectorAll('[data-view]').forEach(a=>a.onclick=()=>{showView(a.dataset.view);closeMenu();});
+document.querySelectorAll('[data-back]').forEach(b=>b.onclick=backToMenu);
+document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=openMenu);
+
+/* menu photo is full-bleed; no parallax needed */
+
+const panel=document.getElementById('cartPanel'),dim=document.getElementById('dim');
+document.getElementById('cartFab').onclick=()=>{panel.classList.add('open');dim.classList.add('on');};
+function closeCart(){panel.classList.remove('open');dim.classList.remove('on');}
+document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
+document.getElementById('cartWA').onclick=sendWA;document.getElementById('cartEmail').onclick=sendEmail;
+
+let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1700);}
+addEventListener('keydown',e=>{if(e.key==='Escape'){if(pmId)closeProduct();else if(panel.classList.contains('open'))closeCart();else if(menu.classList.contains('open'))closeMenu();else if(currentView)backToMenu();}});
+document.getElementById('yr').textContent=new Date().getFullYear();
+applyLang();
+</script>
+</body>
+</html>

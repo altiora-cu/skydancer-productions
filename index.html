@@ -116,6 +116,12 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .mc-brand .wm .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .mc-brand .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(122,58,60,.4),transparent)}
 .mc-brand .em{font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:700}
+.mc-emblem{margin:0 0 6px;line-height:.98}
+.mc-emblem .sky{display:block;font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2rem,5.4vw,3rem);letter-spacing:.015em;color:#5a2a2c;text-shadow:0 1px 0 rgba(255,255,255,.45)}
+.mc-emblem .sky .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.mc-emblem .prod{display:block;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(.6rem,1.8vw,.78rem);letter-spacing:.5em;text-indent:.5em;margin-top:.55em;color:#8a4a45}
+.mc-emblem .prod b{color:#b8912f}
+.mc-emblem .rule{display:block;width:56px;height:2px;margin-top:13px;background:linear-gradient(90deg,#b8912f,#f6e0a0,transparent);border-radius:2px}
 .menu-nav{counter-reset:mnav}
 .menu-nav a{counter-increment:mnav;position:relative;overflow:hidden}
 .menu-nav a::before{content:counter(mnav,decimal-leading-zero);font-family:'Cinzel';font-weight:900;font-size:.8rem;color:#b8912f;min-width:20px;text-align:center}
@@ -341,7 +347,6 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
-    <div class="logo3d"><div class="line"><span class="sky shimmer">SkyDancer</span><span class="prod" data-i18n="hero.prod">PROD<b>U</b>CTIONS</span></div></div>
     <div class="hero-tag" data-i18n="hero.tag">Dancers · Hora Loca · Greeters · Live Shows</div>
     <div class="kicker eyebrow" data-i18n="hero.kicker" style="margin-top:12px">Luxury Event Entertainment · Miami</div>
     <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
@@ -358,7 +363,11 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
       <div class="mp-name"><span class="k" data-i18n="founder.meet">Meet the Founder</span><b>Liana del Toro</b><span class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</span></div>
     </div>
     <div class="menu-content">
-      <div class="mc-brand"><span class="wm"><span class="s">SKY</span>DANCER</span><span class="ln"></span><span class="em">Productions</span></div>
+      <div class="mc-emblem">
+        <span class="sky"><span class="s">Sky</span>Dancer</span>
+        <span class="prod">PROD<b>U</b>CTIONS</span>
+        <span class="rule"></span>
+      </div>
       <div class="eyebrow" data-i18n="menu.explore">Explore</div>
       <nav class="menu-nav">
         <a data-view="view-about"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="nav.about">About the Company</span><span class="go" data-ic="arrow"></span></a>

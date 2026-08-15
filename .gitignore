@@ -9,3 +9,6 @@ assets/*-raw.mp4
 
 # OS
 .DS_Store
+
+# Fotos originales sin optimizar (el sitio usa assets/)
+photos services/

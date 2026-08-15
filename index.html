@@ -210,15 +210,15 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 /* product modal */
 .pm-overlay{position:fixed;inset:0;z-index:115;background:rgba(4,3,10,.8);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.35s;display:grid;place-items:center;padding:20px}
 .pm-overlay.open{opacity:1;visibility:visible}
-.pm-card{width:min(520px,100%);max-height:92svh;overflow-y:auto;border-radius:22px;background:#0d0a18;border:1px solid rgba(246,224,160,.4);box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform:translateY(20px) scale(.98);transition:.4s cubic-bezier(.3,.7,.2,1)}
+.pm-card{position:relative;width:min(1040px,96vw);aspect-ratio:16/9;max-height:86svh;overflow:hidden;border-radius:22px;background:#0d0a18;border:1px solid rgba(246,224,160,.4);box-shadow:0 50px 120px -40px rgba(0,0,0,.9);transform:translateY(20px) scale(.98);transition:.4s cubic-bezier(.3,.7,.2,1);display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
 .pm-overlay.open .pm-card{transform:none}
-.pm-img{position:relative;aspect-ratio:16/11;overflow:hidden;display:grid;place-items:center}
-.pm-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.pm-img{position:relative;min-height:100%;overflow:hidden;display:grid;place-items:center}
+.pm-img img,.pm-img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .pm-img .ph-ic{position:relative;z-index:0;color:rgba(255,255,255,.92)}
 .pm-img .ph-ic .svg-ic{width:70px;height:70px;stroke-width:1.2}
-.pm-close{position:absolute;top:12px;right:12px;z-index:3;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.4);color:#fff;font-size:1.3rem;backdrop-filter:blur(6px);transition:.3s}
+.pm-close{position:absolute;top:12px;right:12px;z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.45);color:#fff;font-size:1.3rem;backdrop-filter:blur(6px);transition:.3s}
 .pm-close:hover{border-color:#ff2d78;transform:rotate(90deg)}
-.pm-info{padding:24px 26px 28px}
+.pm-info{padding:30px 34px 32px;overflow-y:auto;max-height:100%;display:flex;flex-direction:column;justify-content:center}
 .pm-info .k{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:800}
 .pm-info h2{font-size:1.7rem;margin:8px 0 6px}
 .pm-price{font-family:'Cinzel';font-weight:700;font-size:1.3rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
@@ -236,7 +236,8 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .gal .lab{position:relative;z-index:2}.gal .lab b{font-family:'Cinzel';font-size:1.1rem;display:block}
 .gal .lab small{color:rgba(255,255,255,.78);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
 .gal .ov{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.7))}
-.gal video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.gal video,.gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.gal:hover img{transform:scale(1.06)}
 .g1{background:linear-gradient(140deg,#ff2d78,#8b3bff)}.g2{background:linear-gradient(140deg,#8b3bff,#18e6d8)}
 .g3{background:linear-gradient(140deg,#e6c25c,#ff2d78)}.g4{background:linear-gradient(140deg,#18e6d8,#3b2a7a)}
 .g5{background:linear-gradient(140deg,#ff6a3d,#b8912f)}.g6{background:linear-gradient(140deg,#7b2ff7,#ff2d78)}
@@ -322,6 +323,9 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
   .stats{grid-template-columns:1fr 1fr}
   .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
   .menu-photo{height:52vh;min-height:340px}
+  .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
+  .pm-img{aspect-ratio:4/3;min-height:auto}
+  .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
   .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
   .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
   .cart-fab{bottom:20px;right:20px}.acc-panel ul{padding-left:24px}
@@ -347,7 +351,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
-    <div class="hero-tag" data-i18n="hero.tag">Dancers · Hora Loca · Greeters · Live Shows</div>
+    <div class="hero-tag" data-i18n="hero.tag">Dancers · Greeters · Live Shows</div>
     <div class="kicker eyebrow" data-i18n="hero.kicker" style="margin-top:12px">Luxury Event Entertainment · Miami</div>
     <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
   </div>
@@ -458,12 +462,14 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
     <div class="sec-head"><div class="eyebrow" data-i18n="gal.eyebrow">Gallery &amp; Artists</div><h2 class="gold-text" data-i18n="gal.title">The stage is ours</h2><p data-i18n="gal.sub">A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.</p></div>
     <div class="gal-grid">
       <div class="gal big"><video autoplay muted loop playsinline preload="metadata"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
-      <div class="gal g1"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
-      <div class="gal g2"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
-      <div class="gal g3 wide"><div class="ov"></div><div class="lab"><b data-i18n="gal.k3">Champagne Dress Experience</b><small>Luxury Hospitality</small></div></div>
-      <div class="gal g4"><div class="ov"></div><div class="lab"><b data-i18n="gal.k4">LED Robot Show</b><small>Futuristic</small></div></div>
-      <div class="gal g5"><div class="ov"></div><div class="lab"><b data-i18n="gal.k5">Fire Performers</b><small>Spectacle</small></div></div>
-      <div class="gal g6 wide"><div class="ov"></div><div class="lab"><b data-i18n="gal.k6">Live Sax &amp; Drums</b><small>Live Music</small></div></div>
+      <div class="gal g1"><img src="assets/gallery/g-dancers.jpg" alt="Professional Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
+      <div class="gal g2"><img src="assets/gallery/g-horaloca.jpg" alt="Hora Loca" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
+      <div class="gal g3 wide"><img src="assets/gallery/g-themed.jpg" alt="Themed Entertainment" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k3">Themed Entertainment</b><small>Custom Concepts</small></div></div>
+      <div class="gal g4"><img src="assets/gallery/g-greeters.jpg" alt="Luxury Greeters" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k4">Luxury Greeters</b><small>First Impression</small></div></div>
+      <div class="gal g5"><img src="assets/gallery/g-choreo.jpg" alt="Choreographed Shows" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k5">Choreographed Shows</b><small>Stage Production</small></div></div>
+      <div class="gal g6 wide"><img src="assets/gallery/g-custom.jpg" alt="Custom Productions" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k6">Custom Productions</b><small>Bespoke Design</small></div></div>
+      <div class="gal g2"><img src="assets/gallery/g-gogo.jpg" alt="Gogo Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k7">Gogo Dancers</b><small>Nightlife</small></div></div>
+      <div class="gal g1"><img src="assets/gallery/g-interactive.jpg" alt="Interactive Performances" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k8">Interactive Moments</b><small>Guest Experience</small></div></div>
     </div>
     <p class="gal-note" data-i18n="gal.note">Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.</p>
     <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
@@ -574,13 +580,13 @@ const SERVICES=[
  {id:'choreo',price:1200,name:{en:'Choreographed Shows',es:'Shows Coreografiados'},desc:{en:'Full themed productions with custom choreography, costumes and music — designed for galas, stages, corporate events and celebrations.',es:'Producciones temáticas completas con coreografía, vestuario y música a medida — diseñadas para galas, escenarios, eventos corporativos y celebraciones.'}},
  {id:'themed',price:0,name:{en:'Themed Entertainment',es:'Entretenimiento Temático'},desc:{en:'Concept-driven acts and characters built entirely around your event theme, brand and vision.',es:'Actos y personajes conceptuales creados totalmente en torno a tu temática, marca y visión.'}},
  {id:'interactive',price:0,name:{en:'Interactive Performances',es:'Performances Interactivos'},desc:{en:'Roaming, immersive acts that engage guests directly and keep the energy alive throughout the night.',es:'Actos itinerantes e inmersivos que involucran a los invitados directamente y mantienen la energía toda la noche.'}},
- {id:'photobooth',price:0,name:{en:'Photobooth Experience',es:'Experiencia Photobooth'},desc:{en:'A branded, styled photo experience that becomes the highlight of your event and a lasting keepsake for guests.',es:'Una experiencia fotográfica con estilo y marca que se convierte en el highlight del evento y un recuerdo para los invitados.'}},
+ {id:'photobooth',price:0,vid:1,name:{en:'Photobooth Experience',es:'Experiencia Photobooth'},desc:{en:'A branded, styled photo experience that becomes the highlight of your event and a lasting keepsake for guests.',es:'Una experiencia fotográfica con estilo y marca que se convierte en el highlight del evento y un recuerdo para los invitados.'}},
  {id:'custom',price:0,name:{en:'Custom Event Productions',es:'Producciones a Medida'},desc:{en:'End-to-end bespoke productions designed around your vision, brand and venue — from concept to showtime.',es:'Producciones a medida de principio a fin diseñadas en torno a tu visión, marca y locación — del concepto al show.'}},
  {id:'coord',price:0,name:{en:'Event Entertainment Coordination',es:'Coordinación de Entretenimiento'},desc:{en:'We coordinate every performer and moment so your event runs flawlessly from start to finish.',es:'Coordinamos cada performer y cada momento para que tu evento fluya a la perfección de principio a fin.'}}
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Hora Loca · Greeters · Live Shows','hero.menu':'Menu',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu',
   'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
   'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
   'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -588,13 +594,13 @@ const I18N={
   'creds.eyebrow':'Our Experience','creds.title':'Tap each section to explore','creds.sub':'A track record across luxury venues, festivals, theaters and television productions.','creds.c1t':'Featured Events','creds.c1a':'Art Basel Miami — 3 consecutive years','creds.c2t':'Restaurants & Nightlife','creds.c3t':'Theater Productions','creds.c4t':'Music Videos & TV','creds.c4a':'Cuban bands & live TV shows',
   'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
-  'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Champagne Dress Experience','gal.k4':'LED Robot Show','gal.k5':'Fire Performers','gal.k6':'Live Sax & Drums','gal.note':'Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.',
+  'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
   'con.eyebrow':'Contact & Booking','con.title':"Let's design your event",'con.sub':"Tell us your vision — we'll craft a custom production and quote for your date and venue.",'con.call':'Call us','con.based':'Based in','con.formtitle':'Request a Quote','con.fname':'Full name','con.fdate':'Event date','con.fvenue':'Venue / City','con.fmsg':'Your vision','con.send':'Send via WhatsApp',
   'travel.eyebrow':'Travel Policy','travel.t1':'No travel fee.','travel.t2':'Travel fees may apply.','travel.t3t':'Rest of Florida','travel.t3':'Custom travel quote by location.','travel.t4t':'Out of State','travel.t4':'Transport & accommodation quoted separately.',
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
   'cart.title':'Your Quote','cart.subtotal':'Subtotal (from)','cart.total':'Estimated total','cart.hint':'Estimate based on starting prices. A final custom quote is confirmed by our team based on date, venue and requirements.','cart.wa':'Request via WhatsApp','cart.email':'Request via Email',
   'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Your quote is empty. Add services to build your event.','ui.added':'Added to quote','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Quote cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Hora Loca · Anfitrionas · Shows en Vivo','hero.menu':'Menú',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú',
   'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
   'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
   'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
@@ -602,7 +608,7 @@ const I18N={
   'creds.eyebrow':'Nuestra Experiencia','creds.title':'Toca cada sección para explorar','creds.sub':'Trayectoria en venues de lujo, festivales, teatros y producciones de televisión.','creds.c1t':'Eventos Destacados','creds.c1a':'Art Basel Miami — 3 años consecutivos','creds.c2t':'Restaurantes y Nightlife','creds.c3t':'Producciones de Teatro','creds.c4t':'Videos Musicales y TV','creds.c4a':'Bandas cubanas y shows de TV en vivo',
   'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
-  'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Champagne Dress Experience','gal.k4':'Show de Robots LED','gal.k5':'Espectáculo de Fuego','gal.k6':'Sax y Batería en Vivo','gal.note':'¿Quieres tus fotos de eventos y retratos de performers aquí? Colócalas en la carpeta “gallery” y se pueden agregar al instante.',
+  'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
   'con.eyebrow':'Contacto y Reservas','con.title':'Diseñemos tu evento','con.sub':'Cuéntanos tu visión — crearemos una producción y cotización a medida para tu fecha y locación.','con.call':'Llámanos','con.based':'Ubicados en','con.formtitle':'Solicita una Cotización','con.fname':'Nombre completo','con.fdate':'Fecha del evento','con.fvenue':'Locación / Ciudad','con.fmsg':'Tu visión','con.send':'Enviar por WhatsApp',
   'travel.eyebrow':'Política de Viaje','travel.t1':'Sin cargo por traslado.','travel.t2':'Pueden aplicar cargos de traslado.','travel.t3t':'Resto de Florida','travel.t3':'Cotización de traslado según la locación.','travel.t4t':'Fuera del Estado','travel.t4':'Transporte y hospedaje se cotizan por separado.',
   'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL','foot.rights':'Todos los derechos reservados.',
@@ -637,10 +643,10 @@ function renderShop(){
 /* PRODUCT modal: foto arriba, descripción y precio abajo */
 function openProduct(id){pmId=id;const s=SERVICES.find(x=>x.id===id);const i=SERVICES.indexOf(s);const inCart=cart.includes(id);
   document.getElementById('pmCard').innerHTML=`
+    <button class="pm-close" id="pmClose" aria-label="Close">&times;</button>
     <div class="pm-img pg${(i%6)+1}">
-      <img src="assets/services/${id}.jpg" alt="${s.name[lang]}" onerror="this.remove()">
+      ${s.vid?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg" alt="${s.name[lang]}" onerror="this.remove()">`}
       <span class="ph-ic">${svg(id)}</span>
-      <button class="pm-close" id="pmClose" aria-label="Close">&times;</button>
     </div>
     <div class="pm-info">
       <div class="k">SkyDancer</div><h2>${s.name[lang]}</h2>

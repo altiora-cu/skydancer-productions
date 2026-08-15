@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <title>SkyDancer Productions · Luxury Event Entertainment · Miami</title>
 <meta name="description" content="SkyDancer Productions — luxury event entertainment in Miami. Professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions." />
+<link rel="preload" as="image" href="video%20banner/skydancer-poster.jpg" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -46,8 +47,12 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .lang button.on{background:var(--gold-grad);color:#1a1206}
 
 /* HERO */
-.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05040a url("video%20banner/skydancer-poster.jpg") center/cover no-repeat}
+/* The poster above paints the hero on the first frame; the video crossfades in over it
+   once it actually starts, so a slow connection never shows an empty black banner. */
+.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:0;transition:opacity .9s cubic-bezier(.22,1,.36,1)}
+.hero video.on{opacity:1}
+@media(prefers-reduced-motion:reduce){.hero video{transition:none}}
 .hero .veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 30%,transparent,rgba(5,4,10,.28) 62%,rgba(5,4,10,.82)),linear-gradient(180deg,rgba(5,4,10,.26),transparent 32%,transparent 64%,rgba(5,4,10,.78))}
 .hero .glow{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 40% at 50% 42%,rgba(246,224,160,.14),transparent 70%)}
 .hero-inner{position:relative;z-index:5;text-align:center;padding:0 20px}
@@ -345,9 +350,8 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- HERO -->
 <header class="hero" id="home">
-  <video autoplay muted loop playsinline preload="auto">
+  <video autoplay muted loop playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
     <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
-    <source src="video%20banner/skydanceproduction%20project.MP4" type="video/mp4" />
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
@@ -420,7 +424,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
           <div class="stat glass"><b>18K+</b><small data-i18n="about.s3">Audience · Kaseya Center</small></div>
         </div>
       </div>
-      <div class="about-media"><video autoplay muted loop playsinline preload="metadata"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
+      <div class="about-media"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
     </div>
     <div class="exp">
       <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
@@ -461,7 +465,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
   <div class="view-body"><div class="wrap">
     <div class="sec-head"><div class="eyebrow" data-i18n="gal.eyebrow">Gallery &amp; Artists</div><h2 class="gold-text" data-i18n="gal.title">The stage is ours</h2><p data-i18n="gal.sub">A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.</p></div>
     <div class="gal-grid">
-      <div class="gal big"><video autoplay muted loop playsinline preload="metadata"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
+      <div class="gal big"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
       <div class="gal g1"><img src="assets/gallery/g-dancers.jpg" alt="Professional Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
       <div class="gal g2"><img src="assets/gallery/g-horaloca.jpg" alt="Hora Loca" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
       <div class="gal g3 wide"><img src="assets/gallery/g-themed.jpg" alt="Themed Entertainment" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k3">Themed Entertainment</b><small>Custom Concepts</small></div></div>
@@ -724,14 +728,37 @@ addEventListener('keydown',e=>{if(e.key==='Escape'){if(pmId)closeProduct();else 
 document.getElementById('yr').textContent=new Date().getFullYear();
 applyLang();
 
-/* Robust video autoplay — fixes frozen banner on iOS Low Power / data-saver */
+/* Robust video autoplay — fixes frozen banner on iOS Low Power / data-saver.
+   Videos marked [data-defer] stay unloaded until they scroll near the viewport, so the
+   hero banner gets the whole connection instead of racing two copies of itself. */
 (function(){
-  const vids=[].slice.call(document.querySelectorAll('video'));
-  vids.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
+  const all=[].slice.call(document.querySelectorAll('video'));
+  all.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
+  const vids=all.filter(v=>!v.hasAttribute('data-defer'));
+  const hero=document.querySelector('.hero video');
+  if(hero){
+    const reveal=()=>hero.classList.add('on');
+    hero.addEventListener('playing',reveal,{once:true});
+    hero.addEventListener('loadeddata',reveal,{once:true});
+    if(hero.readyState>=2)reveal();
+  }
   function tryPlay(){vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
   tryPlay();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryPlay();});
   ['touchstart','click','scroll','keydown','pointerdown'].forEach(evt=>window.addEventListener(evt,function once(){tryPlay();window.removeEventListener(evt,once);},{passive:true}));
+
+  const deferred=all.filter(v=>v.hasAttribute('data-defer'));
+  function wake(v){
+    if(v.dataset.woke)return;v.dataset.woke='1';
+    v.preload='auto';v.load();vids.push(v);
+    try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}
+  }
+  if(deferred.length){
+    if('IntersectionObserver'in window){
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){wake(e.target);io.unobserve(e.target);}});},{rootMargin:'300px 0px'});
+      deferred.forEach(v=>io.observe(v));
+    }else{deferred.forEach(wake);}
+  }
 })();
 </script>
 </body>

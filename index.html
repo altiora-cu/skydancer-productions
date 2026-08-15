@@ -50,6 +50,8 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
    de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
    No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
 .menu-lang{position:fixed;top:22px;right:22px;z-index:6}
+.pm-lang{position:absolute;top:14px;left:14px;z-index:3}
+.cart-head .lang{margin-left:auto;margin-right:14px}
 .view-bar .lang{padding:3px}
 .view-bar .lang button{padding:5px 10px;font-size:.68rem}
 @media(max-width:640px){.menu-lang{top:18px;right:14px}}
@@ -530,7 +532,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <button class="cart-fab" id="cartFab" aria-label="Quote cart"><span data-ic="cart"></span><span class="count" id="cartCount">0</span></button>
 <div class="overlay-dim" id="dim"></div>
 <aside class="cart-panel" id="cartPanel" aria-label="Quote">
-  <div class="cart-head"><h3 data-i18n="cart.title">Your Quote</h3><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
+  <div class="cart-head"><h3 data-i18n="cart.title">Your Quote</h3><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
     <div class="cart-row"><span data-i18n="cart.subtotal">Subtotal (from)</span><span id="sub">$0</span></div>
@@ -657,6 +659,7 @@ function renderShop(){
 function openProduct(id){pmId=id;const s=SERVICES.find(x=>x.id===id);const i=SERVICES.indexOf(s);const inCart=cart.includes(id);
   document.getElementById('pmCard').innerHTML=`
     <button class="pm-close" id="pmClose" aria-label="Close">&times;</button>
+    <div class="lang pm-lang" role="group" aria-label="Language"><button data-lang="en"${lang==='en'?' class="on"':''}>EN</button><button data-lang="es"${lang==='es'?' class="on"':''}>ES</button></div>
     <div class="pm-img pg${(i%6)+1}">
       ${s.vid?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg" alt="${s.name[lang]}" onerror="this.remove()">`}
       <span class="ph-ic">${svg(id)}</span>
@@ -709,8 +712,15 @@ document.querySelectorAll('.acc-btn').forEach(b=>b.onclick=()=>{const it=b.close
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();}
-document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.lang;localStorage.setItem('sdp_lang',lang);applyLang();});
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();
+  /* La ficha de servicio se pinta una sola vez al abrirla, asi que sin esto se quedaba
+     en el idioma anterior mientras el resto de la pagina ya habia cambiado. */
+  if(pmId)openProduct(pmId);}
+/* Delegado en document a proposito: antes se enlazaba boton por boton al cargar, asi que
+   cualquier selector generado despues (el de la ficha de servicio, que se pinta por JS)
+   se quedaba muerto. Asi funciona cualquier .lang button, exista ya o no. */
+document.addEventListener('click',e=>{const b=e.target.closest('.lang button[data-lang]');if(!b)return;
+  lang=b.dataset.lang;localStorage.setItem('sdp_lang',lang);applyLang();});
 
 const menu=document.getElementById('menu');
 function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');}

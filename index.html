@@ -350,11 +350,11 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- HERO -->
 <header class="hero" id="home">
-  <!-- Sin loop a proposito: el JS acota la reproduccion a la ventana 36-48 s (ver HERO_IN
-       abajo). El #t=36 hace que el navegador empiece a bufferear ya en ese punto en vez
-       de descargar los 36 s que no se usan. -->
-  <video autoplay muted playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
-    <source src="video%20banner/skydancer-web.mp4#t=36" type="video/mp4" />
+  <!-- Clip propio del hero (4,4 MB): son los 12 s que van del segundo 36 al 48 del reel.
+       Ver el comentario del bloque de video al final para por que justo esos. La galeria
+       sigue usando skydancer-web.mp4, el reel entero. -->
+  <video autoplay muted loop playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
+    <source src="video%20banner/skydancer-hero.mp4" type="video/mp4" />
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
@@ -738,28 +738,26 @@ applyLang();
   const all=[].slice.call(document.querySelectorAll('video'));
   all.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
   const vids=all.filter(v=>!v.hasAttribute('data-defer'));
-  /* El hero reproduce solo la ventana 36-48 s del reel. Tres razones, todas medidas:
+  /* skydancer-hero.mp4 son los segundos 36-48 del reel, recortados aparte. El porque de
+     ese tramo, todo medido sobre el reel:
      - 0-2 s son destellos (9 saltos de luminancia, 4-5 por segundo, por encima del
-       umbral de 3/s de la WCAG 2.3.1); de fondo parecen un fallo de reproduccion.
-     - La primera mitad del reel es clara (luminancia central 100-177) y deja el texto
+       umbral de 3/s de la WCAG 2.3.1); de fondo parecian un fallo de reproduccion.
+     - La primera mitad del reel es clara (luminancia central 100-177) y dejaba el texto
        blanco del hero sin contraste; de 36 s en adelante baja a 64-80.
      - Los ultimos ~5 s son el cierre de marca con el email, que chocaria con el texto
        del hero encima.
-     Es el mismo archivo que la galeria, que sigue reproduciendo el reel entero: aqui
-     solo cambian los puntos de entrada y salida, sin un byte extra. Ademas el hero
-     solo necesita bufferear esos 12 s (~4,5 MB) en vez del archivo completo. */
-  const HERO_IN=36,HERO_OUT=48;
+     Se probo antes acotar por JS la reproduccion del reel completo con currentTime, para
+     no anadir un archivo. Funciona, pero depende de que el navegador pida el rango de
+     bytes del segundo 36: si tarda, el hero no arranca NUNCA, y eso es peor que el
+     problema que resolvia. Un clip aparte reproduce desde el byte 0 y ademas baja de
+     19 MB a 4,4 MB. El reel entero solo lo carga la galeria, al abrir su vista. */
   const hero=document.querySelector('.hero video');
   if(hero){
     const reveal=()=>hero.classList.add('on');
-    const seekIn=()=>{try{hero.currentTime=HERO_IN;}catch(e){}};
-    const inWindow=()=>hero.currentTime>=HERO_IN-0.5&&hero.currentTime<HERO_OUT;
-    hero.addEventListener('loadedmetadata',()=>{if(!inWindow())seekIn();},{once:true});
-    hero.addEventListener('seeked',reveal,{once:true});
-    hero.addEventListener('timeupdate',()=>{if(!inWindow())seekIn();});
-    hero.addEventListener('ended',()=>{seekIn();try{const p=hero.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});
-    if(hero.readyState>=1&&!inWindow())seekIn();
-    /* Si el navegador no consigue posicionarse, mejor ver el video que un hero congelado. */
+    hero.addEventListener('playing',reveal,{once:true});
+    hero.addEventListener('loadeddata',reveal,{once:true});
+    if(hero.readyState>=2)reveal();
+    /* Si el video no llega a cargar, mejor eso que un hero congelado en el poster. */
     setTimeout(reveal,2500);
   }
   function tryPlay(){vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}

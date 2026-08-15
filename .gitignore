@@ -12,3 +12,5 @@ assets/*-raw.mp4
 
 # Fotos originales sin optimizar (el sitio usa assets/)
 photos services/
+.vercel
+.env*

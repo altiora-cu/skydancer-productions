@@ -1,0 +1,12 @@
+# Originales pesados que el sitio NO usa (el sitio sirve assets/ y video banner/skydancer-web.mp4)
+video banner/skydanceproduction project.MP4
+gallery/
+photos services/
+assets/*-raw.mp4
+
+# Docs privados y basura del sistema
+*.rtf
+.DS_Store
+IMG_7052.jpg
+links the instagram/
+README.md

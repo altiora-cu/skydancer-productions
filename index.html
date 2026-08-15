@@ -45,6 +45,14 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .lang{display:flex;gap:2px;background:rgba(10,7,18,.5);border:1px solid var(--line);border-radius:999px;padding:4px;backdrop-filter:blur(14px)}
 .lang button{background:none;border:0;color:var(--muted);font-weight:700;font-size:.72rem;letter-spacing:.12em;padding:6px 12px;border-radius:999px}
 .lang button.on{background:var(--gold-grad);color:#1a1206}
+/* El selector de idioma vivia SOLO en .topbar, y .topbar se oculta con body.no-scroll,
+   o sea al abrir el menu y en todas las vistas: desde dentro del sitio no habia forma
+   de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
+   No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
+.menu-lang{position:fixed;top:22px;right:22px;z-index:6}
+.view-bar .lang{padding:3px}
+.view-bar .lang button{padding:5px 10px;font-size:.68rem}
+@media(max-width:640px){.menu-lang{top:18px;right:14px}}
 
 /* HERO */
 .hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05040a url("video%20banner/skydancer-poster.jpg") center/cover no-repeat}
@@ -350,11 +358,8 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- HERO -->
 <header class="hero" id="home">
-  <!-- Clip propio del hero (4,4 MB): son los 12 s que van del segundo 36 al 48 del reel.
-       Ver el comentario del bloque de video al final para por que justo esos. La galeria
-       sigue usando skydancer-web.mp4, el reel entero. -->
   <video autoplay muted loop playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
-    <source src="video%20banner/skydancer-hero.mp4" type="video/mp4" />
+    <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
@@ -367,6 +372,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <!-- MENU -->
 <div class="menu" id="menu">
   <button class="menu-back" id="menuBack"><span>←</span><span data-i18n="menu.back">Back</span></button>
+  <div class="lang menu-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
   <div class="menu-split">
     <div class="menu-photo">
       <video autoplay muted loop playsinline preload="metadata" poster="assets/liana-founder.jpg"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video>
@@ -413,7 +419,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <!-- VIEW: ABOUT -->
 <section class="view" id="view-about">
   <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.about">About the Company</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.about">About the Company</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
   <div class="view-body"><div class="wrap">
     <div class="about-grid">
       <div class="about-copy">
@@ -445,7 +451,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <!-- VIEW: SERVICES (store) -->
 <section class="view" id="view-services">
   <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.services">Services &amp; Pricing</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.services">Services &amp; Pricing</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
   <div class="view-body"><div class="wrap">
     <div class="shop-head">
       <div><div class="eyebrow" data-i18n="svc.eyebrow">The Store</div><h2 class="gold-text" style="font-size:clamp(2rem,5vw,3rem);margin-top:8px" data-i18n="svc.title">Build your show</h2></div>
@@ -464,7 +470,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <!-- VIEW: GALLERY -->
 <section class="view" id="view-gallery">
   <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.gallery">Gallery &amp; Artists</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.gallery">Gallery &amp; Artists</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
   <div class="view-body"><div class="wrap">
     <div class="sec-head"><div class="eyebrow" data-i18n="gal.eyebrow">Gallery &amp; Artists</div><h2 class="gold-text" data-i18n="gal.title">The stage is ours</h2><p data-i18n="gal.sub">A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.</p></div>
     <div class="gal-grid">
@@ -486,7 +492,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 <!-- VIEW: CONTACT -->
 <section class="view" id="view-contact">
   <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.contact">Contact &amp; Booking</div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
+  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.contact">Contact &amp; Booking</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
   <div class="view-body"><div class="wrap">
     <div class="sec-head"><div class="eyebrow" data-i18n="con.eyebrow">Contact &amp; Booking</div><h2 class="brand-text" data-i18n="con.title">Let's design your event</h2><p data-i18n="con.sub">Tell us your vision — we'll craft a custom production and quote for your date and venue.</p></div>
     <div class="contact-grid">
@@ -738,19 +744,13 @@ applyLang();
   const all=[].slice.call(document.querySelectorAll('video'));
   all.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
   const vids=all.filter(v=>!v.hasAttribute('data-defer'));
-  /* skydancer-hero.mp4 son los segundos 36-48 del reel, recortados aparte. El porque de
-     ese tramo, todo medido sobre el reel:
-     - 0-2 s son destellos (9 saltos de luminancia, 4-5 por segundo, por encima del
-       umbral de 3/s de la WCAG 2.3.1); de fondo parecian un fallo de reproduccion.
-     - La primera mitad del reel es clara (luminancia central 100-177) y dejaba el texto
-       blanco del hero sin contraste; de 36 s en adelante baja a 64-80.
-     - Los ultimos ~5 s son el cierre de marca con el email, que chocaria con el texto
-       del hero encima.
-     Se probo antes acotar por JS la reproduccion del reel completo con currentTime, para
-     no anadir un archivo. Funciona, pero depende de que el navegador pida el rango de
-     bytes del segundo 36: si tarda, el hero no arranca NUNCA, y eso es peor que el
-     problema que resolvia. Un clip aparte reproduce desde el byte 0 y ademas baja de
-     19 MB a 4,4 MB. El reel entero solo lo carga la galeria, al abrir su vista. */
+  /* El hero reproduce el reel completo desde el segundo 0, por decision de Frank
+     (2026-08-15). Queda constancia de lo que eso implica, que esta medido:
+     el reel abre con ~2 s de destellos, 9 saltos de luminancia a 4-5 por segundo, por
+     encima del umbral de 3/s de la WCAG 2.3.1. Si algun dia molesta, en el historial
+     estan las dos soluciones ya probadas: acotar por JS con currentTime (commit 1e6ef0d,
+     depende de que el navegador pida el rango de bytes y puede no arrancar en conexiones
+     lentas) o un clip aparte de 12 s (commit 6654d54, 4,4 MB en vez de 19 MB). */
   const hero=document.querySelector('.hero video');
   if(hero){
     const reveal=()=>hero.classList.add('on');

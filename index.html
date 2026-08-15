@@ -350,8 +350,11 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- HERO -->
 <header class="hero" id="home">
-  <video autoplay muted loop playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
-    <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
+  <!-- Sin loop a proposito: el JS acota la reproduccion a la ventana 36-48 s (ver HERO_IN
+       abajo). El #t=36 hace que el navegador empiece a bufferear ya en ese punto en vez
+       de descargar los 36 s que no se usan. -->
+  <video autoplay muted playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
+    <source src="video%20banner/skydancer-web.mp4#t=36" type="video/mp4" />
   </video>
   <div class="veil"></div><div class="glow"></div>
   <div class="hero-inner">
@@ -706,7 +709,7 @@ document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.datas
 const menu=document.getElementById('menu');
 function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');}
 function closeMenu(){menu.classList.remove('open');if(!currentView)document.body.classList.remove('no-scroll');}
-function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');}
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
 function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));currentView=null;}
 function backToMenu(){hideViews();openMenu();}
 document.getElementById('openMenu').onclick=openMenu;
@@ -735,27 +738,61 @@ applyLang();
   const all=[].slice.call(document.querySelectorAll('video'));
   all.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
   const vids=all.filter(v=>!v.hasAttribute('data-defer'));
+  /* El hero reproduce solo la ventana 36-48 s del reel. Tres razones, todas medidas:
+     - 0-2 s son destellos (9 saltos de luminancia, 4-5 por segundo, por encima del
+       umbral de 3/s de la WCAG 2.3.1); de fondo parecen un fallo de reproduccion.
+     - La primera mitad del reel es clara (luminancia central 100-177) y deja el texto
+       blanco del hero sin contraste; de 36 s en adelante baja a 64-80.
+     - Los ultimos ~5 s son el cierre de marca con el email, que chocaria con el texto
+       del hero encima.
+     Es el mismo archivo que la galeria, que sigue reproduciendo el reel entero: aqui
+     solo cambian los puntos de entrada y salida, sin un byte extra. Ademas el hero
+     solo necesita bufferear esos 12 s (~4,5 MB) en vez del archivo completo. */
+  const HERO_IN=36,HERO_OUT=48;
   const hero=document.querySelector('.hero video');
   if(hero){
     const reveal=()=>hero.classList.add('on');
-    hero.addEventListener('playing',reveal,{once:true});
-    hero.addEventListener('loadeddata',reveal,{once:true});
-    if(hero.readyState>=2)reveal();
+    const seekIn=()=>{try{hero.currentTime=HERO_IN;}catch(e){}};
+    const inWindow=()=>hero.currentTime>=HERO_IN-0.5&&hero.currentTime<HERO_OUT;
+    hero.addEventListener('loadedmetadata',()=>{if(!inWindow())seekIn();},{once:true});
+    hero.addEventListener('seeked',reveal,{once:true});
+    hero.addEventListener('timeupdate',()=>{if(!inWindow())seekIn();});
+    hero.addEventListener('ended',()=>{seekIn();try{const p=hero.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});
+    if(hero.readyState>=1&&!inWindow())seekIn();
+    /* Si el navegador no consigue posicionarse, mejor ver el video que un hero congelado. */
+    setTimeout(reveal,2500);
   }
   function tryPlay(){vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
   tryPlay();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryPlay();});
   ['touchstart','click','scroll','keydown','pointerdown'].forEach(evt=>window.addEventListener(evt,function once(){tryPlay();window.removeEventListener(evt,once);},{passive:true}));
 
+  /* Ojo: los dos videos diferidos viven dentro de .view, que se ocultan con
+     visibility/opacity pero SIGUEN ocupando su sitio en el layout. IntersectionObserver
+     solo mira geometria —ignora visibility y opacity— asi que por si solo los daba por
+     visibles y los despertaba nada mas cargar, que es justo lo que queriamos evitar.
+     De ahi que ademas se exija que su vista este activa. */
   const deferred=all.filter(v=>v.hasAttribute('data-defer'));
+  const inActiveView=v=>{const w=v.closest('.view');return !w||w.classList.contains('active');};
   function wake(v){
-    if(v.dataset.woke)return;v.dataset.woke='1';
+    if(v.dataset.woke||!inActiveView(v))return;
+    v.dataset.woke='1';
     v.preload='auto';v.load();vids.push(v);
     try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}
   }
+  /* showView() llama aqui: al abrirse una vista hay que mirar lo que ya quedo en pantalla,
+     porque el observer no vuelve a disparar si la geometria no cambia. */
+  function sweepDeferred(){
+    deferred.forEach(v=>{
+      if(v.dataset.woke||!inActiveView(v))return;
+      const r=v.getBoundingClientRect();
+      if(r.top<innerHeight+300&&r.bottom>-300)wake(v);
+    });
+  }
+  window.sweepDeferred=sweepDeferred;
   if(deferred.length){
     if('IntersectionObserver'in window){
-      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){wake(e.target);io.unobserve(e.target);}});},{rootMargin:'300px 0px'});
+      const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){wake(e.target);if(e.target.dataset.woke)io.unobserve(e.target);}});},{rootMargin:'300px 0px'});
       deferred.forEach(v=>io.observe(v));
     }else{deferred.forEach(wake);}
   }

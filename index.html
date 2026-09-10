@@ -258,6 +258,43 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .g5{background:linear-gradient(140deg,#ff6a3d,#b8912f)}.g6{background:linear-gradient(140deg,#7b2ff7,#ff2d78)}
 .gal-note{color:var(--muted);font-size:.85rem;margin-top:20px;text-align:center}
 
+/* VISOR DE COLECCIÓN — las categorías con varias piezas (Themed, Interactive)
+   abren aquí. z-index 125: por encima de la ficha de servicio (115) y del
+   carrito (110), por debajo del toast (130), que debe seguir viéndose. */
+.gal[data-col]{cursor:var(--cur),pointer}
+.gal[data-col]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.gal-chip{position:absolute;top:14px;right:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:rgba(10,7,18,.55);border:1px solid rgba(246,224,160,.45);color:var(--gold);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-variant-numeric:tabular-nums}
+.gal-chip .svg-ic{width:14px;height:14px;stroke-width:1.7}
+.lb{position:fixed;inset:0;z-index:125;background:rgba(5,4,10,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .3s ease-out,visibility .3s;display:flex;flex-direction:column}
+.lb.open{opacity:1;visibility:visible}
+.lb-head{display:flex;align-items:center;gap:14px;padding:16px 20px;flex:none}
+.lb-title{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.04em;color:var(--ink)}
+.lb-count{margin-left:auto;font-size:.72rem;letter-spacing:.22em;color:var(--muted);font-variant-numeric:tabular-nums}
+.lb-x{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink);font-size:1.5rem;line-height:1;transition:.25s ease-out}
+.lb-x:hover{background:var(--gold);color:#1a1206;border-color:transparent}
+.lb-stage{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 12px}
+.lb-media{max-width:100%;max-height:100%;opacity:0;transform:scale(.985);transition:opacity .32s cubic-bezier(.22,1,.36,1),transform .32s cubic-bezier(.22,1,.36,1)}
+.lb-media.on{opacity:1;transform:none}
+.lb-media img,.lb-media video{display:block;max-height:76svh;max-width:100%;width:auto;height:auto;border-radius:14px;object-fit:contain;background:#0b0812}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(10,7,18,.6);border:1px solid var(--glass-brd);color:var(--ink);backdrop-filter:blur(10px);transition:background .25s ease-out,color .25s ease-out;z-index:2}
+.lb-nav:hover{background:var(--gold);color:#1a1206;border-color:transparent}
+.lb-prev{left:14px}.lb-next{right:14px}.lb-prev .svg-ic{transform:rotate(180deg)}
+.lb-rail{flex:none;display:flex;gap:8px;overflow-x:auto;padding:14px 20px 20px;scrollbar-width:thin}
+.lb-rail::-webkit-scrollbar{height:4px}
+.lb-rail::-webkit-scrollbar-thumb{background:rgba(246,224,160,.35);border-radius:4px}
+.lb-th{flex:none;width:66px;height:66px;border-radius:9px;overflow:hidden;border:1px solid transparent;opacity:.5;transition:opacity .25s ease-out,border-color .25s ease-out;position:relative;background:#0b0812}
+.lb-th img{width:100%;height:100%;object-fit:cover}
+.lb-th.on{opacity:1;border-color:var(--gold)}
+.lb-th .vi{position:absolute;inset:0;display:grid;place-items:center;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,.1),rgba(0,0,0,.45))}
+.lb-th .vi .svg-ic{width:18px;height:18px}
+@media(max-width:640px){
+  .lb-head{padding:12px 14px}.lb-title{font-size:.86rem}
+  .lb-nav{width:44px;height:44px}.lb-prev{left:8px}.lb-next{right:8px}
+  .lb-rail{display:none}
+  .lb-media img,.lb-media video{max-height:66svh}
+}
+@media(prefers-reduced-motion:reduce){.lb,.lb-media,.lb-x,.lb-nav,.lb-th{transition:none}}
+
 /* CONTACT */
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
 .cinfo a.row{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);transition:.3s}
@@ -479,12 +516,12 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
       <div class="gal big"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
       <div class="gal g1"><img src="assets/gallery/g-dancers.jpg" alt="Professional Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
       <div class="gal g2"><img src="assets/gallery/g-horaloca.jpg" alt="Hora Loca" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
-      <div class="gal g3 wide"><img src="assets/gallery/g-themed.jpg" alt="Themed Entertainment" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k3">Themed Entertainment</b><small>Custom Concepts</small></div></div>
+      <div class="gal g3 wide" data-col="themed" role="button" tabindex="0"><img src="assets/gallery/g-themed.jpg" alt="Themed Entertainment" loading="lazy"><div class="ov"></div><span class="gal-chip"><span data-ic="stack"></span>21</span><div class="lab"><b data-i18n="gal.k3">Themed Entertainment</b><small>Custom Concepts</small></div></div>
       <div class="gal g4"><img src="assets/gallery/g-greeters.jpg" alt="Luxury Greeters" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k4">Luxury Greeters</b><small>First Impression</small></div></div>
       <div class="gal g5"><img src="assets/gallery/g-choreo.jpg" alt="Choreographed Shows" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k5">Choreographed Shows</b><small>Stage Production</small></div></div>
       <div class="gal g6 wide"><img src="assets/gallery/g-custom.jpg" alt="Custom Productions" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k6">Custom Productions</b><small>Bespoke Design</small></div></div>
       <div class="gal g2"><img src="assets/gallery/g-gogo.jpg" alt="Gogo Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k7">Gogo Dancers</b><small>Nightlife</small></div></div>
-      <div class="gal g1"><img src="assets/gallery/g-interactive.jpg" alt="Interactive Performances" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k8">Interactive Moments</b><small>Guest Experience</small></div></div>
+      <div class="gal g1" data-col="interactive" role="button" tabindex="0"><img src="assets/gallery/g-interactive.jpg" alt="Interactive Performances" loading="lazy"><div class="ov"></div><span class="gal-chip"><span data-ic="stack"></span>8</span><div class="lab"><b data-i18n="gal.k8">Interactive Moments</b><small>Guest Experience</small></div></div>
     </div>
     <p class="gal-note" data-i18n="gal.note">Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.</p>
     <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
@@ -527,6 +564,20 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- PRODUCT MODAL -->
 <div class="pm-overlay" id="pmOverlay"><div class="pm-card" id="pmCard"></div></div>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+  <div class="lb-head">
+    <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-count" id="lbCount"></div>
+    <button class="lb-x" id="lbClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="lb-stage" id="lbStage">
+    <button class="lb-nav lb-prev" id="lbPrev"><span data-ic="chev"></span></button>
+    <div class="lb-media" id="lbMedia"></div>
+    <button class="lb-nav lb-next" id="lbNext"><span data-ic="chev"></span></button>
+  </div>
+  <div class="lb-rail" id="lbRail"></div>
+</div>
 
 <!-- CART -->
 <button class="cart-fab" id="cartFab" aria-label="Quote cart"><span data-ic="cart"></span><span class="count" id="cartCount">0</span></button>
@@ -577,6 +628,9 @@ const ICONS={
  glass:'<path d="M8 3h8l-1.4 7a2.6 2.6 0 0 1-5.2 0zM12 12.5V18M9 21h6"/>',
  masks:'<path d="M4.5 6.5c0 6 2 9 4.5 9s4.5-3 4.5-9c-3-1-6-1-9 0z"/><path d="M14 9.2c2.6-.5 4.6 0 5.5.9.2 5.5-1.8 8.4-3.9 8.4-1 0-1.9-.8-2.3-1.9"/>',
  film:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
+ stack:'<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/>',
+ chev:'<path d="M9 5l7 7-7 7"/>',
+ play:'<path d="M8 5.5v13l11-6.5z"/>',
  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
 };
 const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.custom}</svg>`;
@@ -713,6 +767,8 @@ function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();
+  /* El visor se pinta una vez al abrirlo: sin esto se queda en el idioma viejo. */
+  if(lbCol){document.getElementById('lbTitle').textContent=t(COLECCIONES[lbCol].k);}
   /* La ficha de servicio se pinta una sola vez al abrirla, asi que sin esto se quedaba
      en el idioma anterior mientras el resto de la pagina ya habia cambiado. */
   if(pmId)openProduct(pmId);}
@@ -743,7 +799,99 @@ document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
 document.getElementById('cartWA').onclick=sendWA;document.getElementById('cartEmail').onclick=sendEmail;
 
 let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1700);}
-addEventListener('keydown',e=>{if(e.key==='Escape'){if(pmId)closeProduct();else if(panel.classList.contains('open'))closeCart();else if(menu.classList.contains('open'))closeMenu();else if(currentView)backToMenu();}});
+/* ── VISOR DE COLECCIÓN ────────────────────────────────────────────────────
+   Las 26 fotos y los 3 videos NO entran en el DOM al cargar: son 13 MB en una
+   pagina que hoy pesa mucho menos, y casi nadie abre las dos colecciones. El
+   visor construye solo la pieza activa; el rail reusa las mismas fotos a 66px.
+   Las miniaturas si se pintan al abrir, pero con loading=lazy. */
+const NUM=n=>String(n).padStart(2,'0');
+const COLECCIONES={
+  themed:{k:'gal.k3',items:[
+    ...Array.from({length:18},(_,i)=>({t:'img',s:`assets/gallery/themed/themed-${NUM(i+1)}.jpg`})),
+    ...[1,2,3].map(n=>({t:'vid',s:`assets/gallery/themed/themed-v${n}.mp4`,p:`assets/gallery/themed/themed-v${n}-poster.jpg`}))
+  ]},
+  interactive:{k:'gal.k8',items:Array.from({length:8},(_,i)=>({t:'img',s:`assets/gallery/interactive/interactive-${NUM(i+1)}.jpg`}))}
+};
+const lb=document.getElementById('lb');
+let lbCol=null,lbIx=0;
+
+function lbPieza(it,alt){
+  if(it.t==='vid')return `<video src="${it.s}" poster="${it.p}" muted loop playsinline controls preload="none" aria-label="${alt}"></video>`;
+  return `<img src="${it.s}" alt="${alt}">`;
+}
+function lbPintar(){
+  const col=COLECCIONES[lbCol],it=col.items[lbIx],nom=t(col.k);
+  const media=document.getElementById('lbMedia');
+  /* Pausar el video que se abandona: si no, sigue sonando/consumiendo detras. */
+  const v=media.querySelector('video');if(v)v.pause();
+  media.classList.remove('on');
+  media.innerHTML=lbPieza(it,`${nom} — ${lbIx+1}/${col.items.length}`);
+  requestAnimationFrame(()=>media.classList.add('on'));
+  const nv=media.querySelector('video');
+  if(nv){
+    /* Misma normalizacion que el bloque de autoplay aplica a los videos que ya
+       estan en el DOM al cargar. Estos se crean despues, asi que nunca pasaron
+       por ahi: sin `muted` como PROPIEDAD (no solo atributo) y sin
+       webkit-playsinline, play() resuelve pero el video se queda parado en 0. */
+    nv.muted=true;nv.setAttribute('muted','');
+    nv.setAttribute('playsinline','');nv.setAttribute('webkit-playsinline','');
+    const arranca=()=>{const pr=nv.play();if(pr&&pr.catch)pr.catch(()=>{});};
+    arranca();
+    /* Con preload="none" el primer play() puede llegar antes que los datos. */
+    nv.addEventListener('canplay',arranca,{once:true});
+  }
+  document.getElementById('lbCount').textContent=`${lbIx+1} / ${col.items.length}`;
+  document.querySelectorAll('#lbRail .lb-th').forEach((th,i)=>{
+    th.classList.toggle('on',i===lbIx);
+    if(i===lbIx)th.scrollIntoView({block:'nearest',inline:'nearest',behavior:'smooth'});
+  });
+}
+function lbIr(d){const n=COLECCIONES[lbCol].items.length;lbIx=(lbIx+d+n)%n;lbPintar();}
+function abrirColeccion(id){
+  if(!COLECCIONES[id])return;
+  lbCol=id;lbIx=0;
+  const col=COLECCIONES[id];
+  document.getElementById('lbTitle').textContent=t(col.k);
+  document.getElementById('lbRail').innerHTML=col.items.map((it,i)=>
+    `<button class="lb-th" data-i="${i}" aria-label="${i+1}"><img src="${it.t==='vid'?it.p:it.s}" alt="" loading="lazy">${it.t==='vid'?`<span class="vi">${svg('play')}</span>`:''}</button>`
+  ).join('');
+  document.querySelectorAll('#lbRail .lb-th').forEach(th=>th.onclick=()=>{lbIx=+th.dataset.i;lbPintar();});
+  lb.classList.add('open');document.body.classList.add('no-scroll');
+  lbPintar();
+  document.getElementById('lbClose').focus();
+}
+function cerrarLb(){
+  const v=document.querySelector('#lbMedia video');if(v)v.pause();
+  lb.classList.remove('open');lbCol=null;
+  /* La galeria es una vista y tambien usa no-scroll: solo se libera si no hay
+     ninguna vista abierta detras, igual que hace closeProduct(). */
+  if(!currentView)document.body.classList.remove('no-scroll');
+}
+document.querySelectorAll('.gal[data-col]').forEach(g=>{
+  g.addEventListener('click',()=>abrirColeccion(g.dataset.col));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();abrirColeccion(g.dataset.col);}});
+});
+document.getElementById('lbClose').onclick=cerrarLb;
+document.getElementById('lbPrev').onclick=()=>lbIr(-1);
+document.getElementById('lbNext').onclick=()=>lbIr(1);
+lb.addEventListener('click',e=>{if(e.target===lb||e.target.id==='lbStage')cerrarLb();});
+/* Deslizar en movil: el rail esta oculto ahi, asi que es la navegacion real. */
+let sx=0,sy=0;const stage=document.getElementById('lbStage');
+stage.addEventListener('touchstart',e=>{sx=e.changedTouches[0].clientX;sy=e.changedTouches[0].clientY;},{passive:true});
+stage.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;
+  if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))lbIr(dx<0?1:-1);
+},{passive:true});
+
+addEventListener('keydown',e=>{
+  if(lbCol){/* El visor esta encima de todo: se lleva las teclas antes que nadie. */
+    if(e.key==='Escape')cerrarLb();
+    else if(e.key==='ArrowRight')lbIr(1);
+    else if(e.key==='ArrowLeft')lbIr(-1);
+    return;
+  }
+  if(e.key==='Escape'){if(pmId)closeProduct();else if(panel.classList.contains('open'))closeCart();else if(menu.classList.contains('open'))closeMenu();else if(currentView)backToMenu();}
+});
 document.getElementById('yr').textContent=new Date().getFullYear();
 applyLang();
 

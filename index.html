@@ -78,6 +78,27 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .hero-motion.paused .hm-play{display:block}
 @media(max-width:600px){.hero-motion{right:12px;bottom:12px}}
 .hero-inner{position:relative;z-index:5;text-align:center;padding:0 20px}
+/* El .veil oscurece los bordes y deja el centro limpio, que es justo donde va el texto:
+   sobre los fotogramas claros del reel el h1 dorado desaparecia. Scrim local detras del
+   bloque de texto, suave para no tapar la imagen alrededor. */
+.hero-inner::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,132%);height:132%;pointer-events:none;background:radial-gradient(58% 50% at 50% 50%,rgba(5,4,10,.74),rgba(5,4,10,.46) 56%,transparent 80%)}
+/* El hero tenia un solo control (MENU) y ninguna via a reservar. Tres acciones con
+   jerarquia real: un solo primario, WhatsApp secundario, el menu degradado a ruta
+   alterna. Todas con area tactil de 44px o mas. */
+.hero-h1{margin:12px 0 0}
+.hero-proof{margin:15px auto 0;max-width:34ch;color:rgba(244,240,255,.8);font-size:.78rem;line-height:1.55;text-shadow:0 2px 12px rgba(0,0,0,.65);opacity:0;animation:rise 1s .75s forwards}
+.hero-cta{margin-top:28px;display:flex;flex-direction:column;align-items:stretch;gap:11px;opacity:0;animation:rise 1s .95s forwards}
+.hc{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:14px 26px;border-radius:999px;font-family:inherit;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;text-decoration:none;cursor:var(--cur),pointer;transition:transform .3s,background .3s,border-color .3s}
+.hc:focus-visible,.hero-cta .menu-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.hc-1{background:var(--gold-grad);color:#1a1206;border:0}
+.hc-1:hover{transform:translateY(-2px)}
+.hc-2{background:rgba(12,8,22,.42);color:var(--ink);border:1px solid rgba(246,224,160,.5);backdrop-filter:blur(12px)}
+.hc-2:hover{border-color:var(--gold);background:rgba(12,8,22,.66)}
+.hc-2 .svg-wrap .svg-ic{width:17px;height:17px}
+/* El menu conserva su marcado y sus barras, pero pierde el peso de boton principal. */
+.hero-cta .menu-btn{margin-top:0;animation:none;opacity:1;background:none;border:0;backdrop-filter:none;color:rgba(244,240,255,.74);padding:13px 22px;min-height:44px;letter-spacing:.24em}
+.hero-cta .menu-btn:hover{color:var(--gold)}
+@media(min-width:620px){.hero-cta{flex-direction:row;justify-content:center;flex-wrap:wrap;gap:13px}.hero-proof{max-width:none}}
 .hero .kicker{opacity:0;animation:rise 1s .3s forwards}
 .logo3d{margin:14px 0 8px;perspective:900px}
 .logo3d .line{font-family:'Cinzel',serif;font-weight:900;text-transform:uppercase;transform-style:preserve-3d;animation:float3d 7s ease-in-out infinite}
@@ -125,7 +146,7 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .menu-nav a:hover .go{color:#2b0f13}
 .founder-bio{max-width:560px;border-top:1px solid rgba(122,58,60,.22);padding-top:20px}
 .founder-bio .k{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:800}
-.founder-bio h3{font-family:'Cinzel';font-size:1.45rem;color:#2b0f13;margin:4px 0 2px}
+.founder-bio h2{font-family:'Cinzel';font-size:1.45rem;color:#2b0f13;margin:4px 0 2px;font-weight:700}
 .founder-bio .role{font-size:.76rem;color:#7a3a3c;font-weight:700;margin-bottom:12px}
 .founder-bio p{font-size:.82rem;line-height:1.55;color:#4a2a2c;margin-bottom:9px}
 .founder-bio .artists{font-weight:700;color:#7a3a3c}
@@ -416,8 +437,13 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
   <button class="hero-motion" id="heroMotion" type="button"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg><span class="sr-only" data-i18n="hero.pause">Pause background video</span></button>
   <div class="hero-inner">
     <div class="hero-tag" data-i18n="hero.tag">Dancers · Greeters · Live Shows</div>
-    <div class="kicker eyebrow" data-i18n="hero.kicker" style="margin-top:12px">Luxury Event Entertainment · Miami</div>
-    <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
+    <h1 class="kicker eyebrow hero-h1" data-i18n="hero.kicker">Luxury Event Entertainment · Miami</h1>
+    <p class="hero-proof" data-i18n="hero.proof">Art Basel ×3 · Kaseya Center, 18,000+ · SLS Miami Beach</p>
+    <div class="hero-cta">
+      <a class="hc hc-1" href="#servicios" data-view="view-services" data-i18n="hero.cta1">See services &amp; pricing</a>
+      <a class="hc hc-2" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span aria-hidden="true">WhatsApp</span><span class="sr-only" data-i18n="hero.wa">WhatsApp us at +1 786-992-4543</span></a>
+      <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
+    </div>
   </div>
 </header>
 
@@ -451,7 +477,7 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
       </div>
       <div class="founder-bio">
           <div class="k" data-i18n="founder.meet">Meet the Founder</div>
-          <h3>Liana del Toro</h3>
+          <h2>Liana del Toro</h2>
           <div class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</div>
           <div class="lang-en">
             <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
@@ -668,7 +694,7 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.proof':'Art Basel ×3 · Kaseya Center, 18,000+ · SLS Miami Beach','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
   'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
   'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -682,7 +708,7 @@ const I18N={
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
   'cart.title':'Your Quote','cart.subtotal':'Subtotal (from)','cart.total':'Estimated total','cart.hint':'Estimate based on starting prices. A final custom quote is confirmed by our team based on date, venue and requirements.','cart.wa':'Request via WhatsApp','cart.email':'Request via Email',
   'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Your quote is empty. Add services to build your event.','ui.added':'Added to quote','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Quote cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.proof':'Art Basel ×3 · Kaseya Center, 18.000+ · SLS Miami Beach','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
   'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
   'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',

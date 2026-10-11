@@ -14,3 +14,10 @@ assets/*-raw.mp4
 photos services/
 .vercel
 .env*
+
+# Documentos internos de la agencia — ESTE REPO ES PÚBLICO y GitHub Pages lo sirve abierto.
+# Llevan montos de propuesta, políticas de aprobación y notas de la clienta: no se publican.
+ESTADO.md
+PROMPT-CODE-skydancer-v2.md
+Infrastructura Skydancer Productions lia
+coreographer.PNG

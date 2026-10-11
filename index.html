@@ -65,6 +65,18 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 @media(prefers-reduced-motion:reduce){.hero video{transition:none}}
 .hero .veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 30%,transparent,rgba(5,4,10,.28) 62%,rgba(5,4,10,.82)),linear-gradient(180deg,rgba(5,4,10,.26),transparent 32%,transparent 64%,rgba(5,4,10,.78))}
 .hero .glow{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(60% 40% at 50% 42%,rgba(246,224,160,.14),transparent 70%)}
+/* Solo para lectores de pantalla: el boton de abajo es un icono y necesita nombre accesible. */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* WCAG 2.2.2: el reel arranca solo y dura mas de 5 s, asi que tiene que poder pararse.
+   44x44 reales: es un control que se toca en movil. */
+.hero-motion{position:fixed;z-index:72;right:18px;bottom:18px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
+body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
+.hero-motion:hover{background:rgba(5,4,10,.78);border-color:var(--gold);transform:scale(1.06)}
+.hero-motion:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.hero-motion .svg-ic{width:20px;height:20px}
+.hero-motion .hm-play,.hero-motion.paused .hm-pause{display:none}
+.hero-motion.paused .hm-play{display:block}
+@media(max-width:600px){.hero-motion{right:12px;bottom:12px}}
 .hero-inner{position:relative;z-index:5;text-align:center;padding:0 20px}
 .hero .kicker{opacity:0;animation:rise 1s .3s forwards}
 .logo3d{margin:14px 0 8px;perspective:900px}
@@ -401,6 +413,7 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
     <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
   </video>
   <div class="veil"></div><div class="glow"></div>
+  <button class="hero-motion" id="heroMotion" type="button"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg><span class="sr-only" data-i18n="hero.pause">Pause background video</span></button>
   <div class="hero-inner">
     <div class="hero-tag" data-i18n="hero.tag">Dancers · Greeters · Live Shows</div>
     <div class="kicker eyebrow" data-i18n="hero.kicker" style="margin-top:12px">Luxury Event Entertainment · Miami</div>
@@ -426,10 +439,10 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
       </div>
       <div class="eyebrow" data-i18n="menu.explore">Explore</div>
       <nav class="menu-nav">
-        <a data-view="view-about"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="nav.about">About the Company</span><span class="go" data-ic="arrow"></span></a>
-        <a data-view="view-services"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="nav.services">Services &amp; Pricing</span><span class="go" data-ic="arrow"></span></a>
-        <a data-view="view-gallery"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="nav.gallery">Gallery &amp; Artists</span><span class="go" data-ic="arrow"></span></a>
-        <a data-view="view-contact"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="nav.contact">Contact &amp; Booking</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#sobre" data-view="view-about"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="nav.about">About the Company</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#servicios" data-view="view-services"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="nav.services">Services &amp; Pricing</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#galeria" data-view="view-gallery"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="nav.gallery">Gallery &amp; Artists</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#contacto" data-view="view-contact"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="nav.contact">Contact &amp; Booking</span><span class="go" data-ic="arrow"></span></a>
       </nav>
       <div class="menu-contact">
         <a href="tel:+17869924543"><span data-ic="phone"></span>+1 786-992-4543</a>
@@ -551,10 +564,10 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
       </div>
       <form class="cform glass" id="quoteForm" onsubmit="return false">
         <div class="eyebrow" data-i18n="con.formtitle">Request a Quote</div>
-        <label data-i18n="con.fname">Full name</label><input id="qName" type="text" placeholder="Your name" />
-        <label data-i18n="con.fdate">Event date</label><input id="qDate" type="text" placeholder="MM/DD/YYYY" />
-        <label data-i18n="con.fvenue">Venue / City</label><input id="qVenue" type="text" placeholder="Venue, city" />
-        <label data-i18n="con.fmsg">Your vision</label><textarea id="qMsg" rows="3" placeholder="Tell us about your event..."></textarea>
+        <label for="qName" data-i18n="con.fname">Full name</label><input id="qName" type="text" placeholder="Your name" />
+        <label for="qDate" data-i18n="con.fdate">Event date</label><input id="qDate" type="date" />
+        <label for="qVenue" data-i18n="con.fvenue">Venue / City</label><input id="qVenue" type="text" placeholder="Venue, city" />
+        <label for="qMsg" data-i18n="con.fmsg">Your vision</label><textarea id="qMsg" rows="3" placeholder="Tell us about your event..."></textarea>
         <button class="btn-primary" id="formSend" data-i18n="con.send">Send via WhatsApp</button>
       </form>
     </div>
@@ -655,7 +668,7 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
   'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
   'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -669,7 +682,7 @@ const I18N={
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
   'cart.title':'Your Quote','cart.subtotal':'Subtotal (from)','cart.total':'Estimated total','cart.hint':'Estimate based on starting prices. A final custom quote is confirmed by our team based on date, venue and requirements.','cart.wa':'Request via WhatsApp','cart.email':'Request via Email',
   'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Your quote is empty. Add services to build your event.','ui.added':'Added to quote','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Quote cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
   'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
   'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
@@ -695,7 +708,7 @@ const badgeHtml=s=>s.price>0?`<span class="prod-badge">${t('ui.from')} ${money(s
 function renderShop(){
   const g=document.getElementById('shopGrid');
   g.innerHTML=SERVICES.map((s,i)=>{const inCart=cart.includes(s.id);
-    return `<article class="prod" data-open="${s.id}">
+    return `<article class="prod" data-open="${s.id}" role="button" tabindex="0" aria-label="${s.name[lang]}">
       <div class="prod-thumb pg${(i%6)+1}">
         <img src="assets/services/${s.id}.jpg" alt="${s.name[lang]}" loading="lazy" onerror="this.remove()">
         <span class="ph-ic">${svg(s.id)}</span>
@@ -706,7 +719,9 @@ function renderShop(){
         <button class="prod-add ${inCart?'in':''}" data-add="${s.id}">${inCart?'✓ '+t('ui.remove'):'＋ '+t('ui.add')}</button>
       </div></article>`;}).join('');
   g.querySelectorAll('.prod-view svg,.prod-thumb .ph-ic svg').forEach(()=>{});
-  g.querySelectorAll('[data-open]').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('[data-add]'))return;openProduct(c.dataset.open);}));
+  g.querySelectorAll('[data-open]').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('[data-add]'))return;openProduct(c.dataset.open);});
+    /* Enter y Espacio: la ficha es un <article> con role=button, asi que el teclado no la abre solo. */
+    c.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;if(e.target.closest('[data-add]'))return;e.preventDefault();openProduct(c.dataset.open);});});
   g.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();toggle(b.dataset.add);}));
 }
 /* PRODUCT modal: foto arriba, descripción y precio abajo */
@@ -786,7 +801,7 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
 function backToMenu(){hideViews();openMenu();}
 document.getElementById('openMenu').onclick=openMenu;
 document.getElementById('menuBack').onclick=()=>{closeMenu();window.scrollTo(0,0);};
-document.querySelectorAll('[data-view]').forEach(a=>a.onclick=()=>{showView(a.dataset.view);closeMenu();});
+document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();showView(a.dataset.view);closeMenu();});
 document.querySelectorAll('[data-back]').forEach(b=>b.onclick=backToMenu);
 document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=openMenu);
 
@@ -918,7 +933,25 @@ applyLang();
     /* Si el video no llega a cargar, mejor eso que un hero congelado en el poster. */
     setTimeout(reveal,2500);
   }
-  function tryPlay(){vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
+  /* motionOff lo decide la persona (boton) o su sistema (prefers-reduced-motion).
+     tryPlay corre al volver a la pestana y al primer gesto, asi que sin esta guarda
+     el video pausado volvia a arrancar solo y el boton no servia de nada. */
+  let motionOff=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function tryPlay(){if(motionOff)return;vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
+  const hmBtn=document.getElementById('heroMotion');
+  if(hmBtn){
+    const pintar=()=>{hmBtn.classList.toggle('paused',motionOff);
+      const et=hmBtn.querySelector('.sr-only');et.setAttribute('data-i18n',motionOff?'hero.play':'hero.pause');
+      et.textContent=I18N[lang][motionOff?'hero.play':'hero.pause'];
+      hmBtn.setAttribute('aria-pressed',String(motionOff));};
+    hmBtn.onclick=()=>{motionOff=!motionOff;
+      if(motionOff){vids.forEach(v=>{try{v.pause();}catch(e){}});}else{tryPlay();}
+      pintar();};
+    pintar();
+  }
+  /* Quien pidio menos movimiento ve el poster, no el reel: la media query de CSS solo
+     quitaba la transicion y dejaba el video corriendo igual. */
+  if(motionOff){document.querySelectorAll('video').forEach(v=>{try{v.pause();v.removeAttribute('autoplay');}catch(e){}});}
   tryPlay();
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryPlay();});
   ['touchstart','click','scroll','keydown','pointerdown'].forEach(evt=>window.addEventListener(evt,function once(){tryPlay();window.removeEventListener(evt,once);},{passive:true}));

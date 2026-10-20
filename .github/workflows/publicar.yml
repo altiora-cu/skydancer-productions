@@ -1,0 +1,37 @@
+# Publica el sitio en Cloudflare Pages desde GitHub.
+#
+# Existe porque la subida desde el Mac va a ~34 KB/s: el banner de 20 MB solo
+# tardaba diez minutos y el sitio entero casi veinte, y la subida se cortaba a
+# mitad. Aquí el clon y la subida ocurren dentro de la red de GitHub, así que
+# da igual cómo esté la conexión de casa.
+#
+# Qué sube: lo que arma `publicar.sh`, que es una lista de lo que SÍ se
+# publica. Este repo es PÚBLICO y guarda documentos internos y los originales
+# pesados; nada de eso entra en `dist/`.
+name: Publicar el sitio
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: # para publicar a mano desde la pestaña Actions
+
+# Si llegan dos commits seguidos, que no se pisen las subidas.
+concurrency:
+  group: publicar-sitio
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+
+      - name: Armar dist/
+        run: bash publicar.sh
+
+      - name: Subir a Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3.14.1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=skydancer-sitio --branch=master

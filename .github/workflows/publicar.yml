@@ -44,6 +44,7 @@ jobs:
           codigo=$(curl -s -o /dev/null -w '%{http_code}' \
             "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/skydancer-sitio" \
             -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN")
+          echo "largo del secreto guardado: ${#CLOUDFLARE_API_TOKEN} caracteres (debe ser 53)"
           echo "comprobación del token contra el proyecto: HTTP $codigo"
           [ "$codigo" = "200" ] || { echo "El token guardado en el repo no sirve para este proyecto."; exit 1; }
           npx --yes wrangler@4.151.3 pages deploy dist --project-name=skydancer-sitio --branch=master

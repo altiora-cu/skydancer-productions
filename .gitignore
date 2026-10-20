@@ -21,3 +21,6 @@ ESTADO.md
 PROMPT-CODE-skydancer-v2.md
 Infrastructura Skydancer Productions lia
 coreographer.PNG
+
+# Carpeta que arma publicar.sh para Cloudflare Pages; se regenera en cada build.
+dist/

@@ -750,6 +750,123 @@ body.en-arma .cart-fab{display:none}
   .oc-otras .row{grid-template-columns:1fr 1fr;gap:10px}
 }
 @media(max-width:420px){.oc-otras .row{grid-template-columns:1fr}}
+/* Pasos 2 y 3: calendario propio, condado, campos con label arriba y ayuda abajo */
+.arma fieldset{border:0;padding:0;margin:0;min-width:0}
+.arma fieldset.blk{margin-top:34px}.arma fieldset.sec{margin-top:32px}
+.a-h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.12em;letter-spacing:0;color:var(--gold-hi)}
+.a-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:48px;align-items:start}
+.blk{margin-top:34px}
+.flabel,.field label{display:block;font-weight:700;font-size:16px;color:var(--ink)}
+.flabel{margin-bottom:12px}
+.flabel small,.field label small{margin-left:6px;font-weight:500;color:var(--muted)}
+.req{margin-left:8px;font-size:13px;font-weight:700;color:var(--gold-hi)}
+.field{display:flex;flex-direction:column;gap:8px}
+.inp{width:100%;min-height:52px;padding:0 16px;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.04);color:var(--ink);font:500 16px/1.3 'Manrope',sans-serif;transition:border-color .2s,box-shadow .2s}
+.inp::placeholder{color:#8f86a6}
+.inp:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,194,92,.2)}
+.txt{min-height:112px;padding:14px 16px;resize:vertical}
+.help{font-size:14px;color:var(--muted)}
+.ferr{font-size:15px;font-weight:600;color:var(--bad)}
+.field.mal .inp{border-color:var(--bad)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+.cal{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;align-items:start}
+.month,.picked{padding:18px;border-radius:18px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.mh b{font-family:'Cinzel',serif;font-size:18px;font-weight:700}
+.mh .nav{display:flex;gap:6px}
+.mh .nav button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);font-size:20px;line-height:1;cursor:var(--cur),pointer}
+.mh .nav button:disabled{opacity:.3;cursor:default}
+.dow,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));text-align:center}
+.dow span{padding:6px 0;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.days .d{position:relative;height:44px;min-width:0;display:grid;place-items:center;border:0;border-radius:12px;background:none;color:var(--ink);font:600 16px/1 'Manrope',sans-serif;cursor:var(--cur),pointer}
+.days .d:hover:not(:disabled){background:rgba(230,194,92,.12)}
+.days .d:focus-visible,.mh .nav button:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.days .past{color:rgba(244,240,255,.28);text-decoration:line-through;text-decoration-color:rgba(244,240,255,.25);cursor:default}
+.days .today{box-shadow:inset 0 0 0 1.5px var(--muted)}
+.days .hoy{position:absolute;bottom:1px;font-size:9px;font-weight:700;letter-spacing:.06em;color:var(--muted)}
+.days .sel{background:var(--gold-grad);color:#1a1206;font-weight:800}
+.days .sel .hoy{color:#1a1206}
+.picked .fecha{margin-top:8px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px;line-height:1.1}
+.picked .sinfecha{margin-top:8px;color:var(--muted)}
+.picked .quitar{margin-top:6px;font-size:15px;color:var(--muted);text-decoration-color:var(--line)}
+.est{margin-top:14px;padding:14px 16px;border-radius:12px;font-size:16px;line-height:1.45}
+.est b{display:block;margin-bottom:6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.est.ok{background:var(--ok-bg);color:#d5f3e1}.est.ok b{color:var(--ok)}
+.est.wait{background:var(--wait-bg);color:#f6e6c4}.est.wait b{color:var(--wait)}
+.est.bad{background:var(--bad-bg);color:#ffd9d2}.est.bad b{color:var(--bad)}
+.est.load{background:rgba(255,255,255,.05);color:var(--muted)}.est.load b{color:var(--ink)}
+.est .a-link{color:inherit}
+.skel{display:block;height:10px;width:80%;margin-top:8px;border-radius:6px;background:linear-gradient(90deg,rgba(255,255,255,.08),rgba(255,255,255,.18),rgba(255,255,255,.08));background-size:200% 100%;animation:skel 1.2s linear infinite}
+@keyframes skel{to{background-position:-200% 0}}
+.opt{position:relative;cursor:var(--cur),pointer}
+.opt input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.opt:focus-within{outline:2px solid var(--gold);outline-offset:2px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip,.chips .opt{min-height:44px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:none;color:var(--ink);font:600 16px/1.2 'Manrope',sans-serif;text-align:left;cursor:var(--cur),pointer}
+.chip.on,.chips .opt.on,.chips .opt:has(input:checked){border-color:var(--gold);background:rgba(230,194,92,.14);color:var(--gold-hi)}
+.chip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.chip .ck{width:22px;height:22px;flex:none;display:grid;place-items:center;border-radius:6px;border:1.5px solid rgba(255,255,255,.45);font-size:13px;font-weight:800}
+.chip.on .ck{background:var(--gold-grad);border:0;color:#1a1206}
+.counties{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.counties .opt{min-height:44px;display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.2)}
+.counties .opt i{flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;border:1.5px solid rgba(255,255,255,.45)}
+.counties .opt b{display:block;font-size:16px}
+.counties .opt span span{font-size:15px;color:var(--muted)}
+.counties .opt.on,.counties .opt:has(input:checked){border-color:var(--gold);background:rgba(230,194,92,.08)}
+.counties .opt.on i,.counties .opt:has(input:checked) i{border:6px solid var(--gold)}
+.go{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 24px}
+.go .back{color:var(--muted);text-decoration-color:var(--line)}
+.aside{position:sticky;top:96px;padding:24px;border-radius:22px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid var(--line)}
+.aside .k{font:700 12px/1 'Manrope',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.aside h2{margin-top:10px;font-family:'Cinzel',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
+.aside dl{margin-top:16px;display:grid;grid-template-columns:auto 1fr;gap:8px 14px;font-size:15px}
+.aside dt{color:var(--muted)}
+.aside ul{margin-top:16px;list-style:none;border-top:1px solid var(--line)}
+.aside li{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);font-weight:600;font-size:15px}
+.aside li img{width:44px;height:44px;flex:none;border-radius:10px;object-fit:cover}
+.aside .disc{margin-top:14px;padding:12px 14px;border-radius:12px;background:rgba(230,194,92,.1);font-size:14px;color:#f1e3bb}
+.aside .fine{margin-top:12px;font-size:14px;color:var(--muted)}
+.aside .a-link{font-size:15px}
+.msum{display:none;margin-top:16px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:16px}
+.msum b{color:var(--gold-hi)}
+.msum p+p{margin-top:4px;font-size:14px;color:var(--muted)}
+.sec{margin-top:32px}
+.more{margin-top:10px}
+.checkrow{margin-top:20px;display:flex;align-items:center;gap:12px;min-height:44px;font-weight:600;font-size:16px;cursor:var(--cur),pointer}
+.checkrow input{width:24px;height:24px;flex:none;accent-color:#e6c25c;cursor:var(--cur),pointer}
+.hp{position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden}
+.send{margin-top:30px;padding:24px;border-radius:20px;background:var(--paper);color:var(--paper-ink)}
+.send .pr{display:flex;flex-wrap:wrap;gap:4px 16px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;letter-spacing:.02em}
+.send .pr span+span::before{content:"·";margin-right:16px;color:var(--paper-gold)}
+.send .m{margin-top:10px;font-size:16px;color:var(--paper-mut)}
+.send .resumen{margin-top:12px;color:#a3281a}
+.send .row{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
+.send .a-pri{min-height:56px;background:#1d1114;color:#f6e0a0;box-shadow:none}
+.send .alt{min-height:44px;padding:0 4px;background:none;border:0;border-bottom:1px solid var(--rule);color:var(--paper-ink);font:700 16px/1 'Manrope',sans-serif;cursor:var(--cur),pointer}
+.send .alt:disabled{opacity:.5;cursor:progress}
+.send .alt:focus-visible{outline:2px solid var(--paper-gold);outline-offset:3px}
+.conf{padding:28px;border-radius:20px;background:var(--ok-bg);border:1px solid rgba(127,214,163,.35)}
+.conf .a-eyebrow{color:var(--ok)}
+.conf h2{margin-top:10px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(28px,3vw,38px);line-height:1.15;letter-spacing:0;color:#e7f8ee}
+.conf p{margin-top:10px;font-size:17px;color:#d5f3e1}
+.conf a{color:#e7f8ee;font-weight:700;text-decoration:underline;white-space:nowrap}
+.otro{margin-top:18px}
+@media(max-width:1100px){.cal{grid-template-columns:1fr;gap:14px}}
+@media(max-width:900px){
+  .a-grid{grid-template-columns:1fr;gap:30px}
+  .two{grid-template-columns:1fr;gap:20px}
+  .month{padding:12px}
+  .counties{grid-template-columns:1fr}
+  .go .a-pri{width:100%}
+  .aside{position:static}
+  #sAside{display:none}
+  .msum{display:block}
+  .send{padding:20px 16px}
+  .send .pr{gap:6px 14px;font-size:14px}
+  .send .pr span+span::before{content:none}
+  .send .a-pri{width:100%}
+  .picked .fecha{font-size:26px}
+}
 @media(max-width:1100px){.occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){
   .steps{display:none}
@@ -974,6 +1091,57 @@ body.en-arma .cart-fab{display:none}
   <div id="ocBody"></div>
 </section>
 
+<!-- ARMA TU SHOW · PASO 2: FECHA Y CONDADO -->
+<section class="view arma" id="view-fecha" aria-labelledby="fechaT">
+  <div class="arma-bar" data-armabar></div>
+  <div class="a-main"><div class="aw a-grid">
+    <div>
+      <h1 class="a-h1" id="fechaT" data-i18n="f.t">Date and county, so Liana can check the calendar and travel</h1>
+      <p class="a-sub" data-i18n="f.sub">Availability comes from SkyDancer's real calendar.</p>
+      <fieldset class="blk" id="fOcasion" hidden><legend class="flabel" data-i18n="f.ocas">Your event</legend><div class="opts chips" id="fOcasChips"></div><p class="ferr" id="fOcasErr" role="alert" hidden></p></fieldset>
+      <div class="blk"><p class="flabel"><span id="calLbl" data-i18n="f.fecha">Event date</span> <small data-i18n="f.opc">optional</small></p>
+        <div class="cal"><div class="month" id="calMes" role="group" aria-labelledby="calLbl"></div><div class="picked" id="calPick" aria-live="polite"></div></div></div>
+      <fieldset class="blk"><legend class="flabel" data-i18n="f.condado">County</legend><div class="opts counties" id="fCondados"></div></fieldset>
+      <div class="blk two">
+        <div class="field"><label for="fVenue"><span data-i18n="f.venue">Venue or city</span> <small data-i18n="f.opc">optional</small></label><input id="fVenue" class="inp" type="text" maxlength="100" autocomplete="off" data-i18n-ph="brief.cityph" placeholder="Miami Beach, Coral Gables…"><p class="help" data-i18n="f.venueh">With the name of the venue, Liana checks whether it allows fire.</p></div>
+        <fieldset class="field"><legend class="flabel" data-i18n="f.inv">Guests</legend><div class="opts chips" id="fInv"></div></fieldset>
+      </div>
+      <div class="go"><a class="a-btn a-pri" href="#/arma/show" id="fSeguir" data-i18n="f.seguir">Continue with the show</a><a class="a-link back" id="fVolver" href="#/arma">← Back</a></div>
+    </div>
+    <aside class="aside" id="fAside" aria-label="Your show"></aside>
+  </div></div>
+</section>
+
+<!-- ARMA TU SHOW · PASO 3: TU SHOW Y TU CONTACTO -->
+<section class="view arma" id="view-show" aria-labelledby="showT">
+  <div class="arma-bar" data-armabar></div>
+  <div class="a-main"><div class="aw a-grid">
+    <div id="sForm">
+      <h1 class="a-h1" id="showT"></h1>
+      <p class="a-sub" data-i18n="s.sub">Tap a service to check or uncheck it.</p>
+      <div class="msum" id="sMsum"></div>
+      <fieldset class="sec"><legend class="flabel" data-i18n="s.svc">Services</legend><div class="chips" id="sChips"></div>
+        <p class="more"><a class="a-link" href="#/servicios" data-i18n="s.ver">See photos of the 15 services →</a></p></fieldset>
+      <div class="sec field"><label for="sVision"><span data-i18n="s.vision">Your vision</span> <small data-i18n="f.opc">optional</small></label><textarea id="sVision" class="inp txt" rows="4" maxlength="1200"></textarea></div>
+      <div class="sec two">
+        <div class="field"><label for="sNombre"><span data-i18n="s.nombre">Your name</span><span class="req" data-i18n="s.req">required</span></label><input id="sNombre" class="inp" type="text" autocomplete="name" maxlength="120" aria-describedby="sNombreErr" aria-required="true"><p class="ferr" id="sNombreErr" hidden></p></div>
+        <div class="field"><label for="sTel"><span data-i18n="s.tel">Your WhatsApp</span><span class="req" data-i18n="s.req">required</span></label><input id="sTel" class="inp" type="tel" inputmode="tel" autocomplete="tel" maxlength="40" placeholder="+1 305 555 0101" aria-describedby="sTelHelp sTelErr" aria-required="true"><p class="help" id="sTelHelp" data-i18n="s.telh">Liana replies to this number.</p><p class="ferr" id="sTelErr" hidden></p></div>
+      </div>
+      <div class="sec field"><label for="sCorreo"><span data-i18n="s.correoL">Your email</span> <small data-i18n="f.opc">optional</small></label><input id="sCorreo" class="inp" type="email" autocomplete="email" maxlength="160" aria-describedby="sCorreoErr"><p class="ferr" id="sCorreoErr" hidden></p></div>
+      <label class="checkrow"><input type="checkbox" id="sPlanner"><span data-i18n="s.planner">I'm planning this event for a client (planner or venue)</span></label>
+      <div class="hp" aria-hidden="true"><label for="sWebsite">Website</label><input id="sWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+      <div class="send">
+        <p class="pr"><span data-i18n="cred.1">Art Basel Miami, 3 years running</span><span>Sagamore</span><span>National</span><span>SLS Miami Beach</span></p>
+        <p class="m" data-i18n="s.linea">Liana prepares every quote by hand. Asking costs nothing and commits you to nothing.</p>
+        <p class="ferr resumen" id="sFalta" role="alert" hidden></p>
+        <div class="row"><button type="button" class="a-btn a-pri" id="sEnviar"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/></svg><span>Send to Liana on WhatsApp</span></button><button type="button" class="alt" id="sCorreoBtn" data-i18n="s.correo">Send by email</button></div>
+      </div>
+    </div>
+    <div id="sConf" hidden></div>
+    <aside class="aside" id="sAside" aria-label="Your show"></aside>
+  </div></div>
+</section>
+
 <!-- PRODUCT MODAL -->
 <div class="pm-overlay" id="pmOverlay"><div class="pm-card" id="pmCard"></div></div>
 
@@ -1026,7 +1194,8 @@ body.en-arma .cart-fab{display:none}
     </div>
     <p class="cart-hint" data-i18n="cart.hint">Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.</p>
     <div class="cart-actions">
-      <button class="wa" id="cartWA"><span data-ic="chat"></span><span data-i18n="cart.wa">Send via WhatsApp</span></button>
+      <button class="wa" id="cartSeguir"><span data-i18n="cart.seguir">Continue with my show</span><span data-ic="arrow"></span></button>
+      <button class="em" id="cartWA"><span data-ic="chat"></span><span data-i18n="cart.wa">Send via WhatsApp</span></button>
       <button class="em" id="cartEmail"><span data-ic="mail"></span><span data-i18n="cart.email">Send via Email</span></button>
     </div>
     <div class="cart-done" id="cartDone">
@@ -1158,6 +1327,9 @@ Object.assign(I18N.es,{
  'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los 15 servicios →',
  'paso.1':'Tu evento','paso.2':'Fecha y condado','paso.3':'Tu show','paso.w':'Paso','paso.de':'de',
  'oc.noche':'Noche de ejemplo','oc.marcado':'Marcado en tu show','oc.otras':'Otras ocasiones'});
+
+Object.assign(I18N.en,{"f.t": "Date and county, so Liana can check the calendar and travel", "f.sub": "Availability comes from SkyDancer's real calendar. The date is optional.", "f.ocas": "Your event", "f.fecha": "Event date", "f.opc": "optional", "f.condado": "County", "f.venue": "Venue or city", "f.venueh": "With the name of the venue, Liana checks whether it allows fire.", "f.inv": "Guests", "f.seguir": "Continue with the show", "f.hoy": "today", "f.mesAnt": "Previous month", "f.mesSig": "Next month", "f.elige": "Your date", "f.sinfecha": "Pick a day on the calendar. If you don't have a date yet, you can continue without one.", "f.elegiste": "You picked", "f.e.cargando.t": "Checking", "f.e.cargando": "Checking SkyDancer's calendar…", "f.e.libre.t": "Open", "f.e.libre": "That date is open on SkyDancer's calendar.", "f.e.ultima.t": "Last minute", "f.e.ultima": "Less than 7 days to go: Liana will confirm on WhatsApp.", "f.e.ocupada.t": "Booked", "f.e.ocupada": "That date already has an event booked. Message us and Liana will tell you if there is a team available.", "f.e.pasada.t": "Past date", "f.e.pasada": "That date has passed. Pick another one on the calendar.", "f.e.error.t": "No answer", "f.e.error": "We couldn't check the calendar right now; Liana will confirm it on WhatsApp. You can continue.", "f.escribir": "Message on WhatsApp", "f.waOcupada": "Hi Liana, I would like to know if there is a team available on {f}.", "f.quitar": "Clear the date", "r.fecha": "Date", "r.condado": "County", "r.inv": "Guests", "r.sin": "Not yet", "r.sinOcas": "Your event", "r.sinSvc": "No services checked yet; Liana can suggest them.", "r.cambiar": "Change date or county", "r.desc": "Book 3 or more services and save 10% on the quote; book 2 and save 5%.", "r.fine2": "You can change them in step 3. No added-up total: Liana prepares every quote by hand.", "r.fine3": "No added-up total: Liana puts the price together with your date, your venue and your production.", "v.bodas": "Back to the wedding", "v.empresas": "Back to companies", "v.noches": "Back to nights", "v.celebraciones": "Back to celebrations", "v.servicios": "Back to the services", "v.arma": "Back", "s.sub": "Tap a service to check or uncheck it.", "s.svc": "Services", "s.ver": "See photos of the 15 services →", "s.vision": "Your vision", "s.visionPh": "E.g.: schedule, key moments, colors or dress code.", "s.visionPhB": "E.g.: couple’s entrance at 9, Hora Loca after the first dance, white and gold.", "s.nombre": "Your name", "s.req": "required", "s.tel": "Your WhatsApp", "s.telh": "Liana replies to this number.", "s.correoL": "Your email", "s.planner": "I'm planning this event for a client (planner or venue)", "s.linea": "Liana prepares every quote by hand. Asking costs nothing and commits you to nothing.", "s.enviar": "Send to Liana on WhatsApp", "s.guardando": "Saving your request…", "s.correo": "Send by email", "s.asunto": "Show request — SkyDancer", "e.nombre": "Your name is missing.", "e.tel": "Your WhatsApp number is missing: Liana replies to it.", "e.telFmt": "Write the number with the country code, like +1 305 555 0101.", "e.correo": "Check the email: it is missing the @ or the domain.", "e.resumen": "Before sending, check:", "e.n.sNombre": "your name", "e.n.sTel": "your WhatsApp", "e.n.sCorreo": "your email", "e.ocas": "Choose the type of event to continue.", "c.k": "Request sent", "c.kWa": "Request on WhatsApp", "c.ok": "Liana has your request and will message you at the number you left.", "c.noAbrioWa": "If WhatsApp didn't open: {wa}.", "c.noAbrioMail": "If your email didn't open: {mail} or WhatsApp {wa}.", "c.soloWa": "Your request went out on WhatsApp.", "c.soloWaP": "Send the message that opened and Liana will reply. If WhatsApp didn't open: {wa}.", "c.soloMail": "Your request went out by email.", "c.soloMailP": "Send the email that opened and Liana will reply. If it didn't open: {mail} or WhatsApp {wa}.", "c.otro": "Build another show", "cart.seguir": "Continue with my show"});
+Object.assign(I18N.es,{"f.t": "Fecha y condado, para que Liana mire el calendario y el viaje", "f.sub": "La disponibilidad sale del calendario real de SkyDancer. La fecha es opcional.", "f.ocas": "Tu evento", "f.fecha": "Fecha del evento", "f.opc": "opcional", "f.condado": "Condado", "f.venue": "Venue o ciudad", "f.venueh": "Con el nombre del salón, Liana revisa si el local permite fuego.", "f.inv": "Invitados", "f.seguir": "Seguir con el show", "f.hoy": "hoy", "f.mesAnt": "Mes anterior", "f.mesSig": "Mes siguiente", "f.elige": "Tu fecha", "f.sinfecha": "Elige un día en el calendario. Si aún no tienes fecha, puedes seguir sin ella.", "f.elegiste": "Elegiste", "f.e.cargando.t": "Mirando", "f.e.cargando": "Mirando el calendario de SkyDancer…", "f.e.libre.t": "Libre", "f.e.libre": "Esa fecha está libre en el calendario de SkyDancer.", "f.e.ultima.t": "Última hora", "f.e.ultima": "Faltan menos de 7 días: Liana te confirma por WhatsApp.", "f.e.ocupada.t": "Ocupada", "f.e.ocupada": "Esa fecha ya tiene un evento reservado. Escríbenos y Liana te dice si hay equipo.", "f.e.pasada.t": "Fecha pasada", "f.e.pasada": "Esa fecha ya pasó. Elige otra en el calendario.", "f.e.error.t": "Sin respuesta", "f.e.error": "No pudimos mirar el calendario ahora; Liana te lo confirma por WhatsApp. Puedes seguir.", "f.escribir": "Escribir por WhatsApp", "f.waOcupada": "Hola Liana, quiero saber si hay equipo para el {f}.", "f.quitar": "Quitar la fecha", "r.fecha": "Fecha", "r.condado": "Condado", "r.inv": "Invitados", "r.sin": "Sin elegir", "r.sinOcas": "Tu evento", "r.sinSvc": "Todavía no hay servicios marcados; Liana te los puede proponer.", "r.cambiar": "Cambiar fecha o condado", "r.desc": "Con 3 servicios o más, 10 % de descuento sobre la cotización; con 2, 5 %.", "r.fine2": "Los cambias en el paso 3. Sin total sumado: Liana prepara cada cotización a mano.", "r.fine3": "Sin total sumado: el precio lo arma Liana con tu fecha, tu venue y tu producción.", "v.bodas": "Volver a la boda", "v.empresas": "Volver a empresas", "v.noches": "Volver a noches", "v.celebraciones": "Volver a celebraciones", "v.servicios": "Volver a los servicios", "v.arma": "Volver", "s.sub": "Toca un servicio para marcarlo o quitarlo.", "s.svc": "Servicios", "s.ver": "Ver las fotos de los 15 servicios →", "s.vision": "Tu visión", "s.visionPh": "Ej.: horario, momentos clave, colores o dress code.", "s.visionPhB": "Ej.: entrada de los novios a las 9, Hora Loca después del vals, colores blanco y dorado.", "s.nombre": "Tu nombre", "s.req": "obligatorio", "s.tel": "Tu WhatsApp", "s.telh": "Liana te contesta a este número.", "s.correoL": "Tu correo", "s.planner": "Organizo este evento para un cliente (planner o venue)", "s.linea": "Liana prepara cada cotización a mano. Pedirla no cuesta nada ni te compromete.", "s.enviar": "Enviar a Liana por WhatsApp", "s.guardando": "Guardando tu pedido…", "s.correo": "Enviar por correo", "s.asunto": "Pedido de show — SkyDancer", "e.nombre": "Falta tu nombre.", "e.tel": "Falta tu WhatsApp: Liana te contesta a ese número.", "e.telFmt": "Escribe el número con código de país, como +1 305 555 0101.", "e.correo": "Revisa el correo: le falta la @ o el dominio.", "e.resumen": "Antes de enviar, revisa:", "e.n.sNombre": "tu nombre", "e.n.sTel": "tu WhatsApp", "e.n.sCorreo": "tu correo", "e.ocas": "Elige el tipo de evento para seguir.", "c.k": "Pedido enviado", "c.kWa": "Pedido por WhatsApp", "c.ok": "Liana ya tiene tu pedido y te escribe al número que dejaste.", "c.noAbrioWa": "Si WhatsApp no se abrió: {wa}.", "c.noAbrioMail": "Si tu correo no se abrió: {mail} o WhatsApp {wa}.", "c.soloWa": "Tu pedido salió por WhatsApp.", "c.soloWaP": "Envía el mensaje que se abrió y Liana te contesta. Si WhatsApp no se abrió: {wa}.", "c.soloMail": "Tu pedido salió por correo.", "c.soloMailP": "Envía el correo que se abrió y Liana te contesta. Si no se abrió: {mail} o WhatsApp {wa}.", "c.otro": "Armar otro show", "cart.seguir": "Seguir con mi show"});
 
 /* Ocasion → datos. `tipo` es el event_type del panel; `svc`, los servicios que llegan
    marcados (ids de SERVICES = codigos del panel); `opc`, opcionales visibles sin marcar.
@@ -1331,6 +1503,227 @@ document.addEventListener('click',e=>{
     SHOW.ocasion=k;SHOW.origen=k;guardarShow();return;}
   if(e.target.closest('[data-planner]')){SHOW.planner=true;guardarShow();}});
 
+/* ── Pasos 2 y 3 de «Arma tu show» y el envio unico ──────────────────────────
+   La disponibilidad y el lead van al panel (mismo dominio, /panel). Nada aqui
+   bloquea a la persona: si el panel no responde, WhatsApp sigue siendo el canal. */
+const API = window.SDP_API || '/panel/api/public';
+const CONDADOS=[
+ {v:'miami_dade',n:{es:'Miami-Dade',en:'Miami-Dade'},l:{es:'Sin cargo de viaje',en:'No travel fee'}},
+ {v:'broward',n:{es:'Broward',en:'Broward'},l:{es:'Puede aplicar cargo de viaje',en:'A travel fee may apply'}},
+ {v:'palm_beach',n:{es:'Palm Beach',en:'Palm Beach'},l:{es:'Puede aplicar cargo de viaje',en:'A travel fee may apply'}},
+ {v:'otro_fl',n:{es:'Resto de Florida',en:'Rest of Florida'},l:{es:'Cotizado por ubicación',en:'Quoted by location'}},
+ {v:'fuera_fl',n:{es:'Fuera de Florida',en:'Outside Florida'},l:{es:'Transporte y alojamiento aparte',en:'Transport and lodging separate'}}];
+const RANGOS=[['menos_50','brief.g1'],['50_150','brief.g2'],['150_400','brief.g3'],['mas_400','brief.g4']];
+const PARA={bodas:{es:'la boda',en:'the wedding'},empresas:{es:'tu evento de empresa',en:'your company event'},noches:{es:'tus noches',en:'your nights'},celebraciones:{es:'tu celebración',en:'your celebration'}};
+const VOLVER={bodas:'v.bodas',empresas:'v.empresas',noches:'v.noches',celebraciones:'v.celebraciones',servicios:'v.servicios'};
+const DIAS_ES=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const MESES_ES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const pad=n=>String(n).padStart(2,'0');
+const isoDe=(y,m,d)=>`${y}-${pad(m)}-${pad(d)}`;
+function hoyISO(){const d=new Date();return isoDe(d.getFullYear(),d.getMonth()+1,d.getDate());}
+function partes(f){const [y,m,d]=f.split('-').map(Number);return {y,m,d,dt:new Date(y,m-1,d)};}
+/* «sábado 28 de noviembre de 2026» / «Saturday, November 28, 2026» */
+function fechaLarga(f,conAnio){const {y,m,d,dt}=partes(f);
+  if(lang==='es')return `${DIAS_ES[dt.getDay()]} ${d} de ${MESES_ES[m-1]}${conAnio?' de '+y:''}`;
+  return dt.toLocaleDateString('en-US',conAnio?{weekday:'long',month:'long',day:'numeric',year:'numeric'}:{weekday:'long',month:'long',day:'numeric'});}
+function fechaCorta(f){const {d,m,dt}=partes(f);
+  if(lang==='es')return `${DIAS_ES[dt.getDay()].slice(0,3)} ${d} ${MESES_ES[m-1].slice(0,3)}`;
+  return dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+const nombreOcas=()=>SHOW.ocasion&&OCASIONES[SHOW.ocasion]?OCASIONES[SHOW.ocasion].nombre[lang]:'';
+const condadoDe=v=>CONDADOS.find(c=>c.v===v);
+const rangoTxt=v=>{const r=RANGOS.find(x=>x[0]===v);return r?t(r[1]):'';};
+
+/* Disponibilidad: un solo estado vivo; una respuesta tardia de otra fecha se ignora. */
+let dispo={fecha:'',estado:''},dispoCtl=null,calY=0,calM=0,pedirOcas=false,enviando=false;
+function consultarDispo(f){
+  if(dispoCtl)dispoCtl.abort();
+  const ctl=new AbortController();dispoCtl=ctl;dispo={fecha:f,estado:'cargando'};pintarPick();
+  const corte=setTimeout(()=>ctl.abort(),8000);
+  fetch(API+'/disponibilidad?fecha='+encodeURIComponent(f),{signal:ctl.signal,headers:{Accept:'application/json'}})
+    .then(r=>r.ok?r.json():Promise.reject(r.status))
+    .then(j=>{if(dispo.fecha!==f)return;const e=j&&j.estado;dispo={fecha:f,estado:['disponible','consultar','ocupada','pasada'].includes(e)?e:'error'};})
+    .catch(()=>{if(dispo.fecha===f&&dispoCtl===ctl)dispo={fecha:f,estado:'error'};})
+    .finally(()=>{clearTimeout(corte);if(dispo.fecha===f){pintarPick();pintarResumenes();}});}
+function estadoDispo(){if(!SHOW.fecha||dispo.fecha!==SHOW.fecha)return '';return dispo.estado;}
+
+function pintarCal(){const box=document.getElementById('calMes');if(!box)return;
+  const hoy=hoyISO(),h=partes(hoy),es=lang==='es';
+  const primero=new Date(calY,calM-1,1),diasMes=new Date(calY,calM,0).getDate();
+  const inicio=es?(primero.getDay()+6)%7:primero.getDay();
+  const mesNom=es?MESES_ES[calM-1]:primero.toLocaleDateString('en-US',{month:'long'});
+  const minimo=calY===h.y&&calM===h.m,maxEl=(calY-h.y)*12+(calM-h.m)>=24;
+  const dow=es?['lu','ma','mi','ju','vi','sá','do']:['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let dias='';for(let i=0;i<inicio;i++)dias+='<span></span>';
+  for(let d=1;d<=diasMes;d++){const f=isoDe(calY,calM,d),pas=f<hoy,hy=f===hoy,sel=f===SHOW.fecha;
+    dias+=`<button type="button" class="d${pas?' past':''}${hy?' today':''}${sel?' sel':''}" data-dia="${f}"${pas?' disabled':''} aria-pressed="${sel}" aria-label="${fechaLarga(f,true)}${hy?' · '+t('f.hoy'):''}">${d}${hy?`<span class="hoy" aria-hidden="true">${t('f.hoy')}</span>`:''}</button>`;}
+  box.innerHTML=`<div class="mh"><b>${mesNom} ${calY}</b><div class="nav">
+      <button type="button" data-cal="-1" aria-label="${t('f.mesAnt')}"${minimo?' disabled':''}>‹</button>
+      <button type="button" data-cal="1" aria-label="${t('f.mesSig')}"${maxEl?' disabled':''}>›</button></div></div>
+    <div class="dow" aria-hidden="true">${dow.map(x=>`<span>${x}</span>`).join('')}</div><div class="days">${dias}</div>`;}
+function pintarPick(){const box=document.getElementById('calPick');if(!box)return;
+  if(!SHOW.fecha){box.innerHTML=`<p class="a-eyebrow">${t('f.elige')}</p><p class="sinfecha">${t('f.sinfecha')}</p>`;return;}
+  const e=estadoDispo(),f=fechaLarga(SHOW.fecha,true);
+  const est={cargando:['load','f.e.cargando.t','f.e.cargando'],disponible:['ok','f.e.libre.t','f.e.libre'],consultar:['wait','f.e.ultima.t','f.e.ultima'],
+    ocupada:['bad','f.e.ocupada.t','f.e.ocupada'],pasada:['bad','f.e.pasada.t','f.e.pasada'],error:['load','f.e.error.t','f.e.error']}[e];
+  const wa=e==='ocupada'?` <a class="a-link" href="${waUrl(t('f.waOcupada').replace('{f}',f))}" target="_blank" rel="noopener">${t('f.escribir')}</a>`:'';
+  box.innerHTML=`<p class="a-eyebrow">${t('f.elegiste')}</p><p class="fecha">${f}</p>`+
+    (est?`<div class="est ${est[0]}"><b>${t(est[1])}</b>${t(est[2])}${e==='cargando'?'<i class="skel"></i>':''}${wa}</div>`:'')+
+    `<button type="button" class="a-link quitar" data-quitar-fecha>${t('f.quitar')}</button>`;}
+function radios(name,items,valor){return items.map(([v,html])=>`<label class="opt${v===valor?' on':''}"><input type="radio" name="${name}" value="${v}"${v===valor?' checked':''}>${html}</label>`).join('');}
+function resumenHTML(paso){const c=condadoDe(SHOW.condado),e=estadoDispo();
+  const est=e==='disponible'?' · '+t('f.e.libre.t').toLowerCase():(e==='ocupada'?' · '+t('f.e.ocupada.t').toLowerCase():'');
+  const filas=[[t('r.fecha'),SHOW.fecha?fechaLarga(SHOW.fecha,false)+est:t('r.sin')],[t('r.condado'),c?c.n[lang]+' · '+c.l[lang].toLowerCase():t('r.sin')],[t('r.inv'),SHOW.invitados?rangoTxt(SHOW.invitados):t('r.sin')]];
+  const svc=SHOW.servicios.map(id=>`<li><img src="assets/services/${id}.jpg" alt="" loading="lazy">${svcNom(id)}</li>`).join('');
+  return `<p class="k">${t('paso.3')}</p><h2>${nombreOcas()||t('r.sinOcas')}</h2>
+    <dl>${filas.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>
+    ${svc?`<ul>${svc}</ul>`:`<p class="fine">${t('r.sinSvc')}</p>`}
+    ${paso===3?`<p><a class="a-link" href="#/arma/fecha">${t('r.cambiar')}</a></p><p class="disc">${t('r.desc')}</p>`:''}
+    <p class="fine">${t(paso===2?'r.fine2':'r.fine3')}</p>`;}
+function pintarResumenes(){const a2=document.getElementById('fAside'),a3=document.getElementById('sAside');
+  if(a2&&currentView==='view-fecha')a2.innerHTML=resumenHTML(2);
+  if(a3&&currentView==='view-show'){a3.innerHTML=resumenHTML(3);pintarMsum();}}
+function pintarMsum(){const m=document.getElementById('sMsum');if(!m)return;const c=condadoDe(SHOW.condado);
+  const bits=[nombreOcas(),SHOW.fecha?fechaCorta(SHOW.fecha):'',c?c.n[lang]+', '+c.l[lang].toLowerCase():'',SHOW.invitados?rangoTxt(SHOW.invitados):''].filter(Boolean);
+  m.innerHTML=`<p><b>${esc(bits[0]||'')}</b>${bits.slice(1).map(x=>' · '+esc(x)).join('')}</p><p>${t('r.fine3')}</p><a class="a-link" href="#/arma/fecha">${t('r.cambiar')}</a>`;}
+
+function pintarPaso2(){const v=document.getElementById('view-fecha');
+  pintarPasos(v,2,[nombreOcas()]);
+  if(!calY){const b=partes(SHOW.fecha&&SHOW.fecha>=hoyISO()?SHOW.fecha:hoyISO());calY=b.y;calM=b.m;}
+  const fo=document.getElementById('fOcasion');fo.hidden=!pedirOcas;
+  if(pedirOcas)document.getElementById('fOcasChips').innerHTML=radios('ocas',OCAS_KEYS.map(k=>[k,`<span>${OCASIONES[k].nombre[lang]}</span>`]),SHOW.ocasion);
+  document.getElementById('fCondados').innerHTML=radios('condado',CONDADOS.map(c=>[c.v,`<i aria-hidden="true"></i><span><b>${c.n[lang]}</b><span>${c.l[lang]}</span></span>`]),SHOW.condado);
+  document.getElementById('fInv').innerHTML=radios('inv',RANGOS.map(([v,k])=>[v,`<span>${t(k)}</span>`]),SHOW.invitados);
+  const ven=document.getElementById('fVenue');if(document.activeElement!==ven)ven.value=SHOW.venue;
+  const vol=document.getElementById('fVolver'),o=SHOW.origen;
+  vol.href='#/'+(VOLVER[o]?o:'arma');vol.textContent='← '+t(VOLVER[o]||'v.arma');
+  pintarCal();pintarPick();pintarResumenes();
+  if(SHOW.fecha&&dispo.fecha!==SHOW.fecha)consultarDispo(SHOW.fecha);}
+
+function pintarPaso3(){const v=document.getElementById('view-show'),c=condadoDe(SHOW.condado);
+  pintarPasos(v,3,[nombreOcas(),[SHOW.fecha?fechaCorta(SHOW.fecha):'',c?c.n[lang]:''].filter(Boolean).join(' · ')]);
+  const conf=document.getElementById('sConf'),form=document.getElementById('sForm'),aside=document.getElementById('sAside');
+  if(SHOW.enviado){form.hidden=true;aside.hidden=true;conf.hidden=false;pintarConf();return;}
+  form.hidden=false;aside.hidden=false;conf.hidden=true;
+  const P=PARA[SHOW.ocasion]||{es:'tu evento',en:'your event'};
+  let tit;if(SHOW.fecha){const f=esc(fechaLarga(SHOW.fecha,partes(SHOW.fecha).y!==new Date().getFullYear()));
+    tit=lang==='es'?`Tu show para ${P.es}${SHOW.ocasion==='noches'?', desde el':' del'} <em>${f}</em>`:`Your show for ${P.en}${SHOW.ocasion==='noches'?', starting':' on'} <em>${f}</em>`;}
+  else tit=lang==='es'?`Tu show para ${P.es}`:`Your show for ${P.en}`;
+  document.getElementById('showT').innerHTML=tit;
+  const O=OCASIONES[SHOW.ocasion],prim=O?O.svc.concat(O.opc):[];
+  const orden=prim.concat(SHOW.servicios.filter(x=>!prim.includes(x)),SERVICES.map(s=>s.id).filter(x=>!prim.includes(x)&&!SHOW.servicios.includes(x)));
+  document.getElementById('sChips').innerHTML=orden.map(id=>{const on=SHOW.servicios.includes(id);
+    return `<button type="button" class="chip svc${on?' on':''}" data-svc="${id}" aria-pressed="${on}"><span class="ck" aria-hidden="true">${on?'✓':'+'}</span>${svcNom(id)}</button>`;}).join('');
+  [['sNombre','nombre'],['sTel','tel'],['sCorreo','correo'],['sVision','vision']].forEach(([id,k])=>{const el=document.getElementById(id);if(document.activeElement!==el)el.value=SHOW[k]||'';});
+  document.getElementById('sVision').placeholder=t(SHOW.ocasion==='bodas'?'s.visionPhB':'s.visionPh');
+  document.getElementById('sPlanner').checked=!!SHOW.planner;
+  pintarEnvio();pintarResumenes();}
+
+/* Mapa de estados del boton: listo · guardando (desactivado) · confirmacion. */
+function pintarEnvio(){const b=document.getElementById('sEnviar'),m=document.getElementById('sCorreoBtn');
+  b.disabled=enviando;m.disabled=enviando;b.setAttribute('aria-busy',String(enviando));
+  b.querySelector('span').textContent=enviando?t('s.guardando'):t('s.enviar');}
+function pintarConf(){const e=SHOW.enviado,conf=document.getElementById('sConf');
+  const waL=`<a href="https://wa.me/${WA}" target="_blank" rel="noopener">+1 786-992-4543</a>`,mailL=`<a href="mailto:${EMAIL}">${EMAIL}</a>`;
+  let h,p;
+  if(e.ok){h=t('c.ok');p=e.via==='wa'?t('c.noAbrioWa').replace('{wa}',waL):t('c.noAbrioMail').replace('{mail}',mailL).replace('{wa}',waL);}
+  else{h=t(e.via==='wa'?'c.soloWa':'c.soloMail');p=(e.via==='wa'?t('c.soloWaP'):t('c.soloMailP')).replace('{wa}',waL).replace('{mail}',mailL);}
+  conf.innerHTML=`<div class="conf"><p class="a-eyebrow">${t(e.ok?'c.k':'c.kWa')}</p><h2>${h}</h2><p>${p}</p></div><p class="otro"><a class="a-link" href="#/arma" data-otro-show>${t('c.otro')}</a></p>`;}
+
+/* Validacion: al pulsar se dice que falta junto a cada campo; al salir de un
+   campo ya tocado, su error. Nunca se borra lo escrito. */
+function errorDe(id){const v=(document.getElementById(id).value||'').trim();
+  if(id==='sNombre')return v?'':t('e.nombre');
+  if(id==='sTel'){if(!v)return t('e.tel');const n=v.replace(/\D/g,'').length;return (n<7||n>15)?t('e.telFmt'):'';}
+  if(id==='sCorreo')return (!v||/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))?'':t('e.correo');
+  return '';}
+function marcarError(id,msg){const el=document.getElementById(id),p=document.getElementById(id+'Err');
+  p.textContent=msg;p.hidden=!msg;el.setAttribute('aria-invalid',msg?'true':'false');el.closest('.field').classList.toggle('mal',!!msg);}
+function armarMensaje(){const es=lang==='es',c=condadoDe(SHOW.condado),L2=(a,b)=>es?a:b;
+  let m=L2('Hola Liana, quiero armar un show con SkyDancer.','Hi Liana, I would like to build a show with SkyDancer.')+'\n\n';
+  m+=L2('Ocasión: ','Occasion: ')+nombreOcas()+'\n';
+  if(SHOW.fecha)m+=L2('Fecha: ','Date: ')+fechaLarga(SHOW.fecha,true)+'\n';
+  if(c)m+=L2('Condado: ','County: ')+c.n[lang]+'\n';
+  if(SHOW.venue)m+=L2('Venue o ciudad: ','Venue or city: ')+SHOW.venue+'\n';
+  if(SHOW.invitados)m+=L2('Invitados: ','Guests: ')+rangoTxt(SHOW.invitados)+'\n';
+  m+='\n'+(SHOW.servicios.length?L2('Servicios:','Services:')+'\n'+SHOW.servicios.map(id=>'• '+svcNom(id)).join('\n'):L2('Servicios: todavía ninguno; espero tu propuesta.','Services: none yet; I would like your suggestion.'))+'\n';
+  if(SHOW.vision)m+='\n'+L2('Lo que imagino: ','What I have in mind: ')+SHOW.vision+'\n';
+  if(SHOW.planner)m+='\n'+L2('Organizo este evento para un cliente.','I am planning this event for a client.')+'\n';
+  m+='\n'+L2('Nombre: ','Name: ')+SHOW.nombre+'\nWhatsApp: '+SHOW.tel+'\n';
+  if(SHOW.correo)m+=L2('Correo: ','Email: ')+SHOW.correo+'\n';
+  return m.trim();}
+function cuerpoLead(msg){const b={name:SHOW.nombre,phone:SHOW.tel};
+  if(SHOW.correo)b.email=SHOW.correo;
+  b.event_type=OCASIONES[SHOW.ocasion].tipo;
+  if(SHOW.fecha)b.event_date=SHOW.fecha;
+  if(SHOW.condado)b.county=SHOW.condado;
+  if(SHOW.venue)b.city=SHOW.venue;
+  if(SHOW.invitados)b.guests_range=SHOW.invitados;
+  b.services=SHOW.servicios.slice();b.message=msg;b.entry_path=SHOW.entrada||'arma';b.planner=!!SHOW.planner;
+  b.website=document.getElementById('sWebsite').value;
+  return b;}
+/* 400 = algun dato no paso la validacion del panel. El caso probable es un codigo de
+   servicio que la base de produccion no tenga: se reintenta UNA vez sin `services`
+   (los servicios ya van escritos en `message`). */
+function postLead(body){
+  const ir=b=>{const ctl=new AbortController(),c=setTimeout(()=>ctl.abort(),12000);
+    return fetch(API+'/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b),keepalive:true,signal:ctl.signal}).finally(()=>clearTimeout(c));};
+  return ir(body).then(r=>{if(r.status===400&&body.services.length){const b2=Object.assign({},body);delete b2.services;return ir(b2).then(r2=>r2.ok);}return r.ok;}).catch(()=>false);}
+/* Un envio, dos destinos. Todo en el mismo clic y sin await antes de window.open:
+   si no, el navegador lo trata como ventana emergente y la bloquea. */
+function enviar(via){if(enviando)return;
+  const ids=['sNombre','sTel','sCorreo'],faltan=[];
+  ids.forEach(id=>{const e=errorDe(id);marcarError(id,e);if(e)faltan.push(id);});
+  const res=document.getElementById('sFalta');
+  if(faltan.length){res.textContent=t('e.resumen')+' '+faltan.map(id=>t('e.n.'+id)).join(', ')+'.';res.hidden=false;document.getElementById(faltan[0]).focus();return;}
+  res.hidden=true;
+  ['sNombre','sTel','sCorreo','sVision'].forEach(id=>{SHOW[{sNombre:'nombre',sTel:'tel',sCorreo:'correo',sVision:'vision'}[id]]=document.getElementById(id).value.trim();});
+  SHOW.planner=document.getElementById('sPlanner').checked;guardarShow();
+  const msg=armarMensaje(),body=cuerpoLead(msg);
+  if(via==='wa')window.open(waUrl(msg),'_blank');
+  enviando=true;pintarEnvio();
+  const pr=postLead(body);
+  if(via==='mail')window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(t('s.asunto'))+'&body='+encodeURIComponent(msg);
+  pr.then(ok=>{enviando=false;const keep={planner:false};
+    SHOW=Object.assign(SHOW_VACIO(),keep,{enviado:{via,ok}});cart=[];guardarShow();renderShop();renderCart();
+    if(currentView==='view-show'){pintarPaso3();const h=document.querySelector('#sConf h2');if(h){h.setAttribute('tabindex','-1');h.focus();}}});}
+
+/* Eventos de los pasos (delegados: el contenido se vuelve a pintar al cambiar de idioma) */
+document.addEventListener('click',e=>{
+  const d=e.target.closest('[data-dia]');
+  if(d){SHOW.fecha=d.dataset.dia;guardarShow();pintarCal();consultarDispo(SHOW.fecha);pintarResumenes();return;}
+  const n=e.target.closest('[data-cal]');
+  if(n&&!n.disabled){calM+=+n.dataset.cal;if(calM<1){calM=12;calY--;}if(calM>12){calM=1;calY++;}pintarCal();return;}
+  if(e.target.closest('[data-quitar-fecha]')){SHOW.fecha='';dispo={fecha:'',estado:''};guardarShow();pintarCal();pintarPick();pintarResumenes();return;}
+  const s=e.target.closest('[data-svc]');
+  if(s){const id=s.dataset.svc,i=SHOW.servicios.indexOf(id);if(i>-1)SHOW.servicios.splice(i,1);else SHOW.servicios.push(id);guardarShow();
+    const on=SHOW.servicios.includes(id);s.classList.toggle('on',on);s.setAttribute('aria-pressed',String(on));s.querySelector('.ck').textContent=on?'✓':'+';pintarResumenes();return;}
+  if(e.target.closest('[data-otro-show]')){SHOW.enviado=null;guardarShow();}});
+document.addEventListener('change',e=>{const r=e.target;if(r.type!=='radio')return;
+  const k={ocas:'ocasion',condado:'condado',inv:'invitados'}[r.name];if(!k)return;
+  SHOW[k]=r.value;
+  if(k==='ocasion'){if(!SHOW.servicios.length)SHOW.servicios=OCASIONES[r.value].svc.slice();document.getElementById('fOcasErr').hidden=true;pintarPasos(document.getElementById('view-fecha'),2,[nombreOcas()]);}
+  guardarShow();r.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.querySelector('input').checked));pintarResumenes();});
+document.getElementById('fVenue').addEventListener('input',e=>{SHOW.venue=e.target.value.trim();guardarShow();pintarResumenes();});
+document.getElementById('fSeguir').addEventListener('click',e=>{if(SHOW.ocasion)return;e.preventDefault();
+  pedirOcas=true;pintarPaso2();const er=document.getElementById('fOcasErr');er.textContent=t('e.ocas');er.hidden=false;document.querySelector('#fOcasChips input').focus();});
+[['sNombre','nombre'],['sTel','tel'],['sCorreo','correo'],['sVision','vision']].forEach(([id,k])=>{const el=document.getElementById(id);
+  el.addEventListener('input',()=>{el.dataset.tocado='1';SHOW[k]=el.value.trim();guardarShow();if(el.getAttribute('aria-invalid')==='true'&&!errorDe(id))marcarError(id,'');});
+  if(id!=='sVision')el.addEventListener('blur',()=>{if(el.dataset.tocado)marcarError(id,errorDe(id));});});
+document.getElementById('sPlanner').addEventListener('change',e=>{SHOW.planner=e.target.checked;guardarShow();});
+document.getElementById('sEnviar').addEventListener('click',()=>enviar('wa'));
+document.getElementById('sCorreoBtn').addEventListener('click',()=>enviar('mail'));
+
+/* Carrito del catalogo → paso 2 con lo que eligio y lo que escribio en el brief. */
+function seguirConShow(){
+  cart.forEach(id=>{if(!SHOW.servicios.includes(id))SHOW.servicios.push(id);});
+  const tipo=document.getElementById('bType').selectedIndex,mapa=[null,'bodas','empresas','noches','celebraciones','celebraciones','celebraciones',null];
+  if(!SHOW.ocasion&&mapa[tipo])SHOW.ocasion=mapa[tipo];
+  const f=document.getElementById('bDate').value;if(!SHOW.fecha&&f&&f>=hoyISO())SHOW.fecha=f;
+  const g=document.getElementById('bGuests').selectedIndex;if(!SHOW.invitados&&g>0)SHOW.invitados=RANGOS[g-1][0];
+  const ci=document.getElementById('bCity').value.trim();if(!SHOW.venue&&ci)SHOW.venue=ci;
+  if(!SHOW.entrada)SHOW.entrada='catalogo';SHOW.origen='servicios';guardarShow();
+  closeCart();irA('arma/fecha');}
+
 /* STORE grid */
 function renderShop(){
   const g=document.getElementById('shopGrid');
@@ -1479,6 +1872,8 @@ function backToMenu(){irA('menu');}
 /* Que vista pinta cada ruta: las del recorrido se resuelven aparte. */
 function vistaDe(r0,r1){
   if(r0==='arma'&&!r1)return 'view-arma';
+  if(r0==='arma'&&r1==='fecha')return 'view-fecha';
+  if(r0==='arma'&&r1==='show')return 'view-show';
   if(r0==='arma')return null;
   if(PAGINAS[r0]&&r1)return null;
   return RUTAS[r0]||null;}
@@ -1486,6 +1881,7 @@ function vistaDe(r0,r1){
 function titulo(){const base='SkyDancer Productions',[r0,r1]=rutaActual().split('/');
   let sec='';
   if(r0==='servicios'&&r1){const sv=SERVICES.find(x=>x.id===r1);if(sv)sec=sv.name[lang];}
+  else if(r0==='arma'&&r1)sec=t(r1==='fecha'?'paso.2':'paso.3')+' · '+t('menu.n1');
   else if(PAGINAS[r0])sec=PAGINAS[r0].titulo[lang];
   else if(CLAVE_NAV[r0])sec=t(CLAVE_NAV[r0]);
   document.title=sec?sec+' · '+base:base+' · '+t('hero.kicker');}
@@ -1509,12 +1905,19 @@ function pintarPaso1(){const v=document.getElementById('view-arma');
 /* Pinta la vista del recorrido que este activa (al entrar y al cambiar de idioma). */
 function pintarArma(){const [r0,r1]=rutaActual().split('/');
   if(r0==='arma'&&!r1)pintarPaso1();
+  else if(r0==='arma'&&r1==='fecha')pintarPaso2();
+  else if(r0==='arma'&&r1==='show')pintarPaso3();
   else if(PAGINAS[r0])pintarOcasion(r0);}
 
 function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const vista=vistaDe(r0,r1);
   if(r0&&r0!=='menu'&&!vista){location.replace('#/');return;}
-  if(esRecorrido(r0)&&!SHOW.entrada){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
+  const enPaso3=r0==='arma'&&r1==='show';
+  /* La confirmacion vive en el paso 3; al salir de ahi el recorrido empieza de cero. */
+  if(SHOW.enviado&&!enPaso3){SHOW.enviado=null;guardarShow();}
+  if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
+  if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
+  if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
   if(!r0){hideViews();closeMenu();document.body.classList.remove('no-scroll');window.scrollTo(0,0);}
   else if(r0==='menu'){hideViews();openMenu();}
   else{closeMenu();showView(vista);}
@@ -1540,7 +1943,7 @@ document.getElementById('cartFab').onclick=()=>{panel.classList.remove('done');p
 document.getElementById('cdBack').onclick=()=>document.getElementById('cartPanel').classList.remove('done');
 function closeCart(){panel.classList.remove('open');dim.classList.remove('on');}
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
-document.getElementById('cartWA').onclick=sendWA;document.getElementById('cartEmail').onclick=sendEmail;
+document.getElementById('cartWA').onclick=sendWA;document.getElementById('cartSeguir').onclick=seguirConShow;document.getElementById('cartEmail').onclick=sendEmail;
 
 let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1700);}
 /* ── VISOR DE COLECCIÓN ────────────────────────────────────────────────────

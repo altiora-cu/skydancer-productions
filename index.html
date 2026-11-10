@@ -1670,6 +1670,12 @@ function postLead(body){
   return ir(body).then(r=>{if(r.status===400&&body.services.length){const b2=Object.assign({},body);delete b2.services;return ir(b2).then(r2=>r2.ok);}return r.ok;}).catch(()=>false);}
 /* Un envio, dos destinos. Todo en el mismo clic y sin await antes de window.open:
    si no, el navegador lo trata como ventana emergente y la bloquea. */
+/* El resumen de lo que falta se rehace al escribir: si no, seguia nombrando
+   un campo que ya estaba lleno. Solo cambia si ya estaba a la vista. */
+function resumenFaltan(){const res=document.getElementById('sFalta');if(!res||res.hidden)return;
+  const faltan=['sNombre','sTel','sCorreo'].filter(id=>errorDe(id));
+  if(!faltan.length){res.hidden=true;return;}
+  res.textContent=t('e.resumen')+' '+faltan.map(id=>t('e.n.'+id)).join(', ')+'.';}
 function enviar(via){if(enviando)return;
   const ids=['sNombre','sTel','sCorreo'],faltan=[];
   ids.forEach(id=>{const e=errorDe(id);marcarError(id,e);if(e)faltan.push(id);});
@@ -1707,7 +1713,7 @@ document.getElementById('fVenue').addEventListener('input',e=>{SHOW.venue=e.targ
 document.getElementById('fSeguir').addEventListener('click',e=>{if(SHOW.ocasion)return;e.preventDefault();
   pedirOcas=true;pintarPaso2();const er=document.getElementById('fOcasErr');er.textContent=t('e.ocas');er.hidden=false;document.querySelector('#fOcasChips input').focus();});
 [['sNombre','nombre'],['sTel','tel'],['sCorreo','correo'],['sVision','vision']].forEach(([id,k])=>{const el=document.getElementById(id);
-  el.addEventListener('input',()=>{el.dataset.tocado='1';SHOW[k]=el.value.trim();guardarShow();if(el.getAttribute('aria-invalid')==='true'&&!errorDe(id))marcarError(id,'');});
+  el.addEventListener('input',()=>{el.dataset.tocado='1';SHOW[k]=el.value.trim();guardarShow();if(el.getAttribute('aria-invalid')==='true'&&!errorDe(id))marcarError(id,'');resumenFaltan();});
   if(id!=='sVision')el.addEventListener('blur',()=>{if(el.dataset.tocado)marcarError(id,errorDe(id));});});
 document.getElementById('sPlanner').addEventListener('change',e=>{SHOW.planner=e.target.checked;guardarShow();});
 document.getElementById('sEnviar').addEventListener('click',()=>enviar('wa'));

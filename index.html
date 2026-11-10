@@ -184,7 +184,15 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
 <meta property="og:locale" content="en_US" />
 <meta property="og:locale:alternate" content="es_US" />
 <meta name="twitter:card" content="summary_large_image" />
-<link rel="preload" as="image" href="video%20banner/skydancer-poster.jpg" fetchpriority="high" />
+<script>
+/* Precarga de la imagen mas grande de la primera vista: el poster del reel en la
+   portada, la foto del arco en una pagina de ocasion (la pinta el JS, asi que el
+   navegador la descubria tarde: era el LCP de #/bodas). */
+(function(){var r=(location.hash||'').replace(/^#\/?/,'').split('/')[0],
+  f={bodas:'champagne',empresas:'robot',noches:'drummer',celebraciones:'fire',planners:'dancers'}[r],
+  h=f?'assets/services/'+f+'.jpg':(!r?'video%20banner/skydancer-poster.jpg':''),l;
+  if(!h)return;l=document.createElement('link');l.rel='preload';l.as='image';l.href=h;l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -263,6 +271,11 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .hero{align-items:flex-end;justify-content:flex-start}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(5,4,10,.5) 38%,rgba(5,4,10,.92))}
 .hero-inner{position:relative;z-index:5;width:100%;max-width:1312px;margin:0 auto;text-align:left;padding:0 var(--gut) 44px}
+.hero-inner{transition:visibility 0s}
+/* Con una vista abierta el texto del hero queda detras: se oculta (no el reel) para que
+   el cambio de fuente no cuente como salto de contenido. Tras el fundido de la vista. */
+body.no-scroll .hero-inner{visibility:hidden;transition:visibility 0s .45s}
+body.carga .hero-inner{transition:none}
 .hero-h1{margin:0;max-width:24ch;font-family:'Cinzel',Georgia,serif;font-weight:500;font-size:clamp(27px,3.9vw,58px);line-height:1.08;letter-spacing:.005em;color:var(--ink);text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .hero-h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.08em;letter-spacing:0;color:#f6e0a0}
 .hero-proof{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;line-height:1.5;color:rgba(244,240,255,.88);text-shadow:0 2px 12px rgba(0,0,0,.6);opacity:0;animation:rise .8s .25s forwards}
@@ -1513,7 +1526,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
   document.getElementById('ocBody').innerHTML=`
     <section class="oc-gancho"><div class="aw">
       <div><p class="a-eyebrow">${L(P.k)}</p><h1 id="ocT">${L(P.h1)}</h1>${P.lead?`<p class="lead">${L(P.lead)}</p>`:''}</div>
-      <figure class="ph"><div class="arch"><img src="assets/services/${P.foto}.jpg" alt="${esc(L(P.pie))}"></div><figcaption>${L(P.pie)}</figcaption></figure>
+      <figure class="ph"><div class="arch"><img src="assets/services/${P.foto}.jpg" alt="${esc(L(P.pie))}" fetchpriority="high"></div><figcaption>${L(P.pie)}</figcaption></figure>
     </div></section>
     ${moms}
     ${hayPrueba?`<section class="oc-prueba"><div class="aw"><div class="proof${P.hueco?'':' solo'}">
@@ -2097,6 +2110,7 @@ if(VISTA_PREVIA){const q=new URLSearchParams(location.search),d=q.get('demo'),ql
     if(d==='confirmacion')SHOW.enviado={via:'wa',ok:true};if(d==='sinpanel')SHOW.enviado={via:'wa',ok:false};
     guardarShow();}
   if(d||ql)history.replaceState(null,'',location.pathname+location.hash);}
+document.body.classList.add('carga');requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.remove('carga')));
 applyLang();
 /* Un enlace compartido tiene que abrir donde apunta, no en la home. Se aplica sin
    tocar el hash para no meter una entrada de historial en la primera carga. */

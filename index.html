@@ -9,6 +9,7 @@
    archivo, asi que aqui se pasa la ruta al hash ANTES de que el navegador pida
    un solo recurso: con /bodas/ las rutas relativas (fotos, video) se romperian.
    No es SEO: Google sigue viendo una sola pagina. */
+window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/\.localhost$/.test(location.hostname);
 (function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues)$/);
   if(m&&!location.hash){history.replaceState(null,'','/#/'+(m[1]==='planners-y-venues'?'planners':m[1]));}})();
 </script>
@@ -918,7 +919,7 @@ body.en-arma .cart-fab{display:none}
   <button class="hero-motion" id="heroMotion" type="button"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg><span class="sr-only" data-i18n="hero.pause">Pause background video</span></button>
   <div class="hero-inner">
     <h1 class="hero-h1" data-i18n-html="hero.h1">Hora Loca, LED robots, fire and live dancers for Miami events, <em>directed by Liana del Toro</em></h1>
-    <p class="hero-proof"><span data-i18n="cred.1">Art Basel Miami, 3 years running</span><span data-i18n="cred.2">Kaseya Center, 18,000+</span><span>SLS Miami Beach</span></p>
+    <p class="hero-proof"><span data-i18n="cred.h">The team has performed at SLS Miami Beach, the Sagamore and the National Hotel</span></p>
     <div class="hero-cta">
       <a class="hc hc-1" href="#/arma" data-entrada="portada" data-i18n="hero.cta1">Build your show</a>
       <a class="hc hc-2" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span>WhatsApp +1 786-992-4543</span></a>
@@ -965,12 +966,14 @@ body.en-arma .cart-fab{display:none}
           <div class="lang-en">
             <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
             <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
-            <p>She has performed with internationally renowned artists including <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal, Timbalive</span> and many others, and has been part of productions at the Kaseya Center, performing before audiences of more than 18,000 people.</p>
+            <p>She has danced in shows and videos for <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal and Timbalive</span>.<span class="pv"> <span class="dato">[which ones can be proven: Liana to confirm]</span></span></p>
+            <p class="pv">Liana was part of the production of <span class="dato">[artist and year: Liana to confirm]</span>'s concert at the Kaseya Center.</p>
           </div>
           <div class="lang-es" hidden>
             <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
             <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
-            <p>Ha actuado con artistas de renombre internacional como <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal, Timbalive</span> y muchos otros, y ha sido parte de producciones en el Kaseya Center, actuando ante audiencias de más de 18,000 personas.</p>
+            <p>Ha bailado en shows y videos de <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal y Timbalive</span>.<span class="pv"> <span class="dato">[cuáles se pueden probar: dato de Liana]</span></span></p>
+            <p class="pv">Liana ha sido parte de la producción del concierto de <span class="dato">[artista y año: dato de Liana]</span> en el Kaseya Center.</p>
           </div>
         </div>
     </div>
@@ -988,11 +991,6 @@ body.en-arma .cart-fab{display:none}
         <h2 class="gold-text" data-i18n="about.title">Premium entertainment, unforgettable moments</h2>
         <p data-i18n="about.p1">SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.</p>
         <p data-i18n="about.p2">From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.</p>
-        <div class="stats">
-          <div class="stat glass"><b>3+</b><small data-i18n="about.s1">Years at Art Basel</small></div>
-          <div class="stat glass"><b>15+</b><small data-i18n="about.s2">Signature Services</small></div>
-          <div class="stat glass"><b>18K+</b><small data-i18n="about.s3">Audience · Kaseya Center</small></div>
-        </div>
       </div>
       <div class="about-media"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
     </div>
@@ -1000,10 +998,10 @@ body.en-arma .cart-fab{display:none}
     <div class="exp">
       <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
       <div class="acc" id="accordion">
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="trophy"></span><span data-i18n="creds.c1t">Featured Events</span><span class="ac">+</span></button><div class="acc-panel"><ul><li data-i18n="creds.c1a">Art Basel Miami — 3 consecutive years</li><li>Sagamore Hotel Miami Beach</li><li>National Hotel Miami Beach</li><li>SLS Hotel Miami Beach</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="glass"></span><span data-i18n="creds.c2t">Restaurants &amp; Nightlife</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Giselle Miami</li><li>Kuba Cabana</li><li>Wet Brickell</li><li>Casa Ya'X</li><li>MAÜ Miami</li><li>The Moon Wynwood</li><li>Villa Azur Miami Beach</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="masks"></span><span data-i18n="creds.c3t">Theater Productions</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>La Scala Miami</li><li>Flamingo Theater Bar</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="film"></span><span data-i18n="creds.c4t">Music Videos &amp; TV</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>El Chacal</li><li>Micha</li><li>Timbalive</li><li data-i18n="creds.c4a">Cuban bands &amp; live TV shows</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="trophy"></span><span data-i18n="creds.c1t">Hotels where the team has performed</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Sagamore Hotel Miami Beach</li><li>National Hotel Miami Beach</li><li>SLS Hotel Miami Beach</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="glass"></span><span data-i18n="creds.c2t">Restaurants and nightlife where the team has performed</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Giselle Miami</li><li>Kuba Cabana</li><li>Wet Brickell</li><li>Casa Ya'X</li><li>MAÜ Miami</li><li>The Moon Wynwood</li><li>Villa Azur Miami Beach</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="masks"></span><span data-i18n="creds.c3t">Theater: has performed at</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>La Scala Miami</li><li>Flamingo Theater Bar</li></ul></div></div>
+        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="film"></span><span data-i18n="creds.c4t">Music videos and TV Liana has danced in</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>El Chacal</li><li>Micha</li><li>Timbalive</li><li data-i18n="creds.c4a">Cuban bands &amp; live TV shows</li></ul></div></div>
       </div>
     </div>
     <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
@@ -1143,7 +1141,7 @@ body.en-arma .cart-fab{display:none}
       <label class="checkrow"><input type="checkbox" id="sPlanner"><span data-i18n="s.planner">I'm planning this event for a client (planner or venue)</span></label>
       <div class="hp" aria-hidden="true"><label for="sWebsite">Website</label><input id="sWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <div class="send">
-        <p class="pr"><span data-i18n="cred.1">Art Basel Miami, 3 years running</span><span>Sagamore</span><span>National</span><span>SLS Miami Beach</span></p>
+        <p class="pr" data-i18n="cred.s">Has performed at the Sagamore, National Hotel and SLS Miami Beach</p>
         <p class="m" data-i18n="s.linea">Liana prepares every quote by hand. Asking costs nothing and commits you to nothing.</p>
         <p class="ferr resumen" id="sFalta" role="alert" hidden></p>
         <div class="row"><button type="button" class="a-btn a-pri" id="sEnviar"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/></svg><span>Send to Liana on WhatsApp</span></button><button type="button" class="alt" id="sCorreoBtn" data-i18n="s.correo">Send by email</button></div>
@@ -1258,6 +1256,8 @@ const ICONS={
  check:'<path d="M4.5 12.4 9.4 17.3 19.5 7.2"/>',
  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
 };
+/* Lo marcado .pv solo existe en vista previa: fuera de local se retira del DOM antes de pintar. */
+if(!window.SDP_VISTA)document.querySelectorAll('.pv').forEach(e=>e.remove());
 const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.custom}</svg>`;
 /* Barra de las vistas de «Arma tu show»: logo a la portada, pasos, idioma y menu.
    Se inyecta antes de enlazar [data-openmenu] para que el boton nazca vivo. */
@@ -1288,12 +1288,12 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.proof':'Art Basel ×3 · Kaseya Center, 18,000+ · SLS Miami Beach','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
   'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
   'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
-  'about.eyebrow':'About the Company','about.title':'Premium entertainment, unforgettable moments','about.p1':'SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.','about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.','about.s1':'Years at Art Basel','about.s2':'Signature Services','about.s3':'Audience · Kaseya Center',
-  'creds.eyebrow':'Our Experience','creds.title':'Tap each section to explore','creds.sub':'A track record across luxury venues, festivals, theaters and television productions.','creds.c1t':'Featured Events','creds.c1a':'Art Basel Miami — 3 consecutive years','creds.c2t':'Restaurants & Nightlife','creds.c3t':'Theater Productions','creds.c4t':'Music Videos & TV','creds.c4a':'Cuban bands & live TV shows',
+  'about.eyebrow':'About the Company','about.title':'Premium entertainment, unforgettable moments','about.p1':'SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.','about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
+  'creds.eyebrow':'Our Experience','creds.title':'Tap each section to explore','creds.sub':'A track record across luxury venues, festivals, theaters and television productions.','creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
   'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
   'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
@@ -1302,12 +1302,12 @@ const I18N={
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
   'cart.title':'Your event','cart.hint':'Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.','cart.wa':'Send via WhatsApp','cart.email':'Send via Email','brief.title':'Tell us about the night','brief.sub':'The more you tell us, the faster Liana can quote it. Nothing here is required.','brief.type':'Event type','brief.choose':'Choose…','brief.t1':'Wedding','brief.t2':'Corporate','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Private party','brief.t6':'Festival','brief.t7':'Something else','brief.date':'Date','brief.city':'City or venue','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Guests','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more','brief.picked':'You picked','brief.none':'No services picked yet — tell us anyway and Liana will suggest.','brief.doneT':'Your brief is on its way','brief.doneS':'We opened WhatsApp with everything filled in. If it did not open, write to us here:','brief.doneE':'We opened your email app with everything filled in. If it did not open, write to us here:','brief.back':'Back to my event',
   'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Nothing here yet. Add the services you are curious about.','ui.added':'Added to your event','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.proof':'Art Basel ×3 · Kaseya Center, 18.000+ · SLS Miami Beach','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
   'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
   'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
-  'about.eyebrow':'Sobre la Compañía','about.title':'Entretenimiento premium, momentos inolvidables','about.p1':'SkyDancer Productions es una compañía de entretenimiento de lujo con base en Miami que ofrece performers de clase mundial, shows coreografiados y experiencias inmersivas para los eventos más exclusivos del sur de la Florida.','about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.','about.s1':'Años en Art Basel','about.s2':'Servicios Insignia','about.s3':'Público · Kaseya Center',
-  'creds.eyebrow':'Nuestra Experiencia','creds.title':'Toca cada sección para explorar','creds.sub':'Trayectoria en venues de lujo, festivales, teatros y producciones de televisión.','creds.c1t':'Eventos Destacados','creds.c1a':'Art Basel Miami — 3 años consecutivos','creds.c2t':'Restaurantes y Nightlife','creds.c3t':'Producciones de Teatro','creds.c4t':'Videos Musicales y TV','creds.c4a':'Bandas cubanas y shows de TV en vivo',
+  'about.eyebrow':'Sobre la Compañía','about.title':'Entretenimiento premium, momentos inolvidables','about.p1':'SkyDancer Productions es una compañía de entretenimiento de lujo con base en Miami que ofrece performers de clase mundial, shows coreografiados y experiencias inmersivas para los eventos más exclusivos del sur de la Florida.','about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
+  'creds.eyebrow':'Nuestra Experiencia','creds.title':'Toca cada sección para explorar','creds.sub':'Trayectoria en venues de lujo, festivales, teatros y producciones de televisión.','creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
   'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
   'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
@@ -1321,7 +1321,7 @@ const I18N={
 /* «Arma tu show»: textos nuevos. Copy de la decision del 9/11/2026, seccion 7. */
 Object.assign(I18N.en,{
  'hero.h1':'Hora Loca, LED robots, fire and live dancers for Miami events, <em>directed by Liana del Toro</em>',
- 'cred.1':'Art Basel Miami, 3 years running','cred.2':'Kaseya Center, 18,000+',
+ 'cred.h':'The team has performed at SLS Miami Beach, the Sagamore and the National Hotel','cred.s':'Has performed at the Sagamore, National Hotel and SLS Miami Beach',
  'hero.cta1':'Build your show','hero.s1':'Your event: wedding, brand, club…','hero.s2':'Date and county','hero.s3':'Your show, sent to Liana on WhatsApp',
  'menu.n1':'Build your show','menu.n2':'Services','menu.n3':'Liana and the team','menu.n4':'Gallery','menu.n5':'Planners and venues','menu.n6':'Contact',
  'arma.k':'Build your show','arma.t':'What are we building the show for?','arma.go':'See a sample show →',
@@ -1331,7 +1331,7 @@ Object.assign(I18N.en,{
  'oc.noche':'Sample night','oc.marcado':'Checked in your show','oc.otras':'Other occasions'});
 Object.assign(I18N.es,{
  'hero.h1':'Hora Loca, robots LED, fuego y bailarines en vivo para eventos en Miami, <em>dirigidos por Liana del Toro</em>',
- 'cred.1':'Art Basel Miami, 3 años seguidos','cred.2':'Kaseya Center, 18.000+',
+ 'cred.h':'El equipo ha actuado en SLS Miami Beach, Sagamore y National Hotel','cred.s':'Ha actuado en Sagamore, National Hotel y SLS Miami Beach',
  'hero.cta1':'Arma tu show','hero.s1':'Tu evento: boda, marca, club…','hero.s2':'Fecha y condado','hero.s3':'Tu show, enviado a Liana por WhatsApp',
  'menu.n1':'Arma tu show','menu.n2':'Servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería','menu.n5':'Planners y venues','menu.n6':'Contacto',
  'arma.k':'Arma tu show','arma.t':'¿Para qué evento armamos el show?','arma.go':'Ver un show de ejemplo →',
@@ -1397,7 +1397,7 @@ const badgeHtml=s=>s.price>0?`<span class="prod-badge">${t('ui.from')} ${money(s
    linea o el bloque sin su dato no se pinta: nunca sale un «[dato de Liana]» publicado.
    Se decide por el host y no por un parametro, para que un enlace compartido con
    ?vista=1 no los destape. */
-const VISTA_PREVIA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/\.localhost$/.test(location.hostname);
+const VISTA_PREVIA=!!window.SDP_VISTA;
 const dato=(es,en)=>VISTA_PREVIA?{es:`<span class="dato">[${es}dato de Liana]</span>`,en:`<span class="dato">[${en}Liana to confirm]</span>`}:null;
 const VIAJE={es:'Viaje: sin cargo en Miami-Dade · puede aplicar en Broward y Palm Beach · resto de Florida cotizado por ubicación · fuera del estado, transporte y alojamiento aparte.',
   en:'Travel: no fee in Miami-Dade · may apply in Broward and Palm Beach · rest of Florida quoted by location · out of state, transport and lodging separate.'};
@@ -1424,8 +1424,8 @@ const PAGINAS={
  empresas:{ocas:'empresas',foto:'robot',nk:{es:'Evento de ejemplo',en:'Sample event'},pie:{es:'Show de Robots LED',en:'LED Robot Show'},
   corto:{es:'Empresas',en:'Companies'},titulo:{es:'Empresas y marcas',en:'Companies and brands'},
   k:{es:'Empresas y marcas · Miami',en:'Companies and brands · Miami'},
-  h1:{es:'<span class="cz">Activaciones de marca</span> y eventos de empresa en Miami, con el equipo que actuó tres años seguidos en Art Basel Miami',
-      en:'<span class="cz">Brand activations</span> and corporate events in Miami, from the team that performed at Art Basel Miami three years running'},
+  h1:{es:'<span class="cz">Activaciones de marca</span> y eventos de empresa en Miami, con Anfitrionas de Lujo, Show de Robots LED y Experiencia Photobooth dirigidos por Liana del Toro',
+      en:'<span class="cz">Brand activations</span> and corporate events in Miami, with Luxury Greeters, an LED Robot Show and a Photobooth Experience directed by Liana del Toro'},
   lead:{es:'Anfitrionas vestidas con la paleta de tu marca, Show de Robots LED para la apertura y Experiencia Photobooth con tu marca. Con Coordinación de Entretenimiento, SkyDancer coordina a cada performer durante el evento.',
         en:'Greeters dressed in your brand palette, an LED Robot Show for the opening and a branded Photobooth Experience. With Event Entertainment Coordination, SkyDancer coordinates every performer during the event.'},
   h2:{es:'Llegada, apertura y evento: los cuatro servicios que ya van marcados en tu show',en:'Arrival, opening and event: the four services already checked in your show'},
@@ -1434,8 +1434,8 @@ const PAGINAS={
        {h:{es:'Apertura',en:'Opening'},s:'robot',p:{es:'Show de Robots LED para abrir el evento.',en:'An LED Robot Show to open the event.'}},
        {h:{es:'Durante el evento',en:'During the event'},s:'photobooth',p:{es:'Experiencia Photobooth con tu marca.',en:'A branded Photobooth Experience.'}}],
   extra:{es:'También marcado: <b>Coordinación de Entretenimiento</b> · SkyDancer coordina a cada performer durante el evento.',en:'Also checked: <b>Event Entertainment Coordination</b> · SkyDancer coordinates every performer during the event.'},
-  pk:{es:'Antes de pedir tu propuesta',en:'Before you request your proposal'},ph2:{es:'Producciones en el Kaseya Center ante más de 18.000 personas.',en:'Productions at the Kaseya Center before more than 18,000 people.'},
-  lista:[['Art Basel Miami',{es:'3 años seguidos',en:'3 years running'}],['Kaseya Center',{es:'18.000+',en:'18,000+'}]],
+  pk:{es:'Antes de pedir tu propuesta',en:'Before you request your proposal'},ph2:{es:'Hoteles donde ha actuado el equipo',en:'Hotels where the team has performed'},
+  lista:[['Sagamore Hotel','Miami Beach'],['National Hotel','Miami Beach'],['SLS Hotel','Miami Beach']],
   datos:[dato('empresas o marcas que se puedan nombrar: ','companies or brands we can name: ')],hueco:null,
   cta:{es:'Pedir la propuesta para mi evento',en:'Request my event proposal'},
   paso:{es:'Sigue con la fecha y el condado; los cuatro servicios ya van marcados.',en:'Next: date and county. The four services are already checked.'},
@@ -1443,8 +1443,8 @@ const PAGINAS={
  noches:{ocas:'noches',foto:'drummer',pie:{es:'Baterista en Vivo',en:'Live Drummer'},
   corto:{es:'Noches',en:'Nights'},titulo:{es:'Clubs, restaurantes y hoteles',en:'Clubs, restaurants and hotels'},
   k:{es:'Clubs, restaurantes y hoteles · Miami',en:'Clubs, restaurants and hotels · Miami'},
-  h1:{es:'<span class="cz">Noches con show</span> para tu club, restaurante u hotel, con el equipo que ha trabajado en Giselle, Wet Brickell y Villa Azur',
-      en:'<span class="cz">Show nights</span> for your club, restaurant or hotel, from the team that has worked Giselle, Wet Brickell and Villa Azur'},
+  h1:{es:'<span class="cz">Noches con show</span> para tu club, restaurante u hotel, con el equipo que ha actuado en Giselle, Wet Brickell y Villa Azur',
+      en:'<span class="cz">Show nights</span> for your club, restaurant or hotel, from the team that has performed at Giselle, Wet Brickell and Villa Azur'},
   lead:{es:'Gogo Dancers, Espectáculo de Fuego dentro de las normas de tu local y Baterista en Vivo junto a tu DJ. Si vuelves a reservar con nosotros, tienes 10 % de descuento como cliente recurrente.',
         en:'Gogo Dancers, a Fire Performer within your venue\'s rules and a Live Drummer alongside your DJ. If you book with us again, you get 10% off as a returning client.'},
   h2:{es:'Pista, fuego y DJ: los tres servicios que ya van marcados en tu show',en:'Floor, fire and DJ: the three services already checked in your show'},
@@ -1453,9 +1453,9 @@ const PAGINAS={
        {h:{es:'El fuego',en:'The fire'},s:'fire',p:{es:'Espectáculo de Fuego dentro de las normas de tu local.',en:'A Fire Performer within your venue\'s rules.'}},
        {h:{es:'Junto al DJ',en:'With the DJ'},s:'drummer',p:{es:'Baterista en Vivo junto a tu DJ.',en:'A Live Drummer alongside your DJ.'}}],
   extra:null,
-  pk:{es:'Antes de armar tus noches',en:'Before you plan your nights'},ph2:{es:'Locales donde ha trabajado el equipo',en:'Venues the team has worked'},
+  pk:{es:'Antes de armar tus noches',en:'Before you plan your nights'},ph2:{es:'Locales donde ha actuado el equipo',en:'Venues where the team has performed'},
   lista:[['Giselle','Miami'],['Wet Brickell','Brickell'],['Villa Azur','Miami Beach']],
-  datos:[{es:'También Kuba Cabana, Casa Ya\'X, MAÜ Miami y The Moon Wynwood; en hoteles, Sagamore, National y SLS Miami Beach.',en:'Also Kuba Cabana, Casa Ya\'X, MAÜ Miami and The Moon Wynwood; in hotels, Sagamore, National and SLS Miami Beach.'}],hueco:null,
+  datos:[{es:'También ha actuado en Kuba Cabana, Casa Ya\'X, MAÜ Miami y The Moon Wynwood; en hoteles, en Sagamore, National y SLS Miami Beach.',en:'It has also performed at Kuba Cabana, Casa Ya\'X, MAÜ Miami and The Moon Wynwood; in hotels, at the Sagamore, the National and SLS Miami Beach.'}],hueco:null,
   cta:{es:'Armar mis noches',en:'Plan my show nights'},
   paso:{es:'Sigue con la fecha de la primera noche y el condado; los tres servicios ya van marcados.',en:'Next: the date of the first night and the county. The three services are already checked.'},
   wa:{es:'Hola Liana, quiero armar noches con show para mi local.',en:'Hi Liana, I would like to plan show nights for my venue.'}},

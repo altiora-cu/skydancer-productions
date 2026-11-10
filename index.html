@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<script>
+/* Enlaces cortos de Instagram: /bodas, /empresas, /noches, /celebraciones y
+   /planners-y-venues. Pages sirve este mismo index.html para cualquier ruta sin
+   archivo, asi que aqui se pasa la ruta al hash ANTES de que el navegador pida
+   un solo recurso: con /bodas/ las rutas relativas (fotos, video) se romperian.
+   No es SEO: Google sigue viendo una sola pagina. */
+(function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues)$/);
+  if(m&&!location.hash){history.replaceState(null,'','/#/'+(m[1]==='planners-y-venues'?'planners':m[1]));}})();
+</script>
 <title>SkyDancer Productions · Luxury Event Entertainment · Miami</title>
 <link rel="canonical" href="https://skydancer-productions.vercel.app/" />
 <!-- El sitio se sirve a la vez desde Vercel y desde GitHub Pages con el mismo contenido.
@@ -166,7 +175,7 @@
 <link rel="preload" as="image" href="video%20banner/skydancer-poster.jpg" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
 :root{
   --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
@@ -174,6 +183,7 @@
   --brand:linear-gradient(115deg,#ff2d78,#8b3bff 45%,#18e6d8);
   --glass:rgba(255,255,255,.055); --glass-brd:rgba(255,255,255,.14);
   --shadow:0 30px 80px -34px rgba(0,0,0,.85); --r:20px;
+  --gut:clamp(16px,4.4vw,64px);
   --cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 2.5l6.2 16.5 2.5-6.7 6.7-2.5z' fill='%23f6e0a0' stroke='%232b0f13' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2;
 }
 *{margin:0;padding:0;box-sizing:border-box;cursor:var(--cur),auto}
@@ -194,7 +204,7 @@ img{max-width:100%;display:block}
 .glass{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 
 /* TOP BAR */
-.topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:16px 22px;pointer-events:none;transition:opacity .3s}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;padding:16px var(--gut);pointer-events:none;transition:opacity .3s}
 .topbar>*{pointer-events:auto}
 body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
 .tb-logo{font-family:'Cinzel',serif;font-weight:900;letter-spacing:.16em;font-size:1rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55);transition:.3s}
@@ -235,29 +245,39 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .hero-motion .hm-play,.hero-motion.paused .hm-pause{display:none}
 .hero-motion.paused .hm-play{display:block}
 @media(max-width:600px){.hero-motion{right:12px;bottom:12px}}
-.hero-inner{position:relative;z-index:5;text-align:center;padding:0 20px}
-/* El .veil oscurece los bordes y deja el centro limpio, que es justo donde va el texto:
-   sobre los fotogramas claros del reel el h1 dorado desaparecia. Scrim local detras del
-   bloque de texto, suave para no tapar la imagen alrededor. */
-.hero-inner::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;transform:translate(-50%,-50%);width:min(820px,132%);height:132%;pointer-events:none;background:radial-gradient(58% 50% at 50% 50%,rgba(5,4,10,.74),rgba(5,4,10,.46) 56%,transparent 80%)}
-/* El hero tenia un solo control (MENU) y ninguna via a reservar. Tres acciones con
-   jerarquia real: un solo primario, WhatsApp secundario, el menu degradado a ruta
-   alterna. Todas con area tactil de 44px o mas. */
-.hero-h1{margin:12px 0 0}
-.hero-proof{margin:15px auto 0;max-width:34ch;color:rgba(244,240,255,.8);font-size:.78rem;line-height:1.55;text-shadow:0 2px 12px rgba(0,0,0,.65);opacity:0;animation:rise 1s .75s forwards}
-.hero-cta{margin-top:28px;display:flex;flex-direction:column;align-items:stretch;gap:11px;opacity:0;animation:rise 1s .95s forwards}
-.hc{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:50px;padding:14px 26px;border-radius:999px;font-family:inherit;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem;text-decoration:none;cursor:var(--cur),pointer;transition:transform .3s,background .3s,border-color .3s}
+/* Portada de «Arma tu show» (9/11/2026). El h1 pasa de etiqueta (11,52 px) a titular:
+   27-58 px, abajo a la izquierda sobre el reel, con un solo primario, WhatsApp en
+   contorno y el menu como fantasma. La portada sigue sin scroll: todo en un viewport. */
+.hero{align-items:flex-end;justify-content:flex-start}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:78%;z-index:2;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(5,4,10,.5) 38%,rgba(5,4,10,.92))}
+.hero-inner{position:relative;z-index:5;width:100%;max-width:1312px;margin:0 auto;text-align:left;padding:0 var(--gut) 44px}
+.hero-h1{margin:0;max-width:24ch;font-family:'Cinzel',Georgia,serif;font-weight:500;font-size:clamp(27px,3.9vw,58px);line-height:1.08;letter-spacing:.005em;color:var(--ink);text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.hero-h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.08em;letter-spacing:0;color:#f6e0a0}
+.hero-proof{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;line-height:1.5;color:rgba(244,240,255,.88);text-shadow:0 2px 12px rgba(0,0,0,.6);opacity:0;animation:rise .8s .25s forwards}
+.hero-proof>span{display:inline-flex;align-items:center;gap:8px}
+.hero-proof>span+span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold)}
+.hero-cta{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;opacity:0;animation:rise .8s .4s forwards}
+.hc{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 30px;border-radius:999px;font:700 16px/1.1 'Manrope',system-ui,sans-serif;letter-spacing:.01em;text-decoration:none;white-space:nowrap;cursor:var(--cur),pointer;transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s}
 .hc:focus-visible,.hero-cta .menu-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.hc-1{background:var(--gold-grad);color:#1a1206;border:0}
+.hc-1{background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 14px 40px -18px rgba(230,194,92,.7)}
 .hc-1:hover{transform:translateY(-2px)}
-.hc-2{background:rgba(12,8,22,.42);color:var(--ink);border:1px solid rgba(246,224,160,.5);backdrop-filter:blur(12px)}
+.hc-2{background:rgba(5,4,10,.35);color:var(--ink);border:1px solid rgba(246,224,160,.45);padding:0 24px}
 .hc-2:hover{border-color:var(--gold);background:rgba(12,8,22,.66)}
-.hc-2 .svg-wrap .svg-ic{width:17px;height:17px}
-/* El menu conserva su marcado y sus barras, pero pierde el peso de boton principal. */
-.hero-cta .menu-btn{margin-top:0;animation:none;opacity:1;background:none;border:0;backdrop-filter:none;color:rgba(244,240,255,.74);padding:13px 22px;min-height:44px;letter-spacing:.24em}
+.hc-2 .svg-wrap .svg-ic{width:18px;height:18px}
+.hero-cta .menu-btn{margin:0;min-height:48px;padding:0 14px;gap:10px;opacity:1;animation:none;background:none;border:0;backdrop-filter:none;box-shadow:none;font:700 14px/1 'Manrope',system-ui,sans-serif;letter-spacing:.14em;color:#e6dff2}
+.hero-cta .menu-btn::before{display:none}
 .hero-cta .menu-btn:hover{color:var(--gold)}
-@media(min-width:620px){.hero-cta{flex-direction:row;justify-content:center;flex-wrap:wrap;gap:13px}.hero-proof{max-width:none}}
-.hero .kicker{opacity:0;animation:rise 1s .3s forwards}
+.hero-cta .menu-btn .bars span{width:16px}
+.hero-steps{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 22px;list-style:none;font-size:14px;color:var(--muted)}
+.hero-steps b{margin-right:6px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:19px;color:#f6e0a0}
+@media(max-width:900px){
+  .hero-inner{padding-bottom:28px}
+  .hero-proof{font-size:16px;gap:4px 14px;margin-top:14px}
+  .hero-cta{margin-top:20px;gap:10px}
+  .hc-1{width:100%}
+  .hc-2{flex:1}
+  .hero-steps{display:none}
+}
 .logo3d{margin:14px 0 8px;perspective:900px}
 .logo3d .line{font-family:'Cinzel',serif;font-weight:900;text-transform:uppercase;transform-style:preserve-3d;animation:float3d 7s ease-in-out infinite}
 .logo3d .sky{display:block;font-size:clamp(3rem,13vw,9rem);letter-spacing:.02em;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 rgba(120,90,20,.35)) drop-shadow(0 14px 30px rgba(0,0,0,.55));position:relative}
@@ -511,6 +531,7 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .cart-fab{position:fixed;bottom:26px;right:26px;z-index:80;width:64px;height:64px;border-radius:50%;background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);display:grid;place-items:center;transition:.4s;transform:translateY(120px)}
 .cart-fab .svg-ic{width:26px;height:26px;stroke:#1a1206}
 .cart-fab.show{transform:none}
+body.en-arma .cart-fab{display:none}
 .cart-fab .count{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#ff2d78;color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 6px;border:2px solid var(--bg)}
 .cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:110;background:#0b0813;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s cubic-bezier(.5,0,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 80px -30px rgba(0,0,0,.9)}
 .cart-panel.open{transform:none}
@@ -605,6 +626,87 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
   .founder-bio p{font-size:.86rem}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
+/* ===== ARMA TU SHOW (9/11/2026) =====================================================
+   Paso 1 (ocasion), paginas de ocasion y pasos 2 y 3. Mismos tokens del sitio (noche,
+   oro, Cinzel, Manrope) con Cormorant italica como voz de acento y papel marfil para
+   la prueba. Toques de 44 px o mas; cuerpo de 16 px o mas en movil. */
+.view.arma{background:var(--bg);font-size:16px;line-height:1.55;
+  --bg2:#0c0a12;--gold-hi:#f6e0a0;--ease:cubic-bezier(.22,1,.36,1);
+  --paper:#efe7da;--paper-ink:#1d1114;--paper-mut:#5f4f48;--paper-gold:#8a6516;--rule:rgba(29,17,20,.18);
+  --ok:#7fd6a3;--ok-bg:rgba(127,214,163,.10);--wait:#f2c46b;--wait-bg:rgba(242,196,107,.10);--bad:#ff9b8a;--bad-bg:rgba(255,155,138,.10)}
+.aw{width:100%;max-width:1312px;margin:0 auto;padding:0 var(--gut)}
+.arma-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:10px 18px;padding:12px var(--gut);border-bottom:1px solid var(--line);background:rgba(5,4,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ab-logo{display:inline-flex;align-items:center;min-height:44px;font-family:'Cinzel',serif;font-weight:900;letter-spacing:.16em;font-size:1rem;color:#fff}
+.ab-logo .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ab-r{display:flex;gap:6px;align-items:center}
+.arma-bar .lang{padding:2px}
+.arma-bar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.ab-menu{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 10px;background:none;border:0;color:#e6dff2;font:700 13px/1 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:var(--cur),pointer}
+.ab-menu .svg-ic{width:18px;height:18px}
+.ab-menu:hover{color:var(--gold)}
+.ab-logo:focus-visible,.ab-menu:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.steps{display:flex;align-items:center;gap:8px;list-style:none;font-size:14px;color:var(--muted)}
+.steps li{display:flex;align-items:center;gap:8px;white-space:nowrap}
+.steps li+li::before{content:"";width:24px;height:1px;background:var(--line)}
+.steps .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);font-weight:700;font-size:13px}
+.steps .done .n{background:rgba(230,194,92,.16);border-color:var(--gold);color:var(--gold-hi)}
+.steps .now{color:var(--ink);font-weight:700}
+.steps .now .n{background:var(--gold-grad);border:0;color:#1a1206}
+.steps .val{color:var(--gold-hi);font-weight:600}
+.stepm{display:none;order:3;width:100%;font-size:15px;color:var(--muted)}
+.stepm b{color:var(--ink)}
+.prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.06)}
+.prog i{display:block;height:100%;width:0;background:var(--gold-grad);transition:width .5s var(--ease)}
+.a-main{padding:44px 0 88px}
+.a-eyebrow{font:700 12px/1.3 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.a-h1{margin-top:12px;max-width:26ch;font-family:'Cinzel',serif;font-weight:500;font-size:clamp(28px,3.2vw,46px);line-height:1.12;letter-spacing:.005em}
+.a-sub{margin-top:12px;max-width:62ch;color:var(--muted);font-size:17px}
+.a-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 30px;border-radius:999px;font:700 16px/1.15 'Manrope',sans-serif;letter-spacing:.01em;text-align:center;text-decoration:none;cursor:var(--cur),pointer;transition:transform .3s var(--ease),border-color .3s,background .3s}
+.a-btn .svg-ic{width:18px;height:18px}
+.a-pri{background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 14px 40px -18px rgba(230,194,92,.7)}
+.a-pri:hover{transform:translateY(-2px)}
+.a-ghost{background:rgba(5,4,10,.3);color:var(--ink);border:1px solid rgba(246,224,160,.45)}
+.a-ghost:hover{border-color:var(--gold)}
+.a-btn:focus-visible,.a-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.a-btn[disabled]{opacity:.65;cursor:progress;transform:none}
+.a-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:700;color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(246,224,160,.45);text-underline-offset:5px;background:none;border:0;font-family:inherit;font-size:16px;cursor:var(--cur),pointer}
+.a-link:hover{text-decoration-color:var(--gold)}
+.dato{display:inline-block;padding:1px 8px;border:1px dashed var(--gold);border-radius:6px;color:var(--gold-hi);font-weight:600;font-size:.88em;background:rgba(230,194,92,.08)}
+.a-note{margin-top:20px;max-width:62ch;padding:14px 18px;border-radius:14px;border:1px solid rgba(246,224,160,.35);background:rgba(230,194,92,.08);color:#f1e3bb}
+/* Paso 1: cada tarjeta es la accion */
+.occ-grid{margin-top:32px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.occ{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;border:1px solid var(--glass-brd);background:rgba(255,255,255,.035);transition:border-color .3s,transform .4s var(--ease)}
+.occ:hover{border-color:rgba(246,224,160,.55);transform:translateY(-4px)}
+.occ:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.occ .ph{margin:14px 14px 0;aspect-ratio:4/4.3;overflow:hidden;border-radius:200px 200px 12px 12px;background:#120e1c}
+.occ .ph img{width:100%;height:100%;object-fit:cover}
+.occ .tx{flex:1;display:flex;flex-direction:column;gap:8px;padding:16px 18px 20px}
+.occ b{font-family:'Cinzel',serif;font-weight:700;font-size:19px;line-height:1.2;letter-spacing:.02em}
+.occ .ln{font-size:16px;color:#d7cfe6}
+.occ .go{margin-top:auto;padding-top:6px;font-weight:700;font-size:15px;color:var(--gold-hi)}
+.a-links{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px}
+.about-cta{margin-top:44px}
+@media(max-width:1100px){.occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){
+  .steps{display:none}
+  .stepm{display:block}
+  .arma-bar{flex-wrap:wrap;row-gap:2px;padding:8px var(--gut) 10px}
+  .a-main{padding:26px 0 64px}
+  .a-sub{font-size:16px}
+}
+@media(max-width:560px){
+  .occ-grid{grid-template-columns:1fr;gap:12px;margin-top:24px}
+  .occ{flex-direction:row}
+  .occ .ph{flex:none;width:36%;margin:10px 0 10px 10px;aspect-ratio:auto;border-radius:120px 120px 12px 12px}
+  .occ .tx{padding:14px 14px 14px 16px;gap:6px}
+  .occ b{font-size:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  .arma *{transition:none!important}
+  /* La animacion de entrada parte de opacity:0; sin animacion el texto quedaba invisible. */
+  .hero-proof,.hero-cta{opacity:1;transform:none}
+}
+
 </style>
 </head>
 <body>
@@ -622,14 +724,14 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
   <div class="veil"></div><div class="glow"></div>
   <button class="hero-motion" id="heroMotion" type="button"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg><span class="sr-only" data-i18n="hero.pause">Pause background video</span></button>
   <div class="hero-inner">
-    <div class="hero-tag" data-i18n="hero.tag">Dancers · Greeters · Live Shows</div>
-    <h1 class="kicker eyebrow hero-h1" data-i18n="hero.kicker">Luxury Event Entertainment · Miami</h1>
-    <p class="hero-proof" data-i18n="hero.proof">Art Basel ×3 · Kaseya Center, 18,000+ · SLS Miami Beach</p>
+    <h1 class="hero-h1" data-i18n-html="hero.h1">Hora Loca, LED robots, fire and live dancers for Miami events, <em>directed by Liana del Toro</em></h1>
+    <p class="hero-proof"><span data-i18n="cred.1">Art Basel Miami, 3 years running</span><span data-i18n="cred.2">Kaseya Center, 18,000+</span><span>SLS Miami Beach</span></p>
     <div class="hero-cta">
-      <a class="hc hc-1" href="#/servicios" data-view="view-services" data-i18n="hero.cta1">See services &amp; pricing</a>
-      <a class="hc hc-2" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span aria-hidden="true">WhatsApp</span><span class="sr-only" data-i18n="hero.wa">WhatsApp us at +1 786-992-4543</span></a>
+      <a class="hc hc-1" href="#/arma" data-entrada="portada" data-i18n="hero.cta1">Build your show</a>
+      <a class="hc hc-2" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span>WhatsApp +1 786-992-4543</span></a>
       <button class="menu-btn" id="openMenu" aria-label="Open menu"><span class="bars"><span></span><span></span><span></span></span><span data-i18n="hero.menu">Menu</span></button>
     </div>
+    <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and county</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
   </div>
 </header>
 
@@ -651,10 +753,12 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
       </div>
       <div class="eyebrow" data-i18n="menu.explore">Explore</div>
       <nav class="menu-nav">
-        <a href="#/sobre" data-view="view-about"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="nav.about">About the Company</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/servicios" data-view="view-services"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="nav.services">Services &amp; Pricing</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/galeria" data-view="view-gallery"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="nav.gallery">Gallery &amp; Artists</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/contacto" data-view="view-contact"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="nav.contact">Contact &amp; Booking</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/arma"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="menu.n1">Build your show</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/servicios"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="menu.n2">Services</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/liana"><span class="ic" data-ic="trophy"></span><span class="txt" data-i18n="menu.n3">Liana and the team</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/galeria"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="menu.n4">Gallery</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/planners"><span class="ic" data-ic="coord"></span><span class="txt" data-i18n="menu.n5">Planners and venues</span><span class="go" data-ic="arrow"></span></a>
+        <a href="#/contacto"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="menu.n6">Contact</span><span class="go" data-ic="arrow"></span></a>
       </nav>
       <div class="menu-contact">
         <a href="tel:+17869924543"><span data-ic="phone"></span>+1 786-992-4543</a>
@@ -699,6 +803,7 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
       </div>
       <div class="about-media"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
     </div>
+    <div class="about-cta"><a class="hc hc-1" href="#/arma" data-entrada="liana" data-i18n="hero.cta1">Build your show</a></div>
     <div class="exp">
       <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
       <div class="acc" id="accordion">
@@ -784,6 +889,18 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
       </form>
     </div>
     <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span>© <span id="yr"></span> · <span data-i18n="foot.rights">All rights reserved.</span></span></div>
+  </div></div>
+</section>
+
+<!-- ARMA TU SHOW · PASO 1 -->
+<section class="view arma" id="view-arma" aria-labelledby="armaT">
+  <div class="arma-bar" data-armabar></div>
+  <div class="a-main"><div class="aw">
+    <p class="a-eyebrow" data-i18n="arma.k">Build your show</p>
+    <h1 class="a-h1" id="armaT" data-i18n="arma.t">What are we building the show for?</h1>
+    <p class="a-note" id="armaPlanner" hidden data-i18n="arma.planner">You are planning for a client: choose your client's occasion. In step 3 the box "I'm planning this for a client" will already be checked.</p>
+    <div class="occ-grid" id="occGrid"></div>
+    <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a><a class="a-link" href="#/servicios" data-i18n="arma.all">See the 15 services</a></div>
   </div></div>
 </section>
 
@@ -885,11 +1002,20 @@ const ICONS={
  film:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
  stack:'<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/>',
  chev:'<path d="M9 5l7 7-7 7"/>',
+ menu:'<path d="M5 8h14M5 12h14M5 16h14"/>',
  play:'<path d="M8 5.5v13l11-6.5z"/>',
  check:'<path d="M4.5 12.4 9.4 17.3 19.5 7.2"/>',
  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
 };
 const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[n]||ICONS.custom}</svg>`;
+/* Barra de las vistas de «Arma tu show»: logo a la portada, pasos, idioma y menu.
+   Se inyecta antes de enlazar [data-openmenu] para que el boton nazca vivo. */
+document.querySelectorAll('[data-armabar]').forEach(b=>{b.innerHTML=
+  `<a class="ab-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>`+
+  `<ol class="steps" data-pasos></ol>`+
+  `<div class="ab-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>`+
+  `<button class="ab-menu" type="button" data-openmenu>${svg('menu')}<span data-i18n="hero.menu">Menu</span></button></div>`+
+  `<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`;});
 document.querySelectorAll('[data-ic]').forEach(el=>el.innerHTML=svg(el.dataset.ic));
 
 const SERVICES=[
@@ -940,6 +1066,55 @@ const I18N={
   'cart.title':'Tu evento','cart.hint':'Liana prepara cada cotización a mano según tu fecha, tu locación y lo que necesite la producción. Preguntar no cuesta nada y no te compromete.','cart.wa':'Enviar por WhatsApp','cart.email':'Enviar por Email','brief.title':'Cuéntanos de la noche','brief.sub':'Mientras más nos cuentes, más rápido te cotiza Liana. Nada de esto es obligatorio.','brief.type':'Tipo de evento','brief.choose':'Elige…','brief.t1':'Boda','brief.t2':'Corporativo','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Fiesta privada','brief.t6':'Festival','brief.t7':'Otra cosa','brief.date':'Fecha','brief.city':'Ciudad o locación','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Invitados','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más','brief.picked':'Elegiste','brief.none':'Todavía no elegiste servicios — cuéntanos igual y Liana te propone.','brief.doneT':'Tu brief va en camino','brief.doneS':'Abrimos WhatsApp con todo escrito. Si no se abrió, escríbenos aquí:','brief.doneE':'Abrimos tu correo con todo escrito. Si no se abrió, escríbenos aquí:','brief.back':'Volver a mi evento',
   'ui.add':'Agregar','ui.remove':'Quitar','ui.view':'Ver','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay nada. Agrega los servicios que te interesen.','ui.added':'Agregado a tu evento','ui.removed':'Eliminado','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)','ui.needfill':'Por favor agrega tu nombre primero.'}
 };
+
+/* «Arma tu show»: textos nuevos. Copy de la decision del 9/11/2026, seccion 7. */
+Object.assign(I18N.en,{
+ 'hero.h1':'Hora Loca, LED robots, fire and live dancers for Miami events, <em>directed by Liana del Toro</em>',
+ 'cred.1':'Art Basel Miami, 3 years running','cred.2':'Kaseya Center, 18,000+',
+ 'hero.cta1':'Build your show','hero.s1':'Your event: wedding, brand, club…','hero.s2':'Date and county','hero.s3':'Your show, sent to Liana on WhatsApp',
+ 'menu.n1':'Build your show','menu.n2':'Services','menu.n3':'Liana and the team','menu.n4':'Gallery','menu.n5':'Planners and venues','menu.n6':'Contact',
+ 'arma.k':'Build your show','arma.t':'What are we building the show for?','arma.go':'See a sample show →',
+ 'arma.planner':'You are planning for a client: choose your client\'s occasion. In step 3 the box "I\'m planning this for a client" will already be checked.',
+ 'arma.planners':'Planning for a client? Planners and venues, this way','arma.all':'See the 15 services →',
+ 'paso.1':'Your event','paso.2':'Date and county','paso.3':'Your show','paso.w':'Step','paso.de':'of'});
+Object.assign(I18N.es,{
+ 'hero.h1':'Hora Loca, robots LED, fuego y bailarines en vivo para eventos en Miami, <em>dirigidos por Liana del Toro</em>',
+ 'cred.1':'Art Basel Miami, 3 años seguidos','cred.2':'Kaseya Center, 18.000+',
+ 'hero.cta1':'Arma tu show','hero.s1':'Tu evento: boda, marca, club…','hero.s2':'Fecha y condado','hero.s3':'Tu show, enviado a Liana por WhatsApp',
+ 'menu.n1':'Arma tu show','menu.n2':'Servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería','menu.n5':'Planners y venues','menu.n6':'Contacto',
+ 'arma.k':'Arma tu show','arma.t':'¿Para qué evento armamos el show?','arma.go':'Ver un show de ejemplo →',
+ 'arma.planner':'Organizas para un cliente: elige la ocasión de tu cliente. En el paso 3 la casilla «Organizo este evento para un cliente» ya irá marcada.',
+ 'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los 15 servicios →',
+ 'paso.1':'Tu evento','paso.2':'Fecha y condado','paso.3':'Tu show','paso.w':'Paso','paso.de':'de'});
+
+/* Ocasion → datos. `tipo` es el event_type del panel; `svc`, los servicios que llegan
+   marcados (ids de SERVICES = codigos del panel); `opc`, opcionales visibles sin marcar.
+   La quinceanera no entra hasta que Liana confirme que las hace. */
+const OCASIONES={
+ bodas:{tipo:'boda',foto:'greeters',svc:['greeters','sax','horaloca'],opc:['champagne'],
+   nombre:{en:'Wedding',es:'Boda'},
+   linea:{en:'Luxury Greeters at the door, live sax at cocktail hour, Hora Loca on the floor',es:'Anfitrionas de Lujo en la llegada, saxofón en vivo en el cóctel, Hora Loca en la pista'}},
+ empresas:{tipo:'corporativo',foto:'photobooth',svc:['greeters','robot','photobooth','coord'],opc:[],
+   nombre:{en:'Company or brand',es:'Empresa o marca'},
+   linea:{en:'Greeters in your brand palette, LED robots and a branded photobooth',es:'Anfitrionas con la paleta de tu marca, robots LED y photobooth con tu marca'}},
+ noches:{tipo:'nightlife',foto:'gogo',svc:['gogo','fire','drummer'],opc:[],
+   nombre:{en:'Club, restaurant or hotel',es:'Club, restaurante u hotel'},
+   linea:{en:'Gogo dancers, fire within venue rules, a drummer alongside your DJ',es:'Gogo dancers, fuego según las normas del local y baterista junto a tu DJ'}},
+ celebraciones:{tipo:'privado',foto:'fire',svc:['robot','fire','gogo'],opc:[],
+   nombre:{en:'Openings, festivals and other parties',es:'Aperturas, festivales y otras fiestas'},
+   linea:{en:'LED robots and fire for grand openings; gogo dancers for festivals',es:'Robots LED y fuego para abrir puertas; gogo dancers para festivales'}}
+};
+const OCAS_KEYS=Object.keys(OCASIONES);
+
+/* Estado del recorrido. Vive en sessionStorage para que Atras y una recarga no lo
+   pierdan; si el navegador no deja guardar, el recorrido sigue funcionando igual. */
+const SHOW_VACIO=()=>({ocasion:'',servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
+function leerShow(){try{const o=JSON.parse(sessionStorage.getItem('sdp_show')||'null');if(o&&typeof o==='object')return Object.assign(SHOW_VACIO(),o);}catch(e){}return SHOW_VACIO();}
+let SHOW=leerShow();
+function guardarShow(){try{sessionStorage.setItem('sdp_show',JSON.stringify(SHOW));}catch(e){}}
+/* entry_path: la pagina por la que empezo el recorrido. Los botones que lo abren lo
+   dicen con data-entrada; si se llega directo a una vista del recorrido, la ruta manda. */
+document.addEventListener('click',e=>{const a=e.target.closest('[data-entrada]');if(a&&!SHOW.entrada){SHOW.entrada=a.dataset.entrada;guardarShow();}});
 
 let lang=localStorage.getItem('sdp_lang')||'en',cart=[],currentView=null,pmId=null;
 const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
@@ -1047,6 +1222,8 @@ document.querySelectorAll('.acc-btn').forEach(b=>b.onclick=()=>{const it=b.close
 
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
+  /* Solo para textos propios con marcado (el <em> del h1); nunca para lo que escribe el visitante. */
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{const k=el.getAttribute('data-i18n-html');if(I18N[lang][k]!==undefined)el.innerHTML=I18N[lang][k];});
   /* El placeholder no es textContent: sin esto el campo de ciudad se quedaba en ingles. */
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[lang][k]!==undefined)el.placeholder=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
@@ -1056,6 +1233,7 @@ function applyLang(){document.documentElement.lang=lang;
   /* La ficha de servicio se pinta una sola vez al abrirla, asi que sin esto se quedaba
      en el idioma anterior mientras el resto de la pagina ya habia cambiado. */
   if(pmId)openProduct(pmId);
+  if(typeof pintarArma==='function'&&currentView)pintarArma();
   if(typeof titulo==='function')titulo();}
 /* Delegado en document a proposito: antes se enlazaba boton por boton al cargar, asi que
    cualquier selector generado despues (el de la ficha de servicio, que se pinta por JS)
@@ -1077,13 +1255,22 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    WhatsApp o poner en una story, y un boton Atras que funciona. Las rutas de
    verdad son otra decision, porque Pages no reescribe y Vercel si.
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
-const RUTAS={sobre:'view-about',servicios:'view-services',galeria:'view-gallery',contacto:'view-contact'};
-const CLAVE_NAV={sobre:'nav.about',servicios:'nav.services',galeria:'nav.gallery',contacto:'nav.contact'};
+const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',contacto:'view-contact',arma:'view-arma'};
+const CLAVE_NAV={sobre:'nav.about',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',contacto:'nav.contact',arma:'menu.n1'};
 const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
+/* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
+   llega a ellas directamente (enlace, Instagram, recarga). */
+const ENTRADA_DE={arma:'arma'};
+const esRecorrido=r0=>Object.prototype.hasOwnProperty.call(ENTRADA_DE,r0);
 
 function rutaActual(){return (location.hash||'').replace(/^#\/?/,'').replace(/\/+$/,'');}
 function irA(ruta){const h='#/'+ruta;if(location.hash===h){aplicarRuta();return;}location.hash=h;}
 function backToMenu(){irA('menu');}
+/* Que vista pinta cada ruta: las del recorrido se resuelven aparte. */
+function vistaDe(r0,r1){
+  if(r0==='arma'&&!r1)return 'view-arma';
+  if(r0==='arma')return null;
+  return RUTAS[r0]||null;}
 
 function titulo(){const base='SkyDancer Productions',[r0,r1]=rutaActual().split('/');
   let sec='';
@@ -1091,11 +1278,35 @@ function titulo(){const base='SkyDancer Productions',[r0,r1]=rutaActual().split(
   else if(CLAVE_NAV[r0])sec=t(CLAVE_NAV[r0]);
   document.title=sec?sec+' · '+base:base+' · '+t('hero.kicker');}
 
+/* Indicador de paso de la barra: n = paso actual (1-3); val = lo ya elegido. */
+function pintarPasos(v,n,vals){if(!v)return;vals=vals||[];
+  const nom=[t('paso.1'),t('paso.2'),t('paso.3')];
+  const ol=v.querySelector('[data-pasos]'),pm=v.querySelector('[data-pasom]'),pr=v.querySelector('[data-prog]');
+  if(ol)ol.innerHTML=nom.map((x,i)=>{const k=i+1,c=k<n?'done':(k===n?'now':'');
+    return `<li class="${c}"${k===n?' aria-current="step"':''}><span class="n">${k<n?'✓':k}</span>${x}${vals[i]?`: <span class="val">${esc(vals[i])}</span>`:''}</li>`;}).join('');
+  if(pm)pm.innerHTML=`${t('paso.w')} <b>${n} ${t('paso.de')} 3</b> · ${esc(vals[n-1]||nom[n-1])}`;
+  if(pr)pr.style.width=(n*33.34)+'%';}
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function pintarPaso1(){const v=document.getElementById('view-arma');
+  pintarPasos(v,1,[SHOW.ocasion&&OCASIONES[SHOW.ocasion]?OCASIONES[SHOW.ocasion].nombre[lang]:'']);
+  document.getElementById('armaPlanner').hidden=!SHOW.planner;
+  document.getElementById('occGrid').innerHTML=OCAS_KEYS.map(k=>{const o=OCASIONES[k];
+    return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg" alt="" loading="lazy"></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
+
+/* Pinta la vista del recorrido que este activa (al entrar y al cambiar de idioma). */
+function pintarArma(){const [r0,r1]=rutaActual().split('/');
+  if(r0==='arma'&&!r1)pintarPaso1();}
+
 function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
-  if(r0&&r0!=='menu'&&!RUTAS[r0]){location.replace('#/');return;}
+  const vista=vistaDe(r0,r1);
+  if(r0&&r0!=='menu'&&!vista){location.replace('#/');return;}
+  if(esRecorrido(r0)&&!SHOW.entrada){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
   if(!r0){hideViews();closeMenu();document.body.classList.remove('no-scroll');window.scrollTo(0,0);}
   else if(r0==='menu'){hideViews();openMenu();}
-  else{closeMenu();showView(RUTAS[r0]);}
+  else{closeMenu();showView(vista);}
+  document.body.classList.toggle('en-arma',esRecorrido(r0));
+  if(esRecorrido(r0))pintarArma();
   /* La ficha es parte de la ruta: /servicios/hora-loca se puede mandar tal cual. */
   const quiere=(r0==='servicios'&&r1&&SERVICES.some(x=>x.id===r1))?r1:null;
   if(quiere&&pmId!==quiere)openProduct(quiere);

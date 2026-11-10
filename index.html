@@ -172,6 +172,17 @@
 }
 </script>
 <meta name="description" content="SkyDancer Productions — luxury event entertainment in Miami. Professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="SkyDancer Productions" />
+<meta property="og:url" content="https://skydancerproduction.com/" />
+<meta property="og:title" content="SkyDancer Productions · Hora Loca, LED robots, fire and live dancers in Miami" />
+<meta property="og:description" content="Event entertainment in Miami directed by Liana del Toro: Hora Loca, LED robots, fire performers, dancers and live musicians. Build your show and send it on WhatsApp." />
+<meta property="og:image" content="https://skydancerproduction.com/assets/og-skydancer.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:locale:alternate" content="es_US" />
+<meta name="twitter:card" content="summary_large_image" />
 <link rel="preload" as="image" href="video%20banner/skydancer-poster.jpg" fetchpriority="high" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -532,11 +543,11 @@ body.no-scroll .hero-motion{visibility:hidden;pointer-events:none}
 .cart-fab .svg-ic{width:26px;height:26px;stroke:#1a1206}
 .cart-fab.show{transform:none}
 body.en-arma .cart-fab{display:none}
-.cart-fab .count{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#ff2d78;color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 6px;border:2px solid var(--bg)}
+.cart-fab .count{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#ff2d78;color:#1a1206;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 6px;border:2px solid var(--bg)}
 .cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:110;background:#0b0813;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s cubic-bezier(.5,0,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 80px -30px rgba(0,0,0,.9)}
 .cart-panel.open{transform:none}
 .cart-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.cart-head h3{font-size:1.2rem}
+.cart-head h2{font-size:1.2rem}
 .cart-head .x{background:none;border:0;color:var(--muted);font-size:1.6rem;line-height:1}
 .cart-head .x:hover{color:#ff2d78}
 .cart-items{flex:1;overflow-y:auto;padding:12px 24px}
@@ -668,6 +679,7 @@ body.en-arma .cart-fab{display:none}
 .a-ghost{background:rgba(5,4,10,.3);color:var(--ink);border:1px solid rgba(246,224,160,.45)}
 .a-ghost:hover{border-color:var(--gold)}
 .a-btn:focus-visible,.a-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.view h1[tabindex="-1"]:focus,.view h2[tabindex="-1"]:focus{outline:none}
 .a-btn[disabled]{opacity:.65;cursor:progress;transform:none}
 .a-link{display:inline-flex;align-items:center;gap:6px;min-height:44px;font-weight:700;color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(246,224,160,.45);text-underline-offset:5px;background:none;border:0;font-family:inherit;font-size:16px;cursor:var(--cur),pointer}
 .a-link:hover{text-decoration-color:var(--gold)}
@@ -922,7 +934,7 @@ body.en-arma .cart-fab{display:none}
   <div class="lang menu-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
   <div class="menu-split">
     <div class="menu-photo">
-      <video autoplay muted loop playsinline preload="metadata" poster="assets/liana-founder.jpg"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video>
+      <video muted loop playsinline preload="none" data-menu data-poster="assets/liana-founder.jpg"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video>
       <div class="mp-pattern"></div><div class="mp-glow"></div><div class="mp-scrim"></div>
       <div class="mp-name"><span class="k" data-i18n="founder.meet">Meet the Founder</span><b>Liana del Toro</b><span class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</span></div>
     </div>
@@ -1163,7 +1175,7 @@ body.en-arma .cart-fab{display:none}
 <button class="cart-fab" id="cartFab" aria-label="Quote cart"><span data-ic="cart"></span><span class="count" id="cartCount">0</span></button>
 <div class="overlay-dim" id="dim"></div>
 <aside class="cart-panel" id="cartPanel" aria-label="Quote">
-  <div class="cart-head"><h3 data-i18n="cart.title">Your Quote</h3><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
+  <div class="cart-head"><h2 data-i18n="cart.title">Your Quote</h2><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
     <div class="brief">
@@ -1353,7 +1365,20 @@ const OCAS_KEYS=Object.keys(OCASIONES);
 /* Estado del recorrido. Vive en sessionStorage para que Atras y una recarga no lo
    pierdan; si el navegador no deja guardar, el recorrido sigue funcionando igual. */
 const SHOW_VACIO=()=>({ocasion:'',servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
-function leerShow(){try{const o=JSON.parse(sessionStorage.getItem('sdp_show')||'null');if(o&&typeof o==='object')return Object.assign(SHOW_VACIO(),o);}catch(e){}return SHOW_VACIO();}
+/* Lo que vuelve de sessionStorage se trata como entrada no confiable: solo pasan valores
+   conocidos (ids de servicio, ocasiones, condados, rangos, fecha ISO, textos acotados). */
+function limpiarShow(o){const b=SHOW_VACIO(),str=(v,n)=>typeof v==='string'?v.slice(0,n):'';
+  if(OCASIONES[o.ocasion])b.ocasion=o.ocasion;
+  if(Array.isArray(o.servicios))b.servicios=o.servicios.filter((x,i,a)=>SERVICES.some(sv=>sv.id===x)&&a.indexOf(x)===i);
+  if(/^\d{4}-\d{2}-\d{2}$/.test(o.fecha))b.fecha=o.fecha;
+  if(['miami_dade','broward','palm_beach','otro_fl','fuera_fl'].includes(o.condado))b.condado=o.condado;
+  if(['menos_50','50_150','150_400','mas_400'].includes(o.invitados))b.invitados=o.invitados;
+  if(['portada','arma','bodas','empresas','noches','celebraciones','planners','catalogo','galeria','liana','contacto'].includes(o.entrada))b.entrada=o.entrada;
+  if(['bodas','empresas','noches','celebraciones','servicios','arma'].includes(o.origen))b.origen=o.origen;
+  b.planner=o.planner===true;b.venue=str(o.venue,100);b.nombre=str(o.nombre,120);b.tel=str(o.tel,40);b.correo=str(o.correo,160);b.vision=str(o.vision,1200);
+  if(o.enviado&&typeof o.enviado==='object')b.enviado={via:o.enviado.via==='mail'?'mail':'wa',ok:o.enviado.ok===true};
+  return b;}
+function leerShow(){try{const o=JSON.parse(sessionStorage.getItem('sdp_show')||'null');if(o&&typeof o==='object')return limpiarShow(o);}catch(e){}return SHOW_VACIO();}
 let SHOW=leerShow();
 function guardarShow(){try{sessionStorage.setItem('sdp_show',JSON.stringify(SHOW));}catch(e){}}
 /* entry_path: la pagina por la que empezo el recorrido. Los botones que lo abren lo
@@ -1368,7 +1393,12 @@ const badgeHtml=s=>s.price>0?`<span class="prod-badge">${t('ui.from')} ${money(s
 
 /* Paginas de ocasion: una sola plantilla (gancho, noche de ejemplo, prueba, boton,
    otras ocasiones). Copy de la seccion 7; lo que falta va con el marcador visible. */
-const dato=(es,en)=>({es:`<span class="dato">[${es}dato de Liana]</span>`,en:`<span class="dato">[${en}Liana to confirm]</span>`});
+/* Los datos que faltan se ven SOLO en vista previa (servidor local). En produccion la
+   linea o el bloque sin su dato no se pinta: nunca sale un «[dato de Liana]» publicado.
+   Se decide por el host y no por un parametro, para que un enlace compartido con
+   ?vista=1 no los destape. */
+const VISTA_PREVIA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/\.localhost$/.test(location.hostname);
+const dato=(es,en)=>VISTA_PREVIA?{es:`<span class="dato">[${es}dato de Liana]</span>`,en:`<span class="dato">[${en}Liana to confirm]</span>`}:null;
 const VIAJE={es:'Viaje: sin cargo en Miami-Dade · puede aplicar en Broward y Palm Beach · resto de Florida cotizado por ubicación · fuera del estado, transporte y alojamiento aparte.',
   en:'Travel: no fee in Miami-Dade · may apply in Broward and Palm Beach · rest of Florida quoted by location · out of state, transport and lodging separate.'};
 const PAGINAS={
@@ -1474,6 +1504,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
         <div class="ph"><img src="assets/services/${m.s}.jpg" alt="" loading="lazy"${m.pos?` style="object-position:${m.pos}"`:''}></div>
         <h3>${svcNom(m.s)}</h3><p>${L(m.p)}</p><span class="marca">${t('oc.marcado')}</span></article>`).join('')}</div>
       ${P.extra?`<p class="opcion">${L(P.extra)}</p>`:''}</div></section>`:'';
+  const datos=P.datos.filter(Boolean),hayPrueba=!!(P.lista.length||datos.length||P.hueco);
   const lista=P.lista.length?`<ul class="venues">${P.lista.map(([a,b])=>`<li>${a} <span>${L(b)}</span></li>`).join('')}</ul>`:'';
   const otras=Object.keys(PAGINAS).filter(k=>k!==key).map(k=>{const Q=PAGINAS[k];
     const ln=Q.ocas?OCASIONES[Q.ocas].linea[lang]:LINEA_PLANNERS[lang];
@@ -1481,14 +1512,14 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
   const primario=P.ocas?`<a class="a-btn a-pri" href="#/arma/fecha" data-elige="${P.ocas}">${L(P.cta)}</a>`:`<a class="a-btn a-pri" href="#/arma" data-planner>${L(P.cta)}</a>`;
   document.getElementById('ocBody').innerHTML=`
     <section class="oc-gancho"><div class="aw">
-      <div><p class="a-eyebrow">${L(P.k)}</p><h1 id="ocT">${L(P.h1)}</h1><p class="lead">${L(P.lead)}</p></div>
+      <div><p class="a-eyebrow">${L(P.k)}</p><h1 id="ocT">${L(P.h1)}</h1>${P.lead?`<p class="lead">${L(P.lead)}</p>`:''}</div>
       <figure class="ph"><div class="arch"><img src="assets/services/${P.foto}.jpg" alt="${esc(L(P.pie))}"></div><figcaption>${L(P.pie)}</figcaption></figure>
     </div></section>
     ${moms}
-    <section class="oc-prueba"><div class="aw"><div class="proof${P.hueco?'':' solo'}">
-      <div><p class="a-eyebrow">${L(P.pk)}</p>${P.ph2?`<h2>${L(P.ph2)}</h2>`:''}${lista}${P.datos.map(d=>`<p class="cifra">${L(d)}</p>`).join('')}</div>
+    ${hayPrueba?`<section class="oc-prueba"><div class="aw"><div class="proof${P.hueco?'':' solo'}">
+      <div><p class="a-eyebrow">${L(P.pk)}</p>${P.ph2?`<h2>${L(P.ph2)}</h2>`:''}${lista}${datos.map(d=>`<p class="cifra">${L(d)}</p>`).join('')}</div>
       ${P.hueco?`<div class="hueco"><p>${L(P.hueco)}</p></div>`:''}
-    </div></div></section>
+    </div></div></section>`:''}
     <section class="oc-accion"><div class="aw"><div class="box">
       <p class="paso"><b>${t('paso.w')} 1 ${t('paso.de')} 3${O?' · '+O.nombre[lang]:''}</b>${L(P.paso)}</p>
       ${primario}
@@ -1850,8 +1881,14 @@ document.addEventListener('click',e=>{const b=e.target.closest('.lang button[dat
   lang=b.dataset.lang;localStorage.setItem('sdp_lang',lang);applyLang();});
 
 const menu=document.getElementById('menu');
-function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');}
-function closeMenu(){menu.classList.remove('open');if(!currentView)document.body.classList.remove('no-scroll');}
+/* El video de Liana del menu pesaba en todas las paginas aunque el menu estuviera
+   cerrado (Lighthouse lo daba como LCP de #/bodas). Ahora se pide al abrirlo. */
+function videoMenu(on){const v=menu.querySelector('video[data-menu]');if(!v)return;
+  if(on){if(!v.dataset.woke){v.dataset.woke='1';v.poster=v.dataset.poster;v.muted=true;v.preload='auto';v.load();}
+    if(!(window.sdpMotionOff&&window.sdpMotionOff())){const pr=v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
+  else{try{v.pause();}catch(e){}}}
+function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');videoMenu(true);}
+function closeMenu(){menu.classList.remove('open');videoMenu(false);if(!currentView)document.body.classList.remove('no-scroll');}
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
 function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));currentView=null;}
 /* ── Enrutador por hash ──────────────────────────────────────────────────────
@@ -1935,7 +1972,11 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   else if(!quiere&&pmId)closeProduct();
   titulo();}
 
-window.addEventListener('hashchange',aplicarRuta);
+/* Tras cada cambio de vista el foco va al titulo de la nueva, para que un lector de
+   pantalla anuncie donde se esta. En la primera carga no: ahi manda el navegador. */
+function enfocarTitulo(){const v=currentView&&document.getElementById(currentView);if(!v||!v.classList.contains('active'))return;
+  const h=v.querySelector('h1,h2');if(!h)return;if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){h.focus();}}
+window.addEventListener('hashchange',()=>{aplicarRuta();if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();});
 document.getElementById('openMenu').onclick=()=>irA('menu');
 document.getElementById('menuBack').onclick=()=>irA('');
 document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();irA(A_RUTA[a.dataset.view]||'');});
@@ -2046,6 +2087,16 @@ addEventListener('keydown',e=>{
   if(e.key==='Escape'){if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();else if(menu.classList.contains('open'))irA('');else if(currentView)irA('menu');}
 });
 document.getElementById('yr').textContent=new Date().getFullYear();
+/* Vista previa local: ?demo=paso3, ?demo=confirmacion o ?demo=sinpanel rellenan un
+   recorrido de ejemplo para revisar pantallas sin pulsar (Safari del simulador).
+   Solo en el host local; en produccion el parametro no hace nada. */
+if(VISTA_PREVIA){const q=new URLSearchParams(location.search),d=q.get('demo'),ql=q.get('lang');
+  if(ql==='es'||ql==='en'){lang=ql;try{localStorage.setItem('sdp_lang',lang);}catch(e){}}
+  if(['paso3','confirmacion','sinpanel'].includes(d)){const f=new Date();f.setDate(f.getDate()+19);
+    SHOW=Object.assign(SHOW_VACIO(),{ocasion:'bodas',servicios:['greeters','sax','horaloca'],fecha:isoDe(f.getFullYear(),f.getMonth()+1,f.getDate()),condado:'miami_dade',venue:'Coral Gables',invitados:'150_400',entrada:'bodas',origen:'bodas'});
+    if(d==='confirmacion')SHOW.enviado={via:'wa',ok:true};if(d==='sinpanel')SHOW.enviado={via:'wa',ok:false};
+    guardarShow();}
+  if(d||ql)history.replaceState(null,'',location.pathname+location.hash);}
 applyLang();
 /* Un enlace compartido tiene que abrir donde apunta, no en la home. Se aplica sin
    tocar el hash para no meter una entrada de historial en la primera carga. */
@@ -2055,7 +2106,7 @@ aplicarRuta();
    Videos marked [data-defer] stay unloaded until they scroll near the viewport, so the
    hero banner gets the whole connection instead of racing two copies of itself. */
 (function(){
-  const all=[].slice.call(document.querySelectorAll('video'));
+  const all=[].slice.call(document.querySelectorAll('video')).filter(v=>!v.hasAttribute('data-menu'));
   all.forEach(v=>{v.muted=true;v.setAttribute('muted','');v.setAttribute('playsinline','');v.setAttribute('webkit-playsinline','');});
   const vids=all.filter(v=>!v.hasAttribute('data-defer'));
   /* El hero reproduce el reel completo desde el segundo 0, por decision de Frank
@@ -2078,6 +2129,7 @@ aplicarRuta();
      tryPlay corre al volver a la pestana y al primer gesto, asi que sin esta guarda
      el video pausado volvia a arrancar solo y el boton no servia de nada. */
   let motionOff=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  window.sdpMotionOff=()=>motionOff;
   function tryPlay(){if(motionOff)return;vids.forEach(v=>{try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
   const hmBtn=document.getElementById('heroMotion');
   if(hmBtn){

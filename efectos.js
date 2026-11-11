@@ -213,7 +213,11 @@ function noche(v){
   if(linea.offsetHeight>hueco){sec.classList.remove('fx-pin','fx-pila');return;} /* no cabe: sin fijar */
   const tramo=document.createElement('div');tramo.className='fx-tramo';tramo.setAttribute('aria-hidden','true');
   const largo=Math.round(innerHeight*(pila?.75:.55)*(moms.length-1)+innerHeight*.25);
-  tramo.style.height=largo+'px';linea.after(tramo);
+  tramo.style.height=largo+'px';
+  /* Escena propia (linea + tramo): el sticky se suelta al acabar el tramo y no pisa lo
+     que viene detras (la nota «Opcional en bodas…» se montaba sobre la ultima carta). */
+  const escena=document.createElement('div');escena.className='fx-escena';
+  linea.before(escena);escena.append(linea,tramo);
   const fijo=barra+14+linea.offsetHeight;
   const tl=G.timeline({defaults:{ease:'power2.out'},scrollTrigger:{scroller:v,trigger:tramo,start:'top '+fijo+'px',end:'bottom '+fijo+'px',scrub:.6}});
   const marcas=moms.map(m=>m.querySelector('.marca')).filter(Boolean);
@@ -234,7 +238,7 @@ function noche(v){
         .to(marcas[i+1]||{},{scale:1,opacity:1,duration:.35,ease:'back.out(2)'},t+.8);});
   }
   /* El tramo y las clases se quitan al desmontar (ctx.revert no conoce el DOM nuevo). */
-  return ()=>{tramo.remove();sec.classList.remove('fx-pin','fx-pila');sec.style.removeProperty('--fx-linea');sec.style.removeProperty('--fx-barra');};}
+  return ()=>{escena.before(linea);escena.remove();sec.classList.remove('fx-pin','fx-pila');sec.style.removeProperty('--fx-linea');sec.style.removeProperty('--fx-barra');};}
 
 MONTAJES.push({sel:'#view-ocasion',f(v){
   const fin=noche(v);if(fin)limpiezas.push(fin);

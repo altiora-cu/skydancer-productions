@@ -247,14 +247,14 @@ function noche(v){
 
 MONTAJES.push({sel:'#view-ocasion',f(v){
   const fin=noche(v);if(fin)limpiezas.push(fin);
-  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a')]);}});
-/* Vistas del menu: sobre, galeria, contacto (servicios tiene su catalogo aparte). */
+  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a,.cierre .row,.cierre .pie')]);}});
+/* Liana, galeria y catalogo (tanda 3): lo que queda bajo el borde se revela al bajar. */
 MONTAJES.push({sel:'#view-about',f(v){
-  revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*')]);}});
+  revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*,.cierre .row,.cierre .pie')]);}});
 MONTAJES.push({sel:'#view-gallery',f(v){
-  revelar(v,[...v.querySelectorAll('.gal,.cat-note')]);}});
+  revelar(v,[...v.querySelectorAll('.gal,.cat-note,.cierre .row,.cierre .pie')]);}});
 MONTAJES.push({sel:'#view-services',f(v){
-  revelar(v,[...v.querySelectorAll('.cat-note')]);}});
+  revelar(v,[...v.querySelectorAll('.cat-note,.cierre .row,.cierre .pie')]);}});
 
 /* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */
 MONTAJES.push({sel:'#view-services',f(v,entra){

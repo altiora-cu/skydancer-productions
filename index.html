@@ -200,7 +200,6 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
 :root{
   --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
   --gold:#e6c25c; --gold-grad:linear-gradient(120deg,#b8912f,#f6e0a0 45%,#e6c25c 70%,#b8912f);
-  --brand:linear-gradient(115deg,#ff2d78,#8b3bff 45%,#18e6d8);
   --glass:rgba(255,255,255,.055); --glass-brd:rgba(255,255,255,.14);
   --shadow:0 30px 80px -34px rgba(0,0,0,.85); --r:20px;
   --gut:clamp(16px,4.4vw,64px);
@@ -215,10 +214,8 @@ body.no-scroll{overflow:hidden}
 h1,h2,h3,.disp{font-family:'Cinzel',serif;font-weight:700;letter-spacing:.03em;line-height:1.1}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
-::selection{background:#ff2d78;color:#fff}
+::selection{background:#e6c25c;color:#1a1206}
 [hidden]{display:none!important}
-.gold-text{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.brand-text{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 .eyebrow{font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:700}
 .svg-ic{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block}
@@ -239,8 +236,6 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
    de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
    No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
 .pm-lang{position:absolute;top:14px;left:14px;z-index:3}
-.view-bar .lang{padding:3px}
-.view-bar .lang button{padding:5px 10px;font-size:.68rem}
 
 /* HERO */
 .hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05040a url("video%20banner/skydancer-poster.jpg") center/cover no-repeat}
@@ -351,21 +346,9 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .mn-nav a:focus-visible,.mn-x:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 @media(prefers-reduced-motion:reduce){.menu,.menu-scrim,.menu-panel{transition:none}}
 
-/* VIEWS + aurora */
+/* VISTAS */
 .view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
 .view.active{opacity:1;visibility:visible;transform:none}
-.view-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:rgba(10,7,18,.55);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-.view-bar .vb-back,.view-bar .vb-menu{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);color:var(--ink);padding:11px 20px;border-radius:999px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;transition:.3s;background:rgba(255,255,255,.05)}
-.view-bar .vb-back:hover{border-color:var(--gold);transform:translateX(-3px)}
-.view-bar .vb-menu:hover{border-color:var(--gold)}
-.view-bar .vb-title{font-family:'Cinzel';letter-spacing:.14em;text-transform:uppercase;font-size:.88rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.view-body{position:relative;z-index:1;padding:64px 0 110px}
-.aurora{position:sticky;top:0;height:0;z-index:0}
-.aurora::before{content:"";position:absolute;top:0;left:0;right:0;height:100svh;pointer-events:none;background:radial-gradient(48% 42% at 12% 8%,var(--a1),transparent 70%),radial-gradient(46% 40% at 88% 4%,var(--a2),transparent 72%),radial-gradient(60% 50% at 78% 88%,var(--a3),transparent 74%),radial-gradient(50% 46% at 20% 92%,var(--a1),transparent 76%),linear-gradient(180deg,var(--abase),var(--abase))}
-#view-about{--abase:#0d0710;--a1:rgba(230,140,120,.24);--a2:rgba(150,60,72,.26);--a3:rgba(246,224,160,.16)}
-.sec-head{max-width:760px;margin-bottom:44px}
-.sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
-.sec-head p{color:var(--muted);font-size:1.05rem}
 
 /* CATALOGO (tanda 3): #/servicios habla el lenguaje del paso 3. Cada tarjeta lleva el
    mismo boton de marcar que los chips del paso 3 y escribe en el mismo estado. */
@@ -472,9 +455,6 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 }
 @media(prefers-reduced-motion:reduce){.lb,.lb-media,.lb-x,.lb-nav,.lb-th{transition:none}}
 
-.view-foot{border-top:1px solid var(--line);margin-top:70px;padding-top:34px;text-align:center;color:var(--muted);font-size:.82rem}
-.view-foot .fl{font-family:'Cinzel';font-weight:900;letter-spacing:.14em;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
-.view-foot .fl .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
 /* TU SHOW fuera del recorrido (tanda 3): el carrito se fundio con el show. El boton
    flotante y el panel leen y escriben SHOW.servicios, el mismo estado del paso 3. Sin
@@ -521,12 +501,10 @@ body.en-arma .cart-fab{display:none}
 @media(max-width:960px){
 }
 @media(max-width:600px){
-  .view-body{padding:46px 0 90px}.wrap{padding:0 18px}
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
   .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
-  .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
   .cart-fab{bottom:16px;right:16px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
@@ -590,7 +568,19 @@ body.en-arma .cart-fab{display:none}
 .occ .ln{font-size:16px;color:#d7cfe6}
 .occ .go{margin-top:auto;padding-top:6px;font-weight:700;font-size:15px;color:var(--gold-hi)}
 .a-links{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px}
-.about-cta{margin-top:30px}
+/* CIERRE COMUN (tanda 3): todas las paginas de contenido acaban igual, con «Arma tu
+   show» y WhatsApp. En el catalogo y la galeria, si ya hay servicios marcados, el primer
+   boton es «Seguir con mi show». */
+.cierre{padding:34px 0 104px;border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(230,194,92,.07),transparent 62%)}
+.cierre .row{display:flex;flex-wrap:wrap;gap:12px 16px}
+.cierre .pie{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;gap:2px 22px;font-size:15px;color:var(--muted)}
+.cierre .pie b{font-family:'Cinzel',serif;font-weight:900;letter-spacing:.14em;font-size:14px;color:var(--ink)}
+.cierre .pie b .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cierre .pie a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(246,224,160,.45);text-underline-offset:4px;overflow-wrap:anywhere}
+.cierre .pie a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.a-main.con-cierre{padding-bottom:44px}
+.oc-otras+.cierre{border-top:0}
+@media(max-width:560px){.cierre .row .a-btn{width:100%}}
 /* Liana donde se decide (tanda 3): retrato pequeno y un HECHO de su biografia, al final
    de cada pagina de ocasion y junto a «Enviar». Nunca una cita. */
 .liana{display:flex;align-items:flex-start;gap:14px;max-width:66ch}
@@ -611,7 +601,7 @@ body.en-arma .cart-fab{display:none}
 .proof .li-cols h2{margin-top:16px;min-height:2.6em;font:700 15px/1.3 'Manrope',sans-serif;letter-spacing:0;color:var(--paper-mut);max-width:none}
 .li-cols ul{margin-top:10px;list-style:none;border-top:1px solid var(--rule)}
 .li-cols li{padding:11px 0;border-bottom:1px solid var(--rule);font-family:'Cinzel',serif;font-weight:700;font-size:17px;line-height:1.25}
-.li-equipo{padding:44px 0 64px}
+.li-equipo{padding:44px 0 56px}
 .li-equipo .lead{margin-top:12px;max-width:62ch;font-size:18px;color:#ddd5ec}
 @media(max-width:1100px){.li-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.li-cols{grid-template-columns:1fr}.proof .li-cols h2{min-height:0}}
@@ -980,14 +970,14 @@ html.fx #shopGrid{perspective:1200px}
   <section class="li-equipo"><div class="aw">
     <p class="a-eyebrow" data-i18n="li.eqK">The team</p>
     <p class="lead" data-i18n="about.p2">From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.</p>
-    <div class="about-cta"><a class="a-btn a-pri" href="#/arma" data-entrada="liana" data-i18n="hero.cta1">Build your show</a></div>
   </div></section>
+  <footer class="cierre" data-cierre="liana"></footer>
 </section>
 
 <!-- LOS 15 SERVICIOS (#/servicios; #/servicios/<id> abre la ficha) -->
 <section class="view arma" id="view-services" aria-labelledby="svcT">
   <div class="arma-bar" data-armabar="simple"></div>
-  <div class="a-main"><div class="aw">
+  <div class="a-main con-cierre"><div class="aw">
     <p class="a-eyebrow" data-i18n="svc.k">Catalog</p>
     <h1 class="a-h1" id="svcT" data-i18n="svc.h1">SkyDancer's 15 services: ten with a starting price and five Liana quotes to order</h1>
     <p class="a-sub" data-i18n="svc.sub">Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.</p>
@@ -999,12 +989,13 @@ html.fx #shopGrid{perspective:1200px}
     <div class="cat" id="shopGrid"></div>
     <p class="cat-note" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.</p>
   </div></div>
+  <footer class="cierre" data-cierre="catalogo"></footer>
 </section>
 
 <!-- GALERIA (#/galeria): cada pieza que es un servicio se puede agregar al show -->
 <section class="view arma" id="view-gallery" aria-labelledby="galT">
   <div class="arma-bar" data-armabar="simple"></div>
-  <div class="a-main"><div class="aw">
+  <div class="a-main con-cierre"><div class="aw">
     <p class="a-eyebrow" data-i18n="menu.n4">Gallery</p>
     <h1 class="a-h1" id="galT" data-i18n="gal.h1">The reel and eight services in photos, with 21 pieces of Themed Entertainment and 8 of Interactive Moments</h1>
     <p class="a-sub" data-i18n="gal.sub">If something you see fits your event, add it: it arrives checked in step 3 of your show.</p>
@@ -1021,6 +1012,7 @@ html.fx #shopGrid{perspective:1200px}
     </div>
     <p class="cat-note" data-i18n="gal.note">Real moments from SkyDancer productions across Miami.</p>
   </div></div>
+  <footer class="cierre" data-cierre="galeria"></footer>
 </section>
 
 <!-- ARMA TU SHOW · PASO 1 -->
@@ -1196,7 +1188,7 @@ const SERVICES=[
 
 const I18N={
  en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
-  'ui.back':'Back to menu',
+  
   'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
   'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
@@ -1206,11 +1198,11 @@ const I18N={
   'gal.ver':'See all {n} pieces','gal.h1':'The reel and eight services in photos, with 21 pieces of Themed Entertainment and 8 of Interactive Moments','gal.sub':'If something you see fits your event, add it: it arrives checked in step 3 of your show.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
   
   
-  'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL',
+  
   'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
   'ui.add':'Add to my show','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
  es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
-  'ui.back':'Volver al menú',
+  
   'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
   'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
@@ -1220,7 +1212,7 @@ const I18N={
   'gal.ver':'Ver las {n} piezas','gal.h1':'El reel y ocho servicios en foto, con 21 piezas de Entretenimiento Temático y 8 de Momentos Interactivos','gal.sub':'Si algo de lo que ves va con tu evento, agrégalo: llega marcado al paso 3 de tu show.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
   
   
-  'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL',
+  
   'cart.title':'Tu show','cart.fab':'Mi show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más',
   'ui.add':'Agregar a mi show','ui.remove':'Quitar','ui.in':'En tu show · quitar','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay servicios en tu show. Agrega los que te interesen; Liana también te los puede proponer.','ui.added':'Agregado a tu show','ui.removed':'Quitado de tu show','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)'}
 };
@@ -1413,6 +1405,16 @@ const svcNom=id=>{const s=SERVICES.find(x=>x.id===id);return s?s.name[lang]:id;}
 const L=o=>o==null?'':(typeof o==='string'?o:o[lang]);
 const waUrl=txt=>'https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
 
+/* Cierre comun de las paginas de contenido. `ent` es el entry_path si el recorrido
+   empieza ahi; `elige` marca la ocasion (y sus servicios) cuando se cierra una pagina de
+   ocasion. */
+const cierreHTML=(ent,elige)=>{const sigue=(ent==='catalogo'||ent==='galeria')&&SHOW.servicios.length>0;
+  const pri=sigue?`<button type="button" class="a-btn a-pri" data-seguir>${t('cart.seguir')}</button>`
+    :elige?`<a class="a-btn a-pri" href="#/arma/fecha" data-elige="${elige}">${t('hero.cta1')}</a>`
+    :`<a class="a-btn a-pri" href="#/arma" data-entrada="${ent}"${ent==='planners'?' data-planner':''}>${t('hero.cta1')}</a>`;
+  return `<div class="aw"><div class="row">${pri}<a class="a-btn a-ghost" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg('chat')}WhatsApp +1 786-992-4543</a></div>
+    <p class="pie"><b><span class="s">SKY</span>DANCER PRODUCTIONS</b><span>Coral Gables · Miami, FL</span><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>`;};
+function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre);});}
 /* Liana donde se decide: retrato ligero (4,5 KB) y un hecho de la biografia publicada. */
 const lianaHTML=(txt,enlace)=>`<div class="liana"><img src="assets/liana-avatar.jpg" alt="" width="56" height="56" loading="lazy" fetchpriority="low"><div><p>${txt}</p>${enlace?`<a class="a-link" href="#/liana">${t('li.ver')}</a>`:''}</div></div>`;
 function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view-ocasion');
@@ -1446,7 +1448,8 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
       ${primario}
       <a class="a-btn a-ghost" href="${waUrl(L(P.wa))}" target="_blank" rel="noopener">${ic}WhatsApp</a>
     </div>${P.ocas?`<p class="viaje">${L(VIAJE)}</p>`:''}</div></section>
-    <section class="oc-otras"><div class="aw"><p class="a-eyebrow">${t('oc.otras')}</p><div class="row">${otras}</div></div></section>`;}
+    <section class="oc-otras"><div class="aw"><p class="a-eyebrow">${t('oc.otras')}</p><div class="row">${otras}</div></div></section>
+    <footer class="cierre">${cierreHTML(key,P.ocas)}</footer>`;}
 /* Elegir la ocasion desde su pagina: los servicios de la ocasion llegan marcados.
    Si ya era esa ocasion, se respeta lo que la persona cambio. */
 document.addEventListener('click',e=>{
@@ -1686,7 +1689,7 @@ function sincronizarSvc(){document.querySelectorAll('[data-svc]:not(.rm)').forEa
     b.classList.toggle('on',on);if(b.hasAttribute('aria-pressed'))b.setAttribute('aria-pressed',String(on));
     const ck=b.querySelector('.ck'),tl=b.querySelector('.tl'),c=b.closest('.svc-card,.gal');
     if(ck)ck.textContent=on?'✓':'+';if(tl)tl.textContent=t(on?'ui.in':'ui.add');if(c)c.classList.toggle('on',on);});
-  pintarResumenes();renderCart();}
+  pintarResumenes();renderCart();pintarCierres();}
 const botonSvc=id=>{const on=SHOW.servicios.includes(id);
   return `<button type="button" class="chip svc${on?' on':''}" data-svc="${id}"><span class="ck" aria-hidden="true">${on?'✓':'+'}</span><span class="tl">${t(on?'ui.in':'ui.add')}</span></button>`;};
 /* «Seguir con mi show»: al paso 2 si falta la ocasion o el condado; si no, al paso 3. */
@@ -1724,7 +1727,7 @@ function openProduct(id){const reabre=pmId===id;pmId=id;const s=SERVICES.find(x=
 function closeProduct(){document.getElementById('pmOverlay').classList.remove('open');pmId=null;if(!currentView)document.body.classList.remove('no-scroll');}
 document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')irA('servicios');});
 
-function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();toast(t('ui.cleared'));}
+function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();pintarGal();toast(t('ui.cleared'));}
 /* Galeria: el boton solo sale si el codigo de la pieza existe en SERVICES. */
 function pintarGal(){document.querySelectorAll('.gal[data-gsvc]').forEach(g=>{const id=g.dataset.gsvc,c=g.dataset.gcol,col=c&&COLECCIONES[c];
   g.classList.toggle('on',SHOW.servicios.includes(id));
@@ -1746,7 +1749,7 @@ function applyLang(){document.documentElement.lang=lang;
   /* El placeholder no es textContent: sin esto el campo de ciudad se quedaba en ingles. */
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[lang][k]!==undefined)el.placeholder=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();pintarCierres();
   document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const k=el.getAttribute('data-i18n-aria');if(I18N[lang][k]!==undefined)el.setAttribute('aria-label',I18N[lang][k]);});
   /* El visor se pinta una vez al abrirlo: sin esto se queda en el idioma viejo. */
   if(lbCol){document.getElementById('lbTitle').textContent=t(COLECCIONES[lbCol].k);}
@@ -1797,7 +1800,6 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
 const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
 const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'menu.n4',arma:'menu.n1'};
-const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */
 const ENTRADA_DE={arma:'arma',bodas:'bodas',empresas:'empresas',noches:'noches',celebraciones:'celebraciones',planners:'planners'};
@@ -1805,7 +1807,6 @@ const esRecorrido=r0=>Object.prototype.hasOwnProperty.call(ENTRADA_DE,r0);
 
 function rutaActual(){return (location.hash||'').replace(/^#\/?/,'').replace(/\/+$/,'');}
 function irA(ruta){const h='#/'+ruta;if(location.hash===h){aplicarRuta();return;}location.hash=h;}
-function backToMenu(){irA('menu');}
 /* Que vista pinta cada ruta: las del recorrido se resuelven aparte. */
 function vistaDe(r0,r1){
   if(r0==='arma'&&!r1)return 'view-arma';
@@ -1882,6 +1883,9 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
   if(!r0){hideViews();document.body.classList.remove('no-scroll');window.scrollTo(0,0);}
   else showView(vista);
+  /* El show pudo cambiar en otra vista (una ocasion elegida, un envio): los botones de
+     agregar, el boton flotante y los cierres se ponen al dia al entrar. */
+  sincronizarSvc();
   document.body.classList.toggle('en-arma',esRecorrido(r0));
   if(esRecorrido(r0))pintarArma();
   /* La ficha es parte de la ruta: /servicios/hora-loca se puede mandar tal cual. */
@@ -1900,8 +1904,6 @@ window.addEventListener('hashchange',()=>{if(rutaActual()==='menu')menuEnSesion=
   if(window.sdpFx&&window.sdpFx.transicion)window.sdpFx.transicion(aplicarRuta,fin);else{aplicarRuta();fin();}});
 document.getElementById('openMenu').onclick=()=>irA('menu');
 document.getElementById('menuBack').onclick=cerrarMenu;document.getElementById('menuScrim').onclick=cerrarMenu;
-document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();irA(A_RUTA[a.dataset.view]||'');});
-document.querySelectorAll('[data-back]').forEach(b=>b.onclick=backToMenu);
 document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'));
 
 /* menu photo is full-bleed; no parallax needed */

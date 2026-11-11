@@ -16,7 +16,9 @@ rm -rf dist
 mkdir -p dist/assets "dist/video banner"
 
 # La página y los medios que `index.html` referencia.
-cp index.html robots.txt sitemap.xml dist/
+cp index.html efectos.js robots.txt sitemap.xml dist/
+# GSAP vendorizado (version exacta en la ruta, con su licencia) para efectos.js.
+cp -R vendor dist/
 cp -R assets/gallery assets/services dist/assets/
 cp assets/liana-founder.jpg assets/liana-founder.mp4 assets/liana-hero.mp4 assets/og-skydancer.jpg dist/assets/
 cp "video banner/skydancer-poster.jpg" "video banner/skydancer-web.mp4" "dist/video banner/"
@@ -46,6 +48,8 @@ cat > dist/_headers <<'CABECERAS'
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /*.svg
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
 /*.woff2
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 /index.html

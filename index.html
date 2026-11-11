@@ -579,7 +579,8 @@ body.en-arma .cart-fab{display:none}
 .cierre .pie a{display:inline-flex;align-items:center;min-height:44px;color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(246,224,160,.45);text-underline-offset:4px;overflow-wrap:anywhere}
 .cierre .pie a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .a-main.con-cierre{padding-bottom:44px}
-.oc-otras+.cierre{border-top:0}
+.cierre.solo-pie{padding:6px 0 72px;border-top:0;background:none}
+.cierre.solo-pie .pie{margin-top:0}
 @media(max-width:560px){.cierre .row .a-btn{width:100%}}
 /* Liana donde se decide (tanda 3): retrato pequeno y un HECHO de su biografia, al final
    de cada pagina de ocasion y junto a «Enviar». Nunca una cita. */
@@ -1406,13 +1407,12 @@ const L=o=>o==null?'':(typeof o==='string'?o:o[lang]);
 const waUrl=txt=>'https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
 
 /* Cierre comun de las paginas de contenido. `ent` es el entry_path si el recorrido
-   empieza ahi; `elige` marca la ocasion (y sus servicios) cuando se cierra una pagina de
-   ocasion. */
-const cierreHTML=(ent,elige)=>{const sigue=(ent==='catalogo'||ent==='galeria')&&SHOW.servicios.length>0;
+   empieza ahi. Las paginas de ocasion ya acaban con su propio «Armar el show de…» y
+   WhatsApp (un solo primario por pagina): ahi el cierre deja solo la linea de pie. */
+const cierreHTML=(ent,soloPie)=>{const sigue=(ent==='catalogo'||ent==='galeria')&&SHOW.servicios.length>0;
   const pri=sigue?`<button type="button" class="a-btn a-pri" data-seguir>${t('cart.seguir')}</button>`
-    :elige?`<a class="a-btn a-pri" href="#/arma/fecha" data-elige="${elige}">${t('hero.cta1')}</a>`
-    :`<a class="a-btn a-pri" href="#/arma" data-entrada="${ent}"${ent==='planners'?' data-planner':''}>${t('hero.cta1')}</a>`;
-  return `<div class="aw"><div class="row">${pri}<a class="a-btn a-ghost" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg('chat')}WhatsApp +1 786-992-4543</a></div>
+    :`<a class="a-btn a-pri" href="#/arma" data-entrada="${ent}">${t('hero.cta1')}</a>`;
+  return `<div class="aw">${soloPie?'':`<div class="row">${pri}<a class="a-btn a-ghost" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg('chat')}WhatsApp +1 786-992-4543</a></div>`}
     <p class="pie"><b><span class="s">SKY</span>DANCER PRODUCTIONS</b><span>Coral Gables · Miami, FL</span><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>`;};
 function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre);});}
 /* Liana donde se decide: retrato ligero (4,5 KB) y un hecho de la biografia publicada. */
@@ -1449,7 +1449,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
       <a class="a-btn a-ghost" href="${waUrl(L(P.wa))}" target="_blank" rel="noopener">${ic}WhatsApp</a>
     </div>${P.ocas?`<p class="viaje">${L(VIAJE)}</p>`:''}</div></section>
     <section class="oc-otras"><div class="aw"><p class="a-eyebrow">${t('oc.otras')}</p><div class="row">${otras}</div></div></section>
-    <footer class="cierre">${cierreHTML(key,P.ocas)}</footer>`;}
+    <footer class="cierre solo-pie">${cierreHTML(key,true)}</footer>`;}
 /* Elegir la ocasion desde su pagina: los servicios de la ocasion llegan marcados.
    Si ya era esa ocasion, se respeta lo que la persona cambio. */
 document.addEventListener('click',e=>{

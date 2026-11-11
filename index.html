@@ -986,6 +986,19 @@ html.fx .menu.open .menu-content::after{animation:fx-letra 1.6s cubic-bezier(.16
 @keyframes fx-destino{from{opacity:0;transform:perspective(800px) translate3d(48px,0,-40px) rotateY(-26deg)}}
 @keyframes fx-letra{from{opacity:0;transform:translate3d(46px,-30px,0) rotate(-9deg)}}
 
+/* ── EFECTOS · D · scroll ──────────────────────────────────────────────────────
+   La noche de ejemplo se queda fijada (sticky, dentro de la vista que hace scroll)
+   mientras pasan sus tres momentos; efectos.js decide si cabe y anade el tramo de
+   recorrido. En escritorio los momentos se encienden en fila; en el telefono se
+   apilan como cartas. Sin html.fx no existe nada de esto. */
+html.fx .oc-noche.fx-pin .linea{position:sticky;top:calc(var(--fx-barra,72px) + 14px)}
+html.fx .oc-noche.fx-pin .linea::before{transform:scaleX(var(--fx-linea,1));transform-origin:0 50%}
+.fx-tramo{display:none}
+html.fx .oc-noche.fx-pin .fx-tramo{display:block}
+html.fx .oc-noche.fx-pila .linea{display:grid;grid-template-columns:1fr;overflow:hidden;border-radius:16px}
+html.fx .oc-noche.fx-pila .mom{grid-area:1/1;background:var(--bg2);transform-origin:50% 0}
+html.fx #shopGrid{perspective:1200px}
+
 </style>
 </head>
 <body>

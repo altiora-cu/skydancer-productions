@@ -113,8 +113,8 @@ if(occGrid){
 
 /* ── Montajes por vista (ScrollTrigger vive dentro de cada .view, que es la que hace
    scroll). Se desmontan al cambiar de vista y se rehacen si la vista se repinta. ── */
-const MONTAJES=[];let ctx=null;
-function desmontar(){if(ctx){ctx.revert();ctx=null;}}
+const MONTAJES=[],limpiezas=[];let ctx=null;
+function desmontar(){if(ctx){ctx.revert();ctx=null;}while(limpiezas.length)try{limpiezas.pop()();}catch(e){}}
 function montar(entrada){desmontar();
   if(quieto()||!G)return;const v=vistaActiva();if(!v)return;
   ctx=G.context(()=>{MONTAJES.forEach(m=>{if(v.matches(m.sel))try{m.f(v,!!entrada);}catch(e){}});},v);
@@ -124,7 +124,7 @@ alApagar.push(desmontar);
 alEncender.push(()=>conGsap(()=>montar(false)));
 conGsap(()=>montar(false));
 /* Repintados que cambian el DOM de una vista abierta (idioma, filtros del catalogo). */
-let espera=0;const remontar=()=>{clearTimeout(espera);espera=setTimeout(()=>montar(false),80);};
+let espera=0;const remontar=()=>{clearTimeout(espera);espera=setTimeout(()=>montar(true),80);};
 ['ocBody','shopGrid'].forEach(id=>{const el=document.getElementById(id);
   if(el&&'MutationObserver'in window)new MutationObserver(remontar).observe(el,{childList:true});});
 
@@ -187,6 +187,69 @@ FX.transicion=function(ir,fin){
   const v=vistaActiva(),tw=entrada(v,r1>0&&r2>0?dir:'');
   montar(true);
   if(tw)tw.eventCallback('onComplete',fin);else fin();};
+
+/* ── D · Scroll ────────────────────────────────────────────────────────────────
+   Revelado: solo lo que esta por debajo del borde al montar; lo que ya se ve no se
+   esconde nunca (ni siquiera un instante). */
+const bajoElBorde=el=>el.getBoundingClientRect().top>innerHeight;
+function revelar(v,items){
+  items=items.filter(bajoElBorde);if(!items.length)return;
+  G.set(items,{opacity:0,y:42,rotationX:9,transformPerspective:900,transformOrigin:'50% 0%',transition:'none'});
+  ST.batch(items,{scroller:v,start:'top bottom-=20',once:true,
+    onEnter:els=>G.to(els,{opacity:1,y:0,rotationX:0,duration:.9,ease:'power3.out',stagger:.08,overwrite:true,clearProps:'opacity,transform,transition'})});}
+
+/* La noche de ejemplo, fijada mientras pasan sus tres momentos. */
+function noche(v){
+  const sec=v.querySelector('.oc-noche'),linea=sec&&sec.querySelector('.linea');
+  if(!linea)return;const moms=[...linea.querySelectorAll('.mom')];if(moms.length<2)return;
+  const barra=(v.querySelector('.arma-bar')||{}).offsetHeight||64,hueco=innerHeight-barra-28;
+  const pila=getComputedStyle(linea).gridTemplateColumns.split(' ').length<2;
+  sec.style.setProperty('--fx-barra',barra+'px');
+  sec.classList.add('fx-pin');if(pila)sec.classList.add('fx-pila');
+  if(linea.offsetHeight>hueco){sec.classList.remove('fx-pin','fx-pila');return;} /* no cabe: sin fijar */
+  const tramo=document.createElement('div');tramo.className='fx-tramo';tramo.setAttribute('aria-hidden','true');
+  const largo=Math.round(innerHeight*(pila?.75:.55)*(moms.length-1)+innerHeight*.25);
+  tramo.style.height=largo+'px';linea.after(tramo);
+  const fijo=barra+14+linea.offsetHeight;
+  const tl=G.timeline({defaults:{ease:'power2.out'},scrollTrigger:{scroller:v,trigger:tramo,start:'top '+fijo+'px',end:'bottom '+fijo+'px',scrub:.6}});
+  const marcas=moms.map(m=>m.querySelector('.marca')).filter(Boolean);
+  if(pila){
+    G.set(moms.slice(1),{yPercent:104});
+    moms.slice(1).forEach((m,i)=>{
+      tl.to(moms[i],{scale:.9,rotationX:7,transformPerspective:900,duration:1},i*1.2) /* tapada: retrocede, sin transparencia */
+        .to(m,{yPercent:0,duration:1},i*1.2)
+        .from(m.querySelector('.marca'),{scale:0,opacity:0,duration:.4,ease:'back.out(2)'},i*1.2+.7);});
+  }else{
+    sec.style.setProperty('--fx-linea',0);
+    G.set(moms.slice(1),{opacity:.22,y:34,rotationX:-10,transformPerspective:900,transformOrigin:'50% 100%'});
+    G.set(marcas.slice(1),{scale:0,opacity:0});
+    tl.to(sec,{'--fx-linea':1/(moms.length-1)*.5,duration:.5,ease:'none'},0);
+    moms.slice(1).forEach((m,i)=>{const t=.5+i*1.1;
+      tl.to(sec,{'--fx-linea':(i+1)/(moms.length-1),duration:.6,ease:'none'},t)
+        .to(m,{opacity:1,y:0,rotationX:0,duration:.8},t+.3)
+        .to(marcas[i+1]||{},{scale:1,opacity:1,duration:.35,ease:'back.out(2)'},t+.8);});
+  }
+  /* El tramo y las clases se quitan al desmontar (ctx.revert no conoce el DOM nuevo). */
+  return ()=>{tramo.remove();sec.classList.remove('fx-pin','fx-pila');sec.style.removeProperty('--fx-linea');sec.style.removeProperty('--fx-barra');};}
+
+MONTAJES.push({sel:'#view-ocasion',f(v){
+  const fin=noche(v);if(fin)limpiezas.push(fin);
+  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a')]);}});
+/* Vistas del menu: sobre, galeria, contacto (servicios tiene su catalogo aparte). */
+MONTAJES.push({sel:'#view-about,#view-gallery,#view-contact,#view-services',f(v){
+  revelar(v,[...v.querySelectorAll('.view-body .wrap > *:not(#shopGrid)')]);}});
+
+/* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */
+MONTAJES.push({sel:'#view-services',f(v,entra){
+  let fichas=[...v.querySelectorAll('#shopGrid .prod')];
+  if(!entra)fichas=fichas.filter(bajoElBorde);
+  if(!fichas.length)return;
+  G.set(fichas,{opacity:0,y:80,z:-140,rotationX:-30,rotationY:(i)=>i%2?9:-9,transformOrigin:'50% 0%',transition:'none'});
+  ST.batch(fichas,{scroller:v,start:'top bottom-=10',once:true,
+    onEnter:els=>G.to(els,{opacity:1,y:0,z:0,rotationX:0,rotationY:0,duration:1,ease:'power3.out',stagger:.07,overwrite:true,clearProps:'opacity,transform,transition'})});}});
+
+/* Al cambiar el tamano de la ventana cambian el modo de la noche y las medidas. */
+let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(ctx)montar(false);},250);});
 
 /* @piezas */
 })();

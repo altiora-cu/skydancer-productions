@@ -914,6 +914,40 @@ body.en-arma .cart-fab{display:none}
   .hero-proof,.hero-cta{opacity:1;transform:none}
 }
 
+/* ── EFECTOS · B · profundidad 3D (10/11/2026) ───────────────────────────────
+   Todo lo que se mueve cuelga de html.fx, que efectos.js solo pone con movimiento
+   permitido. El reel no se transforma nunca: la profundidad vive en el texto de
+   encima (.hero-inner) y en las vistas. Solo transform y opacity. */
+/* Portada: el titular llega desde el fondo (sin opacidad: es el LCP y se pinta ya). */
+.hero-h1{animation:fx-h1 1.2s cubic-bezier(.16,1,.3,1) both}
+@keyframes fx-h1{from{transform:perspective(900px) translate3d(0,10px,-90px) rotateX(9deg)}}
+.hero-proof,.hero-cta{transform:perspective(900px) translate3d(0,16px,-40px) rotateX(12deg);transform-origin:50% 100%}
+/* Y luego sigue al puntero en cuatro planos (efectos.js escribe --mx/--my en -1..1). */
+html.fx .hero-inner{transform:perspective(1400px) rotateX(calc(var(--my,0)*-2deg)) rotateY(calc(var(--mx,0)*2.6deg));transform-style:preserve-3d}
+html.fx .hero-h1{translate:calc(var(--mx,0)*-12px) calc(var(--my,0)*-7px) 40px}
+html.fx .hero-proof{translate:calc(var(--mx,0)*-6px) calc(var(--my,0)*-4px) 18px}
+html.fx .hero-steps{translate:calc(var(--mx,0)*7px) calc(var(--my,0)*4px) -30px}
+/* Paso 1: la tarjeta se inclina hacia el puntero (o con el giroscopio) y la foto se
+   desplaza al reves dentro de su arco, que es lo que da la sensacion de hondura. */
+html.fx .occ{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:border-color .3s,transform .7s var(--ease)}
+html.fx .occ:hover{--ty:-6px}
+html.fx .occ.inclina{transition:border-color .3s,transform .18s cubic-bezier(.2,.7,.3,1)}
+html.fx .occ .ph{position:relative}
+html.fx .occ .ph img{transform:translate3d(var(--ix,0px),var(--iy,0px),0) scale(var(--is,1));transition:transform .7s var(--ease)}
+html.fx .occ.inclina .ph img,html.fx .occ-grid.giro .ph img{--is:1.08;transition:transform .18s cubic-bezier(.2,.7,.3,1)}
+html.fx .occ .ph::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(70% 55% at var(--gx,50%) var(--gy,18%),rgba(246,224,160,.3),transparent 70%);opacity:var(--go,0);transition:opacity .5s}
+.fx-giro{display:none}
+html.fx .fx-giro{display:inline-flex;align-items:center;gap:10px;margin-top:18px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(246,224,160,.45);background:rgba(255,255,255,.04);color:var(--ink);font:700 15px/1.2 'Manrope',sans-serif}
+html.fx .fx-giro:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+html.fx .fx-giro[hidden]{display:none}
+/* Paginas de ocasion: tres planos en el gancho (arco dorado detras, foto, foto dentro
+   del arco) y la prueba en papel que se posa al llegar. Los mueve ScrollTrigger. */
+.fx-halo{display:none}
+html.fx .oc-gancho .ph{position:relative}
+html.fx .oc-gancho .arch{position:relative;z-index:1}
+html.fx .fx-halo{display:block;position:absolute;left:-16px;top:-16px;z-index:0;width:100%;aspect-ratio:3/4;border:1px solid rgba(246,224,160,.42);border-radius:999px 999px 18px 18px;pointer-events:none}
+@media(max-width:900px){html.fx .fx-halo{aspect-ratio:4/3.4;border-radius:220px 220px 16px 16px;left:-10px;top:-10px}}
+
 </style>
 </head>
 <body>

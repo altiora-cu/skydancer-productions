@@ -2,8 +2,8 @@
    Es mejora progresiva: si este archivo o GSAP no cargan, el sitio funciona igual,
    porque nada queda oculto esperando una animacion. Todo el CSS de efectos cuelga de
    html.fx, que solo existe con movimiento permitido (sistema y boton de pausa).
-   GSAP no se pide al cargar: entra en reposo tras el evento load, para no competir
-   con el reel ni con la foto que pinta el LCP. */
+   GSAP no se pide al cargar: entra con la primera interaccion, para no competir con
+   el reel ni con la foto que pinta el LCP. */
 (function(){
 'use strict';
 const root=document.documentElement;
@@ -45,9 +45,13 @@ root.classList.toggle('fx',!quieto());
 /* El boton de pausa del reel cambia motionOff en su onclick, que corre antes que esto. */
 const hm=document.getElementById('heroMotion');if(hm)hm.addEventListener('click',aplicarModo);
 
-const arrancar=()=>{const go=()=>pedirGsap();
-  if('requestIdleCallback'in window)requestIdleCallback(go,{timeout:2500});else setTimeout(go,1200);};
-if(document.readyState==='complete')arrancar();else addEventListener('load',arrancar,{once:true});
+/* GSAP llega con la primera senal de la persona (mover el raton, tocar, teclear, la
+   rueda o cambiar de ruta), no en reposo: evaluado en reposo caia dentro de la ventana
+   de Lighthouse y sumaba ~60 ms de bloqueo en movil. Nada lo necesita antes: la portada
+   no usa GSAP y lo que ya se ve nunca espera a una animacion. */
+const SENALES=['pointermove','pointerdown','touchstart','keydown','wheel','hashchange'];
+const alPrimeraSenal=()=>{SENALES.forEach(t=>removeEventListener(t,alPrimeraSenal,true));pedirGsap();};
+SENALES.forEach(t=>addEventListener(t,alPrimeraSenal,{capture:true,passive:true}));
 
 /* ── Utilidades ─────────────────────────────────────────────────────────────── */
 const lim=(x,a,b)=>Math.max(a,Math.min(b,x));

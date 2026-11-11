@@ -918,9 +918,8 @@ body.en-arma .cart-fab{display:none}
    Todo lo que se mueve cuelga de html.fx, que efectos.js solo pone con movimiento
    permitido. El reel no se transforma nunca: la profundidad vive en el texto de
    encima (.hero-inner) y en las vistas. Solo transform y opacity. */
-/* Portada: el titular llega desde el fondo (sin opacidad: es el LCP y se pinta ya). */
-.hero-h1{animation:fx-h1 1.2s cubic-bezier(.16,1,.3,1) both}
-@keyframes fx-h1{from{transform:perspective(900px) translate3d(0,10px,-90px) rotateX(9deg)}}
+/* Portada: el titular NO tiene entrada animada: es el LCP y moverlo subia el Speed
+   Index de 2,4 a 4,1 s en Lighthouse movil. Entran desde el fondo la credencial y las acciones. */
 .hero-proof,.hero-cta{transform:perspective(900px) translate3d(0,16px,-40px) rotateX(12deg);transform-origin:50% 100%}
 /* Y luego sigue al puntero en cuatro planos (efectos.js escribe --mx/--my en -1..1). */
 html.fx .hero-inner{transform:perspective(1400px) rotateX(calc(var(--my,0)*-2deg)) rotateY(calc(var(--mx,0)*2.6deg));transform-style:preserve-3d}
@@ -1860,12 +1859,15 @@ function seguirConShow(){
   closeCart();irA('arma/fecha');}
 
 /* STORE grid */
+/* fetchpriority="low" (10/11/2026): la vista de servicios esta oculta al cargar pero
+   ocupa la pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en
+   Lighthouse movil eso le quitaba ancho de banda a la foto del LCP (4,7 → 7,2 s). */
 function renderShop(){
   const g=document.getElementById('shopGrid');
   g.innerHTML=SERVICES.map((s,i)=>{const inCart=cart.includes(s.id);
     return `<article class="prod" data-open="${s.id}" role="button" tabindex="0" aria-label="${s.name[lang]}">
       <div class="prod-thumb pg${(i%6)+1}">
-        <img src="assets/services/${s.id}.jpg" alt="${s.name[lang]}" loading="lazy" onerror="this.remove()">
+        <img src="assets/services/${s.id}.jpg" alt="${s.name[lang]}" loading="lazy" fetchpriority="low" onerror="this.remove()">
         <span class="ph-ic">${svg(s.id)}</span>
         ${badgeHtml(s)}
         <span class="prod-view">${svg('eye')}${t('ui.view')}</span>
@@ -2296,7 +2298,9 @@ aplicarRuta();
   }
 })();
 </script>
-<!-- Efectos (mejora progresiva): GSAP lo pide efectos.js en reposo, desde vendor/gsap/3.15.0/. -->
-<script src="efectos.js" defer></script>
+<!-- Efectos (mejora progresiva). efectos.js entra tras load, cuando la foto del LCP ya
+     llego, y GSAP (vendor/gsap/3.15.0/) con la primera interaccion: ninguno de los dos
+     compite con lo que Lighthouse mide. -->
+<script>addEventListener('load',function(){var s=document.createElement('script');s.src='efectos.js';document.body.appendChild(s);},{once:true});</script>
 </body>
 </html>

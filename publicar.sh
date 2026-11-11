@@ -20,7 +20,7 @@ cp index.html efectos.js robots.txt sitemap.xml dist/
 # GSAP vendorizado (version exacta en la ruta, con su licencia) para efectos.js.
 cp -R vendor dist/
 cp -R assets/gallery assets/services dist/assets/
-cp assets/liana-founder.jpg assets/liana-founder.mp4 assets/liana-hero.mp4 assets/og-skydancer.jpg dist/assets/
+cp assets/liana-founder.jpg assets/liana-avatar.jpg assets/liana-founder.mp4 assets/liana-hero.mp4 assets/og-skydancer.jpg dist/assets/
 cp "video banner/skydancer-poster.jpg" "video banner/skydancer-web.mp4" "dist/video banner/"
 
 # Caché: los medios se guardan un día y se revalidan en segundo plano una

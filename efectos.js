@@ -247,9 +247,11 @@ function noche(v){
 
 MONTAJES.push({sel:'#view-ocasion',f(v){
   const fin=noche(v);if(fin)limpiezas.push(fin);
-  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a')]);}});
+  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a')]);}});
 /* Vistas del menu: sobre, galeria, contacto (servicios tiene su catalogo aparte). */
-MONTAJES.push({sel:'#view-about,#view-gallery,#view-contact,#view-services',f(v){
+MONTAJES.push({sel:'#view-about',f(v){
+  revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*')]);}});
+MONTAJES.push({sel:'#view-gallery,#view-contact,#view-services',f(v){
   revelar(v,[...v.querySelectorAll('.view-body .wrap > *:not(#shopGrid)')]);}});
 
 /* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */

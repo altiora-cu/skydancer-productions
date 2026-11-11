@@ -351,13 +351,6 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .mn-foot .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
 .mn-nav a:focus-visible,.mn-x:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 @media(prefers-reduced-motion:reduce){.menu,.menu-scrim,.menu-panel{transition:none}}
-/* La biografia vivia dentro del menu viejo; ahora esta en #/liana. */
-.founder-bio{margin-top:34px;max-width:70ch}
-.founder-bio .k{font:700 12px/1.3 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.founder-bio h2{margin-top:8px;font-size:1.6rem}
-.founder-bio .role{margin-top:4px;color:var(--muted);font-size:.95rem}
-.founder-bio p{margin-top:14px;color:#d7cfe6}
-.founder-bio .artists{color:var(--gold-hi);font-weight:600}
 
 /* VIEWS + aurora */
 .view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
@@ -377,29 +370,6 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .sec-head{max-width:760px;margin-bottom:44px}
 .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
 .sec-head p{color:var(--muted);font-size:1.05rem}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
-.about-copy p{color:#d9d0ee;margin-bottom:16px;font-size:1.04rem}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
-.stat{border-radius:var(--r);padding:20px 14px;text-align:center}
-.stat b{font-family:'Cinzel';font-size:1.8rem;display:block;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.stat small{color:var(--muted);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
-.about-media{position:relative;border-radius:24px;overflow:hidden;border:1px solid var(--glass-brd);box-shadow:var(--shadow);aspect-ratio:9/13;background:#000}
-.about-media video{width:100%;height:100%;object-fit:cover}
-.about-media .fg{position:absolute;inset:0;box-shadow:inset 0 0 90px rgba(230,120,120,.28);pointer-events:none}
-.exp{margin-top:72px}
-.acc{display:flex;flex-direction:column;gap:14px;margin-top:26px}
-.acc-item{border-radius:16px;overflow:hidden;transition:.3s}
-.acc-item.open{border-color:rgba(246,224,160,.5);box-shadow:0 20px 50px -34px rgba(230,120,120,.6)}
-.acc-btn{width:100%;display:flex;align-items:center;gap:16px;padding:20px 24px;background:none;border:0;color:var(--ink);text-align:left;font-family:'Cinzel';font-size:1.08rem;font-weight:700}
-.acc-btn .ai{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;color:var(--gold);background:rgba(246,224,160,.12);border:1px solid var(--glass-brd)}
-.acc-btn .ac{margin-left:auto;font-size:1.5rem;color:var(--gold);transition:.35s;line-height:1}
-.acc-item.open .ac{transform:rotate(45deg)}
-.acc-panel{max-height:0;overflow:hidden;transition:max-height .45s ease}
-.acc-panel ul{list-style:none;padding:2px 24px 22px 84px;display:flex;flex-direction:column;gap:9px}
-.acc-panel li{color:var(--muted);font-size:.95rem;position:relative;padding-left:16px}
-.acc-panel li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:var(--brand)}
 
 /* ===== SERVICES · STORE ===== */
 .shop-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
@@ -596,21 +566,19 @@ body.en-arma .cart-fab{display:none}
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media(max-width:960px){
-  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
   .gal-grid{grid-template-columns:repeat(2,1fr)}
-  .about-media{max-width:400px;margin:0 auto}
 }
 @media(max-width:600px){
   .view-body{padding:46px 0 90px}.wrap{padding:0 18px}
   .gal-grid,.travel{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr 1fr}
   .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
   .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
   .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
-  .cart-fab{bottom:20px;right:20px}.acc-panel ul{padding-left:24px}
+  .cart-fab{bottom:20px;right:20px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
 /* ===== ARMA TU SHOW (9/11/2026) =====================================================
@@ -673,7 +641,32 @@ body.en-arma .cart-fab{display:none}
 .occ .ln{font-size:16px;color:#d7cfe6}
 .occ .go{margin-top:auto;padding-top:6px;font-weight:700;font-size:15px;color:var(--gold-hi)}
 .a-links{margin-top:30px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 28px}
-.about-cta{margin-top:44px}
+.about-cta{margin-top:30px}
+/* Liana donde se decide (tanda 3): retrato pequeno y un HECHO de su biografia, al final
+   de cada pagina de ocasion y junto a «Enviar». Nunca una cita. */
+.liana{display:flex;align-items:flex-start;gap:14px;max-width:66ch}
+.liana img{width:56px;height:56px;flex:none;border-radius:50%;object-fit:cover;border:1px solid rgba(246,224,160,.55);background:#e9e4dc}
+.liana p{font-size:16px;line-height:1.5;color:#e4dcf2}
+.liana .a-link{font-size:15px}
+.oc-accion .liana{margin-bottom:22px}
+/* #/liana: su historia, donde ha actuado el equipo y el equipo */
+.li-gancho .arch{position:relative}
+.li-gancho .arch img{object-position:50% 12%}
+.li-gancho .arch video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
+.li-gancho .arch video[data-woke]{opacity:1}
+.li-bio{padding:8px 0 44px}
+.li-bio p:not(.a-eyebrow){margin-top:16px;max-width:68ch;font-size:17px;color:#ddd5ec}
+.li-bio .artists{color:var(--gold-hi);font-weight:600}
+.li-prueba{padding:12px 0 20px}
+.li-cols{margin-top:6px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 28px}
+.proof .li-cols h2{margin-top:16px;min-height:2.6em;font:700 15px/1.3 'Manrope',sans-serif;letter-spacing:0;color:var(--paper-mut);max-width:none}
+.li-cols ul{margin-top:10px;list-style:none;border-top:1px solid var(--rule)}
+.li-cols li{padding:11px 0;border-bottom:1px solid var(--rule);font-family:'Cinzel',serif;font-weight:700;font-size:17px;line-height:1.25}
+.li-equipo{padding:44px 0 64px}
+.li-equipo .lead{margin-top:12px;max-width:62ch;font-size:18px;color:#ddd5ec}
+@media(max-width:1100px){.li-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.li-cols{grid-template-columns:1fr}.proof .li-cols h2{min-height:0}}
+@media(prefers-reduced-motion:reduce){.li-gancho .arch video{display:none}}
 /* Paginas de ocasion: gancho, noche de ejemplo, prueba en papel marfil, boton, otras */
 .oc-gancho{padding:52px 0 60px;background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .oc-gancho .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
@@ -999,49 +992,44 @@ html.fx #shopGrid{perspective:1200px}
   </div>
 </div>
 
-<!-- VIEW: ABOUT -->
-<section class="view" id="view-about">
-  <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.about">About the Company</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
-  <div class="view-body"><div class="wrap">
-    <div class="about-grid">
-      <div class="about-copy">
-        <div class="eyebrow" data-i18n="about.eyebrow">About the Company</div>
-        <h2 class="gold-text" data-i18n="about.title">Premium entertainment, unforgettable moments</h2>
-        <p data-i18n="about.p1">SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.</p>
-        <p data-i18n="about.p2">From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.</p>
-      </div>
-      <div class="about-media"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
+<!-- LIANA Y EL EQUIPO (#/liana; #/sobre es alias) -->
+<section class="view arma" id="view-about" aria-labelledby="lianaT">
+  <div class="arma-bar" data-armabar="simple"></div>
+  <section class="oc-gancho li-gancho"><div class="aw">
+    <div><p class="a-eyebrow" data-i18n="menu.n3">Liana and the team</p>
+      <h1 id="lianaT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, founded and directs SkyDancer Productions from Miami</h1>
+      <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p></div>
+    <figure class="ph"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted loop playsinline preload="none" data-defer aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+  </div></section>
+  <section class="li-bio"><div class="aw">
+    <p class="a-eyebrow" data-i18n="li.bioK">Her story</p>
+    <div class="lang-en">
+      <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
+      <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
+      <p>She has danced in shows and videos for <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal and Timbalive</span>.<span class="pv"> <span class="dato">[which ones can be proven: Liana to confirm]</span></span></p>
+      <p class="pv">Liana was part of the production of <span class="dato">[artist and year: Liana to confirm]</span>'s concert at the Kaseya Center.</p>
     </div>
-    <div class="founder-bio">
-          <div class="k" data-i18n="founder.meet">Meet the Founder</div>
-          <h2>Liana del Toro</h2>
-          <div class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</div>
-          <div class="lang-en">
-            <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
-            <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
-            <p>She has danced in shows and videos for <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal and Timbalive</span>.<span class="pv"> <span class="dato">[which ones can be proven: Liana to confirm]</span></span></p>
-            <p class="pv">Liana was part of the production of <span class="dato">[artist and year: Liana to confirm]</span>'s concert at the Kaseya Center.</p>
-          </div>
-          <div class="lang-es" hidden>
-            <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
-            <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
-            <p>Ha bailado en shows y videos de <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal y Timbalive</span>.<span class="pv"> <span class="dato">[cuáles se pueden probar: dato de Liana]</span></span></p>
-            <p class="pv">Liana ha sido parte de la producción del concierto de <span class="dato">[artista y año: dato de Liana]</span> en el Kaseya Center.</p>
-          </div>
-        </div>
-    <div class="about-cta"><a class="hc hc-1" href="#/arma" data-entrada="liana" data-i18n="hero.cta1">Build your show</a></div>
-    <div class="exp">
-      <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
-      <div class="acc" id="accordion">
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="trophy"></span><span data-i18n="creds.c1t">Hotels where the team has performed</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Sagamore Hotel Miami Beach</li><li>National Hotel Miami Beach</li><li>SLS Hotel Miami Beach</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="glass"></span><span data-i18n="creds.c2t">Restaurants and nightlife where the team has performed</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>Giselle Miami</li><li>Kuba Cabana</li><li>Wet Brickell</li><li>Casa Ya'X</li><li>MAÜ Miami</li><li>The Moon Wynwood</li><li>Villa Azur Miami Beach</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="masks"></span><span data-i18n="creds.c3t">Theater: has performed at</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>La Scala Miami</li><li>Flamingo Theater Bar</li></ul></div></div>
-        <div class="acc-item glass"><button class="acc-btn"><span class="ai" data-ic="film"></span><span data-i18n="creds.c4t">Music videos and TV Liana has danced in</span><span class="ac">+</span></button><div class="acc-panel"><ul><li>El Chacal</li><li>Micha</li><li>Timbalive</li><li data-i18n="creds.c4a">Cuban bands &amp; live TV shows</li></ul></div></div>
-      </div>
+    <div class="lang-es" hidden>
+      <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
+      <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
+      <p>Ha bailado en shows y videos de <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal y Timbalive</span>.<span class="pv"> <span class="dato">[cuáles se pueden probar: dato de Liana]</span></span></p>
+      <p class="pv">Liana ha sido parte de la producción del concierto de <span class="dato">[artista y año: dato de Liana]</span> en el Kaseya Center.</p>
     </div>
-    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
-  </div></div>
+  </div></section>
+  <section class="oc-prueba li-prueba"><div class="aw"><div class="proof solo"><div>
+    <p class="a-eyebrow" data-i18n="li.prK">Where the team has performed</p>
+    <div class="li-cols">
+      <div><h2 data-i18n="creds.c1t">Hotels where the team has performed</h2><ul><li>Sagamore Hotel Miami Beach</li><li>National Hotel Miami Beach</li><li>SLS Hotel Miami Beach</li></ul></div>
+      <div><h2 data-i18n="creds.c2t">Restaurants and nightlife where the team has performed</h2><ul><li>Giselle Miami</li><li>Kuba Cabana</li><li>Wet Brickell</li><li>Casa Ya'X</li><li>MAÜ Miami</li><li>The Moon Wynwood</li><li>Villa Azur Miami Beach</li></ul></div>
+      <div><h2 data-i18n="creds.c3t">Theater: has performed at</h2><ul><li>La Scala Miami</li><li>Flamingo Theater Bar</li></ul></div>
+      <div><h2 data-i18n="creds.c4t">Music videos and TV Liana has danced in</h2><ul><li>El Chacal</li><li>Micha</li><li>Timbalive</li><li data-i18n="creds.c4a">Cuban bands &amp; live TV shows</li></ul></div>
+    </div>
+  </div></div></div></section>
+  <section class="li-equipo"><div class="aw">
+    <p class="a-eyebrow" data-i18n="li.eqK">The team</p>
+    <p class="lead" data-i18n="about.p2">From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.</p>
+    <div class="about-cta"><a class="a-btn a-pri" href="#/arma" data-entrada="liana" data-i18n="hero.cta1">Build your show</a></div>
+  </div></section>
 </section>
 
 <!-- VIEW: SERVICES (store) -->
@@ -1299,10 +1287,10 @@ const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS
    Se inyecta antes de enlazar [data-openmenu] para que el boton nazca vivo. */
 document.querySelectorAll('[data-armabar]').forEach(b=>{b.innerHTML=
   `<a class="ab-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>`+
-  `<ol class="steps" data-pasos></ol>`+
+  (b.dataset.armabar==='simple'?'':`<ol class="steps" data-pasos></ol>`)+
   `<div class="ab-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>`+
   `<button class="ab-menu" type="button" data-openmenu>${svg('menu')}<span data-i18n="hero.menu">Menu</span></button></div>`+
-  `<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`;});
+  (b.dataset.armabar==='simple'?'':`<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
 document.querySelectorAll('[data-ic]').forEach(el=>el.innerHTML=svg(el.dataset.ic));
 
 const SERVICES=[
@@ -1325,11 +1313,11 @@ const SERVICES=[
 
 const I18N={
  en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
-  'menu.back':'Back','menu.explore':'Explore','ui.back':'Back to menu',
+  'ui.back':'Back to menu',
   'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
-  'founder.meet':'Meet the Founder','founder.role':'Founder & Creative Director · Skydancer Productions',
-  'about.eyebrow':'About the Company','about.title':'Premium entertainment, unforgettable moments','about.p1':'SkyDancer Productions is a Miami-based luxury entertainment company delivering world-class performers, choreographed shows and immersive experiences for the most exclusive events across South Florida.','about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
-  'creds.eyebrow':'Our Experience','creds.title':'Tap each section to explore','creds.sub':'A track record across luxury venues, festivals, theaters and television productions.','creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
+  'founder.role':'Founder & Creative Director · Skydancer Productions',
+  'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
+  'creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
   'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
   'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
@@ -1339,11 +1327,11 @@ const I18N={
   'cart.title':'Your event','cart.hint':'Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.','cart.wa':'Send via WhatsApp','cart.email':'Send via Email','brief.title':'Tell us about the night','brief.sub':'The more you tell us, the faster Liana can quote it. Nothing here is required.','brief.type':'Event type','brief.choose':'Choose…','brief.t1':'Wedding','brief.t2':'Corporate','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Private party','brief.t6':'Festival','brief.t7':'Something else','brief.date':'Date','brief.city':'City or venue','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Guests','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more','brief.picked':'You picked','brief.none':'No services picked yet — tell us anyway and Liana will suggest.','brief.doneT':'Your brief is on its way','brief.doneS':'We opened WhatsApp with everything filled in. If it did not open, write to us here:','brief.doneE':'We opened your email app with everything filled in. If it did not open, write to us here:','brief.back':'Back to my event',
   'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Nothing here yet. Add the services you are curious about.','ui.added':'Added to your event','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
  es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
-  'menu.back':'Atrás','menu.explore':'Explora','ui.back':'Volver al menú',
+  'ui.back':'Volver al menú',
   'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
-  'founder.meet':'Conoce a la Fundadora','founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
-  'about.eyebrow':'Sobre la Compañía','about.title':'Entretenimiento premium, momentos inolvidables','about.p1':'SkyDancer Productions es una compañía de entretenimiento de lujo con base en Miami que ofrece performers de clase mundial, shows coreografiados y experiencias inmersivas para los eventos más exclusivos del sur de la Florida.','about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
-  'creds.eyebrow':'Nuestra Experiencia','creds.title':'Toca cada sección para explorar','creds.sub':'Trayectoria en venues de lujo, festivales, teatros y producciones de televisión.','creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
+  'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
+  'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
+  'creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
   'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
   'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
@@ -1365,7 +1353,12 @@ Object.assign(I18N.en,{
  'arma.planner':'You are planning for a client: choose your client\'s occasion. In step 3 the box "I\'m planning this for a client" will already be checked.',
  'arma.planners':'Planning for a client? Planners and venues, this way','arma.all':'See the 15 services →',
  'paso.1':'Your event','paso.2':'Date and county','paso.3':'Your show','paso.w':'Step','paso.de':'of',
- 'oc.noche':'Sample night','oc.marcado':'Checked in your show','oc.otras':'Other occasions'});
+ 'oc.noche':'Sample night','oc.marcado':'Checked in your show','oc.otras':'Other occasions',
+ 'li.h1':'<span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, founded and directs SkyDancer Productions from Miami',
+ 'li.lead':'Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.',
+ 'li.bioK':'Her story','li.prK':'Where the team has performed','li.eqK':'The team','li.ver':'Liana\'s story →',
+ 'li.hecho':'Liana del Toro, a Cuban-born professional dancer and the founder of SkyDancer Productions, directs the company\'s productions for {x} from Miami.',
+ 'li.x.bodas':'weddings','li.x.empresas':'corporate events','li.x.noches':'luxury hotels and restaurants','li.x.celebraciones':'festivals and private celebrations','li.x.planners':'corporate events, luxury hotels, weddings and festivals'});
 Object.assign(I18N.es,{
  'hero.h1':'Hora Loca, robots LED, fuego y bailarines en vivo para eventos en Miami, <em>dirigidos por Liana del Toro</em>',
  'cred.h':'El equipo ha actuado en SLS Miami Beach, Sagamore y National Hotel','cred.s':'Ha actuado en Sagamore, National Hotel y SLS Miami Beach',
@@ -1376,7 +1369,12 @@ Object.assign(I18N.es,{
  'arma.planner':'Organizas para un cliente: elige la ocasión de tu cliente. En el paso 3 la casilla «Organizo este evento para un cliente» ya irá marcada.',
  'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los 15 servicios →',
  'paso.1':'Tu evento','paso.2':'Fecha y condado','paso.3':'Tu show','paso.w':'Paso','paso.de':'de',
- 'oc.noche':'Noche de ejemplo','oc.marcado':'Marcado en tu show','oc.otras':'Otras ocasiones'});
+ 'oc.noche':'Noche de ejemplo','oc.marcado':'Marcado en tu show','oc.otras':'Otras ocasiones',
+ 'li.h1':'<span class="cz">Liana del Toro</span>, bailarina profesional nacida en Cuba, fundó y dirige SkyDancer Productions desde Miami',
+ 'li.lead':'Bailarina, modelo, productora y directora creativa. El equipo que dirige ha actuado en SLS Miami Beach, Sagamore y National Hotel.',
+ 'li.bioK':'Su historia','li.prK':'Dónde ha actuado el equipo','li.eqK':'El equipo','li.ver':'La historia de Liana →',
+ 'li.hecho':'Liana del Toro, bailarina profesional nacida en Cuba y fundadora de SkyDancer Productions, dirige desde Miami las producciones de la compañía para {x}.',
+ 'li.x.bodas':'bodas','li.x.empresas':'eventos corporativos','li.x.noches':'hoteles de lujo y restaurantes','li.x.celebraciones':'festivales y celebraciones privadas','li.x.planners':'eventos corporativos, hoteles de lujo, bodas y festivales'});
 
 Object.assign(I18N.en,{"f.t": "Date and county, so Liana can check the calendar and travel", "f.sub": "Availability comes from SkyDancer's real calendar. The date is optional.", "f.ocas": "Your event", "f.fecha": "Event date", "f.opc": "optional", "f.condado": "County", "f.venue": "Venue or city", "f.venueh": "With the name of the venue, Liana checks whether it allows fire.", "f.inv": "Guests", "f.seguir": "Continue with the show", "f.hoy": "today", "f.mesAnt": "Previous month", "f.mesSig": "Next month", "f.elige": "Your date", "f.sinfecha": "Pick a day on the calendar. If you don't have a date yet, you can continue without one.", "f.elegiste": "You picked", "f.e.cargando.t": "Checking", "f.e.cargando": "Checking SkyDancer's calendar…", "f.e.libre.t": "Open", "f.e.libre": "That date is open on SkyDancer's calendar.", "f.e.ultima.t": "Last minute", "f.e.ultima": "Less than 7 days to go: Liana will confirm on WhatsApp.", "f.e.ocupada.t": "Booked", "f.e.ocupada": "That date already has an event booked. Message us and Liana will tell you if there is a team available.", "f.e.pasada.t": "Past date", "f.e.pasada": "That date has passed. Pick another one on the calendar.", "f.e.error.t": "No answer", "f.e.error": "We couldn't check the calendar right now; Liana will confirm it on WhatsApp. You can continue.", "f.escribir": "Message on WhatsApp", "f.waOcupada": "Hi Liana, I would like to know if there is a team available on {f}.", "f.quitar": "Clear the date", "r.fecha": "Date", "r.condado": "County", "r.inv": "Guests", "r.sin": "Not yet", "r.sinOcas": "Your event", "r.sinSvc": "No services checked yet; Liana can suggest them.", "r.cambiar": "Change date or county", "r.desc": "Book 3 or more services and save 10% on the quote; book 2 and save 5%.", "r.fine2": "You can change them in step 3. No added-up total: Liana prepares every quote by hand.", "r.fine3": "No added-up total: Liana puts the price together with your date, your venue and your production.", "v.bodas": "Back to the wedding", "v.empresas": "Back to companies", "v.noches": "Back to nights", "v.celebraciones": "Back to celebrations", "v.servicios": "Back to the services", "v.arma": "Back", "s.sub": "Tap a service to check or uncheck it.", "s.svc": "Services", "s.ver": "See photos of the 15 services →", "s.vision": "Your vision", "s.visionPh": "E.g.: schedule, key moments, colors or dress code.", "s.visionPhB": "E.g.: couple’s entrance at 9, Hora Loca after the first dance, white and gold.", "s.nombre": "Your name", "s.req": "required", "s.tel": "Your WhatsApp", "s.telh": "Liana replies to this number.", "s.correoL": "Your email", "s.planner": "I'm planning this event for a client (planner or venue)", "s.linea": "Liana prepares every quote by hand. Asking costs nothing and commits you to nothing.", "s.enviar": "Send to Liana on WhatsApp", "s.guardando": "Saving your request…", "s.correo": "Send by email", "s.asunto": "Show request — SkyDancer", "e.nombre": "Your name is missing.", "e.tel": "Your WhatsApp number is missing: Liana replies to it.", "e.telFmt": "Write the number with the country code, like +1 305 555 0101.", "e.correo": "Check the email: it is missing the @ or the domain.", "e.resumen": "Before sending, check:", "e.n.sNombre": "your name", "e.n.sTel": "your WhatsApp", "e.n.sCorreo": "your email", "e.ocas": "Choose the type of event to continue.", "c.k": "Request sent", "c.kWa": "Request on WhatsApp", "c.ok": "Liana has your request and will message you at the number you left.", "c.noAbrioWa": "If WhatsApp didn't open: {wa}.", "c.noAbrioMail": "If your email didn't open: {mail} or WhatsApp {wa}.", "c.soloWa": "Your request went out on WhatsApp.", "c.soloWaP": "Send the message that opened and Liana will reply. If WhatsApp didn't open: {wa}.", "c.soloMail": "Your request went out by email.", "c.soloMailP": "Send the email that opened and Liana will reply. If it didn't open: {mail} or WhatsApp {wa}.", "c.otro": "Build another show", "cart.seguir": "Continue with my show"});
 Object.assign(I18N.es,{"f.t": "Fecha y condado, para que Liana mire el calendario y el viaje", "f.sub": "La disponibilidad sale del calendario real de SkyDancer. La fecha es opcional.", "f.ocas": "Tu evento", "f.fecha": "Fecha del evento", "f.opc": "opcional", "f.condado": "Condado", "f.venue": "Venue o ciudad", "f.venueh": "Con el nombre del salón, Liana revisa si el local permite fuego.", "f.inv": "Invitados", "f.seguir": "Seguir con el show", "f.hoy": "hoy", "f.mesAnt": "Mes anterior", "f.mesSig": "Mes siguiente", "f.elige": "Tu fecha", "f.sinfecha": "Elige un día en el calendario. Si aún no tienes fecha, puedes seguir sin ella.", "f.elegiste": "Elegiste", "f.e.cargando.t": "Mirando", "f.e.cargando": "Mirando el calendario de SkyDancer…", "f.e.libre.t": "Libre", "f.e.libre": "Esa fecha está libre en el calendario de SkyDancer.", "f.e.ultima.t": "Última hora", "f.e.ultima": "Faltan menos de 7 días: Liana te confirma por WhatsApp.", "f.e.ocupada.t": "Ocupada", "f.e.ocupada": "Esa fecha ya tiene un evento reservado. Escríbenos y Liana te dice si hay equipo.", "f.e.pasada.t": "Fecha pasada", "f.e.pasada": "Esa fecha ya pasó. Elige otra en el calendario.", "f.e.error.t": "Sin respuesta", "f.e.error": "No pudimos mirar el calendario ahora; Liana te lo confirma por WhatsApp. Puedes seguir.", "f.escribir": "Escribir por WhatsApp", "f.waOcupada": "Hola Liana, quiero saber si hay equipo para el {f}.", "f.quitar": "Quitar la fecha", "r.fecha": "Fecha", "r.condado": "Condado", "r.inv": "Invitados", "r.sin": "Sin elegir", "r.sinOcas": "Tu evento", "r.sinSvc": "Todavía no hay servicios marcados; Liana te los puede proponer.", "r.cambiar": "Cambiar fecha o condado", "r.desc": "Con 3 servicios o más, 10 % de descuento sobre la cotización; con 2, 5 %.", "r.fine2": "Los cambias en el paso 3. Sin total sumado: Liana prepara cada cotización a mano.", "r.fine3": "Sin total sumado: el precio lo arma Liana con tu fecha, tu venue y tu producción.", "v.bodas": "Volver a la boda", "v.empresas": "Volver a empresas", "v.noches": "Volver a noches", "v.celebraciones": "Volver a celebraciones", "v.servicios": "Volver a los servicios", "v.arma": "Volver", "s.sub": "Toca un servicio para marcarlo o quitarlo.", "s.svc": "Servicios", "s.ver": "Ver las fotos de los 15 servicios →", "s.vision": "Tu visión", "s.visionPh": "Ej.: horario, momentos clave, colores o dress code.", "s.visionPhB": "Ej.: entrada de los novios a las 9, Hora Loca después del vals, colores blanco y dorado.", "s.nombre": "Tu nombre", "s.req": "obligatorio", "s.tel": "Tu WhatsApp", "s.telh": "Liana te contesta a este número.", "s.correoL": "Tu correo", "s.planner": "Organizo este evento para un cliente (planner o venue)", "s.linea": "Liana prepara cada cotización a mano. Pedirla no cuesta nada ni te compromete.", "s.enviar": "Enviar a Liana por WhatsApp", "s.guardando": "Guardando tu pedido…", "s.correo": "Enviar por correo", "s.asunto": "Pedido de show — SkyDancer", "e.nombre": "Falta tu nombre.", "e.tel": "Falta tu WhatsApp: Liana te contesta a ese número.", "e.telFmt": "Escribe el número con código de país, como +1 305 555 0101.", "e.correo": "Revisa el correo: le falta la @ o el dominio.", "e.resumen": "Antes de enviar, revisa:", "e.n.sNombre": "tu nombre", "e.n.sTel": "tu WhatsApp", "e.n.sCorreo": "tu correo", "e.ocas": "Elige el tipo de evento para seguir.", "c.k": "Pedido enviado", "c.kWa": "Pedido por WhatsApp", "c.ok": "Liana ya tiene tu pedido y te escribe al número que dejaste.", "c.noAbrioWa": "Si WhatsApp no se abrió: {wa}.", "c.noAbrioMail": "Si tu correo no se abrió: {mail} o WhatsApp {wa}.", "c.soloWa": "Tu pedido salió por WhatsApp.", "c.soloWaP": "Envía el mensaje que se abrió y Liana te contesta. Si WhatsApp no se abrió: {wa}.", "c.soloMail": "Tu pedido salió por correo.", "c.soloMailP": "Envía el correo que se abrió y Liana te contesta. Si no se abrió: {mail} o WhatsApp {wa}.", "c.otro": "Armar otro show", "cart.seguir": "Seguir con mi show"});
@@ -1532,6 +1530,8 @@ const svcNom=id=>{const s=SERVICES.find(x=>x.id===id);return s?s.name[lang]:id;}
 const L=o=>o==null?'':(typeof o==='string'?o:o[lang]);
 const waUrl=txt=>'https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
 
+/* Liana donde se decide: retrato ligero (4,5 KB) y un hecho de la biografia publicada. */
+const lianaHTML=(txt,enlace)=>`<div class="liana"><img src="assets/liana-avatar.jpg" alt="" width="56" height="56" loading="lazy" fetchpriority="low"><div><p>${txt}</p>${enlace?`<a class="a-link" href="#/liana">${t('li.ver')}</a>`:''}</div></div>`;
 function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view-ocasion');
   const O=P.ocas?OCASIONES[P.ocas]:null;
   pintarPasos(v,1,[O?O.nombre[lang]:'']);
@@ -1558,7 +1558,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
       <div><p class="a-eyebrow">${L(P.pk)}</p>${P.ph2?`<h2>${L(P.ph2)}</h2>`:''}${lista}${datos.map(d=>`<p class="cifra">${L(d)}</p>`).join('')}</div>
       ${P.hueco?`<div class="hueco"><p>${L(P.hueco)}</p></div>`:''}
     </div></div></section>`:''}
-    <section class="oc-accion"><div class="aw"><div class="box">
+    <section class="oc-accion"><div class="aw">${lianaHTML(t('li.hecho').replace('{x}',t('li.x.'+key)),true)}<div class="box">
       <p class="paso"><b>${t('paso.w')} 1 ${t('paso.de')} 3${O?' · '+O.nombre[lang]:''}</b>${L(P.paso)}</p>
       ${primario}
       <a class="a-btn a-ghost" href="${waUrl(L(P.wa))}" target="_blank" rel="noopener">${ic}WhatsApp</a>
@@ -1896,10 +1896,6 @@ document.getElementById('formSend').onclick=()=>{const n=document.getElementById
   if(d)m+=(L==='es'?'Fecha: ':'Date: ')+d+'\n';if(v)m+=(L==='es'?'Locación: ':'Venue: ')+v+'\n';if(msg)m+=(L==='es'?'Detalles: ':'Details: ')+msg+'\n';
   if(cart.length)m+='\n'+buildMessage(false);window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');};
 
-document.querySelectorAll('.acc-btn').forEach(b=>b.onclick=()=>{const it=b.closest('.acc-item'),p=it.querySelector('.acc-panel'),open=it.classList.contains('open');
-  document.querySelectorAll('.acc-item').forEach(x=>{x.classList.remove('open');x.querySelector('.acc-panel').style.maxHeight=null;});
-  if(!open){it.classList.add('open');p.style.maxHeight=p.scrollHeight+'px';}});
-
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
   /* Solo para textos propios con marcado (el <em> del h1); nunca para lo que escribe el visitante. */
@@ -1956,7 +1952,7 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
 const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',contacto:'view-contact',arma:'view-arma',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
-const CLAVE_NAV={sobre:'nav.about',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',contacto:'nav.contact',arma:'menu.n1'};
+const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',contacto:'nav.contact',arma:'menu.n1'};
 const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */

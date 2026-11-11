@@ -251,12 +251,14 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
 /* Vistas del menu: sobre, galeria, contacto (servicios tiene su catalogo aparte). */
 MONTAJES.push({sel:'#view-about',f(v){
   revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*')]);}});
-MONTAJES.push({sel:'#view-gallery,#view-services',f(v){
-  revelar(v,[...v.querySelectorAll('.view-body .wrap > *:not(#shopGrid)')]);}});
+MONTAJES.push({sel:'#view-gallery',f(v){
+  revelar(v,[...v.querySelectorAll('.view-body .wrap > *')]);}});
+MONTAJES.push({sel:'#view-services',f(v){
+  revelar(v,[...v.querySelectorAll('.cat-note')]);}});
 
 /* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */
 MONTAJES.push({sel:'#view-services',f(v,entra){
-  let fichas=[...v.querySelectorAll('#shopGrid .prod')];
+  let fichas=[...v.querySelectorAll('#shopGrid .svc-card')];
   if(!entra)fichas=fichas.filter(bajoElBorde);
   if(!fichas.length)return;
   G.set(fichas,{opacity:0,y:80,z:-140,rotationX:-30,rotationY:(i)=>i%2?9:-9,transformOrigin:'50% 0%',transition:'none'});

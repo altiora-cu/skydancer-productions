@@ -239,7 +239,6 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
    de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
    No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
 .pm-lang{position:absolute;top:14px;left:14px;z-index:3}
-.cart-head .lang{margin-left:auto;margin-right:14px}
 .view-bar .lang{padding:3px}
 .view-bar .lang button{padding:5px 10px;font-size:.68rem}
 
@@ -364,38 +363,39 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .aurora{position:sticky;top:0;height:0;z-index:0}
 .aurora::before{content:"";position:absolute;top:0;left:0;right:0;height:100svh;pointer-events:none;background:radial-gradient(48% 42% at 12% 8%,var(--a1),transparent 70%),radial-gradient(46% 40% at 88% 4%,var(--a2),transparent 72%),radial-gradient(60% 50% at 78% 88%,var(--a3),transparent 74%),radial-gradient(50% 46% at 20% 92%,var(--a1),transparent 76%),linear-gradient(180deg,var(--abase),var(--abase))}
 #view-about{--abase:#0d0710;--a1:rgba(230,140,120,.24);--a2:rgba(150,60,72,.26);--a3:rgba(246,224,160,.16)}
-#view-services{--abase:#0a0714;--a1:rgba(255,45,120,.22);--a2:rgba(139,59,255,.26);--a3:rgba(24,230,216,.14)}
 #view-gallery{--abase:#080718;--a1:rgba(123,47,247,.26);--a2:rgba(24,230,216,.20);--a3:rgba(255,45,120,.18)}
 .sec-head{max-width:760px;margin-bottom:44px}
 .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
 .sec-head p{color:var(--muted);font-size:1.05rem}
 
-/* ===== SERVICES · STORE ===== */
-.shop-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:12px}
-.shop-note{border-left:3px solid var(--gold);border-radius:14px;padding:14px 20px;color:#e8def7;font-size:.9rem;margin:14px 0 30px;max-width:840px}
-.shop-perks{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px}
-.perk{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:.74rem;font-weight:700;letter-spacing:.04em;color:#1a1206;background:linear-gradient(120deg,#f6e0a0,#e6c25c)}
-.perk.ghost{background:none;border:1px solid var(--glass-brd);color:var(--muted)}
-.shop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.prod{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:.35s;background:rgba(255,255,255,.05);border:1px solid var(--glass-brd)}
-.prod:hover{transform:translateY(-5px);border-color:rgba(246,224,160,.5);box-shadow:var(--shadow)}
-.prod-thumb{position:relative;aspect-ratio:3/4;overflow:hidden;display:grid;place-items:center}
-.prod-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.prod-thumb .ph-ic{position:relative;z-index:0;color:rgba(255,255,255,.9)}
-.prod-thumb .ph-ic .svg-ic{width:40px;height:40px;stroke-width:1.3;filter:drop-shadow(0 6px 14px rgba(0,0,0,.4))}
-.prod-thumb::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.55));pointer-events:none}
-.prod-badge{position:absolute;top:9px;right:9px;z-index:3;font-family:'Cinzel';font-weight:700;font-size:.66rem;color:#1a1206;background:linear-gradient(120deg,#f6e0a0,#e6c25c);padding:4px 9px;border-radius:999px}
-.prod-badge.custom{background:rgba(10,7,20,.8);color:#f6e0a0;border:1px solid rgba(246,224,160,.5)}
-.prod-view{position:absolute;left:9px;bottom:9px;z-index:3;font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#fff;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.3);padding:5px 10px;border-radius:999px;display:inline-flex;gap:6px;align-items:center;backdrop-filter:blur(4px)}
-.prod-view .svg-ic{width:14px;height:14px}
-.prod-body{padding:12px;display:flex;flex-direction:column;gap:9px}
-.prod-body h3{font-size:.9rem;line-height:1.25}
-.prod-add{border:1px solid var(--glass-brd);background:rgba(255,255,255,.04);color:var(--ink);padding:10px;border-radius:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.64rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:6px}
-.prod-add:hover{border-color:var(--gold)}
-.prod-add.in{background:var(--gold-grad);color:#1a1206;border-color:transparent}
-.pg1{background:linear-gradient(150deg,#ff2d78,#8b3bff)}.pg2{background:linear-gradient(150deg,#8b3bff,#18e6d8)}
-.pg3{background:linear-gradient(150deg,#e6c25c,#ff2d78)}.pg4{background:linear-gradient(150deg,#18e6d8,#3b2a7a)}
-.pg5{background:linear-gradient(150deg,#ff6a3d,#b8912f)}.pg6{background:linear-gradient(150deg,#7b2ff7,#ff2d78)}
+/* CATALOGO (tanda 3): #/servicios habla el lenguaje del paso 3. Cada tarjeta lleva el
+   mismo boton de marcar que los chips del paso 3 y escribe en el mismo estado. */
+.perks{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;list-style:none}
+.perks li{min-height:36px;display:inline-flex;align-items:center;padding:0 14px;border-radius:99px;border:1px solid rgba(246,224,160,.4);background:rgba(230,194,92,.08);color:#f1e3bb;font-weight:600;font-size:15px}
+.cat{margin-top:30px;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.svc-card{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;border:1px solid var(--glass-brd);background:rgba(255,255,255,.035);transition:border-color .3s}
+.svc-card.on{border-color:var(--gold)}
+.svc-card .ph{position:relative;display:block;aspect-ratio:4/3;overflow:hidden;background:#120e1c}
+.svc-card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.svc-card .ph:hover img{transform:scale(1.04)}
+.svc-card .price{position:absolute;left:10px;bottom:10px;padding:5px 12px;border-radius:99px;background:rgba(5,4,10,.84);color:var(--gold-hi);font-weight:700;font-size:14px}
+.svc-card .bd{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px 18px}
+.svc-card h2{font-family:'Cinzel',serif;font-weight:700;font-size:18px;line-height:1.25;letter-spacing:.02em}
+.svc-card h2 a{display:flex;align-items:center;min-height:44px}
+.svc-card h2 a:hover{color:var(--gold-hi)}
+.svc-card h2 a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.svc-card .chip{margin-top:auto}
+.cat-note{margin-top:26px;max-width:70ch;font-size:15px;color:var(--muted)}
+@media(max-width:560px){
+  .cat{grid-template-columns:1fr;gap:12px}
+  .svc-card{flex-direction:row}
+  .svc-card .ph{flex:none;width:36%;aspect-ratio:auto;min-height:132px}
+  .svc-card .bd{padding:10px 12px 14px;gap:6px}
+  .svc-card h2{font-size:17px}
+  .svc-card .chip{padding:0 12px;font-size:15px}
+}
+@media(prefers-reduced-motion:reduce){.svc-card .ph img{transition:none}}
+
 /* product modal */
 .pm-overlay{position:fixed;inset:0;z-index:115;background:rgba(4,3,10,.8);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:.35s;display:grid;place-items:center;padding:20px}
 .pm-overlay.open{opacity:1;visibility:visible}
@@ -403,19 +403,16 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .pm-overlay.open .pm-card{transform:none}
 .pm-img{position:relative;min-height:100%;overflow:hidden;display:grid;place-items:center}
 .pm-img img,.pm-img video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-.pm-img .ph-ic{position:relative;z-index:0;color:rgba(255,255,255,.92)}
-.pm-img .ph-ic .svg-ic{width:70px;height:70px;stroke-width:1.2}
-.pm-close{position:absolute;top:12px;right:12px;z-index:6;width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.45);color:#fff;font-size:1.3rem;backdrop-filter:blur(6px);transition:.3s}
-.pm-close:hover{border-color:#ff2d78;transform:rotate(90deg)}
+.pm-close{position:absolute;top:10px;right:10px;z-index:6;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.45);color:#fff;font-size:1.3rem;backdrop-filter:blur(6px);transition:.3s}
+.pm-close:hover{border-color:var(--gold)}
+.pm-close:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .pm-info{padding:30px 34px 32px;overflow-y:auto;max-height:100%;display:flex;flex-direction:column;justify-content:center}
-.pm-info .k{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.pm-info .k{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:800}
 .pm-info h2{font-size:1.7rem;margin:8px 0 6px}
 .pm-price{font-family:'Cinzel';font-weight:700;font-size:1.3rem;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:16px}
-.pm-price small{font-family:'Manrope';font-weight:500;font-size:.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;-webkit-text-fill-color:var(--muted);margin-right:6px}
-.pm-desc{color:#cfc6e6;font-size:.96rem;line-height:1.6;margin-bottom:22px}
-.pm-add{width:100%;border:0;padding:16px;border-radius:12px;background:var(--gold-grad);color:#1a1206;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;transition:.3s;display:flex;align-items:center;justify-content:center;gap:9px}
-.pm-add:hover{filter:brightness(1.07)}
-.pm-add.in{background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink)}
+.pm-price small{font-family:'Manrope';font-weight:500;font-size:13px;letter-spacing:.04em;color:var(--muted);-webkit-text-fill-color:var(--muted);margin-right:6px}
+.pm-desc{color:#cfc6e6;font-size:16px;line-height:1.6;margin-bottom:22px}
+.pm-acc{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
 
 /* GALLERY */
 .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px}
@@ -473,69 +470,37 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .view-foot .fl{font-family:'Cinzel';font-weight:900;letter-spacing:.14em;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
 .view-foot .fl .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 
-/* CART */
-.cart-fab{position:fixed;bottom:26px;right:26px;z-index:80;width:64px;height:64px;border-radius:50%;background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);display:grid;place-items:center;transition:.4s;transform:translateY(120px)}
-.cart-fab .svg-ic{width:26px;height:26px;stroke:#1a1206}
-.cart-fab.show{transform:none}
+/* TU SHOW fuera del recorrido (tanda 3): el carrito se fundio con el show. El boton
+   flotante y el panel leen y escriben SHOW.servicios, el mismo estado del paso 3. Sin
+   totales: se conserva el descuento publicado y los precios «Desde», nada mas. */
+.cart-fab{position:fixed;bottom:22px;right:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 16px 0 18px;border-radius:99px;border:0;background:var(--gold-grad);color:#1a1206;font:700 16px/1 'Manrope',sans-serif;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);transform:translateY(120px);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;cursor:var(--cur),pointer}
+.cart-fab.show{transform:none;visibility:visible;transition-delay:0s}
+.cart-fab .svg-ic{width:20px;height:20px;stroke:#1a1206}
+.cart-fab .count{min-width:26px;height:26px;padding:0 7px;border-radius:13px;display:grid;place-items:center;background:#1d1114;color:var(--gold-hi);font-size:14px;font-weight:800}
+.cart-fab:focus-visible{outline:2px solid #fff;outline-offset:3px}
 body.en-arma .cart-fab{display:none}
-.cart-fab .count{position:absolute;top:-4px;right:-4px;min-width:24px;height:24px;border-radius:12px;background:#ff2d78;color:#1a1206;font-size:.72rem;font-weight:800;display:grid;place-items:center;padding:0 6px;border:2px solid var(--bg)}
-.cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);z-index:110;background:#0b0813;border-left:1px solid var(--line);transform:translateX(105%);transition:.45s cubic-bezier(.5,0,.2,1);display:flex;flex-direction:column;box-shadow:-30px 0 80px -30px rgba(0,0,0,.9)}
-.cart-panel.open{transform:none}
-.cart-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
-.cart-head h2{font-size:1.2rem}
-.cart-head .x{background:none;border:0;color:var(--muted);font-size:1.6rem;line-height:1}
-.cart-head .x:hover{color:#ff2d78}
-.cart-items{flex:1;overflow-y:auto;padding:12px 24px}
-.cart-empty{text-align:center;color:var(--muted);padding:60px 20px;font-size:.92rem}
-.cart-empty .svg-ic{width:40px;height:40px;margin:0 auto 14px;opacity:.5;stroke:var(--muted)}
-.clear-all{width:100%;margin:10px 0 4px;background:none;border:1px solid var(--line);color:var(--muted);padding:11px;border-radius:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;transition:.3s}
-.clear-all:hover{border-color:#ff2d78;color:#ff2d78}
-.ci{display:flex;gap:12px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}
-.ci .ci-i{width:40px;height:40px;border-radius:10px;color:var(--gold);background:rgba(246,224,160,.12);display:grid;place-items:center;flex:none}
-.ci .ci-i .svg-ic{width:20px;height:20px}
-.ci .ci-m{flex:1;min-width:0}.ci .ci-m b{font-size:.92rem;font-weight:600;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ci .ci-m span{color:var(--gold);font-size:.82rem}
-.ci .rm{background:none;border:1px solid var(--line);color:var(--muted);width:30px;height:30px;border-radius:8px;transition:.25s;flex:none}
-.ci .rm:hover{border-color:#ff2d78;color:#ff2d78}
-.cart-foot{border-top:1px solid var(--line);padding:20px 24px}
-/* El carrito dejo de sumar dinero: suma contexto. Un total de precios "desde" sin
-   unidad se leia como precio firme y el cliente anclaba en un numero que la
-   cotizacion real no respeta. Ahora recoge lo que Liana necesita para cotizar. */
-.brief-t{font-family:'Cinzel';font-size:1.05rem;color:var(--ink);margin-bottom:4px}
-.brief-s{color:var(--muted);font-size:.8rem;line-height:1.5;margin:0 0 14px}
-.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 9px;margin-bottom:16px}
-.bf-wide{grid-column:1/-1}
-/* .7rem como el resto de etiquetas del sitio: a .64rem daban 10,24 px, bajo el piso de 11. */
-.bf{position:relative}
-.bf label{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-.bf input,.bf select{width:100%;min-height:44px;background:rgba(0,0,0,.3);border:1px solid var(--glass-brd);border-radius:10px;padding:10px 12px;color:var(--ink);font-family:inherit;font-size:.86rem;transition:.25s}
-.bf select{appearance:none;padding-right:34px}
-.bf:has(select)::after{content:"";position:absolute;right:14px;bottom:19px;width:0;height:0;border:4.5px solid transparent;border-top-color:var(--gold);pointer-events:none}
-.bf input:focus,.bf select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,194,92,.18)}
-.bf input:focus-visible,.bf select:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
-/* Antes del cierre el sitio no decia nada: window.open y silencio. */
-.cart-done{display:none;text-align:center;padding:4px 0 2px}
-.cart-panel.done .brief,.cart-panel.done .cart-actions,.cart-panel.done .cart-hint{display:none}
-.cart-panel.done .cart-done{display:block}
-.cart-done .cd-ic .svg-ic{width:30px;height:30px;color:var(--gold);margin:0 auto 10px}
-.cart-done b{display:block;font-family:'Cinzel';font-size:1.1rem;color:var(--ink);margin-bottom:7px}
-.cart-done p{color:var(--muted);font-size:.78rem;line-height:1.55;margin:0 0 12px}
-.cd-links{display:grid;gap:7px;margin-bottom:14px}
-.cd-links a{color:var(--gold);font-size:.82rem;text-decoration:none;word-break:break-word}
-.cd-links a:hover{text-decoration:underline}
-.cd-back{background:none;border:1px solid var(--glass-brd);color:var(--muted);border-radius:999px;min-height:44px;padding:11px 22px;font-family:inherit;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;cursor:var(--cur),pointer;transition:.25s}
-.cd-back:hover{border-color:var(--gold);color:var(--ink)}
-.cart-hint{color:var(--muted);font-size:.72rem;margin:8px 0 14px;line-height:1.5}
-.cart-actions{display:grid;gap:10px}
-/* Era verde WhatsApp sobre verde (#006622 sobre #1faf5a = 2,5:1, por debajo de AA) y
-   ademas el unico color fuera de la paleta en todo el panel. Mismo lenguaje que el
-   hero: un solo primario en oro, el secundario en contorno. */
-.cart-actions .wa{background:var(--gold-grad);color:#1a1206;font-weight:800}
-.cart-actions .wa:hover{transform:translateY(-2px)}
-.cart-actions .em{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink)}
-.cart-actions button{min-height:48px;padding:15px;border-radius:12px;border:0;font-family:inherit;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:.76rem;transition:.3s;cursor:var(--cur),pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.cart-actions button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.cart-actions button:hover{filter:brightness(1.08)}
+.cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);z-index:110;display:flex;flex-direction:column;font-size:16px;line-height:1.5;background:var(--bg2);border-left:1px solid rgba(246,224,160,.28);box-shadow:-40px 0 90px -40px #000;transform:translateX(102%);visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s}
+.cart-panel.open{transform:none;visibility:visible;transition-delay:0s}
+.cart-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 22px;border-bottom:1px solid var(--line)}
+.cart-head h2{font-family:'Cinzel',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
+.cart-head .x{width:44px;height:44px;background:none;border:0;color:#e6dff2;font-size:28px;line-height:1;cursor:var(--cur),pointer}
+.cart-head .x:hover{color:var(--gold)}
+.cart-head .x:focus-visible,.ci .rm:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.cart-items{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:6px 22px 16px}
+.cart-items ul{list-style:none}
+.ci{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ci img{width:52px;height:52px;flex:none;border-radius:12px;object-fit:cover}
+.ci-m{flex:1;min-width:0}
+.ci-m b{display:block;font-weight:700;font-size:16px;line-height:1.3}
+.ci-m span{font-size:14px;color:var(--muted)}
+.ci .rm{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid var(--line);background:none;color:var(--muted);font-size:15px;cursor:var(--cur),pointer}
+.ci .rm:hover{border-color:#ff9b8a;color:#ff9b8a}
+.cart-empty{padding:26px 0;color:var(--muted)}
+.cart-foot{padding:18px 22px 22px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
+.cart-foot .disc{padding:12px 14px;border-radius:12px;background:rgba(230,194,92,.1);font-size:15px;color:#f1e3bb}
+.cart-foot .fine{margin-top:10px;font-size:14px;color:var(--muted)}
+.cart-foot .a-btn{margin-top:16px;width:100%}
+@media(prefers-reduced-motion:reduce){.cart-fab,.cart-panel{transition:none}}
 .overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
 .overlay-dim.on{opacity:1;visibility:visible}
 .toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,140px);z-index:130;background:var(--gold-grad);color:#1a1206;padding:14px 26px;border-radius:999px;font-weight:700;font-size:.85rem;box-shadow:var(--shadow);transition:.4s;white-space:nowrap}
@@ -559,7 +524,7 @@ body.en-arma .cart-fab{display:none}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
   .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
   .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
-  .cart-fab{bottom:20px;right:20px}
+  .cart-fab{bottom:16px;right:16px}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
 /* ===== ARMA TU SHOW (9/11/2026) =====================================================
@@ -1016,22 +981,20 @@ html.fx #shopGrid{perspective:1200px}
   </div></section>
 </section>
 
-<!-- VIEW: SERVICES (store) -->
-<section class="view" id="view-services">
-  <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.services">Services &amp; Pricing</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
-  <div class="view-body"><div class="wrap">
-    <div class="shop-head">
-      <div><div class="eyebrow" data-i18n="svc.eyebrow">The Store</div><h2 class="gold-text" style="font-size:clamp(2rem,5vw,3rem);margin-top:8px" data-i18n="svc.title">Build your show</h2></div>
-    </div>
-    <div class="shop-perks">
-      <span class="perk" data-i18n="perk.p1">Book 2 · save 5%</span>
-      <span class="perk" data-i18n="perk.p2">Book 3+ · save 10%</span>
-      <span class="perk ghost" data-i18n="perk.p3">Returning clients · 10% off</span>
-    </div>
-    <div class="shop-note glass" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.</div>
-    <div class="shop-grid" id="shopGrid"></div>
-    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
+<!-- LOS 15 SERVICIOS (#/servicios; #/servicios/<id> abre la ficha) -->
+<section class="view arma" id="view-services" aria-labelledby="svcT">
+  <div class="arma-bar" data-armabar="simple"></div>
+  <div class="a-main"><div class="aw">
+    <p class="a-eyebrow" data-i18n="svc.k">Catalog</p>
+    <h1 class="a-h1" id="svcT" data-i18n="svc.h1">SkyDancer's 15 services: ten with a starting price and five Liana quotes to order</h1>
+    <p class="a-sub" data-i18n="svc.sub">Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.</p>
+    <ul class="perks">
+      <li data-i18n="perk.p1">Book 2 · save 5%</li>
+      <li data-i18n="perk.p2">Book 3+ · save 10%</li>
+      <li data-i18n="perk.p3">Returning clients · 10% off</li>
+    </ul>
+    <div class="cat" id="shopGrid"></div>
+    <p class="cat-note" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.</p>
   </div></div>
 </section>
 
@@ -1129,7 +1092,7 @@ html.fx #shopGrid{perspective:1200px}
 </section>
 
 <!-- PRODUCT MODAL -->
-<div class="pm-overlay" id="pmOverlay"><div class="pm-card" id="pmCard"></div></div>
+<div class="pm-overlay" id="pmOverlay"><div class="pm-card" id="pmCard" role="dialog" aria-modal="true" aria-labelledby="pmT"></div></div>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
   <div class="lb-head">
@@ -1145,52 +1108,17 @@ html.fx #shopGrid{perspective:1200px}
   <div class="lb-rail" id="lbRail"></div>
 </div>
 
-<!-- CART -->
-<button class="cart-fab" id="cartFab" aria-label="Quote cart"><span data-ic="cart"></span><span class="count" id="cartCount">0</span></button>
+<!-- TU SHOW fuera del recorrido: el carrito del catalogo se fundio con el show (mismo estado que el paso 3) -->
+<button class="cart-fab" id="cartFab" type="button"><span data-ic="star" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button>
 <div class="overlay-dim" id="dim"></div>
-<aside class="cart-panel" id="cartPanel" aria-label="Quote">
-  <div class="cart-head"><h2 data-i18n="cart.title">Your Quote</h2><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="x" id="cartClose" aria-label="Close">&times;</button></div>
+<aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartT">
+  <div class="cart-head"><h2 id="cartT" data-i18n="cart.title">Your show</h2><button class="x" id="cartClose" type="button" aria-label="Close">&times;</button></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
-    <div class="brief">
-      <div class="brief-t" data-i18n="brief.title">Tell us about the night</div>
-      <p class="brief-s" data-i18n="brief.sub">The more you tell us, the faster Liana can quote it. Nothing here is required.</p>
-      <div class="brief-grid">
-        <div class="bf bf-wide">
-          <label for="bType" data-i18n="brief.type">Event type</label>
-          <select id="bType">
-            <option value="" data-i18n="brief.choose">Choose…</option>
-            <option data-i18n="brief.t1">Wedding</option><option data-i18n="brief.t2">Corporate</option>
-            <option data-i18n="brief.t3">Nightlife</option><option data-i18n="brief.t4">Grand opening</option>
-            <option data-i18n="brief.t5">Private party</option><option data-i18n="brief.t6">Festival</option>
-            <option data-i18n="brief.t7">Something else</option>
-          </select>
-        </div>
-        <div class="bf"><label for="bDate" data-i18n="brief.date">Date</label><input id="bDate" type="date"></div>
-        <div class="bf">
-          <label for="bGuests" data-i18n="brief.guests">Guests</label>
-          <select id="bGuests">
-            <option value="" data-i18n="brief.choose">Choose…</option>
-            <option data-i18n="brief.g1">Under 50</option><option data-i18n="brief.g2">50 to 150</option>
-            <option data-i18n="brief.g3">150 to 400</option><option data-i18n="brief.g4">400 or more</option>
-          </select>
-        </div>
-        <div class="bf bf-wide"><label for="bCity" data-i18n="brief.city">City or venue</label><input id="bCity" type="text" data-i18n-ph="brief.cityph" placeholder="Miami Beach, Coral Gables…"></div>
-      </div>
-    </div>
-    <p class="cart-hint" data-i18n="cart.hint">Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.</p>
-    <div class="cart-actions">
-      <button class="wa" id="cartSeguir"><span data-i18n="cart.seguir">Continue with my show</span><span data-ic="arrow"></span></button>
-      <button class="em" id="cartWA"><span data-ic="chat"></span><span data-i18n="cart.wa">Send via WhatsApp</span></button>
-      <button class="em" id="cartEmail"><span data-ic="mail"></span><span data-i18n="cart.email">Send via Email</span></button>
-    </div>
-    <div class="cart-done" id="cartDone">
-      <div class="cd-ic" data-ic="check" aria-hidden="true"></div>
-      <b data-i18n="brief.doneT">Your brief is on its way</b>
-      <p id="cdSub" data-i18n="brief.doneS">We opened WhatsApp with everything filled in. If it did not open, write to us here:</p>
-      <div class="cd-links"><a href="https://wa.me/17869924543" target="_blank" rel="noopener">+1 786-992-4543</a><a href="mailto:Skydancerproduction@gmail.com">Skydancerproduction@gmail.com</a></div>
-      <button class="cd-back" id="cdBack" data-i18n="brief.back">Back to my event</button>
-    </div>
+    <p class="disc" id="cartDisc"></p>
+    <p class="fine" data-i18n="perk.p3">Returning clients · 10% off</p>
+    <p class="fine" data-i18n="r.fine3">No added-up total: Liana puts the price together with your date, your venue and your production.</p>
+    <button class="a-btn a-pri" id="cartSeguir" type="button" data-seguir data-i18n="cart.seguir">Continue with my show</button>
   </div>
 </aside>
 <div class="toast" id="toast"></div>
@@ -1266,32 +1194,32 @@ const SERVICES=[
 const I18N={
  en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'ui.back':'Back to menu',
-  'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists',
+  'nav.about':'About the Company','nav.gallery':'Gallery & Artists',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
   'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
   'creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
-  'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
+  'svc.sub':'Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.','svc.h1':'SkyDancer\'s 15 services: ten with a starting price and five Liana quotes to order','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
   'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
   
   
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL',
-  'cart.title':'Your event','cart.hint':'Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.','cart.wa':'Send via WhatsApp','cart.email':'Send via Email','brief.title':'Tell us about the night','brief.sub':'The more you tell us, the faster Liana can quote it. Nothing here is required.','brief.type':'Event type','brief.choose':'Choose…','brief.t1':'Wedding','brief.t2':'Corporate','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Private party','brief.t6':'Festival','brief.t7':'Something else','brief.date':'Date','brief.city':'City or venue','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Guests','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more','brief.picked':'You picked','brief.none':'No services picked yet — tell us anyway and Liana will suggest.','brief.doneT':'Your brief is on its way','brief.doneS':'We opened WhatsApp with everything filled in. If it did not open, write to us here:','brief.doneE':'We opened your email app with everything filled in. If it did not open, write to us here:','brief.back':'Back to my event',
-  'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Nothing here yet. Add the services you are curious about.','ui.added':'Added to your event','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
+  'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
+  'ui.add':'Add to my show','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
  es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'ui.back':'Volver al menú',
-  'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas',
+  'nav.about':'Sobre la Compañía','nav.gallery':'Galería y Artistas',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
   'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
   'creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
-  'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
+  'svc.sub':'Toca «Agregar a mi show» en los que te interesen: llegan marcados al paso 3, donde se lo envías a Liana.','svc.h1':'Los 15 servicios de SkyDancer: diez con precio «Desde» y cinco que Liana cotiza a medida','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
   'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
   
   
   'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL',
-  'cart.title':'Tu evento','cart.hint':'Liana prepara cada cotización a mano según tu fecha, tu locación y lo que necesite la producción. Preguntar no cuesta nada y no te compromete.','cart.wa':'Enviar por WhatsApp','cart.email':'Enviar por Email','brief.title':'Cuéntanos de la noche','brief.sub':'Mientras más nos cuentes, más rápido te cotiza Liana. Nada de esto es obligatorio.','brief.type':'Tipo de evento','brief.choose':'Elige…','brief.t1':'Boda','brief.t2':'Corporativo','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Fiesta privada','brief.t6':'Festival','brief.t7':'Otra cosa','brief.date':'Fecha','brief.city':'Ciudad o locación','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Invitados','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más','brief.picked':'Elegiste','brief.none':'Todavía no elegiste servicios — cuéntanos igual y Liana te propone.','brief.doneT':'Tu brief va en camino','brief.doneS':'Abrimos WhatsApp con todo escrito. Si no se abrió, escríbenos aquí:','brief.doneE':'Abrimos tu correo con todo escrito. Si no se abrió, escríbenos aquí:','brief.back':'Volver a mi evento',
-  'ui.add':'Agregar','ui.remove':'Quitar','ui.view':'Ver','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay nada. Agrega los servicios que te interesen.','ui.added':'Agregado a tu evento','ui.removed':'Eliminado','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)'}
+  'cart.title':'Tu show','cart.fab':'Mi show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más',
+  'ui.add':'Agregar a mi show','ui.remove':'Quitar','ui.in':'En tu show · quitar','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay servicios en tu show. Agrega los que te interesen; Liana también te los puede proponer.','ui.added':'Agregado a tu show','ui.removed':'Quitado de tu show','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)'}
 };
 
 /* «Arma tu show»: textos nuevos. Copy de la decision del 9/11/2026, seccion 7. */
@@ -1308,7 +1236,7 @@ Object.assign(I18N.en,{
  'oc.noche':'Sample night','oc.marcado':'Checked in your show','oc.otras':'Other occasions',
  'li.h1':'<span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, founded and directs SkyDancer Productions from Miami',
  'li.lead':'Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.',
- 'li.bioK':'Her story','li.prK':'Where the team has performed','li.eqK':'The team','li.ver':'Liana\'s story →',
+ 'svc.k':'Catalog','li.bioK':'Her story','li.prK':'Where the team has performed','li.eqK':'The team','li.ver':'Liana\'s story →',
  'li.hecho':'Liana del Toro, a Cuban-born professional dancer and the founder of SkyDancer Productions, directs the company\'s productions for {x} from Miami.',
  'li.x.bodas':'weddings','li.x.empresas':'corporate events','li.x.noches':'luxury hotels and restaurants','li.x.celebraciones':'festivals and private celebrations','li.x.planners':'corporate events, luxury hotels, weddings and festivals'});
 Object.assign(I18N.es,{
@@ -1324,7 +1252,7 @@ Object.assign(I18N.es,{
  'oc.noche':'Noche de ejemplo','oc.marcado':'Marcado en tu show','oc.otras':'Otras ocasiones',
  'li.h1':'<span class="cz">Liana del Toro</span>, bailarina profesional nacida en Cuba, fundó y dirige SkyDancer Productions desde Miami',
  'li.lead':'Bailarina, modelo, productora y directora creativa. El equipo que dirige ha actuado en SLS Miami Beach, Sagamore y National Hotel.',
- 'li.bioK':'Su historia','li.prK':'Dónde ha actuado el equipo','li.eqK':'El equipo','li.ver':'La historia de Liana →',
+ 'svc.k':'Catálogo','li.bioK':'Su historia','li.prK':'Dónde ha actuado el equipo','li.eqK':'El equipo','li.ver':'La historia de Liana →',
  'li.hecho':'Liana del Toro, bailarina profesional nacida en Cuba y fundadora de SkyDancer Productions, dirige desde Miami las producciones de la compañía para {x}.',
  'li.x.bodas':'bodas','li.x.empresas':'eventos corporativos','li.x.noches':'hoteles de lujo y restaurantes','li.x.celebraciones':'festivales y celebraciones privadas','li.x.planners':'eventos corporativos, hoteles de lujo, bodas y festivales'});
 
@@ -1373,11 +1301,11 @@ function guardarShow(){try{sessionStorage.setItem('sdp_show',JSON.stringify(SHOW
    dicen con data-entrada; si se llega directo a una vista del recorrido, la ruta manda. */
 document.addEventListener('click',e=>{const a=e.target.closest('[data-entrada]');if(a&&!SHOW.entrada){SHOW.entrada=a.dataset.entrada;guardarShow();}});
 
-let lang=localStorage.getItem('sdp_lang')||'en',cart=[],currentView=null,pmId=null;
+let lang=localStorage.getItem('sdp_lang')||'en',currentView=null,pmId=null;
 const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
 const money=n=>'$'+n.toLocaleString('en-US');const t=k=>(I18N[lang][k]??k);
 const priceHtml=s=>s.price>0?`<small>${t('ui.from')}</small>${money(s.price)}`:t('ui.quote');
-const badgeHtml=s=>s.price>0?`<span class="prod-badge">${t('ui.from')} ${money(s.price)}</span>`:`<span class="prod-badge custom">${t('ui.quote')}</span>`;
+const precioTxt=s=>s.price>0?t('ui.from')+' '+money(s.price):t('ui.quote');
 
 /* Paginas de ocasion: una sola plantilla (gancho, noche de ejemplo, prueba, boton,
    otras ocasiones). Copy de la seccion 7; lo que falta va con el marcador visible. */
@@ -1520,7 +1448,11 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
    Si ya era esa ocasion, se respeta lo que la persona cambio. */
 document.addEventListener('click',e=>{
   const a=e.target.closest('[data-elige]');
-  if(a){const k=a.dataset.elige;if(SHOW.ocasion!==k||!SHOW.servicios.length)SHOW.servicios=OCASIONES[k].svc.slice();
+  /* Lo que ya se agrego desde el catalogo o la galeria (sin ocasion todavia) no se pierde:
+     se suma a los servicios de la ocasion. */
+  if(a){const k=a.dataset.elige,base=OCASIONES[k].svc;
+    if(SHOW.ocasion!==k)SHOW.servicios=base.concat(SHOW.ocasion?[]:SHOW.servicios.filter(x=>!base.includes(x)));
+    else if(!SHOW.servicios.length)SHOW.servicios=base.slice();
     SHOW.ocasion=k;SHOW.origen=k;guardarShow();return;}
   if(e.target.closest('[data-planner]')){SHOW.planner=true;guardarShow();}});
 
@@ -1711,7 +1643,7 @@ function enviar(via){if(enviando)return;
   const pr=postLead(body);
   if(via==='mail')window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(t('s.asunto'))+'&body='+encodeURIComponent(msg);
   pr.then(ok=>{enviando=false;const keep={planner:false};
-    SHOW=Object.assign(SHOW_VACIO(),keep,{enviado:{via,ok}});cart=[];guardarShow();renderShop();renderCart();
+    SHOW=Object.assign(SHOW_VACIO(),keep,{enviado:{via,ok}});guardarShow();renderShop();renderCart();
     if(currentView==='view-show'){pintarPaso3();const h=document.querySelector('#sConf h2');if(h){h.setAttribute('tabindex','-1');h.focus();}}});}
 
 /* Eventos de los pasos (delegados: el contenido se vuelve a pintar al cambiar de idioma) */
@@ -1722,8 +1654,8 @@ document.addEventListener('click',e=>{
   if(n&&!n.disabled){calM+=+n.dataset.cal;if(calM<1){calM=12;calY--;}if(calM>12){calM=1;calY++;}pintarCal();return;}
   if(e.target.closest('[data-quitar-fecha]')){SHOW.fecha='';dispo={fecha:'',estado:''};guardarShow();pintarCal();pintarPick();pintarResumenes();return;}
   const s=e.target.closest('[data-svc]');
-  if(s){const id=s.dataset.svc,i=SHOW.servicios.indexOf(id);if(i>-1)SHOW.servicios.splice(i,1);else SHOW.servicios.push(id);guardarShow();
-    const on=SHOW.servicios.includes(id);s.classList.toggle('on',on);s.setAttribute('aria-pressed',String(on));s.querySelector('.ck').textContent=on?'✓':'+';pintarResumenes();return;}
+  if(s){alternarSvc(s.dataset.svc);return;}
+  if(e.target.closest('[data-seguir]')){seguirConShow();return;}
   if(e.target.closest('[data-otro-show]')){SHOW.enviado=null;guardarShow();}});
 document.addEventListener('change',e=>{const r=e.target;if(r.type!=='radio')return;
   const k={ocas:'ocasion',condado:'condado',inv:'invitados'}[r.name];if(!k)return;
@@ -1740,107 +1672,65 @@ document.getElementById('sPlanner').addEventListener('change',e=>{SHOW.planner=e
 document.getElementById('sEnviar').addEventListener('click',()=>enviar('wa'));
 document.getElementById('sCorreoBtn').addEventListener('click',()=>enviar('mail'));
 
-/* Carrito del catalogo → paso 2 con lo que eligio y lo que escribio en el brief. */
+/* ── Un solo estado para el show ─────────────────────────────────────────────
+   El catalogo, la ficha, la galeria y el paso 3 marcan servicios con el mismo
+   [data-svc] y escriben en SHOW.servicios. El carrito viejo (un array aparte, con su
+   brief y su envio por WhatsApp sin lead) ya no existe: su boton flotante y su panel
+   muestran el show. */
+function alternarSvc(id){const i=SHOW.servicios.indexOf(id);if(i>-1)SHOW.servicios.splice(i,1);else SHOW.servicios.push(id);
+  guardarShow();sincronizarSvc();if(currentView!=='view-show')toast(t('ui.'+(i>-1?'removed':'added')));}
+function sincronizarSvc(){document.querySelectorAll('[data-svc]:not(.rm)').forEach(b=>{const on=SHOW.servicios.includes(b.dataset.svc);
+    b.classList.toggle('on',on);if(b.hasAttribute('aria-pressed'))b.setAttribute('aria-pressed',String(on));
+    const ck=b.querySelector('.ck'),tl=b.querySelector('.tl'),c=b.closest('.svc-card,.gal');
+    if(ck)ck.textContent=on?'✓':'+';if(tl)tl.textContent=t(on?'ui.in':'ui.add');if(c)c.classList.toggle('on',on);});
+  pintarResumenes();renderCart();}
+const botonSvc=id=>{const on=SHOW.servicios.includes(id);
+  return `<button type="button" class="chip svc${on?' on':''}" data-svc="${id}"><span class="ck" aria-hidden="true">${on?'✓':'+'}</span><span class="tl">${t(on?'ui.in':'ui.add')}</span></button>`;};
+/* «Seguir con mi show»: al paso 2 si falta la ocasion o el condado; si no, al paso 3. */
 function seguirConShow(){
-  cart.forEach(id=>{if(!SHOW.servicios.includes(id))SHOW.servicios.push(id);});
-  const tipo=document.getElementById('bType').selectedIndex,mapa=[null,'bodas','empresas','noches','celebraciones','celebraciones','celebraciones',null];
-  if(!SHOW.ocasion&&mapa[tipo])SHOW.ocasion=mapa[tipo];
-  const f=document.getElementById('bDate').value;if(!SHOW.fecha&&f&&f>=hoyISO())SHOW.fecha=f;
-  const g=document.getElementById('bGuests').selectedIndex;if(!SHOW.invitados&&g>0)SHOW.invitados=RANGOS[g-1][0];
-  const ci=document.getElementById('bCity').value.trim();if(!SHOW.venue&&ci)SHOW.venue=ci;
-  if(!SHOW.entrada)SHOW.entrada='catalogo';SHOW.origen='servicios';guardarShow();
-  closeCart();irA('arma/fecha');}
+  if(!SHOW.entrada)SHOW.entrada=currentView==='view-gallery'?'galeria':'catalogo';
+  SHOW.origen='servicios';guardarShow();closeCart();
+  irA(SHOW.ocasion&&SHOW.condado?'arma/show':'arma/fecha');}
 
-/* STORE grid */
-/* fetchpriority="low" (10/11/2026): la vista de servicios esta oculta al cargar pero
-   ocupa la pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en
-   Lighthouse movil eso le quitaba ancho de banda a la foto del LCP (4,7 → 7,2 s). */
+/* Catalogo. fetchpriority="low" (10/11/2026): la vista esta oculta al cargar pero ocupa la
+   pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en Lighthouse
+   movil eso le quitaba ancho de banda a la foto del LCP (4,7 → 7,2 s). */
 function renderShop(){
-  const g=document.getElementById('shopGrid');
-  g.innerHTML=SERVICES.map((s,i)=>{const inCart=cart.includes(s.id);
-    return `<article class="prod" data-open="${s.id}" role="button" tabindex="0" aria-label="${s.name[lang]}">
-      <div class="prod-thumb pg${(i%6)+1}">
-        <img src="assets/services/${s.id}.jpg" alt="${s.name[lang]}" loading="lazy" fetchpriority="low" onerror="this.remove()">
-        <span class="ph-ic">${svg(s.id)}</span>
-        ${badgeHtml(s)}
-        <span class="prod-view">${svg('eye')}${t('ui.view')}</span>
-      </div>
-      <div class="prod-body"><h3>${s.name[lang]}</h3>
-        <button class="prod-add ${inCart?'in':''}" data-add="${s.id}">${inCart?'✓ '+t('ui.remove'):'＋ '+t('ui.add')}</button>
-      </div></article>`;}).join('');
-  g.querySelectorAll('.prod-view svg,.prod-thumb .ph-ic svg').forEach(()=>{});
-  g.querySelectorAll('[data-open]').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('[data-add]'))return;irA('servicios/'+c.dataset.open);});
-    /* Enter y Espacio: la ficha es un <article> con role=button, asi que el teclado no la abre solo. */
-    c.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;if(e.target.closest('[data-add]'))return;e.preventDefault();irA('servicios/'+c.dataset.open);});});
-  g.querySelectorAll('[data-add]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();toggle(b.dataset.add);}));
-}
-/* PRODUCT modal: foto arriba, descripción y precio abajo */
-function openProduct(id){pmId=id;const s=SERVICES.find(x=>x.id===id);const i=SERVICES.indexOf(s);const inCart=cart.includes(id);
+  document.getElementById('shopGrid').innerHTML=SERVICES.map(s=>{const on=SHOW.servicios.includes(s.id),n=esc(s.name[lang]);
+    return `<article class="svc-card${on?' on':''}">
+      <a class="ph" href="#/servicios/${s.id}" tabindex="-1" aria-hidden="true"><img src="assets/services/${s.id}.jpg" alt="" loading="lazy" fetchpriority="low"><span class="price">${precioTxt(s)}</span></a>
+      <div class="bd"><h2><a href="#/servicios/${s.id}">${n}</a></h2>${botonSvc(s.id)}</div></article>`;}).join('');}
+/* Ficha de servicio (#/servicios/<id>): foto arriba, descripcion y precio abajo. */
+function openProduct(id){const reabre=pmId===id;pmId=id;const s=SERVICES.find(x=>x.id===id),quieto=window.sdpMotionOff&&window.sdpMotionOff();
   document.getElementById('pmCard').innerHTML=`
-    <button class="pm-close" id="pmClose" aria-label="Close">&times;</button>
+    <button class="pm-close" id="pmClose" type="button" aria-label="${t('menu.cerrar')}">&times;</button>
     <div class="lang pm-lang" role="group" aria-label="Language"><button data-lang="en"${lang==='en'?' class="on"':''}>EN</button><button data-lang="es"${lang==='es'?' class="on"':''}>ES</button></div>
-    <div class="pm-img pg${(i%6)+1}">
-      ${s.vid?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg" alt="${s.name[lang]}" onerror="this.remove()">`}
-      <span class="ph-ic">${svg(id)}</span>
+    <div class="pm-img">
+      ${s.vid&&!quieto?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg" alt="${esc(s.name[lang])}">`}
     </div>
     <div class="pm-info">
-      <div class="k">SkyDancer</div><h2>${s.name[lang]}</h2>
+      <div class="k">SkyDancer</div><h2 id="pmT">${s.name[lang]}</h2>
       <div class="pm-price">${priceHtml(s)}</div>
       <p class="pm-desc">${s.desc[lang]}</p>
-      <button class="pm-add ${inCart?'in':''}" id="pmAdd">${inCart?'✓ '+t('ui.remove'):'＋ '+t('ui.add')}</button>
+      <div class="pm-acc">${botonSvc(id)}<button type="button" class="a-link" data-seguir>${t('cart.seguir')} →</button></div>
     </div>`;
   document.getElementById('pmClose').onclick=()=>irA('servicios');
-  document.getElementById('pmAdd').onclick=()=>{toggle(id);const on=cart.includes(id);const b=document.getElementById('pmAdd');b.className='pm-add '+(on?'in':'');b.textContent=(on?'✓ '+t('ui.remove'):'＋ '+t('ui.add'));};
   document.getElementById('pmOverlay').classList.add('open');document.body.classList.add('no-scroll');
+  if(!reabre)try{document.getElementById('pmClose').focus({preventScroll:true});}catch(e){}
 }
 function closeProduct(){document.getElementById('pmOverlay').classList.remove('open');pmId=null;if(!currentView)document.body.classList.remove('no-scroll');}
-document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')closeProduct();});
+document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')irA('servicios');});
 
-function toggle(id){const i=cart.indexOf(id);if(i>-1){cart.splice(i,1);toast(t('ui.removed'));}else{cart.push(id);toast(t('ui.added'));}renderShop();renderCart();}
-function clearCart(){if(!cart.length)return;cart=[];toast(t('ui.cleared'));renderShop();renderCart();}
-function renderCart(){const box=document.getElementById('cartItems');document.getElementById('cartCount').textContent=cart.length;
-  document.getElementById('cartFab').classList.toggle('show',cart.length>0);
-  if(!cart.length){box.innerHTML=`<div class="cart-empty">${svg('cart')}${t('ui.empty')}</div>`;}
-  else{box.innerHTML=`<button class="clear-all" id="clearAll">✕ ${t('ui.clear')}</button>`+cart.map(id=>{const s=SERVICES.find(x=>x.id===id);
-      const pr=s.price>0?`<span>${t('ui.from')} ${money(s.price)}</span>`:`<span>${t('ui.quote')}</span>`;
-      return `<div class="ci"><div class="ci-i">${svg(s.id)}</div><div class="ci-m"><b>${s.name[lang]}</b>${pr}</div><button class="rm" data-rm="${id}" aria-label="Remove">✕</button></div>`;}).join('');
-    box.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>toggle(b.dataset.rm));document.getElementById('clearAll').onclick=clearCart;}
-  /* Sin totales: el pie recoge el evento, no suma dinero. */
-  document.getElementById('cartPanel').classList.remove('done');}
-/* El brief es lo que Liana necesita para cotizar: tipo, fecha, ciudad e invitados.
-   No pedimos nombre ni contacto porque el canal ya los lleva — pedirlos seria
-   friccion pura. Y no va un solo precio: un total de precios "desde" sin unidad
-   se leia como oferta firme. */
-function briefDatos(){const v=id=>{const e=document.getElementById(id);if(!e)return '';
-    if(e.tagName==='SELECT')return e.selectedIndex>0?e.options[e.selectedIndex].textContent.trim():'';
-    return e.value.trim();};
-  return {tipo:v('bType'),fecha:v('bDate'),ciudad:v('bCity'),invitados:v('bGuests')};}
-function hayBrief(){const b=briefDatos();return !!(b.tipo||b.fecha||b.ciudad||b.invitados);}
-/* conBrief=false lo usa el formulario de contacto, que ya pide fecha y locacion
-   por su cuenta: sin esto el mensaje salia con la fecha dos veces. */
-function buildMessage(conBrief){if(conBrief===undefined)conBrief=true;const L=lang,b=conBrief?briefDatos():{tipo:'',fecha:'',ciudad:'',invitados:''};
-  let m=(L==='es'?'Hola SkyDancer Productions 👋 Esto es lo que tengo en mente:':'Hi SkyDancer Productions 👋 Here is what I have in mind:')+'\n\n';
-  if(b.tipo)m+=(L==='es'?'Tipo de evento: ':'Event type: ')+b.tipo+'\n';
-  if(b.fecha)m+=(L==='es'?'Fecha: ':'Date: ')+b.fecha+'\n';
-  if(b.ciudad)m+=(L==='es'?'Ciudad o locación: ':'City or venue: ')+b.ciudad+'\n';
-  if(b.invitados)m+=(L==='es'?'Invitados: ':'Guests: ')+b.invitados+'\n';
-  if(b.tipo||b.fecha||b.ciudad||b.invitados)m+='\n';
-  if(cart.length){m+=(L==='es'?'Me interesa:':'I am interested in:')+'\n';
-    cart.forEach(id=>{const s=SERVICES.find(x=>x.id===id);m+='• '+s.name[L]+'\n';});m+='\n';}
-  m+=(L==='es'?'¿Me pueden preparar una cotización?':'Could you prepare a quote for me?');return m;}
-/* Antes exigia servicios en el carrito. Ahora un brief sin servicios tambien
-   vale: Liana puede proponer. Y el sitio confirma en pantalla en vez de hacer
-   window.open y callarse, que era la fuga: si el visitante no apretaba enviar
-   en WhatsApp, el lead no existia en ningun sitio. */
-function confirmar(via){const p=document.getElementById('cartPanel');
-  document.getElementById('cdSub').textContent=t(via==='wa'?'brief.doneS':'brief.doneE');
-  document.getElementById('cdSub').setAttribute('data-i18n',via==='wa'?'brief.doneS':'brief.doneE');
-  p.classList.add('done');p.querySelector('.cart-foot').scrollTop=0;}
-function sendWA(){if(!cart.length&&!hayBrief()){toast(t('ui.empty'));return;}
-  window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(buildMessage()),'_blank');confirmar('wa');}
-function sendEmail(){if(!cart.length&&!hayBrief()){toast(t('ui.empty'));return;}
-  const su=lang==='es'?'Solicitud de cotización — SkyDancer':'Quote request — SkyDancer';
-  window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(buildMessage());confirmar('em');}
+function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();toast(t('ui.cleared'));}
+/* El panel «Tu show»: lo marcado, su precio «Desde» y el descuento publicado por
+   volumen. Sin totales: un total de precios «desde» se leia como oferta firme. */
+function renderCart(){const n=SHOW.servicios.length,box=document.getElementById('cartItems'),fab=document.getElementById('cartFab');
+  document.getElementById('cartCount').textContent=n;fab.classList.toggle('show',n>0);
+  box.innerHTML=n?`<ul>${SHOW.servicios.map(id=>{const s=SERVICES.find(x=>x.id===id),nom=esc(s.name[lang]);
+      return `<li class="ci"><img src="assets/services/${id}.jpg" alt="" loading="lazy"><div class="ci-m"><b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ul><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
+    :`<p class="cart-empty">${t('ui.empty')}</p>`;
+  document.getElementById('cartDisc').textContent=t(n>=3?'ui.disc3':n===2?'ui.disc2':'r.desc');
+  const ca=document.getElementById('clearAll');if(ca)ca.onclick=clearCart;}
 
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
@@ -1898,7 +1788,7 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
 const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
-const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',arma:'menu.n1'};
+const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'nav.gallery',arma:'menu.n1'};
 const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */
@@ -2009,11 +1899,13 @@ document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'
 /* menu photo is full-bleed; no parallax needed */
 
 const panel=document.getElementById('cartPanel'),dim=document.getElementById('dim');
-document.getElementById('cartFab').onclick=()=>{panel.classList.remove('done');panel.classList.add('open');dim.classList.add('on');};
-document.getElementById('cdBack').onclick=()=>document.getElementById('cartPanel').classList.remove('done');
-function closeCart(){panel.classList.remove('open');dim.classList.remove('on');}
+document.getElementById('cartFab').onclick=()=>{panel.classList.add('open');dim.classList.add('on');try{document.getElementById('cartClose').focus({preventScroll:true});}catch(e){}};
+function closeCart(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');dim.classList.remove('on');
+  const fab=document.getElementById('cartFab');if(fab.classList.contains('show'))try{fab.focus({preventScroll:true});}catch(e){}}
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
-document.getElementById('cartWA').onclick=sendWA;document.getElementById('cartSeguir').onclick=seguirConShow;document.getElementById('cartEmail').onclick=sendEmail;
+panel.addEventListener('keydown',e=>{if(e.key!=='Tab')return;
+  const f=[...panel.querySelectorAll('button')],a=f[0],z=f[f.length-1],x=document.activeElement;
+  if(e.shiftKey&&x===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&x===z){e.preventDefault();a.focus();}});
 
 let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1700);}
 /* ── VISOR DE COLECCIÓN ────────────────────────────────────────────────────

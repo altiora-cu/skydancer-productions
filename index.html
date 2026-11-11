@@ -204,6 +204,7 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
   --glass:rgba(255,255,255,.055); --glass-brd:rgba(255,255,255,.14);
   --shadow:0 30px 80px -34px rgba(0,0,0,.85); --r:20px;
   --gut:clamp(16px,4.4vw,64px);
+  --bg2:#0c0a12; --gold-hi:#f6e0a0; --ease:cubic-bezier(.22,1,.36,1);
   --cur:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M4 2.5l6.2 16.5 2.5-6.7 6.7-2.5z' fill='%23f6e0a0' stroke='%232b0f13' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 4 2;
 }
 *{margin:0;padding:0;box-sizing:border-box;cursor:var(--cur),auto}
@@ -237,12 +238,10 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
    o sea al abrir el menu y en todas las vistas: desde dentro del sitio no habia forma
    de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
    No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
-.menu-lang{position:fixed;top:22px;right:22px;z-index:6}
 .pm-lang{position:absolute;top:14px;left:14px;z-index:3}
 .cart-head .lang{margin-left:auto;margin-right:14px}
 .view-bar .lang{padding:3px}
 .view-bar .lang button{padding:5px 10px;font-size:.68rem}
-@media(max-width:640px){.menu-lang{top:18px;right:14px}}
 
 /* HERO */
 .hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#05040a url("video%20banner/skydancer-poster.jpg") center/cover no-repeat}
@@ -320,75 +319,45 @@ body.carga .hero-inner{transition:none}
 .menu-btn .bars{display:inline-flex;flex-direction:column;gap:4px}
 .menu-btn .bars span{width:20px;height:2px;background:currentColor;border-radius:2px;transition:.3s}
 
-/* MENU — split editorial: Liana full-left, contenido a la derecha */
-.menu{position:fixed;inset:0;z-index:90;opacity:0;visibility:hidden;transition:.5s;overflow-y:auto;background:#2b0f13}
-.menu.open{opacity:1;visibility:visible}
-.menu-back{position:fixed;top:22px;left:22px;z-index:6;display:inline-flex;align-items:center;gap:10px;background:rgba(43,15,19,.62);color:#fff;border:1px solid rgba(255,255,255,.3);padding:11px 22px;border-radius:999px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;transition:.3s;backdrop-filter:blur(8px)}
-.menu-back:hover{background:#2b0f13;transform:translateX(-3px)}
-.menu-split{display:grid;grid-template-columns:44% 56%;min-height:100vh}
-/* LEFT — Liana a pantalla completa con fondo diseñado */
-.menu-photo{position:sticky;top:0;align-self:start;height:100vh;overflow:hidden;background:radial-gradient(120% 90% at 30% 18%,#5a2a2c,#2b0f13 68%,#170508)}
-.menu-photo video,.menu-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 16%;z-index:1}
-.menu-photo .mp-pattern{position:absolute;inset:0;z-index:2;opacity:.16;pointer-events:none;mix-blend-mode:soft-light;background-image:radial-gradient(rgba(246,224,160,.9) 1px,transparent 1.5px);background-size:22px 22px}
-.menu-photo .mp-glow{position:absolute;left:-20%;bottom:-8%;width:75%;height:52%;z-index:2;background:radial-gradient(circle,rgba(246,224,160,.42),transparent 70%);filter:blur(34px);pointer-events:none}
-.menu-photo .mp-scrim{position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(23,5,8,.4),transparent 24%,transparent 50%,rgba(23,5,8,.92)),linear-gradient(90deg,transparent 68%,rgba(23,5,8,.5))}
-.menu-photo .mp-name{position:absolute;left:34px;right:24px;bottom:36px;z-index:4}
-.menu-photo .mp-name .k{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:#f6e0a0;font-weight:800;display:block;margin-bottom:7px}
-.menu-photo .mp-name b{font-family:'Cinzel';font-weight:900;font-size:clamp(1.9rem,4vw,3rem);color:#fff;display:block;line-height:1;text-shadow:0 4px 26px rgba(0,0,0,.65)}
-.menu-photo .mp-name .role{display:block;margin-top:9px;color:rgba(255,255,255,.85);font-size:.78rem;letter-spacing:.04em}
-/* RIGHT — contenido claro */
-.menu-content{position:relative;z-index:1;padding:90px 52px 60px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;gap:22px;background:linear-gradient(165deg,#f2e9e3 0%,#e9d1c6 58%,#ddb9ac 100%)}
-.menu-content .eyebrow{color:#8a4a45;opacity:.95}
-.menu-nav{display:flex;flex-direction:column;gap:12px;align-items:stretch;max-width:540px}
-.menu-nav a{width:100%;display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.62);border:1px solid rgba(122,58,60,.16);transition:.3s;color:#2b0f13}
-.menu-nav a .ic{width:42px;height:42px;flex:none;border-radius:11px;display:grid;place-items:center;color:#7a3a3c;background:#fff;border:1px solid rgba(122,58,60,.14)}
-.menu-nav a .txt{font-family:'Cinzel';font-weight:700;font-size:clamp(1.02rem,2vw,1.3rem);color:#2b0f13}
-.menu-nav a .go{margin-left:auto;transition:.3s;color:#a75f5b}
-.menu-nav a:hover{background:linear-gradient(120deg,#b8912f,#f6e0a0 60%,#e6c25c);border-color:transparent;transform:translateX(5px);box-shadow:0 18px 36px -22px rgba(43,15,19,.7)}
-.menu-nav a:hover .ic{background:#2b0f13;color:#f6e0a0;border-color:#2b0f13}
-.menu-nav a:hover .go{color:#2b0f13}
-.founder-bio{max-width:560px;border-top:1px solid rgba(122,58,60,.22);padding-top:20px}
-.founder-bio .k{font-size:.62rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:800}
-.founder-bio h2{font-family:'Cinzel';font-size:1.45rem;color:#2b0f13;margin:4px 0 2px;font-weight:700}
-.founder-bio .role{font-size:.76rem;color:#7a3a3c;font-weight:700;margin-bottom:12px}
-.founder-bio p{font-size:.82rem;line-height:1.55;color:#4a2a2c;margin-bottom:9px}
-.founder-bio .artists{font-weight:700;color:#7a3a3c}
-.menu-contact{display:flex;flex-direction:column;gap:9px;color:#5a2a2c;font-size:.88rem;font-weight:600}
-.menu-contact a,.menu-contact span{display:inline-flex;align-items:center;gap:10px}
-.menu-contact .svg-ic{width:18px;height:18px;stroke-width:1.7}
-.menu-contact a:hover{color:#2b0f13;text-decoration:underline}
-/* --- Right panel · creative polish --- */
-.menu-content{overflow:hidden;border-top:3px solid transparent;border-image:linear-gradient(90deg,#b8912f,#f6e0a0,#e6c25c) 1}
-.menu-content::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(rgba(122,58,60,.08) 1px,transparent 1.6px);background-size:20px 20px;-webkit-mask-image:radial-gradient(130% 100% at 82% 2%,#000,transparent 72%);mask-image:radial-gradient(130% 100% at 82% 2%,#000,transparent 72%)}
-.menu-content::after{content:"S";position:absolute;top:-9%;right:-3%;z-index:0;font-family:'Cinzel';font-weight:900;font-size:clamp(13rem,30vw,27rem);line-height:1;color:transparent;-webkit-text-stroke:2px rgba(184,145,47,.16);pointer-events:none}
-.menu-content>*{position:relative;z-index:1}
-.mc-brand{display:flex;align-items:center;gap:14px;margin-bottom:4px}
-.mc-brand .wm{font-family:'Cinzel';font-weight:900;letter-spacing:.16em;font-size:.98rem;color:#5a2a2c;white-space:nowrap}
-.mc-brand .wm .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.mc-brand .ln{flex:1;height:1px;background:linear-gradient(90deg,rgba(122,58,60,.4),transparent)}
-.mc-brand .em{font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:#a75f5b;font-weight:700}
-.mc-emblem{margin:0 0 6px;line-height:.98}
-.mc-emblem .sky{display:block;font-family:'Cinzel',serif;font-weight:900;font-size:clamp(2rem,5.4vw,3rem);letter-spacing:.015em;color:#5a2a2c;text-shadow:0 1px 0 rgba(255,255,255,.45)}
-.mc-emblem .sky .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
-.mc-emblem .prod{display:block;font-family:'Cinzel',serif;font-weight:700;font-size:clamp(.6rem,1.8vw,.78rem);letter-spacing:.5em;text-indent:.5em;margin-top:.55em;color:#8a4a45}
-.mc-emblem .prod b{color:#b8912f}
-.mc-emblem .rule{display:block;width:56px;height:2px;margin-top:13px;background:linear-gradient(90deg,#b8912f,#f6e0a0,transparent);border-radius:2px}
-.menu-nav{counter-reset:mnav}
-.menu-nav a{counter-increment:mnav;position:relative;overflow:hidden}
-.menu-nav a::before{content:counter(mnav,decimal-leading-zero);font-family:'Cinzel';font-weight:900;font-size:.8rem;color:#b8912f;min-width:20px;text-align:center}
-.menu-nav a::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold-grad);transform:scaleY(0);transform-origin:top;transition:.3s}
-.menu-nav a:hover::after{transform:scaleY(1)}
-.menu-nav a:hover::before{color:#2b0f13}
-.menu-nav a .go{transition:transform .3s,color .3s}
-.menu-nav a:hover .go{transform:translateX(4px)}
-.founder-bio{position:relative;padding-left:20px}
-.founder-bio::before{content:"";position:absolute;left:0;top:22px;bottom:6px;width:2px;background:linear-gradient(#b8912f,rgba(184,145,47,0))}
-.founder-bio .k{display:inline-block;padding:4px 11px;border:1px solid rgba(184,145,47,.45);border-radius:999px;color:#8a4a45}
-.founder-bio h3{font-size:1.5rem}
-.menu-contact{flex-direction:row;flex-wrap:wrap;gap:10px}
-.menu-contact a,.menu-contact span{background:rgba(255,255,255,.55);border:1px solid rgba(122,58,60,.16);padding:9px 14px;border-radius:999px;font-size:.76rem;color:#5a2a2c;transition:.3s}
-.menu-contact a .svg-ic,.menu-contact span .svg-ic{color:#a75f5b}
-.menu-contact a:hover{background:#fff;text-decoration:none;color:#2b0f13;border-color:rgba(184,145,47,.55);transform:translateY(-2px)}
+/* MENU (tanda 3, 10/11/2026): deja de ser una pagina con portada. Es un panel oscuro
+   que se desliza sobre la vista actual; sigue siendo la ruta #/menu para que Atras lo
+   cierre. visibility:hidden lo saca del orden de tabulacion mientras esta cerrado. */
+.menu{position:fixed;inset:0;z-index:95;visibility:hidden;transition:visibility 0s .45s}
+.menu.open{visibility:visible;transition-delay:0s}
+.menu-scrim{position:absolute;inset:0;background:rgba(3,2,8,.66);opacity:0;transition:opacity .4s}
+.menu.open .menu-scrim{opacity:1}
+.menu-panel{position:absolute;top:0;right:0;bottom:0;width:min(470px,100%);display:flex;flex-direction:column;padding:12px clamp(18px,4vw,34px) 26px;overflow-y:auto;overscroll-behavior:contain;font-size:16px;line-height:1.5;background:var(--bg2);border-left:1px solid rgba(246,224,160,.28);box-shadow:-40px 0 90px -40px #000;transform:translateX(102%);transition:transform .45s var(--ease)}
+.menu.open .menu-panel{transform:none}
+/* Abierto sobre la portada, el panel no esconde lo que hay debajo (antes #/menu era una
+   pagina y la portada se ocultaba entera). */
+body.no-scroll.solo-menu .topbar{opacity:1;visibility:visible}
+body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visibility:visible}
+.mn-head{display:flex;align-items:center;justify-content:space-between;min-height:48px}
+.mn-x{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 4px 0 12px;background:none;border:0;color:#e6dff2;font:700 13px/1 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:var(--cur),pointer}
+.mn-x .svg-ic{width:18px;height:18px}
+.mn-x:hover{color:var(--gold)}
+.mn-nav{display:flex;flex-direction:column;margin-top:8px;border-top:1px solid var(--line);perspective:900px}
+.mn-nav a{display:grid;grid-template-columns:30px minmax(0,1fr) 22px;column-gap:10px;align-items:start;padding:19px 4px;border-bottom:1px solid var(--line);transition:background .3s}
+.mn-nav .n{font:700 13px/2.2 'Manrope',sans-serif;letter-spacing:.08em;color:var(--gold)}
+.mn-nav b{display:block;font-family:'Cinzel',serif;font-weight:500;font-size:clamp(22px,2.3vw,26px);line-height:1.15;letter-spacing:.01em}
+.mn-nav .d{display:block;margin-top:6px;font-size:15px;line-height:1.45;color:var(--muted)}
+.mn-nav .go{align-self:center;color:var(--gold-hi);transition:transform .3s var(--ease)}
+.mn-nav .go .svg-ic{width:20px;height:20px}
+.mn-nav a:hover{background:rgba(230,194,92,.07)}
+.mn-nav a:hover .go{transform:translateX(4px)}
+.mn-nav a[aria-current="page"] b{color:var(--gold-hi)}
+.mn-foot{margin-top:auto;padding-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.mn-foot .a-btn{min-height:50px;padding:0 22px;font-size:15px}
+.mn-foot .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.mn-nav a:focus-visible,.mn-x:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
+@media(prefers-reduced-motion:reduce){.menu,.menu-scrim,.menu-panel{transition:none}}
+/* La biografia vivia dentro del menu viejo; ahora esta en #/liana. */
+.founder-bio{margin-top:34px;max-width:70ch}
+.founder-bio .k{font:700 12px/1.3 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.founder-bio h2{margin-top:8px;font-size:1.6rem}
+.founder-bio .role{margin-top:4px;color:var(--muted);font-size:.95rem}
+.founder-bio p{margin-top:14px;color:#d7cfe6}
+.founder-bio .artists{color:var(--gold-hi);font-weight:600}
 
 /* VIEWS + aurora */
 .view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
@@ -627,9 +596,6 @@ body.en-arma .cart-fab{display:none}
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media(max-width:960px){
-  .menu-split{grid-template-columns:1fr}
-  .menu-photo{position:relative;height:60vh;min-height:380px}
-  .menu-content{padding:44px 24px 56px;justify-content:flex-start;gap:20px}
   .about-grid,.contact-grid{grid-template-columns:1fr}
   .gal-grid{grid-template-columns:repeat(2,1fr)}
   .about-media{max-width:400px;margin:0 auto}
@@ -639,16 +605,12 @@ body.en-arma .cart-fab{display:none}
   .gal-grid,.travel{grid-template-columns:1fr}
   .stats{grid-template-columns:1fr 1fr}
   .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
-  .menu-photo{height:52vh;min-height:340px}
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
   .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
   .view-bar{padding:11px 14px}.view-bar .vb-title{display:none}
   .cart-fab{bottom:20px;right:20px}.acc-panel ul{padding-left:24px}
-  .menu-content{padding:40px 20px 54px}
-  .menu-content::after{font-size:8rem;top:-2%;right:-1%}
-  .founder-bio p{font-size:.86rem}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
 /* ===== ARMA TU SHOW (9/11/2026) =====================================================
@@ -970,21 +932,13 @@ html.fx .steps .now .n::after{content:"";position:absolute;inset:-4px;border-rad
 @keyframes fx-anillo{from{transform:scale(.85);opacity:.9}70%,to{transform:scale(1.45);opacity:0}}
 html.fx .steps .done.recien .n{animation:fx-visto .6s cubic-bezier(.34,1.56,.64,1) backwards}
 @keyframes fx-visto{from{transform:scale(.4) rotate(-30deg);opacity:0}}
-/* Menu: la foto de Liana sube como un telon, los seis destinos entran girando desde
-   la derecha uno tras otro y la S de fondo se asienta. Solo «backwards»: al acabar no
-   pisa los hover. */
-html.fx .menu.open .menu-photo{animation:fx-telon .9s cubic-bezier(.16,1,.3,1) backwards}
-@keyframes fx-telon{from{clip-path:inset(100% 0 0 0)}}
-html.fx .menu.open .menu-photo video,html.fx .menu.open .menu-photo img{animation:fx-acerca 1.5s cubic-bezier(.16,1,.3,1) backwards}
-@keyframes fx-acerca{from{transform:scale(1.18)}}
-html.fx .menu.open .menu-content>*{animation:fx-sube .7s .08s cubic-bezier(.16,1,.3,1) backwards}
-html.fx .menu.open .menu-nav{animation:none}
-html.fx .menu.open .menu-nav a{animation:fx-destino .75s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(.14s + var(--i,0)*.06s)}
-html.fx .menu.open .menu-content::after{animation:fx-letra 1.6s cubic-bezier(.16,1,.3,1) backwards}
-.menu-nav a:nth-child(2){--i:1}.menu-nav a:nth-child(3){--i:2}.menu-nav a:nth-child(4){--i:3}.menu-nav a:nth-child(5){--i:4}.menu-nav a:nth-child(6){--i:5}
+/* Menu (tanda 3): los cuatro destinos del panel entran girando desde la derecha, uno
+   tras otro. Solo «backwards»: al acabar no pisa los hover. */
+html.fx .menu.open .mn-nav a{animation:fx-destino .7s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(.12s + var(--i,0)*.06s)}
+html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) backwards}
+.mn-nav a:nth-child(2){--i:1}.mn-nav a:nth-child(3){--i:2}.mn-nav a:nth-child(4){--i:3}
 @keyframes fx-sube{from{opacity:0;transform:translateY(18px)}}
 @keyframes fx-destino{from{opacity:0;transform:perspective(800px) translate3d(48px,0,-40px) rotateY(-26deg)}}
-@keyframes fx-letra{from{opacity:0;transform:translate3d(46px,-30px,0) rotate(-9deg)}}
 
 /* ── EFECTOS · D · scroll ──────────────────────────────────────────────────────
    La noche de ejemplo se queda fijada (sticky, dentro de la vista que hace scroll)
@@ -1027,53 +981,20 @@ html.fx #shopGrid{perspective:1200px}
   </div>
 </header>
 
-<!-- MENU -->
-<div class="menu" id="menu">
-  <button class="menu-back" id="menuBack"><span>←</span><span data-i18n="menu.back">Back</span></button>
-  <div class="lang menu-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
-  <div class="menu-split">
-    <div class="menu-photo">
-      <video muted loop playsinline preload="none" data-menu data-poster="assets/liana-founder.jpg"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video>
-      <div class="mp-pattern"></div><div class="mp-glow"></div><div class="mp-scrim"></div>
-      <div class="mp-name"><span class="k" data-i18n="founder.meet">Meet the Founder</span><b>Liana del Toro</b><span class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</span></div>
-    </div>
-    <div class="menu-content">
-      <div class="mc-emblem">
-        <span class="sky"><span class="s">Sky</span>Dancer</span>
-        <span class="prod">PROD<b>U</b>CTIONS</span>
-        <span class="rule"></span>
-      </div>
-      <div class="eyebrow" data-i18n="menu.explore">Explore</div>
-      <nav class="menu-nav">
-        <a href="#/arma"><span class="ic" data-ic="star"></span><span class="txt" data-i18n="menu.n1">Build your show</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/servicios"><span class="ic" data-ic="diamond"></span><span class="txt" data-i18n="menu.n2">Services</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/liana"><span class="ic" data-ic="trophy"></span><span class="txt" data-i18n="menu.n3">Liana and the team</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/galeria"><span class="ic" data-ic="camera"></span><span class="txt" data-i18n="menu.n4">Gallery</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/planners"><span class="ic" data-ic="coord"></span><span class="txt" data-i18n="menu.n5">Planners and venues</span><span class="go" data-ic="arrow"></span></a>
-        <a href="#/contacto"><span class="ic" data-ic="chat"></span><span class="txt" data-i18n="menu.n6">Contact</span><span class="go" data-ic="arrow"></span></a>
-      </nav>
-      <div class="menu-contact">
-        <a href="tel:+17869924543"><span data-ic="phone"></span>+1 786-992-4543</a>
-        <a href="mailto:Skydancerproduction@gmail.com"><span data-ic="mail"></span>Skydancerproduction@gmail.com</a>
-        <span><span data-ic="pin"></span>Coral Gables · Miami, FL</span>
-      </div>
-      <div class="founder-bio">
-          <div class="k" data-i18n="founder.meet">Meet the Founder</div>
-          <h2>Liana del Toro</h2>
-          <div class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</div>
-          <div class="lang-en">
-            <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
-            <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
-            <p>She has danced in shows and videos for <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal and Timbalive</span>.<span class="pv"> <span class="dato">[which ones can be proven: Liana to confirm]</span></span></p>
-            <p class="pv">Liana was part of the production of <span class="dato">[artist and year: Liana to confirm]</span>'s concert at the Kaseya Center.</p>
-          </div>
-          <div class="lang-es" hidden>
-            <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
-            <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
-            <p>Ha bailado en shows y videos de <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal y Timbalive</span>.<span class="pv"> <span class="dato">[cuáles se pueden probar: dato de Liana]</span></span></p>
-            <p class="pv">Liana ha sido parte de la producción del concierto de <span class="dato">[artista y año: dato de Liana]</span> en el Kaseya Center.</p>
-          </div>
-        </div>
+<!-- MENU: panel que se desliza sobre la vista actual (ruta #/menu) -->
+<div class="menu" id="menu" role="dialog" aria-modal="true" aria-labelledby="menuT">
+  <div class="menu-scrim" id="menuScrim"></div>
+  <div class="menu-panel">
+    <div class="mn-head"><p class="a-eyebrow" id="menuT" data-i18n="hero.menu">Menu</p><button class="mn-x" id="menuBack" type="button"><span data-i18n="menu.cerrar">Close</span><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+    <nav class="mn-nav" aria-labelledby="menuT">
+      <a href="#/arma" data-mn="arma"><span class="n" aria-hidden="true">1</span><span><b data-i18n="menu.n1">Build your show</b><span class="d" data-i18n="menu.d1">Three steps: your event, date and county, and your show sent to Liana on WhatsApp</span></span><span class="go" data-ic="arrow"></span></a>
+      <a href="#/servicios" data-mn="servicios"><span class="n" aria-hidden="true">2</span><span><b data-i18n="menu.n2">The 15 services</b><span class="d" data-i18n="menu.d2">From dancers and Hora Loca to LED robots and fire, each with its photo and starting price</span></span><span class="go" data-ic="arrow"></span></a>
+      <a href="#/liana" data-mn="liana"><span class="n" aria-hidden="true">3</span><span><b data-i18n="menu.n3">Liana and the team</b><span class="d" data-i18n="menu.d3">Liana del Toro, Cuban-born professional dancer, founder and creative director</span></span><span class="go" data-ic="arrow"></span></a>
+      <a href="#/galeria" data-mn="galeria"><span class="n" aria-hidden="true">4</span><span><b data-i18n="menu.n4">Gallery</b><span class="d" data-i18n="menu.d4">The reel and photos of eight services at Miami events</span></span><span class="go" data-ic="arrow"></span></a>
+    </nav>
+    <div class="mn-foot">
+      <a class="a-btn a-ghost" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span>WhatsApp +1 786-992-4543</span></a>
+      <div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
     </div>
   </div>
 </div>
@@ -1092,6 +1013,23 @@ html.fx #shopGrid{perspective:1200px}
       </div>
       <div class="about-media"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="fg"></div></div>
     </div>
+    <div class="founder-bio">
+          <div class="k" data-i18n="founder.meet">Meet the Founder</div>
+          <h2>Liana del Toro</h2>
+          <div class="role" data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</div>
+          <div class="lang-en">
+            <p>Liana del Toro is a Cuban-born entrepreneur, professional dancer, model, producer, and creative director based in Miami, Florida. She is the founder of Skydancer Productions, a luxury entertainment company dedicated to creating unforgettable live experiences.</p>
+            <p>With over a decade of experience, Liana has transformed her passion for dance into a company recognized for its creativity, professionalism, and attention to detail — directing large-scale productions for corporate events, luxury hotels, restaurants, weddings, festivals, and private celebrations.</p>
+            <p>She has danced in shows and videos for <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal and Timbalive</span>.<span class="pv"> <span class="dato">[which ones can be proven: Liana to confirm]</span></span></p>
+            <p class="pv">Liana was part of the production of <span class="dato">[artist and year: Liana to confirm]</span>'s concert at the Kaseya Center.</p>
+          </div>
+          <div class="lang-es" hidden>
+            <p>Liana del Toro es una emprendedora, bailarina profesional, modelo, productora y directora creativa nacida en Cuba y radicada en Miami, Florida. Es la fundadora de Skydancer Productions, una compañía de entretenimiento de lujo dedicada a crear experiencias en vivo inolvidables.</p>
+            <p>Con más de una década de experiencia, Liana ha transformado su pasión por la danza en una compañía reconocida por su creatividad, profesionalismo y atención al detalle — dirigiendo producciones a gran escala para eventos corporativos, hoteles de lujo, restaurantes, bodas, festivales y celebraciones privadas.</p>
+            <p>Ha bailado en shows y videos de <span class="artists">Enrique Iglesias, Gloria Trevi, Wisin, Nicky Jam, Jay Wheeler, Gente de Zona, El Chacal y Timbalive</span>.<span class="pv"> <span class="dato">[cuáles se pueden probar: dato de Liana]</span></span></p>
+            <p class="pv">Liana ha sido parte de la producción del concierto de <span class="dato">[artista y año: dato de Liana]</span> en el Kaseya Center.</p>
+          </div>
+        </div>
     <div class="about-cta"><a class="hc hc-1" href="#/arma" data-entrada="liana" data-i18n="hero.cta1">Build your show</a></div>
     <div class="exp">
       <div class="sec-head"><div class="eyebrow" data-i18n="creds.eyebrow">Our Experience</div><h2 class="brand-text" data-i18n="creds.title">Tap each section to explore</h2><p data-i18n="creds.sub">A track record across luxury venues, festivals, theaters and television productions.</p></div>
@@ -1421,7 +1359,8 @@ Object.assign(I18N.en,{
  'hero.h1':'Hora Loca, LED robots, fire and live dancers for Miami events, <em>directed by Liana del Toro</em>',
  'cred.h':'The team has performed at SLS Miami Beach, the Sagamore and the National Hotel','cred.s':'Has performed at the Sagamore, National Hotel and SLS Miami Beach',
  'hero.cta1':'Build your show','hero.s1':'Your event: wedding, brand, club…','hero.s2':'Date and county','hero.s3':'Your show, sent to Liana on WhatsApp',
- 'menu.n1':'Build your show','menu.n2':'Services','menu.n3':'Liana and the team','menu.n4':'Gallery','menu.n5':'Planners and venues','menu.n6':'Contact',
+ 'menu.n1':'Build your show','menu.n2':'The 15 services','menu.n3':'Liana and the team','menu.n4':'Gallery','menu.cerrar':'Close',
+ 'menu.d1':'Three steps: your event, date and county, and your show sent to Liana on WhatsApp','menu.d2':'From dancers and Hora Loca to LED robots and fire, each with its photo and starting price','menu.d3':'Liana del Toro, Cuban-born professional dancer, founder and creative director','menu.d4':'The reel and photos of eight services at Miami events',
  'arma.k':'Build your show','arma.t':'What are we building the show for?','arma.go':'See a sample show →',
  'arma.planner':'You are planning for a client: choose your client\'s occasion. In step 3 the box "I\'m planning this for a client" will already be checked.',
  'arma.planners':'Planning for a client? Planners and venues, this way','arma.all':'See the 15 services →',
@@ -1431,7 +1370,8 @@ Object.assign(I18N.es,{
  'hero.h1':'Hora Loca, robots LED, fuego y bailarines en vivo para eventos en Miami, <em>dirigidos por Liana del Toro</em>',
  'cred.h':'El equipo ha actuado en SLS Miami Beach, Sagamore y National Hotel','cred.s':'Ha actuado en Sagamore, National Hotel y SLS Miami Beach',
  'hero.cta1':'Arma tu show','hero.s1':'Tu evento: boda, marca, club…','hero.s2':'Fecha y condado','hero.s3':'Tu show, enviado a Liana por WhatsApp',
- 'menu.n1':'Arma tu show','menu.n2':'Servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería','menu.n5':'Planners y venues','menu.n6':'Contacto',
+ 'menu.n1':'Arma tu show','menu.n2':'Los 15 servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería','menu.cerrar':'Cerrar',
+ 'menu.d1':'Tres pasos: tu evento, fecha y condado, y tu show enviado a Liana por WhatsApp','menu.d2':'De bailarines y Hora Loca a robots LED y fuego, cada uno con su foto y su precio «Desde»','menu.d3':'Liana del Toro, bailarina profesional nacida en Cuba, fundadora y directora creativa','menu.d4':'El reel y las fotos de ocho servicios en eventos de Miami',
  'arma.k':'Arma tu show','arma.t':'¿Para qué evento armamos el show?','arma.go':'Ver un show de ejemplo →',
  'arma.planner':'Organizas para un cliente: elige la ocasión de tu cliente. En el paso 3 la casilla «Organizo este evento para un cliente» ya irá marcada.',
  'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los 15 servicios →',
@@ -1982,14 +1922,27 @@ document.addEventListener('click',e=>{const b=e.target.closest('.lang button[dat
   lang=b.dataset.lang;localStorage.setItem('sdp_lang',lang);applyLang();});
 
 const menu=document.getElementById('menu');
-/* El video de Liana del menu pesaba en todas las paginas aunque el menu estuviera
-   cerrado (Lighthouse lo daba como LCP de #/bodas). Ahora se pide al abrirlo. */
-function videoMenu(on){const v=menu.querySelector('video[data-menu]');if(!v)return;
-  if(on){if(!v.dataset.woke){v.dataset.woke='1';v.poster=v.dataset.poster;v.muted=true;v.preload='auto';v.load();}
-    if(!(window.sdpMotionOff&&window.sdpMotionOff())){const pr=v.play();if(pr&&pr.catch)pr.catch(()=>{});}}
-  else{try{v.pause();}catch(e){}}}
-function openMenu(){menu.classList.add('open');document.body.classList.add('no-scroll');videoMenu(true);}
-function closeMenu(){menu.classList.remove('open');videoMenu(false);if(!currentView)document.body.classList.remove('no-scroll');}
+/* El menu es un dialogo sobre la vista actual: no la oculta ni la repinta. Guarda quien
+   lo abrio para devolverle el foco, marca el destino en el que ya se esta y atrapa el
+   tabulador dentro del panel. */
+let menuAbre=null,menuEnSesion=false,rutaBajo='',saltaFoco=false;
+function openMenu(){if(menu.classList.contains('open'))return;
+  const a=document.activeElement;menuAbre=a&&a!==document.body?a:null;
+  const r0=rutaBajo.split('/')[0],aqui={sobre:'liana'}[r0]||r0;
+  menu.querySelectorAll('[data-mn]').forEach(x=>{if(x.dataset.mn===aqui)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current');});
+  menu.classList.add('open');document.body.classList.add('no-scroll');document.body.classList.toggle('solo-menu',!currentView);
+  try{document.getElementById('menuBack').focus({preventScroll:true});}catch(e){}}
+function closeMenu(devolverFoco){if(!menu.classList.contains('open'))return;
+  menu.classList.remove('open');document.body.classList.remove('solo-menu');if(!currentView)document.body.classList.remove('no-scroll');
+  if(devolverFoco&&menuAbre&&document.contains(menuAbre)){saltaFoco=true;try{menuAbre.focus({preventScroll:true});}catch(e){}}
+  menuAbre=null;}
+/* Cerrar = volver a lo que habia debajo. Si el menu se abrio navegando, es un Atras de
+   verdad; si se llego con un enlace directo a #/menu, no hay a donde volver. */
+function cerrarMenu(){if(menuEnSesion)history.back();else location.replace('#/'+rutaBajo);}
+menu.addEventListener('keydown',e=>{if(e.key!=='Tab')return;
+  const f=[...menu.querySelectorAll('a[href],button')],a=f[0],z=f[f.length-1],x=document.activeElement;
+  if(e.shiftKey&&x===a){e.preventDefault();z.focus();}else if(!e.shiftKey&&x===z){e.preventDefault();a.focus();}});
+document.addEventListener('focusin',e=>{if(menu.classList.contains('open')&&!menu.contains(e.target))document.getElementById('menuBack').focus();});
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
 function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));currentView=null;}
 /* ── Enrutador por hash ──────────────────────────────────────────────────────
@@ -2071,15 +2024,21 @@ function pintarArma(){const [r0,r1]=rutaActual().split('/');
 function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const vista=vistaDe(r0,r1);
   if(r0&&r0!=='menu'&&!vista){location.replace('#/');return;}
+  /* El menu se desliza encima: la vista de debajo se queda como esta (ni se repinta
+     ni pierde el scroll), y al cerrarlo sobre la misma ruta no hay nada que rehacer. */
+  if(r0==='menu'){openMenu();titulo();return;}
+  const bajo=menu.classList.contains('open')&&rutaActual()===rutaBajo&&(r0?vista===currentView:!currentView);
+  closeMenu(bajo);
+  if(bajo){titulo();return;}
+  rutaBajo=rutaActual();
   const enPaso3=r0==='arma'&&r1==='show';
   /* La confirmacion vive en el paso 3; al salir de ahi el recorrido empieza de cero. */
   if(SHOW.enviado&&!enPaso3){SHOW.enviado=null;guardarShow();}
   if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
   if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
-  if(!r0){hideViews();closeMenu();document.body.classList.remove('no-scroll');window.scrollTo(0,0);}
-  else if(r0==='menu'){hideViews();openMenu();}
-  else{closeMenu();showView(vista);}
+  if(!r0){hideViews();document.body.classList.remove('no-scroll');window.scrollTo(0,0);}
+  else showView(vista);
   document.body.classList.toggle('en-arma',esRecorrido(r0));
   if(esRecorrido(r0))pintarArma();
   /* La ficha es parte de la ruta: /servicios/hora-loca se puede mandar tal cual. */
@@ -2093,10 +2052,11 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
 function enfocarTitulo(){const v=currentView&&document.getElementById(currentView);if(!v||!v.classList.contains('active'))return;
   const h=v.querySelector('h1,h2');if(!h)return;if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){h.focus();}}
 /* efectos.js puede envolver el cambio en una transicion; el foco va al terminar. */
-window.addEventListener('hashchange',()=>{const fin=()=>{if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();};
+window.addEventListener('hashchange',()=>{if(rutaActual()==='menu')menuEnSesion=true;
+  const fin=()=>{if(saltaFoco){saltaFoco=false;return;}if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();};
   if(window.sdpFx&&window.sdpFx.transicion)window.sdpFx.transicion(aplicarRuta,fin);else{aplicarRuta();fin();}});
 document.getElementById('openMenu').onclick=()=>irA('menu');
-document.getElementById('menuBack').onclick=()=>irA('');
+document.getElementById('menuBack').onclick=cerrarMenu;document.getElementById('menuScrim').onclick=cerrarMenu;
 document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();irA(A_RUTA[a.dataset.view]||'');});
 document.querySelectorAll('[data-back]').forEach(b=>b.onclick=backToMenu);
 document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'));
@@ -2202,7 +2162,7 @@ addEventListener('keydown',e=>{
     else if(e.key==='ArrowLeft')lbIr(-1);
     return;
   }
-  if(e.key==='Escape'){if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();else if(menu.classList.contains('open'))irA('');else if(currentView)irA('menu');}
+  if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();else if(currentView)irA('menu');}
 });
 document.getElementById('yr').textContent=new Date().getFullYear();
 /* Vista previa local: ?demo=paso3, ?demo=confirmacion o ?demo=sinpanel rellenan un

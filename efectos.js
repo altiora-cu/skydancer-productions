@@ -175,8 +175,13 @@ function entrada(v,dir){
   if(!vis.length)return null;
   return G.from(vis,{opacity:0,y:26,x:dir==='atras'?-34:dir==='adelante'?34:0,rotationX:7,transformPerspective:900,
     duration:.8,ease:'power3.out',stagger:.055,clearProps:'opacity,transform'});}
+let bajoMenu=false;
 FX.transicion=function(ir,fin){
+  /* El menu es un panel sobre la vista: ni al abrirlo ni al cerrarlo sobre la misma
+     ruta se anima o se remonta lo que hay debajo. */
+  if(rutaActual()==='menu'){bajoMenu=true;ir();fin();return;}
   const de=rutaUlt,a=rutaActual();rutaUlt=a;
+  if(bajoMenu){bajoMenu=false;if(de===a){ir();fin();return;}}
   const r1=rango(de),r2=rango(a);
   const dir=r2>r1?'adelante':r2<r1?'atras':(OCAS.indexOf(a.split('/')[0])>=OCAS.indexOf(de.split('/')[0])?'adelante':'atras');
   if(quieto()||de===a){ir();montar(false);fin();return;}

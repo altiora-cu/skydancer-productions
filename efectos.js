@@ -252,7 +252,7 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
 MONTAJES.push({sel:'#view-about',f(v){
   revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*')]);}});
 MONTAJES.push({sel:'#view-gallery',f(v){
-  revelar(v,[...v.querySelectorAll('.view-body .wrap > *')]);}});
+  revelar(v,[...v.querySelectorAll('.gal,.cat-note')]);}});
 MONTAJES.push({sel:'#view-services',f(v){
   revelar(v,[...v.querySelectorAll('.cat-note')]);}});
 

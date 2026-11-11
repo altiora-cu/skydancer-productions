@@ -363,7 +363,6 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .aurora{position:sticky;top:0;height:0;z-index:0}
 .aurora::before{content:"";position:absolute;top:0;left:0;right:0;height:100svh;pointer-events:none;background:radial-gradient(48% 42% at 12% 8%,var(--a1),transparent 70%),radial-gradient(46% 40% at 88% 4%,var(--a2),transparent 72%),radial-gradient(60% 50% at 78% 88%,var(--a3),transparent 74%),radial-gradient(50% 46% at 20% 92%,var(--a1),transparent 76%),linear-gradient(180deg,var(--abase),var(--abase))}
 #view-about{--abase:#0d0710;--a1:rgba(230,140,120,.24);--a2:rgba(150,60,72,.26);--a3:rgba(246,224,160,.16)}
-#view-gallery{--abase:#080718;--a1:rgba(123,47,247,.26);--a2:rgba(24,230,216,.20);--a3:rgba(255,45,120,.18)}
 .sec-head{max-width:760px;margin-bottom:44px}
 .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
 .sec-head p{color:var(--muted);font-size:1.05rem}
@@ -414,20 +413,27 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 .pm-desc{color:#cfc6e6;font-size:16px;line-height:1.6;margin-bottom:22px}
 .pm-acc{display:flex;flex-wrap:wrap;align-items:center;gap:8px 20px}
 
-/* GALLERY */
-.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:16px}
-.gal{border-radius:18px;overflow:hidden;position:relative;border:1px solid var(--glass-brd);display:flex;align-items:flex-end;padding:20px;color:#fff;transition:.4s}
-.gal:hover{transform:scale(1.02);border-color:rgba(246,224,160,.55)}
-.gal.big{grid-column:span 2;grid-row:span 2}.gal.wide{grid-column:span 2}
-.gal .lab{position:relative;z-index:2}.gal .lab b{font-family:'Cinzel';font-size:1.1rem;display:block}
-.gal .lab small{color:rgba(255,255,255,.78);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
-.gal .ov{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.7))}
-.gal video,.gal img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
-.gal:hover img{transform:scale(1.06)}
-.g1{background:linear-gradient(140deg,#ff2d78,#8b3bff)}.g2{background:linear-gradient(140deg,#8b3bff,#18e6d8)}
-.g3{background:linear-gradient(140deg,#e6c25c,#ff2d78)}.g4{background:linear-gradient(140deg,#18e6d8,#3b2a7a)}
-.g5{background:linear-gradient(140deg,#ff6a3d,#b8912f)}.g6{background:linear-gradient(140deg,#7b2ff7,#ff2d78)}
-.gal-note{color:var(--muted);font-size:.85rem;margin-top:20px;text-align:center}
+/* GALERIA (tanda 3): mismas tarjetas que el catalogo. La pieza que corresponde a un
+   servicio lleva «Agregar a mi show»; las dos colecciones abren el visor. */
+.gal-grid{margin-top:30px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.gal{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;border:1px solid var(--glass-brd);background:rgba(255,255,255,.035);transition:border-color .3s}
+.gal.on{border-color:var(--gold)}
+.gal.big{grid-column:1/-1}
+.gph{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden;padding:0;border:0;background:#120e1c}
+.gal.big .gph{aspect-ratio:auto;height:clamp(220px,44vw,520px)}
+.gph img,.gph video{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+button.gph{cursor:var(--cur),pointer}
+button.gph:hover img{transform:scale(1.04)}
+button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+.gal figcaption{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:14px 16px 18px}
+.gal figcaption b{font-family:'Cinzel',serif;font-weight:700;font-size:18px;line-height:1.25;letter-spacing:.02em}
+.gal figcaption>span{font-size:15px;color:var(--muted)}
+.gal.big figcaption{flex-direction:row;align-items:baseline;gap:14px}
+.gacc{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+.gacc .a-link{font-size:15px}
+@media(max-width:1000px){.gal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.gal-grid{grid-template-columns:1fr;gap:12px}.gph{aspect-ratio:3/2}}
+@media(prefers-reduced-motion:reduce){.gph img{transition:none}}
 
 /* VISOR DE COLECCIÓN — las categorías con varias piezas (Themed, Interactive)
    abren aquí. z-index 125: por encima de la ficha de servicio (115) y del
@@ -513,12 +519,9 @@ body.en-arma .cart-fab{display:none}
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media(max-width:960px){
-  .gal-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:600px){
   .view-body{padding:46px 0 90px}.wrap{padding:0 18px}
-  .gal-grid{grid-template-columns:1fr}
-  .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
@@ -998,25 +1001,25 @@ html.fx #shopGrid{perspective:1200px}
   </div></div>
 </section>
 
-<!-- VIEW: GALLERY -->
-<section class="view" id="view-gallery">
-  <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.gallery">Gallery &amp; Artists</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
-  <div class="view-body"><div class="wrap">
-    <div class="sec-head"><div class="eyebrow" data-i18n="gal.eyebrow">Gallery &amp; Artists</div><h2 class="gold-text" data-i18n="gal.title">The stage is ours</h2><p data-i18n="gal.sub">A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.</p></div>
+<!-- GALERIA (#/galeria): cada pieza que es un servicio se puede agregar al show -->
+<section class="view arma" id="view-gallery" aria-labelledby="galT">
+  <div class="arma-bar" data-armabar="simple"></div>
+  <div class="a-main"><div class="aw">
+    <p class="a-eyebrow" data-i18n="menu.n4">Gallery</p>
+    <h1 class="a-h1" id="galT" data-i18n="gal.h1">The reel and eight services in photos, with 21 pieces of Themed Entertainment and 8 of Interactive Moments</h1>
+    <p class="a-sub" data-i18n="gal.sub">If something you see fits your event, add it: it arrives checked in step 3 of your show.</p>
     <div class="gal-grid">
-      <div class="gal big"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video><div class="ov"></div><div class="lab"><b data-i18n="gal.reel">Showreel</b><small data-i18n="gal.reelx">Live from Miami</small></div></div>
-      <div class="gal g1"><img src="assets/gallery/g-dancers.jpg" alt="Professional Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k1">Professional Dancers</b><small>Latin · Cabaret</small></div></div>
-      <div class="gal g2"><img src="assets/gallery/g-horaloca.jpg" alt="Hora Loca" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k2">Hora Loca</b><small>High Energy</small></div></div>
-      <div class="gal g3 wide" data-col="themed" role="button" tabindex="0"><img src="assets/gallery/g-themed.jpg" alt="Themed Entertainment" loading="lazy"><div class="ov"></div><span class="gal-chip"><span data-ic="stack"></span>21</span><div class="lab"><b data-i18n="gal.k3">Themed Entertainment</b><small>Custom Concepts</small></div></div>
-      <div class="gal g4"><img src="assets/gallery/g-greeters.jpg" alt="Luxury Greeters" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k4">Luxury Greeters</b><small>First Impression</small></div></div>
-      <div class="gal g5"><img src="assets/gallery/g-choreo.jpg" alt="Choreographed Shows" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k5">Choreographed Shows</b><small>Stage Production</small></div></div>
-      <div class="gal g6 wide"><img src="assets/gallery/g-custom.jpg" alt="Custom Productions" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k6">Custom Productions</b><small>Bespoke Design</small></div></div>
-      <div class="gal g2"><img src="assets/gallery/g-gogo.jpg" alt="Gogo Dancers" loading="lazy"><div class="ov"></div><div class="lab"><b data-i18n="gal.k7">Gogo Dancers</b><small>Nightlife</small></div></div>
-      <div class="gal g1" data-col="interactive" role="button" tabindex="0"><img src="assets/gallery/g-interactive.jpg" alt="Interactive Performances" loading="lazy"><div class="ov"></div><span class="gal-chip"><span data-ic="stack"></span>8</span><div class="lab"><b data-i18n="gal.k8">Interactive Moments</b><small>Guest Experience</small></div></div>
+      <figure class="gal big"><div class="gph"><video muted loop playsinline preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video></div><figcaption><b data-i18n="gal.reel">Showreel</b><span data-i18n="gal.reelx">Live from Miami</span></figcaption></figure>
+      <figure class="gal" data-gsvc="dancers"><div class="gph"><img src="assets/gallery/g-dancers.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k1">Professional Dancers</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="horaloca"><div class="gph"><img src="assets/gallery/g-horaloca.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k2">Hora Loca</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="themed" data-gcol="themed"><button type="button" class="gph" data-col="themed" data-i18n-aria="gal.k3" aria-label="Themed Entertainment"><img src="assets/gallery/g-themed.jpg" alt="" loading="lazy" fetchpriority="low"><span class="gal-chip"><span data-ic="stack"></span>21</span></button><figcaption><b data-i18n="gal.k3">Themed Entertainment</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="greeters"><div class="gph"><img src="assets/gallery/g-greeters.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k4">Luxury Greeters</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="choreo"><div class="gph"><img src="assets/gallery/g-choreo.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k5">Choreographed Shows</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="custom"><div class="gph"><img src="assets/gallery/g-custom.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k6">Custom Productions</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="gogo"><div class="gph"><img src="assets/gallery/g-gogo.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k7">Gogo Dancers</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="interactive" data-gcol="interactive"><button type="button" class="gph" data-col="interactive" data-i18n-aria="gal.k8" aria-label="Interactive Moments"><img src="assets/gallery/g-interactive.jpg" alt="" loading="lazy" fetchpriority="low"><span class="gal-chip"><span data-ic="stack"></span>8</span></button><figcaption><b data-i18n="gal.k8">Interactive Moments</b><div class="gacc"></div></figcaption></figure>
     </div>
-    <p class="gal-note" data-i18n="gal.note">Want your event photos and performer portraits featured here? Drop them into the “gallery” folder and they can be added instantly.</p>
-    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span data-i18n="foot.tag">Luxury Event Entertainment · Coral Gables · Miami, FL</span></div>
+    <p class="cat-note" data-i18n="gal.note">Real moments from SkyDancer productions across Miami.</p>
   </div></div>
 </section>
 
@@ -1194,13 +1197,13 @@ const SERVICES=[
 const I18N={
  en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'ui.back':'Back to menu',
-  'nav.about':'About the Company','nav.gallery':'Gallery & Artists',
+  'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
   'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
   'creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
   'svc.sub':'Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.','svc.h1':'SkyDancer\'s 15 services: ten with a starting price and five Liana quotes to order','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
-  'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
+  'gal.ver':'See all {n} pieces','gal.h1':'The reel and eight services in photos, with 21 pieces of Themed Entertainment and 8 of Interactive Moments','gal.sub':'If something you see fits your event, add it: it arrives checked in step 3 of your show.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
   
   
   'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL',
@@ -1208,13 +1211,13 @@ const I18N={
   'ui.add':'Add to my show','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
  es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'ui.back':'Volver al menú',
-  'nav.about':'Sobre la Compañía','nav.gallery':'Galería y Artistas',
+  'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
   'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
   'creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
   'svc.sub':'Toca «Agregar a mi show» en los que te interesen: llegan marcados al paso 3, donde se lo envías a Liana.','svc.h1':'Los 15 servicios de SkyDancer: diez con precio «Desde» y cinco que Liana cotiza a medida','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
-  'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
+  'gal.ver':'Ver las {n} piezas','gal.h1':'El reel y ocho servicios en foto, con 21 piezas de Entretenimiento Temático y 8 de Momentos Interactivos','gal.sub':'Si algo de lo que ves va con tu evento, agrégalo: llega marcado al paso 3 de tu show.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
   
   
   'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL',
@@ -1722,6 +1725,10 @@ function closeProduct(){document.getElementById('pmOverlay').classList.remove('o
 document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')irA('servicios');});
 
 function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();toast(t('ui.cleared'));}
+/* Galeria: el boton solo sale si el codigo de la pieza existe en SERVICES. */
+function pintarGal(){document.querySelectorAll('.gal[data-gsvc]').forEach(g=>{const id=g.dataset.gsvc,c=g.dataset.gcol,col=c&&COLECCIONES[c];
+  g.classList.toggle('on',SHOW.servicios.includes(id));
+  g.querySelector('.gacc').innerHTML=(SERVICES.some(x=>x.id===id)?botonSvc(id):'')+(col?`<button type="button" class="a-link" data-col="${c}">${t('gal.ver').replace('{n}',col.items.length)}</button>`:'');});}
 /* El panel «Tu show»: lo marcado, su precio «Desde» y el descuento publicado por
    volumen. Sin totales: un total de precios «desde» se leia como oferta firme. */
 function renderCart(){const n=SHOW.servicios.length,box=document.getElementById('cartItems'),fab=document.getElementById('cartFab');
@@ -1739,7 +1746,8 @@ function applyLang(){document.documentElement.lang=lang;
   /* El placeholder no es textContent: sin esto el campo de ciudad se quedaba en ingles. */
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[lang][k]!==undefined)el.placeholder=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();
+  document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const k=el.getAttribute('data-i18n-aria');if(I18N[lang][k]!==undefined)el.setAttribute('aria-label',I18N[lang][k]);});
   /* El visor se pinta una vez al abrirlo: sin esto se queda en el idioma viejo. */
   if(lbCol){document.getElementById('lbTitle').textContent=t(COLECCIONES[lbCol].k);}
   /* La ficha de servicio se pinta una sola vez al abrirla, asi que sin esto se quedaba
@@ -1788,7 +1796,7 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
 const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
-const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'nav.gallery',arma:'menu.n1'};
+const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'menu.n4',arma:'menu.n1'};
 const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */
@@ -1956,9 +1964,10 @@ function lbPintar(){
   });
 }
 function lbIr(d){const n=COLECCIONES[lbCol].items.length;lbIx=(lbIx+d+n)%n;lbPintar();}
+let lbAbre=null;
 function abrirColeccion(id){
   if(!COLECCIONES[id])return;
-  lbCol=id;lbIx=0;
+  lbCol=id;lbIx=0;lbAbre=document.activeElement;
   const col=COLECCIONES[id];
   document.getElementById('lbTitle').textContent=t(col.k);
   document.getElementById('lbRail').innerHTML=col.items.map((it,i)=>
@@ -1972,14 +1981,13 @@ function abrirColeccion(id){
 function cerrarLb(){
   const v=document.querySelector('#lbMedia video');if(v)v.pause();
   lb.classList.remove('open');lbCol=null;
+  if(lbAbre&&document.contains(lbAbre))try{lbAbre.focus({preventScroll:true});}catch(e){}
+  lbAbre=null;
   /* La galeria es una vista y tambien usa no-scroll: solo se libera si no hay
      ninguna vista abierta detras, igual que hace closeProduct(). */
   if(!currentView)document.body.classList.remove('no-scroll');
 }
-document.querySelectorAll('.gal[data-col]').forEach(g=>{
-  g.addEventListener('click',()=>abrirColeccion(g.dataset.col));
-  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();abrirColeccion(g.dataset.col);}});
-});
+document.addEventListener('click',e=>{const c=e.target.closest('[data-col]');if(c)abrirColeccion(c.dataset.col);});
 document.getElementById('lbClose').onclick=cerrarLb;
 document.getElementById('lbPrev').onclick=()=>lbIr(-1);
 document.getElementById('lbNext').onclick=()=>lbIr(1);

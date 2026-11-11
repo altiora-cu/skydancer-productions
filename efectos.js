@@ -148,8 +148,45 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
       {rotationX:0,y:0,ease:'power1.out',scrollTrigger:{...sc,trigger:p,start:'top bottom',end:'top 58%',scrub:.5}});});
 }});
 
-/* Hasta la pieza de navegacion: montar tras cada cambio de ruta. */
-addEventListener('hashchange',()=>requestAnimationFrame(()=>montar(true)));
+/* ── C · Transiciones entre vistas, con direccion ─────────────────────────────
+   Orden del recorrido: arma (1) → ocasion (2) → arma/fecha (3) → arma/show (4).
+   Entre dos vistas del recorrido gira la pagina (View Transitions); si el navegador
+   no las tiene, o se llega desde la portada o el menu, entran los bloques con GSAP. */
+const OCAS=['bodas','empresas','noches','celebraciones','planners'];
+function rango(r){const [a,b]=r.split('/');
+  if(a==='arma')return b==='fecha'?3:b==='show'?4:1;
+  return OCAS.includes(a)?2:0;}
+let rutaUlt=rutaActual();
+const barraDe=v=>v&&v.querySelector('.arma-bar');
+const nombrar=(v,on)=>{const b=barraDe(v);if(b)b.style.viewTransitionName=on?'fx-barra':'';};
+function entrada(v,dir){
+  if(!G||!v||quieto())return null;
+  const aw=v.querySelector('.aw');if(!aw)return null;
+  const items=[];
+  [...aw.children].forEach(el=>{
+    if(el.matches('.occ-grid'))items.push(...el.children);
+    else if(el.tagName==='DIV'&&!el.className)items.push(...el.children);
+    else items.push(el);});
+  const vis=items.filter(el=>{const r=el.getBoundingClientRect();return r.height&&r.top<innerHeight;}).slice(0,10);
+  if(!vis.length)return null;
+  return G.from(vis,{opacity:0,y:26,x:dir==='atras'?-34:dir==='adelante'?34:0,rotationX:7,transformPerspective:900,
+    duration:.8,ease:'power3.out',stagger:.055,clearProps:'opacity,transform'});}
+FX.transicion=function(ir,fin){
+  const de=rutaUlt,a=rutaActual();rutaUlt=a;
+  const r1=rango(de),r2=rango(a);
+  const dir=r2>r1?'adelante':r2<r1?'atras':(OCAS.indexOf(a.split('/')[0])>=OCAS.indexOf(de.split('/')[0])?'adelante':'atras');
+  if(quieto()||de===a){ir();montar(false);fin();return;}
+  if(document.startViewTransition&&r1>0&&r2>0&&vistaActiva()){
+    root.dataset.dir=dir;root.classList.add('vt');desmontar();nombrar(vistaActiva(),true);
+    let t;
+    try{t=document.startViewTransition(()=>{nombrar(vistaActiva(),false);ir();nombrar(vistaActiva(),true);});}
+    catch(e){root.classList.remove('vt');ir();montar(false);fin();return;}
+    const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;nombrar(vistaActiva(),false);montar(false);fin();};
+    t.finished.then(cerrar,cerrar);return;}
+  ir();
+  const v=vistaActiva(),tw=entrada(v,r1>0&&r2>0?dir:'');
+  montar(true);
+  if(tw)tw.eventCallback('onComplete',fin);else fin();};
 
 /* @piezas */
 })();

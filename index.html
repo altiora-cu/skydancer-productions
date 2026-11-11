@@ -681,7 +681,7 @@ body.en-arma .cart-fab{display:none}
 .stepm{display:none;order:3;width:100%;font-size:15px;color:var(--muted)}
 .stepm b{color:var(--ink)}
 .prog{position:absolute;left:0;right:0;bottom:-1px;height:3px;background:rgba(255,255,255,.06)}
-.prog i{display:block;height:100%;width:0;background:var(--gold-grad);transition:width .5s var(--ease)}
+.prog i{display:block;height:100%;width:100%;transform:scaleX(0);transform-origin:0 50%;background:var(--gold-grad);transition:transform .6s var(--ease)}
 .a-main{padding:44px 0 88px}
 .a-eyebrow{font:700 12px/1.3 'Manrope',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 .a-h1{margin-top:12px;max-width:26ch;font-family:'Cinzel',serif;font-weight:500;font-size:clamp(28px,3.2vw,46px);line-height:1.12;letter-spacing:.005em}
@@ -947,6 +947,44 @@ html.fx .oc-gancho .ph{position:relative}
 html.fx .oc-gancho .arch{position:relative;z-index:1}
 html.fx .fx-halo{display:block;position:absolute;left:-16px;top:-16px;z-index:0;width:100%;aspect-ratio:3/4;border:1px solid rgba(246,224,160,.42);border-radius:999px 999px 18px 18px;pointer-events:none}
 @media(max-width:900px){html.fx .fx-halo{aspect-ratio:4/3.4;border-radius:220px 220px 16px 16px;left:-10px;top:-10px}}
+
+/* ── EFECTOS · C · navegacion ─────────────────────────────────────────────────
+   Entre paso 1, ocasion, paso 2 y paso 3 la pagina gira como una hoja: hacia la
+   izquierda al avanzar, hacia la derecha al volver (View Transitions; donde no
+   existen, efectos.js hace la entrada con GSAP). La barra de pasos se queda quieta. */
+html.vt .view{transition:none!important}
+::view-transition{background:#0a0712}
+::view-transition-old(root){animation:fx-hoja-sale .46s cubic-bezier(.4,0,.2,1) both;transform-origin:0 50%}
+::view-transition-new(root){animation:fx-hoja-entra .62s cubic-bezier(.16,1,.3,1) both;transform-origin:100% 50%}
+html[data-dir=atras]::view-transition-old(root){animation-name:fx-hoja-sale-atras;transform-origin:100% 50%}
+html[data-dir=atras]::view-transition-new(root){animation-name:fx-hoja-entra-atras;transform-origin:0 50%}
+::view-transition-group(fx-barra){animation-duration:.4s}
+@keyframes fx-hoja-sale{to{opacity:0;transform:perspective(1600px) translateX(-5%) rotateY(8deg) scale(.96)}}
+@keyframes fx-hoja-entra{from{opacity:0;transform:perspective(1600px) translateX(6%) rotateY(-9deg) scale(.98)}}
+@keyframes fx-hoja-sale-atras{to{opacity:0;transform:perspective(1600px) translateX(5%) rotateY(-8deg) scale(.96)}}
+@keyframes fx-hoja-entra-atras{from{opacity:0;transform:perspective(1600px) translateX(-6%) rotateY(9deg) scale(.98)}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+/* Pasos vivos: anillo en el paso actual y el visto bueno salta al completar uno. */
+.steps .n{position:relative}
+html.fx .steps .now .n::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--gold);pointer-events:none;animation:fx-anillo 2.8s cubic-bezier(.2,.6,.3,1) infinite}
+@keyframes fx-anillo{from{transform:scale(.85);opacity:.9}70%,to{transform:scale(1.45);opacity:0}}
+html.fx .steps .done.recien .n{animation:fx-visto .6s cubic-bezier(.34,1.56,.64,1) backwards}
+@keyframes fx-visto{from{transform:scale(.4) rotate(-30deg);opacity:0}}
+/* Menu: la foto de Liana sube como un telon, los seis destinos entran girando desde
+   la derecha uno tras otro y la S de fondo se asienta. Solo «backwards»: al acabar no
+   pisa los hover. */
+html.fx .menu.open .menu-photo{animation:fx-telon .9s cubic-bezier(.16,1,.3,1) backwards}
+@keyframes fx-telon{from{clip-path:inset(100% 0 0 0)}}
+html.fx .menu.open .menu-photo video,html.fx .menu.open .menu-photo img{animation:fx-acerca 1.5s cubic-bezier(.16,1,.3,1) backwards}
+@keyframes fx-acerca{from{transform:scale(1.18)}}
+html.fx .menu.open .menu-content>*{animation:fx-sube .7s .08s cubic-bezier(.16,1,.3,1) backwards}
+html.fx .menu.open .menu-nav{animation:none}
+html.fx .menu.open .menu-nav a{animation:fx-destino .75s cubic-bezier(.16,1,.3,1) backwards;animation-delay:calc(.14s + var(--i,0)*.06s)}
+html.fx .menu.open .menu-content::after{animation:fx-letra 1.6s cubic-bezier(.16,1,.3,1) backwards}
+.menu-nav a:nth-child(2){--i:1}.menu-nav a:nth-child(3){--i:2}.menu-nav a:nth-child(4){--i:3}.menu-nav a:nth-child(5){--i:4}.menu-nav a:nth-child(6){--i:5}
+@keyframes fx-sube{from{opacity:0;transform:translateY(18px)}}
+@keyframes fx-destino{from{opacity:0;transform:perspective(800px) translate3d(48px,0,-40px) rotateY(-26deg)}}
+@keyframes fx-letra{from{opacity:0;transform:translate3d(46px,-30px,0) rotate(-9deg)}}
 
 </style>
 </head>
@@ -1983,7 +2021,22 @@ function pintarPasos(v,n,vals){if(!v)return;vals=vals||[];
   if(ol)ol.innerHTML=nom.map((x,i)=>{const k=i+1,c=k<n?'done':(k===n?'now':'');
     return `<li class="${c}"${k===n?' aria-current="step"':''}><span class="n">${k<n?'✓':k}</span>${x}${vals[i]?`: <span class="val">${esc(vals[i])}</span>`:''}</li>`;}).join('');
   if(pm)pm.innerHTML=`${t('paso.w')} <b>${n} ${t('paso.de')} 3</b> · ${esc(vals[n-1]||nom[n-1])}`;
-  if(pr)pr.style.width=(n*33.34)+'%';}
+  if(ol&&n>pasoUlt&&pasoUlt>0){const li=ol.children[n-2];if(li)li.classList.add('recien');}
+  pasoUlt=n;if(pr)ponerProg(pr,n);}
+/* Progreso vivo (10/11/2026): la barra no salta de tercio en tercio; dentro de cada paso
+   avanza con lo que ya se eligio o escribio, y la barra de la vista nueva arranca donde
+   se quedo la anterior para que el cambio de paso se vea como un solo trazo. */
+let progUlt=0,pasoUlt=0;
+function subPaso(n){
+  if(n===1)return SHOW.ocasion?.5:0;
+  if(n===2)return (SHOW.fecha?.5:0)+(SHOW.condado?.5:0);
+  if(n===3)return SHOW.enviado?1:((SHOW.nombre?.45:0)+((SHOW.tel||'').replace(/\D/g,'').length>=7?.45:0));
+  return 0;}
+function ponerProg(pr,n){const f=n===3&&SHOW.enviado?1:Math.min(1,(n-1+.35+.65*subPaso(n))/3);
+  if(pr.dataset.v!==String(progUlt)){pr.style.transition='none';pr.style.transform='scaleX('+progUlt+')';void pr.offsetWidth;pr.style.transition='';}
+  pr.style.transform='scaleX('+f.toFixed(4)+')';pr.dataset.v=String(f.toFixed(4));progUlt=f.toFixed(4);pr.dataset.n=n;}
+const refrescarProg=()=>{const pr=currentView&&document.querySelector('#'+currentView+' [data-prog]');if(pr&&pr.dataset.n)ponerProg(pr,+pr.dataset.n);};
+['input','change'].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest&&e.target.closest('.view.arma'))requestAnimationFrame(refrescarProg);}));
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function pintarPaso1(){const v=document.getElementById('view-arma');
@@ -2023,7 +2076,9 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
    pantalla anuncie donde se esta. En la primera carga no: ahi manda el navegador. */
 function enfocarTitulo(){const v=currentView&&document.getElementById(currentView);if(!v||!v.classList.contains('active'))return;
   const h=v.querySelector('h1,h2');if(!h)return;if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){h.focus();}}
-window.addEventListener('hashchange',()=>{aplicarRuta();if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();});
+/* efectos.js puede envolver el cambio en una transicion; el foco va al terminar. */
+window.addEventListener('hashchange',()=>{const fin=()=>{if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();};
+  if(window.sdpFx&&window.sdpFx.transicion)window.sdpFx.transicion(aplicarRuta,fin);else{aplicarRuta();fin();}});
 document.getElementById('openMenu').onclick=()=>irA('menu');
 document.getElementById('menuBack').onclick=()=>irA('');
 document.querySelectorAll('[data-view]').forEach(a=>a.onclick=e=>{e.preventDefault();irA(A_RUTA[a.dataset.view]||'');});

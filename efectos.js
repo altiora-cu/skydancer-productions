@@ -251,7 +251,7 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
 /* Vistas del menu: sobre, galeria, contacto (servicios tiene su catalogo aparte). */
 MONTAJES.push({sel:'#view-about',f(v){
   revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*')]);}});
-MONTAJES.push({sel:'#view-gallery,#view-contact,#view-services',f(v){
+MONTAJES.push({sel:'#view-gallery,#view-services',f(v){
   revelar(v,[...v.querySelectorAll('.view-body .wrap > *:not(#shopGrid)')]);}});
 
 /* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */

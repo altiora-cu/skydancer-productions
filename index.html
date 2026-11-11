@@ -366,7 +366,6 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 #view-about{--abase:#0d0710;--a1:rgba(230,140,120,.24);--a2:rgba(150,60,72,.26);--a3:rgba(246,224,160,.16)}
 #view-services{--abase:#0a0714;--a1:rgba(255,45,120,.22);--a2:rgba(139,59,255,.26);--a3:rgba(24,230,216,.14)}
 #view-gallery{--abase:#080718;--a1:rgba(123,47,247,.26);--a2:rgba(24,230,216,.20);--a3:rgba(255,45,120,.18)}
-#view-contact{--abase:#061010;--a1:rgba(24,230,216,.22);--a2:rgba(38,120,140,.24);--a3:rgba(246,224,160,.16)}
 .sec-head{max-width:760px;margin-bottom:44px}
 .sec-head h2{font-size:clamp(2rem,5vw,3.2rem);margin:12px 0}
 .sec-head p{color:var(--muted);font-size:1.05rem}
@@ -470,23 +469,6 @@ body.no-scroll.solo-menu .hero-motion,body.no-scroll.solo-menu .hero-inner{visib
 }
 @media(prefers-reduced-motion:reduce){.lb,.lb-media,.lb-x,.lb-nav,.lb-th{transition:none}}
 
-/* CONTACT */
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
-.cinfo a.row{display:flex;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line);transition:.3s}
-.cinfo a.row:hover{padding-left:8px}
-.cinfo .ci-ico{width:46px;height:46px;border-radius:12px;color:var(--gold);background:rgba(246,224,160,.12);border:1px solid var(--glass-brd);display:grid;place-items:center;flex:none}
-.cinfo small{color:var(--gold);letter-spacing:.16em;text-transform:uppercase;font-size:.66rem}
-.cinfo b{display:block;font-size:1.02rem;font-weight:600}
-.travel{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
-.tv{border-radius:14px;padding:18px}
-.tv b{font-family:'Cinzel';color:var(--gold);display:block;margin-bottom:6px;font-size:.95rem}
-.tv span{color:var(--muted);font-size:.85rem}
-.cform{border-radius:24px;padding:30px}
-.cform label{display:block;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:12px 0 6px}
-.cform input,.cform textarea{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--glass-brd);border-radius:12px;padding:13px 15px;color:var(--ink);font-family:inherit;font-size:.95rem;transition:.25s}
-.cform input:focus,.cform textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(230,194,92,.14)}
-.btn-primary{margin-top:20px;width:100%;border:0;padding:16px;border-radius:12px;background:var(--gold-grad);color:#1a1206;font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.82rem;transition:.3s}
-.btn-primary:hover{filter:brightness(1.08);box-shadow:0 16px 40px -14px rgba(230,194,92,.7)}
 .view-foot{border-top:1px solid var(--line);margin-top:70px;padding-top:34px;text-align:center;color:var(--muted);font-size:.82rem}
 .view-foot .fl{font-family:'Cinzel';font-weight:900;letter-spacing:.14em;font-size:1.05rem;color:var(--ink);margin-bottom:8px}
 .view-foot .fl .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -566,12 +548,11 @@ body.en-arma .cart-fab{display:none}
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media(max-width:960px){
-  .contact-grid{grid-template-columns:1fr}
   .gal-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:600px){
   .view-body{padding:46px 0 90px}.wrap{padding:0 18px}
-  .gal-grid,.travel{grid-template-columns:1fr}
+  .gal-grid{grid-template-columns:1fr}
   .gal.big,.gal.wide{grid-column:span 1;grid-row:span 1}
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
@@ -1076,40 +1057,6 @@ html.fx #shopGrid{perspective:1200px}
   </div></div>
 </section>
 
-<!-- VIEW: CONTACT -->
-<section class="view" id="view-contact">
-  <div class="aurora"></div>
-  <div class="view-bar"><button class="vb-back" data-back><span>←</span><span data-i18n="ui.back">Back to menu</span></button><div class="vb-title" data-i18n="nav.contact">Contact &amp; Booking</div><div class="lang vb-lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div><button class="vb-menu" data-openmenu><span data-i18n="hero.menu">Menu</span></button></div>
-  <div class="view-body"><div class="wrap">
-    <div class="sec-head"><div class="eyebrow" data-i18n="con.eyebrow">Contact &amp; Booking</div><h2 class="brand-text" data-i18n="con.title">Let's design your event</h2><p data-i18n="con.sub">Tell us your vision — we'll craft a custom production and quote for your date and venue.</p></div>
-    <div class="contact-grid">
-      <div class="cinfo">
-        <a class="row" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="ci-ico" data-ic="chat"></span><span><small>WhatsApp</small><b>+1 786-992-4543</b></span></a>
-        <a class="row" href="tel:+17869924543"><span class="ci-ico" data-ic="phone"></span><span><small data-i18n="con.call">Call us</small><b>+1 786-992-4543</b></span></a>
-        <a class="row" href="mailto:Skydancerproduction@gmail.com"><span class="ci-ico" data-ic="mail"></span><span><small>Email</small><b>Skydancerproduction@gmail.com</b></span></a>
-        <a class="row" href="#"><span class="ci-ico" data-ic="pin"></span><span><small data-i18n="con.based">Based in</small><b>Coral Gables · Miami, FL</b></span></a>
-        <div style="margin-top:30px"><div class="eyebrow" data-i18n="travel.eyebrow">Travel Policy</div>
-          <div class="travel">
-            <div class="tv glass"><b>Miami-Dade</b><span data-i18n="travel.t1">No travel fee.</span></div>
-            <div class="tv glass"><b>Broward · Palm Beach</b><span data-i18n="travel.t2">Travel fees may apply.</span></div>
-            <div class="tv glass"><b data-i18n="travel.t3t">Rest of Florida</b><span data-i18n="travel.t3">Custom travel quote by location.</span></div>
-            <div class="tv glass"><b data-i18n="travel.t4t">Out of State</b><span data-i18n="travel.t4">Transport &amp; accommodation quoted separately.</span></div>
-          </div>
-        </div>
-      </div>
-      <form class="cform glass" id="quoteForm" onsubmit="return false">
-        <div class="eyebrow" data-i18n="con.formtitle">Request a Quote</div>
-        <label for="qName" data-i18n="con.fname">Full name</label><input id="qName" type="text" placeholder="Your name" />
-        <label for="qDate" data-i18n="con.fdate">Event date</label><input id="qDate" type="date" />
-        <label for="qVenue" data-i18n="con.fvenue">Venue / City</label><input id="qVenue" type="text" placeholder="Venue, city" />
-        <label for="qMsg" data-i18n="con.fmsg">Your vision</label><textarea id="qMsg" rows="3" placeholder="Tell us about your event..."></textarea>
-        <button class="btn-primary" id="formSend" data-i18n="con.send">Send via WhatsApp</button>
-      </form>
-    </div>
-    <div class="view-foot"><div class="fl"><span class="s">SKY</span>DANCER PRODUCTIONS</div><span>© <span id="yr"></span> · <span data-i18n="foot.rights">All rights reserved.</span></span></div>
-  </div></div>
-</section>
-
 <!-- ARMA TU SHOW · PASO 1 -->
 <section class="view arma" id="view-arma" aria-labelledby="armaT">
   <div class="arma-bar" data-armabar></div>
@@ -1319,32 +1266,32 @@ const SERVICES=[
 const I18N={
  en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.play':'Play background video',
   'ui.back':'Back to menu',
-  'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists','nav.contact':'Contact & Booking',
+  'nav.about':'About the Company','nav.services':'Services & Pricing','nav.gallery':'Gallery & Artists',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
   'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
   'creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
   'svc.eyebrow':'The Store','svc.title':'Build your show','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
   'gal.eyebrow':'Gallery & Artists','gal.title':'The stage is ours','gal.sub':'A glimpse of the energy, elegance and spectacle SkyDancer brings to every event.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Moments','gal.note':'Real moments from SkyDancer productions across Miami.',
-  'con.eyebrow':'Contact & Booking','con.title':"Let's design your event",'con.sub':"Tell us your vision — we'll craft a custom production and quote for your date and venue.",'con.call':'Call us','con.based':'Based in','con.formtitle':'Request a Quote','con.fname':'Full name','con.fdate':'Event date','con.fvenue':'Venue / City','con.fmsg':'Your vision','con.send':'Send via WhatsApp',
-  'travel.eyebrow':'Travel Policy','travel.t1':'No travel fee.','travel.t2':'Travel fees may apply.','travel.t3t':'Rest of Florida','travel.t3':'Custom travel quote by location.','travel.t4t':'Out of State','travel.t4':'Transport & accommodation quoted separately.',
-  'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL','foot.rights':'All rights reserved.',
+  
+  
+  'foot.tag':'Luxury Event Entertainment · Coral Gables · Miami, FL',
   'cart.title':'Your event','cart.hint':'Liana prepares every quote by hand from your date, venue and production needs. Asking costs nothing and commits you to nothing.','cart.wa':'Send via WhatsApp','cart.email':'Send via Email','brief.title':'Tell us about the night','brief.sub':'The more you tell us, the faster Liana can quote it. Nothing here is required.','brief.type':'Event type','brief.choose':'Choose…','brief.t1':'Wedding','brief.t2':'Corporate','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Private party','brief.t6':'Festival','brief.t7':'Something else','brief.date':'Date','brief.city':'City or venue','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Guests','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more','brief.picked':'You picked','brief.none':'No services picked yet — tell us anyway and Liana will suggest.','brief.doneT':'Your brief is on its way','brief.doneS':'We opened WhatsApp with everything filled in. If it did not open, write to us here:','brief.doneE':'We opened your email app with everything filled in. If it did not open, write to us here:','brief.back':'Back to my event',
-  'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Nothing here yet. Add the services you are curious about.','ui.added':'Added to your event','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)','ui.needfill':'Please add your name first.'},
+  'ui.add':'Add to quote','ui.remove':'Remove','ui.view':'View','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'Nothing here yet. Add the services you are curious about.','ui.added':'Added to your event','ui.removed':'Removed','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
  es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.play':'Reproducir el video de fondo',
   'ui.back':'Volver al menú',
-  'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas','nav.contact':'Contacto y Reservas',
+  'nav.about':'Sobre la Compañía','nav.services':'Servicios y Precios','nav.gallery':'Galería y Artistas',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
   'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
   'creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
   'svc.eyebrow':'La Tienda','svc.title':'Arma tu show','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
   'gal.eyebrow':'Galería y Artistas','gal.title':'El escenario es nuestro','gal.sub':'Un vistazo a la energía, elegancia y espectáculo que SkyDancer lleva a cada evento.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Momentos Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
-  'con.eyebrow':'Contacto y Reservas','con.title':'Diseñemos tu evento','con.sub':'Cuéntanos tu visión — crearemos una producción y cotización a medida para tu fecha y locación.','con.call':'Llámanos','con.based':'Ubicados en','con.formtitle':'Solicita una Cotización','con.fname':'Nombre completo','con.fdate':'Fecha del evento','con.fvenue':'Locación / Ciudad','con.fmsg':'Tu visión','con.send':'Enviar por WhatsApp',
-  'travel.eyebrow':'Política de Viaje','travel.t1':'Sin cargo por traslado.','travel.t2':'Pueden aplicar cargos de traslado.','travel.t3t':'Resto de Florida','travel.t3':'Cotización de traslado según la locación.','travel.t4t':'Fuera del Estado','travel.t4':'Transporte y hospedaje se cotizan por separado.',
-  'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL','foot.rights':'Todos los derechos reservados.',
+  
+  
+  'foot.tag':'Entretenimiento de Lujo · Coral Gables · Miami, FL',
   'cart.title':'Tu evento','cart.hint':'Liana prepara cada cotización a mano según tu fecha, tu locación y lo que necesite la producción. Preguntar no cuesta nada y no te compromete.','cart.wa':'Enviar por WhatsApp','cart.email':'Enviar por Email','brief.title':'Cuéntanos de la noche','brief.sub':'Mientras más nos cuentes, más rápido te cotiza Liana. Nada de esto es obligatorio.','brief.type':'Tipo de evento','brief.choose':'Elige…','brief.t1':'Boda','brief.t2':'Corporativo','brief.t3':'Nightlife','brief.t4':'Grand opening','brief.t5':'Fiesta privada','brief.t6':'Festival','brief.t7':'Otra cosa','brief.date':'Fecha','brief.city':'Ciudad o locación','brief.cityph':'Miami Beach, Coral Gables…','brief.guests':'Invitados','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más','brief.picked':'Elegiste','brief.none':'Todavía no elegiste servicios — cuéntanos igual y Liana te propone.','brief.doneT':'Tu brief va en camino','brief.doneS':'Abrimos WhatsApp con todo escrito. Si no se abrió, escríbenos aquí:','brief.doneE':'Abrimos tu correo con todo escrito. Si no se abrió, escríbenos aquí:','brief.back':'Volver a mi evento',
-  'ui.add':'Agregar','ui.remove':'Quitar','ui.view':'Ver','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay nada. Agrega los servicios que te interesen.','ui.added':'Agregado a tu evento','ui.removed':'Eliminado','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)','ui.needfill':'Por favor agrega tu nombre primero.'}
+  'ui.add':'Agregar','ui.remove':'Quitar','ui.view':'Ver','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay nada. Agrega los servicios que te interesen.','ui.added':'Agregado a tu evento','ui.removed':'Eliminado','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)'}
 };
 
 /* «Arma tu show»: textos nuevos. Copy de la decision del 9/11/2026, seccion 7. */
@@ -1895,12 +1842,6 @@ function sendEmail(){if(!cart.length&&!hayBrief()){toast(t('ui.empty'));return;}
   const su=lang==='es'?'Solicitud de cotización — SkyDancer':'Quote request — SkyDancer';
   window.location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(buildMessage());confirmar('em');}
 
-document.getElementById('formSend').onclick=()=>{const n=document.getElementById('qName').value.trim();if(!n){toast(t('ui.needfill'));return;}
-  const d=document.getElementById('qDate').value.trim(),v=document.getElementById('qVenue').value.trim(),msg=document.getElementById('qMsg').value.trim(),L=lang;
-  let m=(L==='es'?'Hola SkyDancer 👋 Solicito información:':'Hi SkyDancer 👋 I would like info:')+'\n\n'+(L==='es'?'Nombre: ':'Name: ')+n+'\n';
-  if(d)m+=(L==='es'?'Fecha: ':'Date: ')+d+'\n';if(v)m+=(L==='es'?'Locación: ':'Venue: ')+v+'\n';if(msg)m+=(L==='es'?'Detalles: ':'Details: ')+msg+'\n';
-  if(cart.length)m+='\n'+buildMessage(false);window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(m),'_blank');};
-
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
   /* Solo para textos propios con marcado (el <em> del h1); nunca para lo que escribe el visitante. */
@@ -1955,9 +1896,9 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    WhatsApp o poner en una story, y un boton Atras que funciona. Las rutas de
    verdad son otra decision, porque Pages no reescribe y Vercel si.
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
-const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',contacto:'view-contact',arma:'view-arma',
+const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
-const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',contacto:'nav.contact',arma:'menu.n1'};
+const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'nav.services',galeria:'nav.gallery',arma:'menu.n1'};
 const A_RUTA=Object.fromEntries(Object.entries(RUTAS).map(([k,v])=>[v,k]));
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */
@@ -2023,6 +1964,9 @@ function pintarArma(){const [r0,r1]=rutaActual().split('/');
   else if(PAGINAS[r0])pintarOcasion(r0);}
 
 function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
+  /* Contacto dejo de ser pagina (su formulario mandaba un WhatsApp sin crear lead), pero
+     sus enlaces siguen en circulacion: llevan al paso 1 y queda anotado por donde entro. */
+  if(r0==='contacto'){if(!SHOW.entrada){SHOW.entrada='contacto';guardarShow();}location.replace('#/arma');return;}
   const vista=vistaDe(r0,r1);
   if(r0&&r0!=='menu'&&!vista){location.replace('#/');return;}
   /* El menu se desliza encima: la vista de debajo se queda como esta (ni se repinta
@@ -2165,7 +2109,6 @@ addEventListener('keydown',e=>{
   }
   if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();else if(currentView)irA('menu');}
 });
-document.getElementById('yr').textContent=new Date().getFullYear();
 /* Vista previa local: ?demo=paso3, ?demo=confirmacion o ?demo=sinpanel rellenan un
    recorrido de ejemplo para revisar pantallas sin pulsar (Safari del simulador).
    Solo en el host local; en produccion el parametro no hace nada. */

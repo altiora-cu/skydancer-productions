@@ -279,8 +279,20 @@ body.no-scroll .hero-motion,body.sin-reel .hero-motion{visibility:hidden;pointer
 .hero-cue:focus-visible{outline:2px solid var(--gold);outline-offset:-4px;border-radius:28px}
 @keyframes cue{0%{transform:scaleY(0)}55%,100%{transform:scaleY(1)}}
 body.bajando .hero-cue{opacity:0;pointer-events:none}
-.pres{position:relative;z-index:2;background:var(--bg)}
-.hero-inner{position:relative;z-index:5;width:100%;max-width:1312px;margin:0 auto;text-align:left;padding:56px var(--gut) 64px}
+/* LA PRESENTACION APARECE AL HACER SCROLL. El reel se queda fijo (sticky dentro de
+   .escena) y .pres sube sobre el: arriba es transparente y se va cerrando en noche, asi
+   que el reel sigue a la vista por encima del titular. Cuando la presentacion ha subido
+   entera, la escena se suelta y la pagina sigue. Es solo CSS: no depende de efectos.js.
+   Con «menos movimiento» no se fija nada: una seccion debajo de la otra. */
+.escena{position:relative}
+.hero{position:sticky;top:0}
+.pres{position:relative;z-index:2;background:linear-gradient(180deg,rgba(5,4,10,0),rgba(5,4,10,.5) 22%,rgba(5,4,10,.9) 52%,var(--bg) 88%)}
+.hero-inner{position:relative;z-index:5;width:100%;max-width:1312px;margin:0 auto;text-align:left;padding:clamp(120px,22svh,220px) var(--gut) 64px}
+@media(prefers-reduced-motion:reduce){
+  .hero{position:relative}
+  .pres{background:var(--bg)}
+  .hero-inner{padding-top:56px}
+}
 .hero-inner{transition:visibility 0s}
 /* Con una vista abierta el texto del hero queda detras: se oculta (no el reel) para que
    el cambio de fuente no cuente como salto de contenido. Tras el fundido de la vista. */
@@ -302,7 +314,7 @@ body.carga .hero-inner{transition:none}
 .hero-steps{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 22px;list-style:none;font-size:14px;color:var(--muted)}
 .hero-steps b{margin-right:6px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:19px;color:#f6e0a0}
 @media(max-width:900px){
-  .hero-inner{padding:36px var(--gut) 44px}
+  .hero-inner{padding-bottom:44px}
   .hero-proof{font-size:16px;gap:4px 14px;margin-top:14px}
   .hero-cta{margin-top:20px;gap:10px}
   .hc-1{width:100%}
@@ -917,6 +929,7 @@ html.fx #shopGrid{perspective:1200px}
 
 <!-- PORTADA (#/): primera pantalla = el reel solo, con la marca, el idioma, la pausa y la senal de scroll. -->
 <main class="home" id="home">
+<div class="escena">
 <div class="hero" id="reel">
   <video autoplay muted loop playsinline preload="auto" poster="video%20banner/skydancer-poster.jpg">
     <source src="video%20banner/skydancer-web.mp4" type="video/mp4" />
@@ -936,6 +949,7 @@ html.fx #shopGrid{perspective:1200px}
     <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and county</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
   </div>
 </section>
+</div>
 </main>
 
 <!-- MENU: panel que se desliza sobre la vista actual (ruta #/menu) -->

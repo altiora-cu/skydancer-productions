@@ -494,7 +494,7 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
   .svc-card .bd{padding:8px 12px 12px}
   .svc-card h2{font-size:17px}
   .svc-card .pr{margin-bottom:8px}
-  .svc-card .chip{padding:0 12px;font-size:15px}
+  .svc-card .chip{padding:0 10px;font-size:15px}
 }
 @media(max-width:340px){.svc-card h2{font-size:15px}}
 @media(prefers-reduced-motion:reduce){.svc-card .ph img,.svc-card .pr .svg-ic{transition:none}}
@@ -607,33 +607,42 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 /* TU SHOW fuera del recorrido (tanda 3): el carrito se fundio con el show. El boton
    flotante y el panel leen y escriben SHOW.servicios, el mismo estado del paso 3. Sin
    totales: se conserva el descuento publicado y los precios «Desde», nada mas. */
-.cart-fab{position:fixed;bottom:22px;right:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 16px 0 18px;border-radius:99px;border:0;background:var(--gold-grad);color:#1a1206;font:700 16px/1 'Manrope',sans-serif;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);transform:translateY(120px);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;cursor:var(--cur),pointer}
+.cart-fab{position:fixed;bottom:22px;right:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 14px 0 9px;border-radius:99px;border:0;background:var(--gold-grad);color:#1a1206;font:700 16px/1 'Manrope',sans-serif;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);transform:translateY(120px);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;cursor:var(--cur),pointer}
 .cart-fab.show{transform:none;visibility:visible;transition-delay:0s}
-.cart-fab .svg-ic{width:20px;height:20px;stroke:#1a1206}
+.cart-fab .th{width:30px;height:38px;flex:none;border-radius:15px 15px 5px 5px;background:#1d1114 50% 20%/cover;box-shadow:0 0 0 1px rgba(26,18,6,.5)}
+.cart-fab.bump{animation:fab-bump .45s var(--ease)}
+@keyframes fab-bump{35%{transform:scale(1.09)}}
 .cart-fab .count{min-width:26px;height:26px;padding:0 7px;border-radius:13px;display:grid;place-items:center;background:#1d1114;color:var(--gold-hi);font-size:14px;font-weight:800}
 .cart-fab:focus-visible{outline:2px solid #fff;outline-offset:3px}
 body.en-arma .cart-fab{display:none}
 .cart-panel{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);z-index:110;display:flex;flex-direction:column;font-size:16px;line-height:1.5;background:var(--bg2);border-left:1px solid rgba(246,224,160,.28);box-shadow:-40px 0 90px -40px #000;transform:translateX(102%);visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s}
 .cart-panel.open{transform:none;visibility:visible;transition-delay:0s}
-.cart-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 22px;border-bottom:1px solid var(--line)}
-.cart-head h2{font-family:'Cinzel',serif;font-weight:700;font-size:21px;letter-spacing:.02em}
-.cart-head .x{width:44px;height:44px;background:none;border:0;color:#e6dff2;font-size:28px;line-height:1;cursor:var(--cur),pointer}
+.cart-head{position:relative;padding:20px 58px 14px;text-align:center;border-bottom:3px double rgba(246,224,160,.42)}
+.cart-head h2{font-family:'Cinzel',serif;font-weight:700;font-size:24px;letter-spacing:.06em}
+.cart-head p{margin-top:4px;font-size:15px;color:#f1e3bb}
+.cart-head p:empty{display:none}
+.cart-head .x{position:absolute;top:10px;right:10px;width:44px;height:44px;background:none;border:0;color:#e6dff2;font-size:28px;line-height:1;cursor:var(--cur),pointer}
 .cart-head .x:hover{color:var(--gold)}
 .cart-head .x:focus-visible,.ci .rm:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.cart-items{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:6px 22px 16px}
-.cart-items ul{list-style:none}
-.ci{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
-.ci img{width:52px;height:52px;flex:none;border-radius:12px;object-fit:cover}
+.cart-items{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:2px 22px 12px}
+.cart-items ol{list-style:none}
+.ci{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.ci img{width:56px;height:72px;flex:none;border-radius:28px 28px 8px 8px;object-fit:cover;object-position:50% 20%;background:#120e1c}
 .ci-m{flex:1;min-width:0}
-.ci-m b{display:block;font-weight:700;font-size:16px;line-height:1.3}
-.ci-m span{font-size:14px;color:var(--muted)}
+.ci-m i{display:block;font-style:normal;font-weight:700;font-size:14px;color:var(--gold-hi)}
+.ci-m b{display:block;font-family:'Cinzel',serif;font-weight:700;font-size:17px;line-height:1.25;letter-spacing:.02em}
+.ci-m span{display:block;margin-top:2px;font-size:15px;color:#cfc6e6;font-variant-numeric:tabular-nums}
 .ci .rm{width:44px;height:44px;flex:none;border-radius:50%;border:1px solid var(--line);background:none;color:var(--muted);font-size:15px;cursor:var(--cur),pointer}
 .ci .rm:hover{border-color:#ff9b8a;color:#ff9b8a}
 .cart-empty{padding:26px 0;color:var(--muted)}
-.cart-foot{padding:18px 22px 22px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
-.cart-foot .disc{padding:12px 14px;border-radius:12px;background:rgba(230,194,92,.1);font-size:15px;color:#f1e3bb}
-.cart-foot .fine{margin-top:10px;font-size:15px;color:var(--muted)}
-.cart-foot .a-btn{margin-top:16px;width:100%}
+.cart-foot{padding:14px 22px max(18px,env(safe-area-inset-bottom));border-top:3px double rgba(246,224,160,.42);background:rgba(255,255,255,.02)}
+.esc{display:grid;gap:6px;list-style:none}
+.esc li{position:relative;padding:9px 40px 9px 14px;border-radius:12px;border:1px solid rgba(246,224,160,.3);font-weight:600;font-size:15px;line-height:1.3;color:#cfc6e6}
+.esc .on{border-color:var(--gold);background:rgba(230,194,92,.16);color:var(--gold-hi)}
+.esc .on::after{content:"✓";position:absolute;top:9px;right:10px;width:20px;height:20px;display:grid;place-items:center;border-radius:6px;background:var(--gold-grad);color:#1a1206;font-size:12px;font-weight:800}
+.cart-foot .disc{margin-top:10px;font-size:15px;color:#f1e3bb}
+.cart-foot .fine{margin-top:6px;font-size:15px;color:var(--muted)}
+.cart-foot .a-btn{margin-top:14px;width:100%}
 @media(prefers-reduced-motion:reduce){.cart-fab,.cart-panel{transition:none}}
 .overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
 .overlay-dim.on{opacity:1;visibility:visible}
@@ -644,6 +653,7 @@ body.en-arma .cart-fab{display:none}
 
 @media(max-width:600px){
   .cart-fab{bottom:16px;right:16px}
+  .cart-panel{top:12px;border:1px solid rgba(246,224,160,.4);border-bottom:0;border-radius:26px 26px 0 0;transform:translateY(102%)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
 /* ===== ARMA TU SHOW (9/11/2026) =====================================================
@@ -1329,12 +1339,13 @@ html.fx #shopGrid{perspective:1200px}
 </div>
 
 <!-- TU SHOW fuera del recorrido: el carrito del catalogo se fundio con el show (mismo estado que el paso 3) -->
-<button class="cart-fab" id="cartFab" type="button"><span data-ic="star" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button>
+<button class="cart-fab" id="cartFab" type="button"><span class="th" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button>
 <div class="overlay-dim" id="dim"></div>
 <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartT">
-  <div class="cart-head"><h2 id="cartT" data-i18n="cart.title">Your show</h2><button class="x" id="cartClose" type="button" data-i18n-aria="menu.cerrar" aria-label="Close">&times;</button></div>
+  <div class="cart-head"><button class="x" id="cartClose" type="button" data-i18n-aria="menu.cerrar" aria-label="Close">&times;</button><h2 id="cartT" data-i18n="cart.title">Your show</h2><p id="cartSub"></p></div>
   <div class="cart-items" id="cartItems"></div>
   <div class="cart-foot">
+    <ol class="esc" id="cartEsc"><li data-i18n="perk.p1">Book 2 · save 5%</li><li data-i18n="perk.p2">Book 3+ · save 10%</li></ol>
     <p class="disc" id="cartDisc"></p>
     <p class="fine" data-i18n="perk.p3">Returning clients · 10% off</p>
     <p class="fine" data-i18n="r.fine3">No added-up total: Liana puts the price together with your date, your venue and your production.</p>
@@ -1922,8 +1933,9 @@ const botonSvc=id=>{const on=SHOW.servicios.includes(id);
 /* «Seguir con mi show»: al paso 2 si falta la ocasion o el condado; si no, al paso 3. */
 function seguirConShow(){
   if(!SHOW.entrada)SHOW.entrada=currentView==='view-gallery'?'galeria':'catalogo';
-  SHOW.origen='servicios';guardarShow();closeCart();
-  irA(SHOW.ocasion&&SHOW.condado?'arma/show':'arma/fecha');}
+  SHOW.origen='servicios';guardarShow();const r=SHOW.ocasion&&SHOW.condado?'arma/show':'arma/fecha',abierto=panel.classList.contains('open')&&enCart();soltarCart();
+  /* Desde el panel, el paso sustituye a la entrada del panel: Atras vuelve a donde se estaba. */
+  if(abierto&&location.hash!=='#/'+r){history.replaceState(null,'','#/'+r);dispatchEvent(new HashChangeEvent('hashchange'));}else irA(r);}
 
 /* Catalogo. fetchpriority="low" (10/11/2026): la vista esta oculta al cargar pero ocupa la
    pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en Lighthouse
@@ -1967,17 +1979,25 @@ function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarS
 function pintarGal(){document.querySelectorAll('.gal[data-gsvc]').forEach(g=>{const id=g.dataset.gsvc,c=g.dataset.gcol,col=c&&COLECCIONES[c];
   g.classList.toggle('on',SHOW.servicios.includes(id));
   g.querySelector('.gacc').innerHTML=(col?`<button type="button" class="a-link" data-col="${c}">${t('gal.ver').replace('{n}',col.items.length)}</button>`:'')+(SERVICES.some(x=>x.id===id)?botonSvc(id):'');});}
-/* El panel «Tu show»: lo marcado, su precio «Desde» y el descuento publicado por
-   volumen. Sin totales: un total de precios «desde» se leia como oferta firme. */
-function renderCart(){const n=SHOW.servicios.length,box=document.getElementById('cartItems'),fab=document.getElementById('cartFab');
-  document.getElementById('cartCount').textContent=n;fab.classList.toggle('show',n>0);
-  box.innerHTML=n?`<ul>${SHOW.servicios.map(id=>{const s=SERVICES.find(x=>x.id===id),nom=esc(s.name[lang]);
-      return `<li class="ci"><img src="assets/services/${id}.jpg" alt="" loading="lazy"><div class="ci-m"><b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ul><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
+/* El panel «Tu show» es el programa de la noche: cada servicio con su foto, su «Desde»
+   y, si la ocasion elegida lo coloca en un momento (PAGINAS.mom), ese momento y en ese
+   orden; debajo, el escalon del descuento publicado. Sin totales: un total de precios
+   «desde» se leia como oferta firme. */
+function renderCart(){const n=SHOW.servicios.length,box=document.getElementById('cartItems'),fab=document.getElementById('cartFab'),pn=document.getElementById('cartPanel'),
+    P=PAGINAS[SHOW.ocasion],mo=id=>{const i=P?P.mom.findIndex(x=>x.s===id):-1;return i<0?99:i;},ids=SHOW.servicios.slice().sort((a,b)=>mo(a)-mo(b)),
+    fi=[...box.querySelectorAll('.rm')].indexOf(document.activeElement),cn=document.getElementById('cartCount'),c=condadoDe(SHOW.condado);
+  if(n&&+cn.textContent!==n){fab.querySelector('.th').style.backgroundImage=`url(assets/services/${SHOW.servicios[n-1]}.jpg)`;
+    if(fab.classList.contains('show')){fab.classList.remove('bump');void fab.offsetWidth;fab.classList.add('bump');}}
+  cn.textContent=n;fab.classList.toggle('show',n>0);
+  document.getElementById('cartSub').textContent=[nombreOcas(),SHOW.fecha?fechaCorta(SHOW.fecha):'',c?c.n[lang]:''].filter(Boolean).join(' · ');
+  box.innerHTML=n?`<ol>${ids.map(id=>{const s=SERVICES.find(x=>x.id===id),nom=esc(s.name[lang]),m=P&&P.mom[mo(id)];
+      return `<li class="ci"><img src="assets/services/${id}.jpg" alt="" loading="lazy"><div class="ci-m">${m?`<i>${m.h[lang]}</i>`:''}<b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ol><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
     :`<p class="cart-empty">${t('ui.empty')}</p>`;
+  document.querySelectorAll('#cartEsc li').forEach((li,i)=>{const on=i?n>=3:n===2;li.classList.toggle('on',on);if(on)li.setAttribute('aria-current','true');else li.removeAttribute('aria-current');});
   document.getElementById('cartDisc').textContent=t(n>=3?'ui.disc3':n===2?'ui.disc2':'r.desc');
   const ca=document.getElementById('clearAll');if(ca)ca.onclick=clearCart;
-  /* Al quitar un servicio su boton desaparece: el foco se queda dentro del panel. */
-  const pn=document.getElementById('cartPanel');if(pn.classList.contains('open')&&!pn.contains(document.activeElement))document.getElementById('cartClose').focus();}
+  /* Al quitar un servicio su boton desaparece: el foco pasa al siguiente de la lista. */
+  if(pn.classList.contains('open')&&!pn.contains(document.activeElement)){const r=box.querySelectorAll('.rm');(r[Math.min(Math.max(fi,0),r.length-1)]||document.getElementById('cartClose')).focus();}}
 
 function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(I18N[lang][k]!==undefined)el.textContent=I18N[lang][k];});
@@ -2189,9 +2209,15 @@ document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'
 /* menu photo is full-bleed; no parallax needed */
 
 const panel=document.getElementById('cartPanel'),dim=document.getElementById('dim');
-document.getElementById('cartFab').onclick=()=>{panel.classList.add('open');dim.classList.add('on');try{document.getElementById('cartClose').focus({preventScroll:true});}catch(e){}};
-function closeCart(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');dim.classList.remove('on');
+/* Abrir el panel deja una entrada en el historial (misma URL): Atras lo cierra. */
+const enCart=()=>!!(history.state&&history.state.cart);
+function abrirCart(nueva){panel.classList.add('open');dim.classList.add('on');if(nueva)try{history.pushState({k:hClave,cart:1},'');}catch(e){}
+  try{document.getElementById('cartClose').focus({preventScroll:true});}catch(e){}}
+document.getElementById('cartFab').onclick=()=>abrirCart(1);
+function soltarCart(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');dim.classList.remove('on');
   const fab=document.getElementById('cartFab');if(fab.classList.contains('show'))try{fab.focus({preventScroll:true});}catch(e){}}
+function closeCart(){if(panel.classList.contains('open')&&enCart())history.back();else soltarCart();}
+addEventListener('popstate',()=>{if(enCart())abrirCart();else soltarCart();});
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
 atrapar(panel);
 
@@ -2304,7 +2330,7 @@ applyLang();
 /* Un enlace compartido tiene que abrir donde apunta, no en la home. Se aplica sin
    tocar el hash para no meter una entrada de historial en la primera carga. */
 aplicarRuta();
-entradaHist();
+entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
 
 /* Robust video autoplay — fixes frozen banner on iOS Low Power / data-saver.
    Videos marked [data-defer] stay unloaded until they scroll near the viewport, so the

@@ -422,7 +422,6 @@ body.carga .tramos{transition:none}
 /* Pantallas bajas (320 x 568, 375 x 667): arco mas corto para que el tramo quepa en dos pantallas. */
 @media(max-width:1099px) and (max-height:700px){.svc-fila .svc-card .ph{aspect-ratio:1/.9}}
 @media(min-width:1100px){.svc-fila{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}}
-.mosaico:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .tr-li{background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .tr-li .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
 .tr-li .tr-h{max-width:24ch;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(28px,3.3vw,48px);line-height:1.1;letter-spacing:0}
@@ -434,20 +433,36 @@ body.carga .tramos{transition:none}
 .tr-li .arch{aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 18px 18px;border:1px solid rgba(246,224,160,.35);background:#120e1c}
 .tr-li .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
 .tr-li figcaption{margin-top:10px;font-size:14px;color:var(--muted)}
-.mosaico{position:relative;margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:20px;overflow:hidden}
-.mosaico img{width:100%;height:100%;min-height:0;object-fit:cover;background:#120e1c}
-.mosaico .m1{grid-column:1/-1;aspect-ratio:3/2}
-.mosaico .m2{grid-row:span 2}
-.mosaico .m3,.mosaico .m4{aspect-ratio:1/1}
-.mosaico .ver{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:99px;background:rgba(5,4,10,.86);border:1px solid rgba(246,224,160,.45);color:var(--gold-hi);font-weight:700;font-size:16px}
-.mosaico:hover .ver{border-color:var(--gold)}
-@media(min-width:900px){
-  .mosaico{grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
-  .mosaico .m1{grid-column:1;grid-row:1/3;aspect-ratio:auto}
+/* PASADA Z · pieza 1: las 8 piezas de la galeria, cada una un boton que abre el visor en esa
+   misma pieza (las dos colecciones abren la suya). Por debajo de 1100 px van en tira que se
+   desliza (.fila: scroll-snap nativo, una por gesto, la siguiente asoma, «1 de 8»), con el
+   nombre sobre la foto y el enlace a la galeria debajo. En escritorio sigue el mosaico de
+   cuatro fotos con el enlace encima; las otras cuatro no se pintan y el nombre queda solo
+   para lectores de pantalla. */
+.mos-w{position:relative;margin-top:28px}
+.mosaico{display:flex;gap:10px}
+.mosaico button{position:relative;flex:none;width:min(86vw,400px);aspect-ratio:3/2;padding:0;border:0;border-radius:20px;overflow:hidden;background:#120e1c;scroll-snap-align:start;scroll-snap-stop:always;cursor:var(--cur),pointer}
+.mosaico img{width:100%;height:100%;object-fit:cover}
+.mosaico b{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;text-align:left;font:700 17px/1.25 'Cinzel',serif;letter-spacing:.02em;color:#fff;background:linear-gradient(transparent,rgba(5,4,10,.88))}
+.mosaico button:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+.mosaico button:active img{opacity:.8}
+.mos-w .ver{display:inline-flex;align-items:center;min-height:44px;margin-top:14px;padding:0 18px;border-radius:99px;background:rgba(5,4,10,.86);border:1px solid rgba(246,224,160,.45);color:var(--gold-hi);font-weight:700;font-size:16px}
+.mos-w .ver:hover{border-color:var(--gold)}
+@media(min-width:1100px){
+  .mosaico{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px;border-radius:20px;overflow:hidden}
+  .mosaico button{width:auto;aspect-ratio:auto;border-radius:0}
+  .mosaico .m0{display:none}
+  .mosaico b{width:1px;height:1px;padding:0;overflow:hidden;clip-path:inset(50%)}
+  .mosaico .m1{grid-column:1;grid-row:1/3}
   .mosaico .m2{grid-column:2;grid-row:1/3}
   .mosaico .m3,.mosaico .m4{grid-column:3;aspect-ratio:4/3}
-  .mosaico .ver{left:18px;bottom:18px}
+  .mosaico .m3{grid-row:1}
+  .mosaico .m4{grid-row:2}
+  .mosaico button:hover img{transform:scale(1.04)}
+  .mosaico img{transition:transform .6s var(--ease)}
+  .mos-w .ver{position:absolute;left:18px;bottom:18px;margin:0}
 }
+@media(prefers-reduced-motion:reduce){.mosaico img{transition:none}}
 .tr-fin{padding-bottom:0}
 .tr-fin .cierre{margin-top:34px}
 @media(max-width:900px){
@@ -596,10 +611,10 @@ body.vuelve:not(.carga) .home{animation:v-funde .4s backwards}
 
 /* GALERIA (tanda 3): mismas tarjetas que el catalogo. La pieza que corresponde a un
    servicio lleva «Agregar a mi show»; las dos colecciones abren el visor. */
-.gal-grid{margin-top:30px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.gal-grid{margin-top:18px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .gal{display:flex;flex-direction:column;border-radius:20px;overflow:hidden;border:1px solid var(--glass-brd);background:rgba(255,255,255,.035);transition:border-color .3s}
 .gal.on{border-color:var(--gold)}
-.gal.big{grid-column:1/-1}
+.gal.big{margin-top:30px}
 .gph{position:relative;display:block;width:100%;aspect-ratio:4/3;overflow:hidden;padding:0;border:0;background:#120e1c}
 .gal.big .gph{aspect-ratio:auto;height:clamp(220px,44vw,520px)}
 .gph img,.gph video{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
@@ -612,8 +627,9 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 .gal.big figcaption{flex-direction:row;align-items:baseline;gap:14px}
 .gacc{margin-top:auto;display:flex;flex-direction:column;align-items:flex-start;gap:2px}
 .gacc .a-link{font-size:15px}
-@media(max-width:1000px){.gal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){.gal-grid{grid-template-columns:1fr;gap:12px}.gph{aspect-ratio:3/2}}
+/* Pasada Z: por debajo de 1100 px las 8 piezas van en tira (.fila), como las ocasiones; el reel queda arriba, fuera. */
+@media(max-width:1099px){.gal-grid{display:flex;gap:12px}.gal-grid .gal{flex:none;width:min(86vw,400px);scroll-snap-align:start;scroll-snap-stop:always}}
+@media(max-width:560px){.gph{aspect-ratio:3/2}}
 @media(prefers-reduced-motion:reduce){.gph img{transition:none}}
 
 /* VISOR DE COLECCIÓN — las categorías con varias piezas (Themed, Interactive)
@@ -622,11 +638,11 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 .gal-chip{position:absolute;top:14px;right:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:rgba(10,7,18,.55);border:1px solid rgba(246,224,160,.45);color:var(--gold);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-variant-numeric:tabular-nums}
 .gal-chip .svg-ic{width:14px;height:14px;stroke-width:1.7}
 .lb{position:fixed;inset:0;z-index:125;background:rgba(5,4,10,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .3s ease-out,visibility .3s;display:flex;flex-direction:column}
-.lb.open{opacity:1;visibility:visible}
+.lb.open{opacity:1;visibility:visible;transition:opacity .3s ease-out} /* al abrir, visibility sin transicion (ni aqui ni en el boton de cerrar, que la hereda): si no, focus() llega con el visor aun oculto */
 .lb-head{display:flex;align-items:center;gap:14px;padding:16px 20px;flex:none}
 .lb-title{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.04em;color:var(--ink)}
 .lb-count{margin-left:auto;font-size:.72rem;letter-spacing:.22em;color:var(--muted);font-variant-numeric:tabular-nums}
-.lb-x{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink);font-size:1.5rem;line-height:1;transition:.25s ease-out}
+.lb-x{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink);font-size:1.5rem;line-height:1;transition:background .25s ease-out,color .25s ease-out,border-color .25s ease-out}
 .lb-x:hover{background:var(--gold);color:#1a1206;border-color:transparent}
 .lb-stage{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 12px}
 .lb-media{max-width:100%;max-height:100%;opacity:0;transform:scale(.985);transition:opacity .32s cubic-bezier(.22,1,.36,1),transform .32s cubic-bezier(.22,1,.36,1)}
@@ -1256,7 +1272,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   </div></section>
   <section class="tr tr-gal" aria-labelledby="trGaT"><div class="aw">
     <h2 class="tr-h" id="trGaT" data-i18n-html="gal.h1">Digital Gallery, <span class="h-sub">with 21 pieces of Themed Entertainment and 8 of Interactive Performances</span></h2>
-    <a class="mosaico" id="hMosaico" href="#/galeria"><span class="ver" data-i18n="hm.gal">See the Digital Gallery →</span></a>
+    <div class="mos-w"><div class="mosaico fila" id="hMosaico"></div><a class="ver" href="#/galeria" data-i18n="hm.gal">See the Digital Gallery →</a></div>
   </div></section>
   <section class="tr tr-fin" aria-labelledby="trFinT"><div class="aw">
     <h2 class="tr-h" id="trFinT" data-i18n="menu.n1">Build your show</h2>
@@ -1347,15 +1363,15 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <div class="a-main con-cierre"><div class="aw">
     <h1 class="a-h1" id="galT" data-i18n-html="gal.h1">Digital Gallery, <span class="h-sub">with 21 pieces of Themed Entertainment and 8 of Interactive Performances</span></h1>
     <p class="a-sub" data-i18n="gal.sub">If something you see fits your event, add it: it arrives checked in step 3 of your show.</p>
-    <div class="gal-grid">
-      <figure class="gal big"><div class="gph"><video muted loop playsinline controls preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video></div><figcaption><b data-i18n="gal.reel">Showreel</b><span data-i18n="gal.reelx">Live from Miami</span></figcaption></figure>
-      <figure class="gal" data-gsvc="dancers"><div class="gph"><img src="assets/gallery/g-dancers.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k1">Professional Dancers</b><div class="gacc"></div></figcaption></figure>
-      <figure class="gal" data-gsvc="horaloca"><div class="gph"><img src="assets/gallery/g-horaloca.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k2">Hora Loca</b><div class="gacc"></div></figcaption></figure>
+    <figure class="gal big"><div class="gph"><video muted loop playsinline controls preload="none" data-defer poster="video%20banner/skydancer-poster.jpg"><source src="video%20banner/skydancer-web.mp4" type="video/mp4" /></video></div><figcaption><b data-i18n="gal.reel">Showreel</b><span data-i18n="gal.reelx">Live from Miami</span></figcaption></figure>
+    <div class="gal-grid fila">
+      <figure class="gal" data-gsvc="dancers"><button type="button" class="gph" data-col="piezas" data-ix="0" data-i18n-aria="gal.k1" aria-label="Professional Dancers"><img src="assets/gallery/g-dancers.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k1">Professional Dancers</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="horaloca"><button type="button" class="gph" data-col="piezas" data-ix="1" data-i18n-aria="gal.k2" aria-label="Hora Loca"><img src="assets/gallery/g-horaloca.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k2">Hora Loca</b><div class="gacc"></div></figcaption></figure>
       <figure class="gal" data-gsvc="themed" data-gcol="themed"><button type="button" class="gph" data-col="themed" data-i18n-aria="gal.k3" aria-label="Themed Entertainment"><img src="assets/gallery/g-themed.jpg" alt="" loading="lazy" fetchpriority="low"><span class="gal-chip"><span data-ic="stack"></span>21</span></button><figcaption><b data-i18n="gal.k3">Themed Entertainment</b><div class="gacc"></div></figcaption></figure>
-      <figure class="gal" data-gsvc="greeters"><div class="gph"><img src="assets/gallery/g-greeters.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k4">Luxury Greeters</b><div class="gacc"></div></figcaption></figure>
-      <figure class="gal" data-gsvc="choreo"><div class="gph"><img src="assets/gallery/g-choreo.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k5">Choreographed Shows</b><div class="gacc"></div></figcaption></figure>
-      <figure class="gal" data-gsvc="custom"><div class="gph"><img src="assets/gallery/g-custom.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k6">Custom Productions</b><div class="gacc"></div></figcaption></figure>
-      <figure class="gal" data-gsvc="gogo"><div class="gph"><img src="assets/gallery/g-gogo.jpg" alt="" loading="lazy" fetchpriority="low"></div><figcaption><b data-i18n="gal.k7">Gogo Dancers</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="greeters"><button type="button" class="gph" data-col="piezas" data-ix="3" data-i18n-aria="gal.k4" aria-label="Luxury Greeters"><img src="assets/gallery/g-greeters.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k4">Luxury Greeters</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="choreo"><button type="button" class="gph" data-col="piezas" data-ix="4" data-i18n-aria="gal.k5" aria-label="Choreographed Shows"><img src="assets/gallery/g-choreo.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k5">Choreographed Shows</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="custom"><button type="button" class="gph" data-col="piezas" data-ix="5" data-i18n-aria="gal.k6" aria-label="Custom Event Productions"><img src="assets/gallery/g-custom.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k6">Custom Productions</b><div class="gacc"></div></figcaption></figure>
+      <figure class="gal" data-gsvc="gogo"><button type="button" class="gph" data-col="piezas" data-ix="6" data-i18n-aria="gal.k7" aria-label="Gogo Dancers"><img src="assets/gallery/g-gogo.jpg" alt="" loading="lazy" fetchpriority="low"></button><figcaption><b data-i18n="gal.k7">Gogo Dancers</b><div class="gacc"></div></figcaption></figure>
       <figure class="gal" data-gsvc="interactive" data-gcol="interactive"><button type="button" class="gph" data-col="interactive" data-i18n-aria="gal.k8" aria-label="Interactive Performances"><img src="assets/gallery/g-interactive.jpg" alt="" loading="lazy" fetchpriority="low"><span class="gal-chip"><span data-ic="stack"></span>8</span></button><figcaption><b data-i18n="gal.k8">Interactive Performances</b><div class="gacc"></div></figcaption></figure>
     </div>
     <p class="cat-note" data-i18n="gal.note">Real moments from SkyDancer productions across Miami.</p>
@@ -2091,7 +2107,8 @@ function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarS
 /* Galeria: el boton solo sale si el codigo de la pieza existe en SERVICES. */
 function pintarGal(){document.querySelectorAll('.gal[data-gsvc]').forEach(g=>{const id=g.dataset.gsvc,c=g.dataset.gcol,col=c&&COLECCIONES[c];
   g.classList.toggle('on',SHOW.servicios.includes(id));
-  g.querySelector('.gacc').innerHTML=(col?`<button type="button" class="a-link" data-col="${c}">${t('gal.ver').replace('{n}',col.items.length)}</button>`:'')+(SERVICES.some(x=>x.id===id)?botonSvc(id):'');});}
+  g.querySelector('.gacc').innerHTML=(col?`<button type="button" class="a-link" data-col="${c}">${t('gal.ver').replace('{n}',col.items.length)}</button>`:'')+(SERVICES.some(x=>x.id===id)?botonSvc(id):'');});
+  fila(document.querySelector('.gal-grid'));}
 /* El panel «Tu show» es el programa de la noche: cada servicio con su foto, su «Desde»
    y, si la ocasion elegida lo coloca en un momento (PAGINAS.mom), ese momento y en ese
    orden; debajo, el escalon del descuento publicado. Sin totales: un total de precios
@@ -2122,7 +2139,7 @@ function applyLang(){document.documentElement.lang=lang;
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();pintarCierres();
   document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const k=el.getAttribute('data-i18n-aria');if(I18N[lang][k]!==undefined)el.setAttribute('aria-label',I18N[lang][k]);});
   /* El visor se pinta una vez al abrirlo: sin esto se queda en el idioma viejo. */
-  if(lbCol){document.getElementById('lbTitle').textContent=t(COLECCIONES[lbCol].k);}
+  if(lbCol)document.getElementById('lbTitle').textContent=lbNom();
   /* La ficha de servicio se pinta una sola vez al abrirla, asi que sin esto se quedaba
      en el idioma anterior mientras el resto de la pagina ya habia cambiado. */
   if(pmId)openProduct(pmId);
@@ -2284,8 +2301,10 @@ function pintarPortada(){const g=document.getElementById('hOcc');if(!g)return;po
   const ca=document.getElementById('hCarta');ca.innerHTML=SERVICES.map(s=>svcCard(s,'h3')).join('');fila(ca);
   const li=document.getElementById('hLiana');
   if(!li.querySelector('img'))li.insertAdjacentHTML('afterbegin',`<img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy"${baja}>`);
-  const mo=document.getElementById('hMosaico');
-  if(!mo.querySelector('img'))mo.insertAdjacentHTML('afterbegin',['themed','interactive','horaloca','dancers'].map((n,i)=>`<img class="m${i+1}" src="assets/gallery/g-${n}.jpg" alt="" loading="lazy"${baja}>`).join(''));}
+  /* Pasada Z: las 8 piezas, cada una un boton que abre el visor (m1..m4 = las cuatro del mosaico de escritorio). */
+  const mo=document.getElementById('hMosaico'),M={themed:1,interactive:2,horaloca:3,dancers:4};
+  if(!mo.firstChild)mo.innerHTML=PIEZAS.map((n,i)=>`<button type="button" class="m${M[n]||0}" data-col="${COLECCIONES[n]?n:'piezas'}" data-ix="${i}"><img src="assets/gallery/g-${n}.jpg" alt="" loading="lazy"${baja}><b data-i18n="gal.k${i+1}">${t('gal.k'+(i+1))}</b></button>`).join('');
+  fila(mo);}
 
 /* Pinta la vista del recorrido que este activa (al entrar y al cambiar de idioma). */
 function pintarArma(){const [r0,r1]=rutaActual().split('/');
@@ -2373,16 +2392,21 @@ const COLECCIONES={
   ]},
   interactive:{k:'gal.k8',items:Array.from({length:8},(_,i)=>({t:'img',s:`assets/gallery/interactive/interactive-${NUM(i+1)}.jpg`}))}
 };
+/* Pasada Z: las 8 piezas sueltas de la galeria son una coleccion mas; cada una lleva su nombre. */
+const PIEZAS=['dancers','horaloca','themed','greeters','choreo','custom','gogo','interactive'];
+COLECCIONES.piezas={k:'menu.n4',items:PIEZAS.map((n,i)=>({t:'img',s:`assets/gallery/g-${n}.jpg`,k:'gal.k'+(i+1)}))};
 const lb=document.getElementById('lb');
 let lbCol=null,lbIx=0;
+const lbNom=()=>{const c=COLECCIONES[lbCol];return t(c.items[lbIx].k||c.k);};
 
 function lbPieza(it,alt){
   if(it.t==='vid')return `<video src="${it.s}" poster="${it.p}" muted loop playsinline controls preload="none" aria-label="${alt}"></video>`;
   return `<img src="${it.s}" alt="${alt}">`;
 }
 function lbPintar(){
-  const col=COLECCIONES[lbCol],it=col.items[lbIx],nom=t(col.k);
+  const col=COLECCIONES[lbCol],it=col.items[lbIx],nom=lbNom();
   const media=document.getElementById('lbMedia');
+  document.getElementById('lbTitle').textContent=nom;
   /* Pausar el video que se abandona: si no, sigue sonando/consumiendo detras. */
   const v=media.querySelector('video');if(v)v.pause();
   media.classList.remove('on');
@@ -2409,11 +2433,11 @@ function lbPintar(){
 }
 function lbIr(d){const n=COLECCIONES[lbCol].items.length;lbIx=(lbIx+d+n)%n;lbPintar();}
 let lbAbre=null;
-function abrirColeccion(id){
+function abrirColeccion(id,ix,desde){
   if(!COLECCIONES[id])return;
-  lbCol=id;lbIx=0;lbAbre=document.activeElement;
+  /* Safari no da el foco a un boton al pulsarlo: se guarda el que abrio, no el elemento activo. */
+  lbCol=id;lbIx=ix||0;lbAbre=desde||document.activeElement;
   const col=COLECCIONES[id];
-  document.getElementById('lbTitle').textContent=t(col.k);
   document.getElementById('lbRail').innerHTML=col.items.map((it,i)=>
     `<button class="lb-th" data-i="${i}" aria-label="${i+1}"><img src="${it.t==='vid'?it.p:it.s}" alt="" loading="lazy">${it.t==='vid'?`<span class="vi">${svg('play')}</span>`:''}</button>`
   ).join('');
@@ -2425,13 +2449,14 @@ function abrirColeccion(id){
 function cerrarLb(){
   const v=document.querySelector('#lbMedia video');if(v)v.pause();
   lb.classList.remove('open');lbCol=null;
+  /* La galeria es una vista y tambien usa no-scroll: solo se libera si no hay
+     ninguna vista abierta detras, igual que hace closeProduct(). Va antes de devolver
+     el foco: en la portada los tramos estan ocultos mientras dura no-scroll. */
+  if(!currentView)document.body.classList.remove('no-scroll');
   if(lbAbre&&document.contains(lbAbre))try{lbAbre.focus({preventScroll:true});}catch(e){}
   lbAbre=null;
-  /* La galeria es una vista y tambien usa no-scroll: solo se libera si no hay
-     ninguna vista abierta detras, igual que hace closeProduct(). */
-  if(!currentView)document.body.classList.remove('no-scroll');
 }
-document.addEventListener('click',e=>{const c=e.target.closest('[data-col]');if(c)abrirColeccion(c.dataset.col);});
+document.addEventListener('click',e=>{const c=e.target.closest('[data-col]');if(c)abrirColeccion(c.dataset.col,c.dataset.col==='piezas'?+c.dataset.ix:0,c);});
 document.getElementById('lbClose').onclick=cerrarLb;
 document.getElementById('lbPrev').onclick=()=>lbIr(-1);
 document.getElementById('lbNext').onclick=()=>lbIr(1);

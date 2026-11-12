@@ -241,7 +241,7 @@ MONTAJES.push({sel:'#view-services',f(v){
    de cada fila. Lo que queda fuera de la fila por la derecha entra a la vez: al deslizar no
    hay nada a medio aparecer. */
 MONTAJES.push({sel:'#home',f(v){
-  revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .fila-nav,.tr .a-links,.tr .svc-card,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
+  revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .fila-nav,.tr .a-links,.tr .svc-card,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.mos-w .ver,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
 
 /* Al cambiar el tamano de la ventana cambian el modo de la noche y las medidas. */
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(ctx)montar(false);},250);});

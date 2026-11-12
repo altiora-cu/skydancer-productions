@@ -225,6 +225,43 @@ img{max-width:100%;display:block}
 .topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;gap:10px 18px;min-height:68px;padding:10px var(--gut);pointer-events:none}
 .topbar>*{pointer-events:auto}
 .tb-r{display:flex;align-items:center;gap:6px}
+/* NAVEGACION ABIERTA (tanda 4). En escritorio los cuatro destinos estan a la vista en la
+   cabecera de la portada y en la barra de cada vista (misma plantilla), y «Menu» sobra.
+   El destino en el que se esta lleva aria-current y se marca con peso y una raya, no solo
+   con color. «Arma tu show» va en contorno: el unico boton lleno de cada pagina sigue
+   siendo el suyo. En el telefono la barra conserva marca, idioma y «Menu» (atajo), y los
+   cuatro destinos estan tambien al pie de cada pagina (.pie-nav). */
+.hd-nav{display:none}
+@media(min-width:1000px){
+  .hd-nav{display:flex;align-items:center;gap:2px;margin-left:auto}
+  .hd-nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;font:600 15px/1 'Manrope',system-ui,sans-serif;color:#e6dff2;white-space:nowrap;transition:color .25s,border-color .25s,background .25s}
+  .hd-nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:7px;height:2px;border-radius:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s var(--ease)}
+  .hd-nav a:hover{color:#fff}
+  .hd-nav a:hover::after,.hd-nav a[aria-current="page"]::after{transform:scaleX(1)}
+  .hd-nav a[aria-current="page"]{color:var(--gold-hi);font-weight:800}
+  .hd-nav a:focus-visible{outline:2px solid var(--gold);outline-offset:-2px;border-radius:10px}
+  .hd-nav .cta{margin-left:10px;padding:0 20px;border:1px solid rgba(246,224,160,.55);border-radius:99px;color:var(--gold-hi);font-weight:700}
+  .hd-nav .cta::after{display:none}
+  .hd-nav .cta:hover{border-color:var(--gold);background:rgba(230,194,92,.12);color:var(--gold-hi)}
+  .hd-nav .cta[aria-current="page"]{border-color:var(--gold);background:rgba(230,194,92,.18)}
+  .hd-nav .cta:focus-visible{border-radius:99px;outline-offset:3px}
+  .topbar .hd-nav a{text-shadow:0 1px 12px rgba(0,0,0,.65)}
+  .topbar .ab-menu,.arma-bar .ab-menu{display:none}
+  .tb-r,.ab-r{margin-left:12px}
+  /* En los pasos, el indicador baja a una segunda fila para dejar sitio a los destinos. */
+  .arma-bar{flex-wrap:wrap}
+  .arma-bar .steps{order:3;width:100%;padding:2px 0 6px}
+  .a-grid .aside{top:132px}
+}
+@media(prefers-reduced-motion:reduce){.hd-nav a,.hd-nav a::after{transition:none}}
+.pie-nav{margin-top:26px;padding-top:8px;display:flex;flex-wrap:wrap;gap:0 28px;border-top:1px solid var(--line)}
+.pie-nav a{position:relative;display:inline-flex;align-items:center;min-height:48px;font-weight:700;font-size:16px;color:var(--ink)}
+.pie-nav a:hover{color:var(--gold-hi)}
+.pie-nav a[aria-current="page"]{color:var(--gold-hi);text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:7px}
+.pie-nav a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.cierre .pie-nav+.pie{margin-top:8px}
+.cierre.solo-pie .pie-nav{margin-top:0}
+@media(max-width:560px){.pie-nav{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}}
 .topbar .lang{padding:2px}
 .topbar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
 body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
@@ -979,6 +1016,7 @@ html.fx #shopGrid{perspective:1200px}
 
 <div class="topbar">
   <a class="tb-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>
+  <nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">The 15 services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>
   <div class="tb-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
     <button class="ab-menu" id="openMenu" type="button"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span data-i18n="hero.menu">Menu</span></button></div>
 </div>
@@ -1283,6 +1321,7 @@ const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS
 document.querySelectorAll('[data-armabar]').forEach(b=>{b.innerHTML=
   `<a class="ab-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>`+
   (b.dataset.armabar==='simple'?'':`<ol class="steps" data-pasos></ol>`)+
+  `<nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">The 15 services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>`+
   `<div class="ab-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>`+
   `<button class="ab-menu" type="button" data-openmenu>${svg('menu')}<span data-i18n="hero.menu">Menu</span></button></div>`+
   (b.dataset.armabar==='simple'?'':`<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
@@ -1307,7 +1346,7 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','hm.gal':'See the gallery →','hero.play':'Play background video',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','nav.main':'Main','nav.pie':'Site','hm.gal':'See the gallery →','hero.play':'Play background video',
   
   'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -1321,7 +1360,7 @@ const I18N={
   
   'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
   'ui.add':'Add to my show','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','hm.gal':'Ver la galería →','hero.play':'Reproducir el video de fondo',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','nav.main':'Principal','nav.pie':'Sitio','hm.gal':'Ver la galería →','hero.play':'Reproducir el video de fondo',
   
   'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
@@ -1528,12 +1567,14 @@ const waUrl=txt=>'https://wa.me/'+WA+'?text='+encodeURIComponent(txt);
 /* Cierre comun de las paginas de contenido. `ent` es el entry_path si el recorrido
    empieza ahi. Las paginas de ocasion ya acaban con su propio «Armar el show de…» y
    WhatsApp (un solo primario por pagina): ahi el cierre deja solo la linea de pie. */
+const NAV=[['arma','menu.n1'],['servicios','menu.n2'],['liana','menu.n3'],['galeria','menu.n4']];
 const cierreHTML=(ent,soloPie)=>{const sigue=(ent==='catalogo'||ent==='galeria')&&SHOW.servicios.length>0;
   const pri=sigue?`<button type="button" class="a-btn a-pri" data-seguir>${t('cart.seguir')}</button>`
     :`<a class="a-btn a-pri" href="#/arma" data-entrada="${ent}">${t('hero.cta1')}</a>`;
   return `<div class="aw">${soloPie?'':`<div class="row">${pri}<a class="a-btn a-ghost" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg('chat')}WhatsApp +1 786-992-4543</a></div>`}
+    <nav class="pie-nav" aria-label="${t('nav.pie')}">${NAV.map(([r,k])=>`<a href="#/${r}" data-nav="${r}">${t(k)}</a>`).join('')}</nav>
     <p class="pie"><b><span class="s">SKY</span>DANCER PRODUCTIONS</b><span>Coral Gables · Miami, FL</span><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>`;};
-function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre);});}
+function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre);});if(typeof marcarNav==='function')marcarNav();}
 /* Liana donde se decide: retrato ligero (4,5 KB) y un hecho de la biografia publicada. */
 const lianaHTML=(txt,enlace)=>`<div class="liana"><img src="assets/liana-avatar.jpg" alt="" width="56" height="56" loading="lazy" fetchpriority="low"><div><p>${txt}</p>${enlace?`<a class="a-link" href="#/liana">${t('li.ver')}</a>`:''}</div></div>`;
 function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view-ocasion');
@@ -1894,7 +1935,7 @@ const menu=document.getElementById('menu');
 let menuAbre=null,menuEnSesion=false,rutaBajo='',saltaFoco=false;
 function openMenu(){if(menu.classList.contains('open'))return;
   const a=document.activeElement;menuAbre=a&&a!==document.body?a:null;
-  const r0=rutaBajo.split('/')[0],aqui={sobre:'liana'}[r0]||r0;
+  const aqui=destinoDe(rutaBajo);
   menu.querySelectorAll('[data-mn]').forEach(x=>{if(x.dataset.mn===aqui)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current');});
   menu.classList.add('open');document.body.classList.add('no-scroll');document.body.classList.toggle('solo-menu',!currentView);
   try{document.getElementById('menuBack').focus({preventScroll:true});}catch(e){}}
@@ -1934,6 +1975,11 @@ const ENTRADA_DE={arma:'arma',bodas:'bodas',empresas:'empresas',noches:'noches',
 const esRecorrido=r0=>Object.prototype.hasOwnProperty.call(ENTRADA_DE,r0);
 
 function rutaActual(){return (location.hash||'').replace(/^#\/?/,'').replace(/\/+$/,'');}
+/* A cual de los cuatro destinos pertenece una ruta: las paginas de ocasion y los pasos son
+   «Arma tu show». La cabecera, el pie y el panel del menu marcan el mismo. */
+function destinoDe(ruta){const r0=(ruta||'').split('/')[0];return {sobre:'liana'}[r0]||(esRecorrido(r0)?'arma':r0);}
+function marcarNav(){const aqui=destinoDe(rutaActual()==='menu'?rutaBajo:rutaActual());
+  document.querySelectorAll('[data-nav]').forEach(a=>{if(a.dataset.nav===aqui)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});}
 function irA(ruta){const h='#/'+ruta;if(location.hash===h){aplicarRuta();return;}location.hash=h;}
 /* Que vista pinta cada ruta: las del recorrido se resuelven aparte. */
 function vistaDe(r0,r1){
@@ -2034,6 +2080,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const quiere=(r0==='servicios'&&r1&&SERVICES.some(x=>x.id===r1))?r1:null;
   if(quiere&&pmId!==quiere)openProduct(quiere);
   else if(!quiere&&pmId)closeProduct();
+  marcarNav();
   titulo();}
 
 /* Tras cada cambio de vista el foco va al titulo de la nueva, para que un lector de

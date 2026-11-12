@@ -193,6 +193,19 @@ FX.transicion=function(ir,fin){
     catch(e){root.classList.remove('vt');ir();montar(false);fin();return;}
     const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;nombrar(vistaActiva(),false);montar(false);fin();};
     t.finished.then(cerrar,cerrar);return;}
+  /* La ficha de un servicio se abre y se cierra sobre el catalogo: nada que animar debajo. */
+  if(de.split('/')[0]==='servicios'&&a.split('/')[0]==='servicios'){ir();fin();return;}
+  /* Entre dos vistas fuera del recorrido (tanda 4): fundido corto con la barra quieta.
+     Desde o hacia la portada no: ahi cambia el alto del documento y en el telefono el
+     navegador aborta la transicion; queda el fundido de .view, que no depende de nada. */
+  if(document.startViewTransition&&vistaActiva()&&a){
+    root.dataset.dir='funde';root.classList.add('vt');desmontar();nombrar(vistaActiva(),true);
+    let t;
+    try{t=document.startViewTransition(()=>{document.querySelectorAll('.arma-bar').forEach(b=>b.style.viewTransitionName='');ir();nombrar(vistaActiva(),true);montar(true);});}
+    catch(e){root.classList.remove('vt');delete root.dataset.dir;ir();montar(true);fin();return;}
+    const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;document.querySelectorAll('.arma-bar').forEach(b=>b.style.viewTransitionName='');fin();};
+    if(t.ready)t.ready.catch(()=>{});
+    t.finished.then(cerrar,cerrar);return;}
   ir();
   const v=vistaActiva(),tw=entrada(v,r1>0&&r2>0?dir:'');
   montar(true);

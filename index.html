@@ -474,7 +474,12 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
 
 /* VISTAS */
 .view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
-.view.active{opacity:1;visibility:visible;transform:none}
+.view.active{opacity:1;visibility:visible;transform:none;z-index:61}
+/* FLUIDEZ (tanda 4). Entre dos vistas, la que sale se queda opaca debajo mientras la nueva
+   entra encima: antes las dos se fundian a la vez y, a mitad, se veia el reel de la
+   portada a traves de ambas. El scroll de una vista no encadena con la pagina de debajo. */
+.view{overscroll-behavior:contain}
+.view.sale{opacity:1;visibility:visible;transform:none;transition:none}
 
 /* CATALOGO (tanda 3): #/servicios habla el lenguaje del paso 3. Cada tarjeta lleva el
    mismo boton de marcar que los chips del paso 3 y escribe en el mismo estado. */
@@ -956,14 +961,16 @@ p,li{text-wrap:pretty}
 .occ .go{text-wrap:balance}
 /* Filas alineadas: en la galeria el boton de marcar queda siempre abajo (el enlace «Ver
    las N piezas» va encima), y los 15 servicios del paso 3 forman una rejilla de columnas
-   iguales en vez de una fila que se parte donde cae. */
+   iguales en vez de una fila que se parte donde cae. En el telefono dos columnas no dan
+   para «Coordinacion de Entretenimiento»: ahi cada fila se estira hasta los dos margenes. */
 #sChips{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:10px}
 #sChips .chip{width:100%;padding:8px 14px;border-radius:16px;line-height:1.25}
 .perks{display:grid;grid-template-columns:repeat(3,auto);justify-content:start}
 @media(max-width:700px){
   .perks{grid-template-columns:1fr}
   .perks li{border-radius:14px}
-  #sChips{grid-template-columns:1fr 1fr}
+  #sChips{display:flex;flex-wrap:wrap}
+  #sChips .chip{flex:1 1 auto;width:auto;max-width:100%}
 }
 /* Ficha de servicio: el selector de idioma sale de encima de la foto y va en la cabecera del texto. */
 .pm-top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
@@ -1015,6 +1022,12 @@ html.vt .view{transition:none!important}
 html[data-dir=atras]::view-transition-old(root){animation-name:fx-hoja-sale-atras;transform-origin:100% 50%}
 html[data-dir=atras]::view-transition-new(root){animation-name:fx-hoja-entra-atras;transform-origin:0 50%}
 ::view-transition-group(fx-barra){animation-duration:.4s}
+/* Fuera del recorrido de pasos (portada, catalogo, Liana, galeria) el cambio es un fundido
+   corto, con la barra quieta. Sin View Transitions queda el fundido de .view. */
+html[data-dir=funde]::view-transition-old(root){animation:fx-funde-sale .24s cubic-bezier(.4,0,.2,1) both}
+html[data-dir=funde]::view-transition-new(root){animation:fx-funde-entra .5s cubic-bezier(.16,1,.3,1) both}
+@keyframes fx-funde-sale{to{opacity:0}}
+@keyframes fx-funde-entra{from{opacity:0;transform:translateY(12px)}}
 @keyframes fx-hoja-sale{to{opacity:0;transform:perspective(1600px) translateX(-5%) rotateY(8deg) scale(.96)}}
 @keyframes fx-hoja-entra{from{opacity:0;transform:perspective(1600px) translateX(6%) rotateY(-9deg) scale(.98)}}
 @keyframes fx-hoja-sale-atras{to{opacity:0;transform:perspective(1600px) translateX(5%) rotateY(-8deg) scale(.96)}}
@@ -1993,8 +2006,20 @@ atrapar(menu);atrapar(document.getElementById('pmCard'));atrapar(document.getEle
 /* Si el foco aparece fuera del dialogo abierto (enlace directo, clic en el velo), vuelve dentro. */
 const dialogoAbierto=()=>menu.classList.contains('open')?menu:lbCol?lb:panel.classList.contains('open')?panel:pmId?document.getElementById('pmCard'):null;
 document.addEventListener('focusin',e=>{const d=dialogoAbierto();if(!d||d.contains(e.target))return;const p=d.querySelector('button,a[href]');if(p)p.focus();});
-function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));const v=document.getElementById(id);if(v){v.classList.add('active');v.scrollTop=0;}currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
-function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));currentView=null;}
+function showView(id){const sale=currentView&&currentView!==id?document.getElementById(currentView):null;
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));const v=document.getElementById(id);if(v)v.classList.add('active');
+  if(sale){sale.classList.add('sale');setTimeout(()=>sale.classList.remove('sale'),460);}
+  currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
+function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));currentView=null;}
+/* Atras devuelve a la misma altura. Cada entrada del historial lleva una clave en
+   history.state; al dejarla se guarda su scroll (el de la vista o el de la portada) y al
+   volver a ella (Atras o Adelante) se repone. Una entrada nueva empieza arriba, salvo la
+   ficha de un servicio, que se abre y se cierra sobre el catalogo sin moverlo. */
+let hClave=0,hSerie=Date.now(),navAltura=null;const hPos=new Map();
+const alturaActual=()=>{const v=currentView&&document.getElementById(currentView);return v?v.scrollTop:window.scrollY;};
+function entradaHist(){const s=history.state;
+  if(s&&typeof s.k==='number'){hClave=s.k;return true;}
+  hClave=++hSerie;try{history.replaceState({k:hClave},'');}catch(e){}return false;}
 /* ── Enrutador por hash ──────────────────────────────────────────────────────
    Antes las vistas eran solo una clase: todo era index.html, nada se podia
    enlazar y el boton Atras del navegador —o el gesto de volver en movil— se
@@ -2100,6 +2125,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const bajo=menu.classList.contains('open')&&rutaActual()===rutaBajo&&(r0?vista===currentView:!currentView);
   closeMenu(bajo);
   if(bajo){titulo();return;}
+  const antes=rutaBajo.split('/')[0],vistaAntes=currentView;
   rutaBajo=rutaActual();
   const enPaso3=r0==='arma'&&r1==='show';
   /* La confirmacion vive en el paso 3; al salir de ahi el recorrido empieza de cero. */
@@ -2107,7 +2133,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
   if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
-  if(!r0){if(!portadaLista)pintarPortada();hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:0,behavior:'instant'});}
+  if(!r0){if(!portadaLista)pintarPortada();hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:navAltura||0,behavior:'instant'});}
   else showView(vista);
   /* El show pudo cambiar en otra vista (una ocasion elegida, un envio): los botones de
      agregar, el boton flotante y los cierres se ponen al dia al entrar. */
@@ -2118,6 +2144,9 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const quiere=(r0==='servicios'&&r1&&SERVICES.some(x=>x.id===r1))?r1:null;
   if(quiere&&pmId!==quiere)openProduct(quiere);
   else if(!quiere&&pmId)closeProduct();
+  if(r0){const v=document.getElementById(vista);
+    if(navAltura!=null)v.scrollTop=navAltura;else if(!(vista===vistaAntes&&r0===antes&&r0==='servicios'))v.scrollTop=0;}
+  navAltura=null;
   marcarNav();
   titulo();}
 
@@ -2127,6 +2156,7 @@ function enfocarTitulo(){const v=currentView&&document.getElementById(currentVie
   const h=v.querySelector('h1,h2');if(!h)return;if(!h.hasAttribute('tabindex'))h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){h.focus();}}
 /* efectos.js puede envolver el cambio en una transicion; el foco va al terminar. */
 window.addEventListener('hashchange',()=>{if(rutaActual()==='menu')menuEnSesion=true;
+  hPos.set(hClave,alturaActual());navAltura=entradaHist()?(hPos.get(hClave)||0):null;
   const fin=()=>{if(saltaFoco){saltaFoco=false;return;}if(!pmId&&!menu.classList.contains('open'))enfocarTitulo();};
   if(window.sdpFx&&window.sdpFx.transicion)window.sdpFx.transicion(aplicarRuta,fin);else{aplicarRuta();fin();}});
 document.getElementById('openMenu').onclick=()=>irA('menu');
@@ -2251,6 +2281,7 @@ applyLang();
 /* Un enlace compartido tiene que abrir donde apunta, no en la home. Se aplica sin
    tocar el hash para no meter una entrada de historial en la primera carga. */
 aplicarRuta();
+entradaHist();
 
 /* Robust video autoplay — fixes frozen banner on iOS Low Power / data-saver.
    Videos marked [data-defer] stay unloaded until they scroll near the viewport, so the

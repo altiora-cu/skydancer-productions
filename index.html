@@ -343,14 +343,18 @@ body.bajando .hero-cue{opacity:0;visibility:hidden;pointer-events:none;transitio
 .hero-proof{transition-delay:.08s}
 .hero-cta{transition-delay:.16s}
 html.js body:not(.bajando) .pres::before{opacity:0}
-html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:0;transform:translateY(36px);visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s .25s}
+/* Se esconde la capa entera (no cada hijo): asi, cuando llega la fuente y el titular cambia de
+   alto, la caja no cuenta como salto de contenido mientras no se ve. */
+html.js body:not(.bajando) .pres{visibility:hidden;transition:visibility 0s .25s}
+html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:0;transform:translateY(36px);transition:opacity .25s,transform .25s}
 body.con-barra .hero-inner{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 @media(prefers-reduced-motion:reduce){
   .escena{height:auto}
   .hero,.pres{position:relative}
   .pres::before,.hero-h1,.hero-proof,.hero-cta{transition:none}
   html.js body:not(.bajando) .pres::before{opacity:1}
-  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;visibility:inherit;transition:none}
+  html.js body:not(.bajando) .pres{visibility:visible}
+  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;transition:none}
 }
 /* Telefono apaisado: el reel y la presentacion van seguidos, sin fijar ni esconder. */
 @media(max-height:559px){
@@ -359,7 +363,8 @@ body.con-barra .hero-inner{padding-bottom:calc(84px + env(safe-area-inset-bottom
   .pres{height:auto;background:var(--bg)}
   .pres::before{display:none}
   .hero-inner{padding-top:40px}
-  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;visibility:inherit;transition:none}
+  html.js body:not(.bajando) .pres{visibility:visible}
+  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;transition:none}
 }
 .hero-inner{transition:visibility 0s}
 /* Con una vista abierta el texto del hero queda detras: se oculta (no el reel) para que

@@ -142,9 +142,12 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
     if(ph&&!halo){halo=document.createElement('span');halo.className='fx-halo';halo.setAttribute('aria-hidden','true');ph.prepend(halo);}
     const tl=G.timeline({defaults:{ease:'none'},scrollTrigger:{...sc,trigger:gan,start:'top top',end:'bottom top',scrub:.6}});
     if(img){G.set(img,{scale:1.14,transformOrigin:'50% 30%'});tl.fromTo(img,{yPercent:-5},{yPercent:7},0);}
-    if(arch)tl.to(arch,{y:-46,rotationY:-7,rotationX:3,transformPerspective:1000},0);
-    if(halo)tl.to(halo,{y:54,x:-10},0);
-    if(txt)tl.to(txt,{y:70,opacity:.35},0);}
+    /* Tanda 5: en una sola columna el texto va encima del arco; acercarlos con el scroll montaba
+       la foto sobre la ultima linea. Ese desplazamiento queda solo para dos columnas, y sin fundido. */
+    const dosCol=getComputedStyle(gan.querySelector('.aw')).gridTemplateColumns.split(' ').length>1;
+    if(arch&&dosCol)tl.to(arch,{y:-46,rotationY:-7,rotationX:3,transformPerspective:1000},0);
+    if(halo&&dosCol)tl.to(halo,{y:54,x:-10},0);
+    if(txt&&dosCol)tl.to(txt,{y:70},0);}
   v.querySelectorAll('.oc-noche .mom .ph img').forEach(img=>{
     G.set(img,{scale:1.14});
     G.fromTo(img,{yPercent:-6},{yPercent:6,ease:'none',scrollTrigger:{...sc,trigger:img.parentNode,start:'top bottom',end:'bottom top',scrub:true}});});
@@ -212,76 +215,30 @@ FX.transicion=function(ir,fin){
   if(tw)tw.eventCallback('onComplete',fin);else fin();};
 
 /* ── D · Scroll ────────────────────────────────────────────────────────────────
-   Revelado: solo lo que esta por debajo del borde al montar; lo que ya se ve no se
+   Revelado (tanda 5: un solo lenguaje, sube 36 px y se asienta, escalonado, sin giros que
+   monten una pieza sobre otra): solo lo que esta por debajo del borde al montar; lo que ya se ve no se
    esconde nunca (ni siquiera un instante). */
 const bajoElBorde=el=>el.getBoundingClientRect().top>innerHeight;
 function revelar(v,items){
   items=items.filter(bajoElBorde);if(!items.length)return;
-  G.set(items,{opacity:0,y:42,rotationX:9,transformPerspective:900,transformOrigin:'50% 0%',transition:'none'});
+  G.set(items,{opacity:0,y:36,transition:'none'});
   ST.batch(items,{scroller:v.id==='home'?window:v,start:'top bottom-=20',once:true,
-    onEnter:els=>G.to(els,{opacity:1,y:0,rotationX:0,duration:.9,ease:'power3.out',stagger:.08,overwrite:true,clearProps:'opacity,transform,transition'})});}
+    onEnter:els=>G.to(els,{opacity:1,y:0,duration:.55,ease:'power3.out',stagger:{amount:Math.min(.3,.06*els.length)},overwrite:true,clearProps:'opacity,transform,transition'})});}
 
-/* La noche de ejemplo, fijada mientras pasan sus tres momentos. */
-function noche(v){
-  const sec=v.querySelector('.oc-noche'),linea=sec&&sec.querySelector('.linea');
-  if(!linea)return;const moms=[...linea.querySelectorAll('.mom')];if(moms.length<2)return;
-  const barra=(v.querySelector('.arma-bar')||{}).offsetHeight||64,hueco=innerHeight-barra-28;
-  const pila=getComputedStyle(linea).gridTemplateColumns.split(' ').length<2;
-  sec.style.setProperty('--fx-barra',barra+'px');
-  sec.classList.add('fx-pin');if(pila)sec.classList.add('fx-pila');
-  if(linea.offsetHeight>hueco){sec.classList.remove('fx-pin','fx-pila');return;} /* no cabe: sin fijar */
-  const tramo=document.createElement('div');tramo.className='fx-tramo';tramo.setAttribute('aria-hidden','true');
-  const largo=Math.round(innerHeight*(pila?.75:.55)*(moms.length-1)+innerHeight*.25);
-  tramo.style.height=largo+'px';
-  /* Escena propia (linea + tramo): el sticky se suelta al acabar el tramo y no pisa lo
-     que viene detras (la nota «Opcional en bodas…» se montaba sobre la ultima carta). */
-  const escena=document.createElement('div');escena.className='fx-escena';
-  linea.before(escena);escena.append(linea,tramo);
-  const fijo=barra+14+linea.offsetHeight;
-  const tl=G.timeline({defaults:{ease:'power2.out'},scrollTrigger:{scroller:v,trigger:tramo,start:'top '+fijo+'px',end:'bottom '+fijo+'px',scrub:.6}});
-  const marcas=moms.map(m=>m.querySelector('.marca')).filter(Boolean);
-  if(pila){
-    G.set(moms.slice(1),{yPercent:104});
-    moms.slice(1).forEach((m,i)=>{
-      tl.to(moms[i],{scale:.9,rotationX:7,transformPerspective:900,duration:1},i*1.2) /* tapada: retrocede, sin transparencia */
-        .to(m,{yPercent:0,duration:1},i*1.2)
-        .from(m.querySelector('.marca'),{scale:0,opacity:0,duration:.4,ease:'back.out(2)'},i*1.2+.7);});
-  }else{
-    sec.style.setProperty('--fx-linea',0);
-    G.set(moms.slice(1),{opacity:.22,y:34,rotationX:-10,transformPerspective:900,transformOrigin:'50% 100%'});
-    G.set(marcas.slice(1),{scale:0,opacity:0});
-    tl.to(sec,{'--fx-linea':1/(moms.length-1)*.5,duration:.5,ease:'none'},0);
-    moms.slice(1).forEach((m,i)=>{const t=.5+i*1.1;
-      tl.to(sec,{'--fx-linea':(i+1)/(moms.length-1),duration:.6,ease:'none'},t)
-        .to(m,{opacity:1,y:0,rotationX:0,duration:.8},t+.3)
-        .to(marcas[i+1]||{},{scale:1,opacity:1,duration:.35,ease:'back.out(2)'},t+.8);});
-  }
-  /* El tramo y las clases se quitan al desmontar (ctx.revert no conoce el DOM nuevo). */
-  return ()=>{escena.before(linea);escena.remove();sec.classList.remove('fx-pin','fx-pila');sec.style.removeProperty('--fx-linea');sec.style.removeProperty('--fx-barra');};}
-
+/* Tanda 5: la noche de ejemplo ya no se fija ni se apila; sus momentos se revelan como el resto. */
 MONTAJES.push({sel:'#view-ocasion',f(v){
-  const fin=noche(v);if(fin)limpiezas.push(fin);
-  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a,.cierre .row,.cierre .pie')]);}});
+  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .mom,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a,.cierre .row,.cierre .pie')]);}});
 /* Liana, galeria y catalogo (tanda 3): lo que queda bajo el borde se revela al bajar. */
 MONTAJES.push({sel:'#view-about',f(v){
   revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*,.cierre .row,.cierre .pie')]);}});
 MONTAJES.push({sel:'#view-gallery',f(v){
   revelar(v,[...v.querySelectorAll('.gal,.cat-note,.cierre .row,.cierre .pie')]);}});
 MONTAJES.push({sel:'#view-services',f(v){
-  revelar(v,[...v.querySelectorAll('.cat-note,.cierre .row,.cierre .pie')]);}});
+  revelar(v,[...v.querySelectorAll('#shopGrid .svc-card,.cat-note,.cierre .row,.cierre .pie')]);}});
 
 /* Portada (tanda 4): cada tramo se revela al llegar; la carta de servicios, fila a fila. */
 MONTAJES.push({sel:'#home',f(v){
   revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .a-links,.carta li,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
-
-/* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */
-MONTAJES.push({sel:'#view-services',f(v,entra){
-  let fichas=[...v.querySelectorAll('#shopGrid .svc-card')];
-  if(!entra)fichas=fichas.filter(bajoElBorde);
-  if(!fichas.length)return;
-  G.set(fichas,{opacity:0,y:80,z:-140,rotationX:-30,rotationY:(i)=>i%2?9:-9,transformOrigin:'50% 0%',transition:'none'});
-  ST.batch(fichas,{scroller:v,start:'top bottom-=10',once:true,
-    onEnter:els=>G.to(els,{opacity:1,y:0,z:0,rotationX:0,rotationY:0,duration:1,ease:'power3.out',stagger:.07,overwrite:true,clearProps:'opacity,transform,transition'})});}});
 
 /* Al cambiar el tamano de la ventana cambian el modo de la noche y las medidas. */
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(ctx)montar(false);},250);});

@@ -269,11 +269,11 @@ img{max-width:100%;display:block}
 @media(max-width:560px){.pie-nav{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}}
 .topbar .lang{padding:2px}
 .topbar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
-body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none}
+body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none;transition:none}
 /* Sobre el reel la cabecera es transparente; en cuanto el reel sale de pantalla toma fondo
    para que el contenido que pasa por debajo no se mezcle con la marca y el idioma. */
 .topbar{transition:opacity .3s,background .3s}
-body.sin-reel .topbar{background:rgba(5,4,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+body.sin-reel .topbar,body.bajando .topbar{background:rgba(5,4,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
 .tb-logo{display:inline-flex;align-items:center;min-height:44px;font-family:'Cinzel',serif;font-weight:900;letter-spacing:.16em;font-size:1rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55);transition:.3s}
 .tb-logo .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tb-logo:hover{opacity:.85}
@@ -304,7 +304,7 @@ body.sin-reel .topbar{background:rgba(5,4,10,.92);backdrop-filter:blur(14px);-we
    cabecera: es la zona del reel que sigue a la vista cuando la presentacion sube, y asi
    no pisa los botones de la presentacion ni el boton flotante de «Mi show». */
 .hero-motion{position:fixed;z-index:69;right:var(--gut);top:76px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
-body.no-scroll .hero-motion,body.sin-reel .hero-motion{visibility:hidden;pointer-events:none}
+body.no-scroll .hero-motion,body.sin-reel .hero-motion,body.bajando .hero-motion{visibility:hidden;pointer-events:none}
 .hero-motion:hover{background:rgba(5,4,10,.78);border-color:var(--gold);transform:scale(1.06)}
 .hero-motion:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .hero-motion .svg-ic{width:20px;height:20px}
@@ -320,7 +320,7 @@ body.no-scroll .hero-motion,body.sin-reel .hero-motion{visibility:hidden;pointer
 .hero-cue .svg-ic{width:22px;height:22px}
 .hero-cue:focus-visible{outline:2px solid var(--gold);outline-offset:-4px;border-radius:28px}
 @keyframes cue{0%{transform:scaleY(0)}55%,100%{transform:scaleY(1)}}
-body.bajando .hero-cue{opacity:0;pointer-events:none}
+body.bajando .hero-cue{opacity:0;visibility:hidden;pointer-events:none;transition:none}
 /* LA PRESENTACION APARECE AL HACER SCROLL. El reel se queda fijo (sticky dentro de
    .escena) y .pres sube sobre el: arriba es transparente y se va cerrando en noche, asi
    que el reel sigue a la vista por encima del titular. Cuando la presentacion ha subido
@@ -456,13 +456,19 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
 @media(prefers-reduced-motion:reduce){.menu,.menu-scrim,.menu-panel{transition:none}}
 
 /* VISTAS */
-.view{position:fixed;inset:0;z-index:60;overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(24px);transition:.45s cubic-bezier(.3,.7,.2,1);background:#0a0712}
-.view.active{opacity:1;visibility:visible;transform:none;z-index:61}
+.view{position:fixed;inset:0;z-index:60;overflow-y:auto;visibility:hidden;background:#0a0712}
+.view.active{visibility:visible;z-index:61}
+/* Tanda 5: la vista ya no se funde entera sobre la anterior (se veian las dos a la vez);
+   es opaca desde el primer fotograma y lo que entra es su contenido. */
+.view.active>*{animation:v-funde .36s ease backwards}
+@keyframes v-funde{from{opacity:0}}
+html.vt .view.active>*,body.carga .view.active>*{animation:none}
+body.vuelve:not(.carga) .home{animation:v-funde .4s backwards}
 /* FLUIDEZ (tanda 4). Entre dos vistas, la que sale se queda opaca debajo mientras la nueva
    entra encima: antes las dos se fundian a la vez y, a mitad, se veia el reel de la
    portada a traves de ambas. El scroll de una vista no encadena con la pagina de debajo. */
 .view{overscroll-behavior:contain}
-.view.sale{opacity:1;visibility:visible;transform:none;transition:none}
+.view.sale{visibility:visible}
 
 /* CATALOGO (tanda 3): #/servicios habla el lenguaje del paso 3. Cada tarjeta lleva el
    mismo boton de marcar que los chips del paso 3 y escribe en el mismo estado. */
@@ -500,15 +506,15 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
 @media(prefers-reduced-motion:reduce){.svc-card .ph img,.svc-card .pr .svg-ic{transition:none}}
 
 /* product modal */
-.pm-overlay{position:fixed;inset:0;z-index:115;display:grid;place-items:end center;padding-top:12px;background:rgba(4,3,10,.84);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
-.pm-overlay.open{opacity:1;visibility:visible}
+.pm-overlay{position:fixed;inset:0;z-index:115;display:grid;place-items:end center;padding-top:12px;background:rgba(4,3,10,0);visibility:hidden;transition:background-color .3s,visibility 0s .5s}
+.pm-overlay.open{background:rgba(4,3,10,.84);visibility:visible;transition-delay:0s}
 .pm-card{position:relative;display:flex;flex-direction:column;width:min(640px,100%);height:100%;overflow:hidden;border-radius:26px 26px 0 0;border:1px solid rgba(246,224,160,.4);border-bottom:0;background:var(--bg2);box-shadow:0 -30px 90px -30px #000;transform:translateY(100%);transition:transform .5s var(--ease)}
 .pm-overlay.open .pm-card{transform:none}
 .pm-close{position:absolute;z-index:3;top:10px;right:12px;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(5,4,10,.72);color:#fff;font-size:1.4rem;line-height:1;cursor:var(--cur),pointer}
 .pm-close:hover{border-color:var(--gold)}
 .pm-close:focus-visible,.pm-fotos:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 .pm-ph{position:relative;flex:none;height:clamp(230px,44svh,440px);background:#120e1c}
-.pm-fotos{display:flex;gap:3px;height:100%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
+.pm-fotos{display:flex;gap:10px;height:100%;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none}
 .pm-fotos::-webkit-scrollbar{display:none}
 .pm-fotos>*{flex:0 0 84%;min-width:0;height:100%;object-fit:cover;object-position:50% 22%;scroll-snap-align:start}
 .pm-fotos.una>*{flex-basis:100%}
@@ -534,7 +540,7 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
 .pm-foot .chip:focus-visible{outline-color:#fff;outline-offset:3px}
 @media(min-width:700px){
   .pm-overlay{place-items:center;padding:24px}
-  .pm-card{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;width:min(1080px,100%);height:min(700px,100%);border-radius:24px;border-bottom:1px solid rgba(246,224,160,.4);box-shadow:0 50px 120px -40px #000;transform:translateY(22px)}
+  .pm-card{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;width:min(1080px,100%);height:min(700px,100%);border-radius:24px;border-bottom:1px solid rgba(246,224,160,.4);box-shadow:0 50px 120px -40px #000;transform:translateY(100vh)}
   .pm-ph{grid-row:1/3;height:auto}
   .pm-fotos{display:grid;grid-template-rows:1.7fr 1fr;overflow:hidden}
   .pm-fotos.una{grid-template-rows:1fr}
@@ -607,8 +613,18 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 /* TU SHOW fuera del recorrido (tanda 3): el carrito se fundio con el show. El boton
    flotante y el panel leen y escriben SHOW.servicios, el mismo estado del paso 3. Sin
    totales: se conserva el descuento publicado y los precios «Desde», nada mas. */
-.cart-fab{position:fixed;bottom:22px;right:22px;z-index:80;display:inline-flex;align-items:center;gap:10px;min-height:54px;padding:0 14px 0 9px;border-radius:99px;border:0;background:var(--gold-grad);color:#1a1206;font:700 16px/1 'Manrope',sans-serif;box-shadow:0 16px 40px -12px rgba(230,194,92,.7);transform:translateY(120px);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s;cursor:var(--cur),pointer}
-.cart-fab.show{transform:none;visibility:visible;transition-delay:0s}
+/* Tanda 5: el boton y su aviso ya no flotan sobre el contenido (tapaban fotos, botones y
+   texto). Viven en una barra al pie, opaca, que solo existe con servicios marcados o
+   mientras dura un aviso; las vistas terminan donde empieza la barra. */
+.mi-barra{position:fixed;left:0;right:0;bottom:0;z-index:80;height:calc(64px + env(safe-area-inset-bottom,0px));padding-bottom:env(safe-area-inset-bottom,0px);background:#0d0a16;border-top:1px solid rgba(246,224,160,.32);transform:translateY(100%);visibility:hidden;transition:transform .4s var(--ease),visibility 0s .4s}
+.mi-barra.show,.mi-barra.msg{transform:none;visibility:visible;transition-delay:0s}
+body.en-arma .mi-barra:not(.msg){transform:translateY(100%);visibility:hidden}
+.mb-in{display:flex;align-items:center;gap:12px;height:64px;max-width:var(--pag);margin:0 auto;padding:0 var(--gut)}
+body.con-barra:not(.en-arma) .view{bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+body.con-barra .home{padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+body.con-barra .hero-cue{bottom:calc(74px + env(safe-area-inset-bottom,0px))}
+.cart-fab{flex:none;margin-left:auto;display:inline-flex;align-items:center;gap:10px;min-height:50px;padding:0 14px 0 9px;border-radius:99px;border:0;background:var(--gold-grad);color:#1a1206;font:700 16px/1 'Manrope',sans-serif;cursor:var(--cur),pointer}
+.cart-fab:not(.show){display:none}
 .cart-fab .th{width:30px;height:38px;flex:none;border-radius:15px 15px 5px 5px;background:#1d1114 50% 20%/cover;box-shadow:0 0 0 1px rgba(26,18,6,.5)}
 .cart-fab.bump{animation:fab-bump .45s var(--ease)}
 @keyframes fab-bump{35%{transform:scale(1.09)}}
@@ -644,16 +660,15 @@ body.en-arma .cart-fab{display:none}
 .cart-foot .fine{margin-top:6px;font-size:15px;color:var(--muted)}
 .cart-foot .a-btn{margin-top:14px;width:100%}
 @media(max-height:600px){.cart-panel{overflow-y:auto}.cart-items{flex:none;overflow:visible}}
-@media(prefers-reduced-motion:reduce){.cart-fab,.cart-panel{transition:none}}
+@media(prefers-reduced-motion:reduce){.mi-barra,.cart-panel,.toast{transition:none}}
 .overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
 .overlay-dim.on{opacity:1;visibility:visible}
-.toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,140px);z-index:130;background:var(--gold-grad);color:#1a1206;padding:14px 26px;border-radius:999px;font-weight:700;font-size:.85rem;box-shadow:var(--shadow);transition:.4s;white-space:nowrap}
-.toast.show{transform:translate(-50%,0)}
+.toast{min-width:0;font-weight:700;font-size:15px;line-height:1.3;color:var(--gold-hi);opacity:0;transition:opacity .25s}
+.toast.show{opacity:1}
 
 @keyframes rise{to{opacity:1;transform:none}}
 
 @media(max-width:600px){
-  .cart-fab{bottom:16px;right:16px}
   .cart-panel{top:12px;border:1px solid rgba(246,224,160,.4);border-bottom:0;border-radius:26px 26px 0 0;transform:translateY(102%)}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important}}
@@ -1044,15 +1059,15 @@ html.fx .fx-halo{display:block;position:absolute;left:-16px;top:-16px;z-index:0;
    existen, efectos.js hace la entrada con GSAP). La barra de pasos se queda quieta. */
 html.vt .view{transition:none!important}
 ::view-transition{background:#0a0712}
-::view-transition-old(root){animation:fx-hoja-sale .46s cubic-bezier(.4,0,.2,1) both;transform-origin:0 50%}
-::view-transition-new(root){animation:fx-hoja-entra .62s cubic-bezier(.16,1,.3,1) both;transform-origin:100% 50%}
+::view-transition-old(root){animation:fx-hoja-sale .22s cubic-bezier(.4,0,.2,1) both;transform-origin:0 50%}
+::view-transition-new(root){animation:fx-hoja-entra .46s cubic-bezier(.16,1,.3,1) .22s both;transform-origin:100% 50%}
 html[data-dir=atras]::view-transition-old(root){animation-name:fx-hoja-sale-atras;transform-origin:100% 50%}
 html[data-dir=atras]::view-transition-new(root){animation-name:fx-hoja-entra-atras;transform-origin:0 50%}
 ::view-transition-group(fx-barra){animation-duration:.4s}
 /* Fuera del recorrido de pasos (portada, catalogo, Liana, galeria) el cambio es un fundido
    corto, con la barra quieta. Sin View Transitions queda el fundido de .view. */
-html[data-dir=funde]::view-transition-old(root){animation:fx-funde-sale .24s cubic-bezier(.4,0,.2,1) both}
-html[data-dir=funde]::view-transition-new(root){animation:fx-funde-entra .5s cubic-bezier(.16,1,.3,1) both}
+html[data-dir=funde]::view-transition-old(root){animation:fx-funde-sale .2s cubic-bezier(.4,0,.2,1) both}
+html[data-dir=funde]::view-transition-new(root){animation:fx-funde-entra .42s cubic-bezier(.16,1,.3,1) .2s both}
 @keyframes fx-funde-sale{to{opacity:0}}
 @keyframes fx-funde-entra{from{opacity:0;transform:translateY(12px)}}
 @keyframes fx-hoja-sale{to{opacity:0;transform:perspective(1600px) translateX(-5%) rotateY(8deg) scale(.96)}}
@@ -1076,17 +1091,8 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
 @keyframes fx-destino{from{opacity:0;transform:perspective(800px) translate3d(48px,0,-40px) rotateY(-26deg)}}
 
 /* ── EFECTOS · D · scroll ──────────────────────────────────────────────────────
-   La noche de ejemplo se queda fijada (sticky, dentro de la vista que hace scroll)
-   mientras pasan sus tres momentos; efectos.js decide si cabe y anade el tramo de
-   recorrido. En escritorio los momentos se encienden en fila; en el telefono se
-   apilan como cartas. Sin html.fx no existe nada de esto. */
-html.fx .oc-noche.fx-pin .linea{position:sticky;top:calc(var(--fx-barra,72px) + 14px)}
-html.fx .oc-noche.fx-pin .linea::before{transform:scaleX(var(--fx-linea,1));transform-origin:0 50%}
-.fx-tramo{display:none}
-html.fx .oc-noche.fx-pin .fx-tramo{display:block}
-html.fx .oc-noche.fx-pila .linea{display:grid;grid-template-columns:1fr;overflow:hidden;border-radius:16px}
-html.fx .oc-noche.fx-pila .mom{grid-area:1/1;background:var(--bg2);transform-origin:50% 0}
-html.fx #shopGrid{perspective:1200px}
+   Tanda 5: la noche de ejemplo ya no se fija ni apila sus momentos como cartas (una foto
+   tapaba a la otra); sus momentos entran como el resto, uno tras otro. */
 
 </style>
 </head>
@@ -1340,7 +1346,7 @@ html.fx #shopGrid{perspective:1200px}
 </div>
 
 <!-- TU SHOW fuera del recorrido: el carrito del catalogo se fundio con el show (mismo estado que el paso 3) -->
-<button class="cart-fab" id="cartFab" type="button"><span class="th" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button>
+<div class="mi-barra" id="miBarra"><div class="mb-in"><div class="toast" id="toast" role="status" aria-live="polite"></div><button class="cart-fab" id="cartFab" type="button"><span class="th" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button></div></div>
 <div class="overlay-dim" id="dim"></div>
 <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartT">
   <div class="cart-head"><button class="x" id="cartClose" type="button" data-i18n-aria="menu.cerrar" aria-label="Close">&times;</button><h2 id="cartT" data-i18n="cart.title">Your show</h2><p id="cartSub"></p></div>
@@ -1353,7 +1359,6 @@ html.fx #shopGrid{perspective:1200px}
     <button class="a-btn a-pri" id="cartSeguir" type="button" data-seguir data-i18n="cart.seguir">Continue with my show</button>
   </div>
 </aside>
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 const ICONS={
@@ -1990,7 +1995,7 @@ function renderCart(){const n=SHOW.servicios.length,box=document.getElementById(
     fi=[...box.querySelectorAll('.rm')].indexOf(document.activeElement),cn=document.getElementById('cartCount'),c=condadoDe(SHOW.condado);
   if(n&&+cn.textContent!==n){fab.querySelector('.th').style.backgroundImage=`url(assets/services/${SHOW.servicios[n-1]}.jpg)`;
     if(fab.classList.contains('show')){fab.classList.remove('bump');void fab.offsetWidth;fab.classList.add('bump');}}
-  cn.textContent=n;fab.classList.toggle('show',n>0);
+  cn.textContent=n;fab.classList.toggle('show',n>0);document.getElementById('miBarra').classList.toggle('show',n>0);document.body.classList.toggle('con-barra',n>0);
   document.getElementById('cartSub').textContent=[nombreOcas(),SHOW.fecha?fechaCorta(SHOW.fecha):'',c?c.n[lang]:''].filter(Boolean).join(' · ');
   box.innerHTML=n?`<ol>${ids.map(id=>{const s=SERVICES.find(x=>x.id===id),nom=esc(s.name[lang]),m=P&&P.mom[mo(id)];
       return `<li class="ci"><img src="assets/services/${id}.jpg" alt="" loading="lazy"><div class="ci-m">${m?`<i>${m.h[lang]}</i>`:''}<b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ol><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
@@ -2055,7 +2060,8 @@ function showView(id){const sale=currentView&&currentView!==id?document.getEleme
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));const v=document.getElementById(id);if(v)v.classList.add('active');
   if(sale){sale.classList.add('sale');setTimeout(()=>sale.classList.remove('sale'),460);}
   currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
-function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));currentView=null;}
+function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));
+  if(currentView){const b=document.body;b.classList.add('vuelve');setTimeout(()=>b.classList.remove('vuelve'),450);}currentView=null;}
 /* Atras devuelve a la misma altura. Cada entrada del historial lleva una clave en
    history.state; al dejarla se guarda su scroll (el de la vista o el de la portada) y al
    volver a ella (Atras o Adelante) se repone. Una entrada nueva empieza arriba, salvo la
@@ -2223,7 +2229,7 @@ addEventListener('popstate',()=>{if(enCart())abrirCart();else soltarCart();});
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
 atrapar(panel);
 
-let tt;function toast(m){const el=document.getElementById('toast');el.textContent=m;el.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('show'),1700);}
+let tt;function toast(m){const el=document.getElementById('toast'),br=document.getElementById('miBarra');el.textContent=m;el.classList.add('show');br.classList.add('msg');clearTimeout(tt);tt=setTimeout(()=>{el.classList.remove('show');br.classList.remove('msg');},1900);}
 /* ── VISOR DE COLECCIÓN ────────────────────────────────────────────────────
    Las 26 fotos y los 3 videos NO entran en el DOM al cargar: son 13 MB en una
    pagina que hoy pesa mucho menos, y casi nadie abre las dos colecciones. El
@@ -2371,9 +2377,8 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
     new IntersectionObserver(es=>{const dentro=es[0].isIntersecting;document.body.classList.toggle('sin-reel',!dentro);
       if(!hero)return;if(dentro){delete hero.dataset.fuera;if(!motionOff&&!currentView){try{const p=hero.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}}
       else{hero.dataset.fuera='1';try{hero.pause();}catch(e){}}}).observe(reel);
-    const tope=document.createElement('i');tope.setAttribute('aria-hidden','true');tope.style.cssText='position:absolute;top:0;left:0;width:1px;height:48px;pointer-events:none';
-    document.getElementById('home').prepend(tope);
-    new IntersectionObserver(es=>document.body.classList.toggle('bajando',!es[0].isIntersecting)).observe(tope);}
+    /* Tanda 5: «bajando» se decide con el scroll, en el mismo fotograma (el observer llegaba uno tarde). */
+    const baj=()=>document.body.classList.toggle('bajando',window.scrollY>40);addEventListener('scroll',baj,{passive:true});baj();}
   if(cue&&pres)cue.onclick=()=>{pres.scrollIntoView({behavior:motionOff?'instant':'smooth',block:'start'});
     const h=document.getElementById('presT');if(h){h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){}}};
   const hmBtn=document.getElementById('heroMotion');

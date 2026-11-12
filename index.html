@@ -985,7 +985,6 @@ body.en-arma .cart-fab{display:none}
   .send .a-pri{width:100%}
   .picked .fecha{font-size:26px}
 }
-@media(max-width:1100px){.occ-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:900px){
   .steps{display:none}
   .stepm{display:block}
@@ -993,12 +992,27 @@ body.en-arma .cart-fab{display:none}
   .a-main{padding:26px 0 64px}
   .a-sub{font-size:16px}
 }
-@media(max-width:560px){
-  .occ-grid{grid-template-columns:1fr;gap:12px;margin-top:24px}
-  .occ{flex-direction:row}
-  .occ .ph{flex:none;width:36%;margin:10px 0 10px 10px;aspect-ratio:auto;border-radius:120px 120px 12px 12px}
-  .occ .tx{padding:14px 14px 14px 16px;gap:6px}
-  .occ b{font-size:17px}
+/* FILAS QUE SE DESLIZAN (tanda 6, 12/11/2026). Por debajo de 1100 px las ventanas de ocasion
+   van en fila: una por pantalla (86 % del ancho, la siguiente asoma), foto grande arriba y
+   el texto entero debajo. Scroll-snap nativo, una por gesto; fila() les pone anterior,
+   siguiente y «1 de 4», y las flechas del teclado. La fila sangra hasta el borde. */
+.fila-nav{display:flex;align-items:center;gap:6px;margin-top:10px}
+.fila-nav[hidden]{display:none}
+.fn-b{width:44px;height:44px;flex:none;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(246,224,160,.45);background:rgba(255,255,255,.04);color:var(--gold-hi);cursor:var(--cur),pointer;transition:border-color .25s,background .25s}
+.fn-b .svg-ic{width:20px;height:20px}
+.fn-b[data-d="-1"] .svg-ic{transform:rotate(180deg)}
+.fn-b:hover{border-color:var(--gold)}
+.fn-b:active{background:rgba(230,194,92,.16)}
+.fn-b:disabled{color:#6f6883;border-color:rgba(255,255,255,.16);background:none;cursor:default}
+.fn-b:focus-visible,.fila:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.fn-pos{min-width:8ch;text-align:center;font-weight:600;font-size:15px;color:#d7cfe6;font-variant-numeric:tabular-nums}
+@media(max-width:1099px){
+  .fila{margin-inline:calc(var(--gut)*-1);padding:4px var(--gut) 8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);overscroll-behavior-x:contain;scrollbar-width:none}
+  .fila::-webkit-scrollbar{display:none}
+  .fila:focus-visible{outline-offset:-3px}
+  .occ-grid{display:flex;gap:14px;margin-top:24px}
+  .occ{flex:none;width:min(86vw,400px);scroll-snap-align:start;scroll-snap-stop:always}
+  .occ:hover,html.fx .occ-grid .occ{transform:none}
 }
 @media(prefers-reduced-motion:reduce){
   .arma *{transition:none!important}
@@ -1156,7 +1170,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
 <div class="tramos" id="tramos">
   <section class="tr tr-oc" aria-labelledby="trOcT"><div class="aw">
     <h2 class="tr-h" id="trOcT" data-i18n="arma.t">What are we building the show for?</h2>
-    <div class="occ-grid" id="hOcc"></div>
+    <div class="occ-grid fila" id="hOcc" role="group" aria-labelledby="trOcT"></div>
     <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a></div>
   </div></section>
   <section class="tr tr-svc" aria-labelledby="trSvT"><div class="aw">
@@ -1287,7 +1301,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <p class="a-eyebrow" data-i18n="arma.k">Build your show</p>
     <h1 class="a-h1" id="armaT" data-i18n="arma.t">What are we building the show for?</h1>
     <p class="a-note" id="armaPlanner" hidden data-i18n="arma.planner">You are planning for a client: choose your client's occasion. In step 3 the box "I'm planning this for a client" will already be checked.</p>
-    <div class="occ-grid" id="occGrid"></div>
+    <div class="occ-grid fila" id="occGrid" role="group" aria-labelledby="armaT"></div>
     <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a><a class="a-link" href="#/servicios" data-i18n="arma.all">See the 15 services</a></div>
   </div></div>
 </section>
@@ -2163,7 +2177,30 @@ const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 function pintarPaso1(){const v=document.getElementById('view-arma');
   pintarPasos(v,1,[SHOW.ocasion&&OCASIONES[SHOW.ocasion]?OCASIONES[SHOW.ocasion].nombre[lang]:'']);
   document.getElementById('armaPlanner').hidden=!SHOW.planner;
-  document.getElementById('occGrid').innerHTML=occHTML('');}
+  const g=document.getElementById('occGrid');g.innerHTML=occHTML('');fila(g);}
+/* Fila que se desliza (tanda 6): el scroll y el ajuste son nativos (scroll-snap); esto solo
+   anade anterior/siguiente, el indicador «1 de 4» y las flechas del teclado. Si la fila no
+   desborda (escritorio), los controles se ocultan y la fila sale del orden de tabulacion. */
+function fila(sc){if(!sc)return;if(sc._fila){sc._fila();return;}
+  const nav=document.createElement('div');nav.className='fila-nav';
+  nav.innerHTML=`<button type="button" class="fn-b" data-d="-1">${svg('chev')}</button><span class="fn-pos" aria-live="polite"></span><button type="button" class="fn-b" data-d="1">${svg('chev')}</button>`;
+  sc.after(nav);const [pv,pos,nx]=nav.children;let raf=0;
+  const pad=()=>parseFloat(getComputedStyle(sc).scrollPaddingLeft)||0;
+  const pintar=()=>{raf=0;const ks=[...sc.children],r=sc.getBoundingClientRect(),hay=sc.scrollWidth>sc.clientWidth+2;
+    nav.hidden=!hay;if(hay)sc.tabIndex=0;else sc.removeAttribute('tabindex');
+    pv.setAttribute('aria-label',t('lb.prev'));nx.setAttribute('aria-label',t('lb.next'));if(!hay||!r.width)return;
+    let a=0,b=0;ks.forEach((k,i)=>{const q=k.getBoundingClientRect();if(q.left>=r.left-1&&q.right<=r.right+1){if(!a)a=i+1;b=i+1;}});
+    if(a)pos.textContent=(a===b?a:a+'–'+b)+' '+t('paso.de')+' '+ks.length;
+    pv.disabled=sc.scrollLeft<=2;nx.disabled=sc.scrollLeft>=sc.scrollWidth-sc.clientWidth-2;};
+  const ir=d=>{const x0=sc.getBoundingClientRect().left+pad(),xs=[...new Set([...sc.children].map(k=>Math.round(k.getBoundingClientRect().left-x0)))].sort((m,n)=>m-n);
+    const x=d>0?xs.find(v=>v>4):xs.reverse().find(v=>v<-4);
+    if(x!=null)sc.scrollBy({left:x,behavior:window.sdpMotionOff&&window.sdpMotionOff()?'instant':'smooth'});};
+  nav.addEventListener('click',e=>{const b=e.target.closest('.fn-b');if(b&&!b.disabled)ir(+b.dataset.d);});
+  sc.addEventListener('keydown',e=>{if(e.target!==sc||(e.key!=='ArrowRight'&&e.key!=='ArrowLeft'))return;e.preventDefault();ir(e.key==='ArrowRight'?1:-1);});
+  const luego=()=>{if(!raf)raf=requestAnimationFrame(pintar);};
+  sc.addEventListener('scroll',luego,{passive:true});addEventListener('resize',luego,{passive:true});
+  if('ResizeObserver'in window)new ResizeObserver(luego).observe(sc); /* la vista del paso 1 puede pintarse oculta */
+  sc._fila=pintar;pintar();}
 /* Las cuatro tarjetas de ocasion: las mismas en el paso 1 y en la portada. */
 function occHTML(prio){return OCAS_KEYS.map(k=>{const o=OCASIONES[k];
     return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg" alt="" loading="lazy"${prio}></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
@@ -2173,7 +2210,7 @@ function occHTML(prio){return OCAS_KEYS.map(k=>{const o=OCASIONES[k];
 let portadaLista=false;
 function pintarPortada(){const g=document.getElementById('hOcc');if(!g)return;portadaLista=true;
   const baja=' fetchpriority="low"';
-  g.innerHTML=occHTML(baja);
+  g.innerHTML=occHTML(baja);fila(g);
   document.getElementById('hCarta').innerHTML=SERVICES.map(s=>`<li><a href="#/servicios/${s.id}"><span class="nm">${esc(s.name[lang])}</span><span class="pr">${precioTxt(s)}</span></a></li>`).join('');
   const li=document.getElementById('hLiana');
   if(!li.firstChild)li.innerHTML=`<img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy"${baja}>`;

@@ -927,6 +927,17 @@ body.en-arma .cart-fab{display:none}
    127). Titulares de no mas de tres lineas en el telefono: la frase sigue entera en el
    h1, pero su segunda mitad baja a cuerpo de bajada (.h-sub). */
 .topbar,.arma-bar{padding-inline:max(var(--gut),calc(50% - var(--pag)/2 + var(--gut)))}
+/* Telefonos de 320 a 430: marca, idioma y «Menu» en UNA fila (a 375 se partia en dos). */
+@media(max-width:430px){
+  .topbar,.arma-bar{column-gap:8px}
+  .tb-logo,.ab-logo{flex:none}
+  .ab-menu{gap:6px;padding:0 6px}
+}
+@media(max-width:340px){
+  .tb-logo,.ab-logo{letter-spacing:.12em}
+  .ab-menu{min-width:44px;justify-content:center;padding:0}
+  .ab-menu span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+}
 .h-sub{display:block;margin-top:.55em;max-width:var(--medida-corta);font:500 var(--t-bajada)/1.45 'Manrope',system-ui,sans-serif;letter-spacing:0;color:#ddd5ec;text-shadow:none}
 .hero-h1 .h-sub{color:#efe9f8}
 .hero-h1 .h-sub em{font-size:1.28em;line-height:1.1}

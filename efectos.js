@@ -130,7 +130,7 @@ alEncender.push(()=>conGsap(()=>montar(false)));
 conGsap(()=>montar(false));
 /* Repintados que cambian el DOM de una vista abierta (idioma, filtros del catalogo). */
 let espera=0;const remontar=()=>{clearTimeout(espera);espera=setTimeout(()=>montar(true),80);};
-['ocBody','shopGrid','hOcc'].forEach(id=>{const el=document.getElementById(id);
+['ocBody','shopGrid','hOcc','hCarta'].forEach(id=>{const el=document.getElementById(id);
   if(el&&'MutationObserver'in window)new MutationObserver(remontar).observe(el,{childList:true});});
 
 /* B · Paginas de ocasion: parallax en varios planos. */
@@ -236,9 +236,12 @@ MONTAJES.push({sel:'#view-gallery',f(v){
 MONTAJES.push({sel:'#view-services',f(v){
   revelar(v,[...v.querySelectorAll('#shopGrid .svc-card,.cat-note,.cierre .row,.cierre .pie')]);}});
 
-/* Portada (tanda 4): cada tramo se revela al llegar; la carta de servicios, fila a fila. */
+/* Portada (tanda 6): cada tramo entra con el lenguaje de la presentacion (sube 36 px y se
+   asienta, escalonado): titular, ventanas de ocasion, tarjetas de servicio y los controles
+   de cada fila. Lo que queda fuera de la fila por la derecha entra a la vez: al deslizar no
+   hay nada a medio aparecer. */
 MONTAJES.push({sel:'#home',f(v){
-  revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .a-links,.carta li,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
+  revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .fila-nav,.tr .a-links,.tr .svc-card,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
 
 /* Al cambiar el tamano de la ventana cambian el modo de la noche y las medidas. */
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(ctx)montar(false);},250);});

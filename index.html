@@ -1020,10 +1020,14 @@ body.en-arma .cart-fab{display:none}
 .fn-b:active{background:rgba(230,194,92,.16)}
 .fn-b:disabled{color:#6f6883;border-color:rgba(255,255,255,.16);background:none;cursor:default}
 .fn-b:focus-visible,.fila:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.occ:active,.svc-card:has(:is(h2,h3) a:active){border-color:var(--gold)}
 .fn-pos{min-width:8ch;text-align:center;font-weight:600;font-size:15px;color:#d7cfe6;font-variant-numeric:tabular-nums}
 @media(max-width:1099px){
   .fila{margin-inline:calc(var(--gut)*-1);padding:4px var(--gut) 8px;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scroll-padding-inline:var(--gut);overscroll-behavior-x:contain;scrollbar-width:none}
   .fila::-webkit-scrollbar{display:none}
+  /* Sitio para que las tarjetas suban 36 px al entrar sin que la fila las recorte por abajo. */
+  .fila{padding-bottom:44px;margin-bottom:-36px}
+  .fila+.fila-nav,.fila+.fx-giro{position:relative}
   .fila:focus-visible{outline-offset:-3px}
   .occ-grid{display:flex;gap:14px;margin-top:24px}
   .occ{flex:none;width:min(86vw,400px);scroll-snap-align:start;scroll-snap-stop:always}

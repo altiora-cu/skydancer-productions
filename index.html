@@ -590,8 +590,12 @@ body.en-arma .cart-fab{display:none}
 .oc-accion .liana{margin-bottom:22px}
 /* #/liana: su historia, donde ha actuado el equipo y el equipo */
 .li-gancho .arch{position:relative}
-.li-gancho .arch img{object-position:50% 12%}
-.li-gancho .arch video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s}
+/* El video (9:16, cuerpo entero) tapa la foto en cuanto arranca. Con object-fit:cover y
+   la posicion por defecto (50% 50%) el arco, que en el telefono es mas ancho que alto,
+   ensenaba la franja central: camisa y pantalon, sin la cara. Foto y video se anclan
+   arriba, que es donde esta la cara en los dos. (La regla anterior de la foto, 50% 12%,
+   no llegaba a aplicarse: la pisaba .oc-gancho .arch img, declarada despues.) */
+.li-gancho .arch video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;opacity:0;transition:opacity .6s}
 .li-gancho .arch video[data-woke]{opacity:1}
 .li-bio{padding:8px 0 44px}
 .li-bio p:not(.a-eyebrow){margin-top:16px;max-width:68ch;font-size:17px;color:#ddd5ec}

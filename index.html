@@ -9,6 +9,7 @@
    archivo, asi que aqui se pasa la ruta al hash ANTES de que el navegador pida
    un solo recurso: con /bodas/ las rutas relativas (fotos, video) se romperian.
    No es SEO: Google sigue viendo una sola pagina. */
+document.documentElement.classList.add('js');
 window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/\.localhost$/.test(location.hostname);
 (function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues)$/);
   if(m&&!location.hash){history.replaceState(null,'','/#/'+(m[1]==='planners-y-venues'?'planners':m[1]));}})();
@@ -303,8 +304,8 @@ body.sin-reel .topbar,body.bajando .topbar{background:rgba(5,4,10,.92);backdrop-
    44x44 reales: es un control que se toca en movil. Va arriba a la derecha, bajo la
    cabecera: es la zona del reel que sigue a la vista cuando la presentacion sube, y asi
    no pisa los botones de la presentacion ni el boton flotante de «Mi show». */
-.hero-motion{position:fixed;z-index:69;right:var(--gut);top:76px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
-body.no-scroll .hero-motion,body.sin-reel .hero-motion,body.bajando .hero-motion{visibility:hidden;pointer-events:none}
+.hero-motion{position:absolute;z-index:6;right:var(--gut);top:76px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
+body.no-scroll .hero-motion,body.sin-reel .hero-motion{visibility:hidden;pointer-events:none}
 .hero-motion:hover{background:rgba(5,4,10,.78);border-color:var(--gold);transform:scale(1.06)}
 .hero-motion:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .hero-motion .svg-ic{width:20px;height:20px}
@@ -326,14 +327,39 @@ body.bajando .hero-cue{opacity:0;visibility:hidden;pointer-events:none;transitio
    que el reel sigue a la vista por encima del titular. Cuando la presentacion ha subido
    entera, la escena se suelta y la pagina sigue. Es solo CSS: no depende de efectos.js.
    Con «menos movimiento» no se fija nada: una seccion debajo de la otra. */
-.escena{position:relative}
-.hero{position:sticky;top:0}
-.pres{position:relative;z-index:2;background:linear-gradient(180deg,rgba(5,4,10,0),rgba(5,4,10,.5) 22%,rgba(5,4,10,.9) 52%,var(--bg) 88%)}
-.hero-inner{position:relative;z-index:5;width:100%;max-width:var(--pag);margin:0 auto;text-align:left;padding:clamp(120px,22svh,220px) var(--gut) 64px}
+/* TANDA 6 · A (12/11/2026): llegar antes a la informacion. La presentacion ya no es un
+   bloque que sube una pantalla entera: es una capa sobre la parte baja del reel, en la
+   misma celda. Los dos se quedan fijos un tramo de 32 % de pantalla; al bajar un 3 % la
+   presentacion entra sola (titular, credencial, botones; no va atada al scroll) y al
+   volver arriba se retira. Sin scroll-snap: el scroll es de la persona. Sin JS (no hay
+   html.js) se ve desde el principio; con «menos movimiento» tambien, y nada se fija. */
+.escena{position:relative;display:grid;grid-template-columns:minmax(0,1fr);height:calc(max(100svh,560px) + 32svh)}
+.hero,.pres{grid-area:1/1;align-self:start;position:sticky;top:0;height:max(100svh,560px)}
+.pres{z-index:2;display:flex;flex-direction:column;justify-content:flex-end;pointer-events:none}
+.pres::before{content:"";position:absolute;left:0;right:0;bottom:0;height:80%;pointer-events:none;background:linear-gradient(180deg,rgba(5,4,10,0),rgba(5,4,10,.7) 28%,rgba(5,4,10,.93) 58%,var(--bg));transition:opacity .5s}
+.hero-inner{position:relative;z-index:5;width:100%;max-width:var(--pag);margin:0 auto;text-align:left;padding:0 var(--gut) clamp(30px,6svh,64px)}
+.hero-inner>*{pointer-events:auto}
+.hero-h1,.hero-proof,.hero-cta{transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.hero-proof{transition-delay:.08s}
+.hero-cta{transition-delay:.16s}
+html.js body:not(.bajando) .pres::before{opacity:0}
+html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:0;transform:translateY(36px);visibility:hidden;transition:opacity .25s,transform .25s,visibility 0s .25s}
+body.con-barra .hero-inner{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 @media(prefers-reduced-motion:reduce){
-  .hero{position:relative}
-  .pres{background:var(--bg)}
-  .hero-inner{padding-top:56px}
+  .escena{height:auto}
+  .hero,.pres{position:relative}
+  .pres::before,.hero-h1,.hero-proof,.hero-cta{transition:none}
+  html.js body:not(.bajando) .pres::before{opacity:1}
+  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;visibility:inherit;transition:none}
+}
+/* Telefono apaisado: el reel y la presentacion van seguidos, sin fijar ni esconder. */
+@media(max-height:559px){
+  .escena{display:block;height:auto}
+  .hero,.pres{position:relative}
+  .pres{height:auto;background:var(--bg)}
+  .pres::before{display:none}
+  .hero-inner{padding-top:40px}
+  html.js body:not(.bajando) .pres :is(.hero-h1,.hero-proof,.hero-cta){opacity:1;transform:none;visibility:inherit;transition:none}
 }
 .hero-inner{transition:visibility 0s}
 /* Con una vista abierta el texto del hero queda detras: se oculta (no el reel) para que
@@ -342,10 +368,10 @@ body.no-scroll .hero-inner,body.no-scroll .hero-cue{visibility:hidden;transition
 body.carga .hero-inner{transition:none}
 .hero-h1{margin:0;max-width:24ch;font-family:'Cinzel',Georgia,serif;font-weight:500;font-size:var(--t-portada);line-height:1.08;letter-spacing:.005em;color:var(--ink);text-shadow:0 2px 24px rgba(0,0,0,.45)}
 .hero-h1 em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.08em;letter-spacing:0;color:#f6e0a0}
-.hero-proof{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;line-height:1.5;color:rgba(244,240,255,.88);text-shadow:0 2px 12px rgba(0,0,0,.6);opacity:0;animation:rise .8s .25s forwards}
+.hero-proof{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px;line-height:1.5;color:rgba(244,240,255,.88);text-shadow:0 2px 12px rgba(0,0,0,.6)}
 .hero-proof>span{display:inline-flex;align-items:center;gap:8px}
 .hero-proof>span+span::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--gold)}
-.hero-cta{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:12px;opacity:0;animation:rise .8s .4s forwards}
+.hero-cta{margin-top:26px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
 .hc{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 30px;border-radius:999px;font:700 16px/1.1 'Manrope',system-ui,sans-serif;letter-spacing:.01em;text-decoration:none;white-space:nowrap;cursor:var(--cur),pointer;transition:transform .3s cubic-bezier(.22,1,.36,1),background .3s,border-color .3s}
 .hc:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .hc-1{background:var(--gold-grad);color:#1a1206;border:0;box-shadow:0 14px 40px -18px rgba(230,194,92,.7)}
@@ -976,8 +1002,6 @@ body.en-arma .cart-fab{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   .arma *{transition:none!important}
-  /* La animacion de entrada parte de opacity:0; sin animacion el texto quedaba invisible. */
-  .hero-proof,.hero-cta{opacity:1;transform:none}
 }
 
 /* ── RETICULA (tanda 4, 11/11/2026) ───────────────────────────────────────────
@@ -993,6 +1017,7 @@ body.en-arma .cart-fab{display:none}
   .ab-menu{gap:6px;padding:0 6px}
 }
 @media(max-width:340px){
+  .hc-2{padding:0 12px;font-size:15px}
   .tb-logo,.ab-logo{letter-spacing:.12em}
   .ab-menu{min-width:44px;justify-content:center;padding:0}
   .ab-menu span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
@@ -1023,10 +1048,8 @@ p,li{text-wrap:pretty}
    Todo lo que se mueve cuelga de html.fx, que efectos.js solo pone con movimiento
    permitido. El reel no se transforma nunca: la profundidad vive en el texto de
    encima (.hero-inner) y en las vistas. Solo transform y opacity. */
-/* Portada: el titular NO tiene entrada animada: es el LCP y moverlo subia el Speed
-   Index de 2,4 a 4,1 s en Lighthouse movil. Entran desde el fondo la credencial y las acciones. */
-.hero-proof,.hero-cta{transform:perspective(900px) translate3d(0,16px,-40px) rotateX(12deg);transform-origin:50% 100%}
-/* Y luego sigue al puntero en cuatro planos (efectos.js escribe --mx/--my en -1..1). */
+/* Portada: la entrada de la presentacion (tanda 6) vive junto a .escena; aqui solo queda
+   el texto que sigue al puntero en cuatro planos (efectos.js escribe --mx/--my en -1..1). */
 @media(hover:hover) and (pointer:fine){
 html.fx .hero-inner{transform:perspective(1400px) rotateX(calc(var(--my,0)*-2deg)) rotateY(calc(var(--mx,0)*2.6deg));transform-style:preserve-3d}
 html.fx .hero-h1{translate:calc(var(--mx,0)*-12px) calc(var(--my,0)*-7px)}
@@ -2378,8 +2401,9 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
       if(!hero)return;if(dentro){delete hero.dataset.fuera;if(!motionOff&&!currentView){try{const p=hero.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}}}
       else{hero.dataset.fuera='1';try{hero.pause();}catch(e){}}}).observe(reel);
     /* Tanda 5: «bajando» se decide con el scroll, en el mismo fotograma (el observer llegaba uno tarde). */
-    const baj=()=>document.body.classList.toggle('bajando',window.scrollY>40);addEventListener('scroll',baj,{passive:true});baj();}
-  if(cue&&pres)cue.onclick=()=>{pres.scrollIntoView({behavior:motionOff?'instant':'smooth',block:'start'});
+    /* Tanda 6: el umbral es el 3 % de la pantalla; con el mismo gesto se cierra la barra y entra la presentacion. */
+    const baj=()=>document.body.classList.toggle('bajando',window.scrollY>Math.max(8,innerHeight*.03));addEventListener('scroll',baj,{passive:true});baj();}
+  if(cue&&pres)cue.onclick=()=>{window.scrollTo({top:Math.round(innerHeight*.14),behavior:motionOff?'instant':'smooth'});
     const h=document.getElementById('presT');if(h){h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){}}};
   const hmBtn=document.getElementById('heroMotion');
   if(hmBtn){

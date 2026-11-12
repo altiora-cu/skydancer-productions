@@ -225,7 +225,6 @@ img{max-width:100%;display:block}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 .eyebrow{font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:700}
 .svg-ic{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;display:block}
-.glass{background:var(--glass);border:1px solid var(--glass-brd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 
 /* TOP BAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:70;display:flex;justify-content:space-between;align-items:center;gap:10px 18px;min-height:68px;padding:10px var(--gut);pointer-events:none}
@@ -421,22 +420,6 @@ body.carga .tramos{transition:none}
   .hc-1{width:100%}
   .hc-2{flex:1}
 }
-.logo3d{margin:14px 0 8px;perspective:900px}
-.logo3d .line{font-family:'Cinzel',serif;font-weight:900;text-transform:uppercase;transform-style:preserve-3d;animation:float3d 7s ease-in-out infinite}
-.logo3d .sky{display:block;font-size:clamp(3rem,13vw,9rem);letter-spacing:.02em;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 0 rgba(120,90,20,.35)) drop-shadow(0 14px 30px rgba(0,0,0,.55));position:relative}
-.logo3d .sky::after{content:"SKYDANCER";position:absolute;inset:0;z-index:-1;color:#2a1e05;transform:translateZ(-1px);text-shadow:1px 1px 0 #241a06,2px 2px 0 #201705,3px 3px 0 #1b1304,4px 4px 0 #160f03,5px 5px 0 #120c02,6px 6px 14px rgba(0,0,0,.7)}
-.logo3d .prod{display:block;font-size:clamp(.8rem,3.4vw,1.5rem);letter-spacing:.62em;margin-top:.4em;font-weight:700;color:var(--ink);text-indent:.62em;text-shadow:0 2px 14px rgba(0,0,0,.6)}
-.logo3d .prod b{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent}
-.shimmer{position:relative;overflow:hidden}
-.shimmer::before{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-18deg);animation:sweep 5.5s ease-in-out infinite}
-.hero-tag{margin-top:18px;color:#efe7ff;letter-spacing:.28em;text-transform:uppercase;font-size:.72rem;opacity:0;animation:rise 1s .6s forwards;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-/* MENU BUTTON — profesional, sobrio */
-.menu-btn{position:relative;margin-top:46px;display:inline-flex;align-items:center;gap:15px;overflow:hidden;background:rgba(12,8,22,.32);color:var(--ink);padding:17px 42px;border-radius:999px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;font-size:.8rem;backdrop-filter:blur(12px);transition:.4s;opacity:0;animation:rise 1s .9s forwards;border:1px solid rgba(246,224,160,.55)}
-.menu-btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--gold-grad);transform:translateY(101%);transition:transform .45s cubic-bezier(.4,0,.2,1)}
-.menu-btn:hover{color:#1a1206;border-color:transparent;box-shadow:0 18px 40px -18px rgba(246,224,160,.55)}
-.menu-btn:hover::before{transform:translateY(0)}
-.menu-btn .bars{display:inline-flex;flex-direction:column;gap:4px}
-.menu-btn .bars span{width:20px;height:2px;background:currentColor;border-radius:2px;transition:.3s}
 
 /* MENU (tanda 3, 10/11/2026): deja de ser una pagina con portada. Es un panel oscuro
    que se desliza sobre la vista actual; sigue siendo la ruta #/menu para que Atras lo
@@ -621,22 +604,15 @@ body.en-arma .cart-fab{display:none}
 .toast{position:fixed;bottom:30px;left:50%;transform:translate(-50%,140px);z-index:130;background:var(--gold-grad);color:#1a1206;padding:14px 26px;border-radius:999px;font-weight:700;font-size:.85rem;box-shadow:var(--shadow);transition:.4s;white-space:nowrap}
 .toast.show{transform:translate(-50%,0)}
 
-@keyframes float3d{0%,100%{transform:rotateX(6deg) rotateY(-4deg) translateY(0)}50%{transform:rotateX(2deg) rotateY(4deg) translateY(-8px)}}
-@keyframes floatPhoto{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes tilt3d{0%,100%{transform:perspective(600px) rotateX(0) rotateY(-8deg)}50%{transform:perspective(600px) rotateX(6deg) rotateY(8deg)}}
-@keyframes sweep{0%,55%{left:-60%}100%{left:130%}}
 @keyframes rise{to{opacity:1;transform:none}}
 
-@media(max-width:960px){
-}
 @media(max-width:600px){
   .pm-card{grid-template-columns:1fr;aspect-ratio:auto;max-height:90svh;overflow-y:auto}
   .pm-img{aspect-ratio:4/3;min-height:auto}
   .pm-info{padding:22px 20px 26px;max-height:none;overflow:visible}
-  .logo3d .prod{letter-spacing:.4em;text-indent:.4em}
   .cart-fab{bottom:16px;right:16px}
 }
-@media(prefers-reduced-motion:reduce){*{animation:none!important}.founder{transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
 /* ===== ARMA TU SHOW (9/11/2026) =====================================================
    Paso 1 (ocasion), paginas de ocasion y pasos 2 y 3. Mismos tokens del sitio (noche,
    oro, Cinzel, Manrope) con Cormorant italica como voz de acento y papel marfil para

@@ -120,7 +120,8 @@ if(occGrid){
 const MONTAJES=[],limpiezas=[];let ctx=null;
 function desmontar(){if(ctx){ctx.revert();ctx=null;}while(limpiezas.length)try{limpiezas.pop()();}catch(e){}}
 function montar(entrada){desmontar();
-  if(quieto()||!G)return;const v=vistaActiva();if(!v)return;
+  /* Sin vista abierta lo que se ve es la portada, que hace scroll con la ventana. */
+  if(quieto()||!G)return;const v=vistaActiva()||document.getElementById('home');if(!v)return;
   ctx=G.context(()=>{MONTAJES.forEach(m=>{if(v.matches(m.sel))try{m.f(v,!!entrada);}catch(e){}});},v);
   ST.refresh();}
 FX.montar=montar;
@@ -129,7 +130,7 @@ alEncender.push(()=>conGsap(()=>montar(false)));
 conGsap(()=>montar(false));
 /* Repintados que cambian el DOM de una vista abierta (idioma, filtros del catalogo). */
 let espera=0;const remontar=()=>{clearTimeout(espera);espera=setTimeout(()=>montar(true),80);};
-['ocBody','shopGrid'].forEach(id=>{const el=document.getElementById(id);
+['ocBody','shopGrid','hOcc'].forEach(id=>{const el=document.getElementById(id);
   if(el&&'MutationObserver'in window)new MutationObserver(remontar).observe(el,{childList:true});});
 
 /* B · Paginas de ocasion: parallax en varios planos. */
@@ -204,7 +205,7 @@ const bajoElBorde=el=>el.getBoundingClientRect().top>innerHeight;
 function revelar(v,items){
   items=items.filter(bajoElBorde);if(!items.length)return;
   G.set(items,{opacity:0,y:42,rotationX:9,transformPerspective:900,transformOrigin:'50% 0%',transition:'none'});
-  ST.batch(items,{scroller:v,start:'top bottom-=20',once:true,
+  ST.batch(items,{scroller:v.id==='home'?window:v,start:'top bottom-=20',once:true,
     onEnter:els=>G.to(els,{opacity:1,y:0,rotationX:0,duration:.9,ease:'power3.out',stagger:.08,overwrite:true,clearProps:'opacity,transform,transition'})});}
 
 /* La noche de ejemplo, fijada mientras pasan sus tres momentos. */
@@ -255,6 +256,10 @@ MONTAJES.push({sel:'#view-gallery',f(v){
   revelar(v,[...v.querySelectorAll('.gal,.cat-note,.cierre .row,.cierre .pie')]);}});
 MONTAJES.push({sel:'#view-services',f(v){
   revelar(v,[...v.querySelectorAll('.cat-note,.cierre .row,.cierre .pie')]);}});
+
+/* Portada (tanda 4): cada tramo se revela al llegar; la carta de servicios, fila a fila. */
+MONTAJES.push({sel:'#home',f(v){
+  revelar(v,[...v.querySelectorAll('.tr-h,.tr .occ,.tr .a-links,.carta li,.tr-go,.tr-li .lead,.tr-li .a-link,.tr-li .ph,.mosaico,.tr-fin .hero-steps li,.cierre .row,.cierre .pie')]);}});
 
 /* El catalogo se arma al bajar: cada ficha llega desde atras, girada, y se asienta. */
 MONTAJES.push({sel:'#view-services',f(v,entra){

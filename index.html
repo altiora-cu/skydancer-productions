@@ -311,15 +311,72 @@ body.carga .hero-inner{transition:none}
 .hc-2{background:rgba(5,4,10,.35);color:var(--ink);border:1px solid rgba(246,224,160,.45);padding:0 24px}
 .hc-2:hover{border-color:var(--gold);background:rgba(12,8,22,.66)}
 .hc-2 .svg-wrap .svg-ic{width:18px;height:18px}
-.hero-steps{margin-top:22px;display:flex;flex-wrap:wrap;gap:6px 22px;list-style:none;font-size:14px;color:var(--muted)}
-.hero-steps b{margin-right:6px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:19px;color:#f6e0a0}
+.hero-steps{margin-top:20px;display:grid;gap:8px 30px;list-style:none;font-size:16px;color:#d7cfe6}
+.hero-steps li{display:flex;align-items:baseline;gap:10px}
+.hero-steps b{flex:none;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:22px;color:#f6e0a0}
+@media(min-width:900px){.hero-steps{grid-template-columns:repeat(3,auto);justify-content:start}}
+
+/* PORTADA QUE SE RECORRE (tanda 4): debajo de la presentacion, un tramo por destino en
+   este orden: ocasiones, los 15 servicios, Liana y el equipo, galeria y cierre. Cada
+   tramo tiene otra forma (tarjetas de ocasion, carta de precios, retrato, mosaico) para
+   que la pagina no sea la misma rejilla cuatro veces. */
+.tramos{position:relative;z-index:3;background:var(--bg);font-size:16px;line-height:1.55}
+body.no-scroll .tramos{visibility:hidden;transition:visibility 0s .45s}
+body.no-scroll.solo-menu .tramos{visibility:visible}
+body.carga .tramos{transition:none}
+.tr{padding:clamp(52px,8vw,100px) 0}
+.tr+.tr{border-top:1px solid var(--line)}
+.tr-h{max-width:26ch;font-family:'Cinzel',serif;font-weight:500;font-size:clamp(24px,2.8vw,40px);line-height:1.15;letter-spacing:.005em}
+.tr .occ-grid{margin-top:28px}
+.tr .a-links{margin-top:18px}
+.tr-go{margin-top:26px}
+.tr-svc{background:linear-gradient(180deg,var(--bg2),var(--bg))}
+.carta{margin-top:26px;list-style:none;display:grid;grid-template-columns:minmax(0,1fr);column-gap:44px;border-top:1px solid var(--line)}
+.carta a{display:flex;align-items:baseline;justify-content:space-between;gap:14px;min-height:52px;padding:13px 0;border-bottom:1px solid var(--line);transition:color .25s}
+.carta .nm{font-family:'Cinzel',serif;font-weight:700;font-size:17px;line-height:1.3;letter-spacing:.02em}
+.carta .pr{flex:none;font-weight:600;font-size:15px;color:var(--gold-hi);font-variant-numeric:tabular-nums}
+.carta a:hover .nm{color:var(--gold-hi)}
+.carta a:focus-visible,.mosaico:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media(min-width:700px){.carta{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1100px){.carta{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(5,auto);grid-auto-flow:column}}
+.tr-li{background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
+.tr-li .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.tr-li .tr-h{max-width:24ch;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(28px,3.3vw,48px);line-height:1.1;letter-spacing:0}
+.tr-li .tr-h .cz{font-family:'Cinzel',serif;font-style:normal;font-weight:500;font-size:.8em;color:var(--gold-hi);letter-spacing:.01em}
+.tr-li .lead{margin-top:18px;max-width:50ch;font-size:17px;color:#ddd5ec}
+.tr-li .a-link{margin-top:8px}
+.tr-li .ph{justify-self:end;width:100%;max-width:400px}
+/* La cara de Liana va arriba en la foto: anclada arriba cabe entera en los dos formatos del arco. */
+.tr-li .arch{aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 18px 18px;border:1px solid rgba(246,224,160,.35);background:#120e1c}
+.tr-li .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.tr-li figcaption{margin-top:10px;font-size:14px;color:var(--muted)}
+.mosaico{position:relative;margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:20px;overflow:hidden}
+.mosaico img{width:100%;height:100%;min-height:0;object-fit:cover;background:#120e1c}
+.mosaico .m1{grid-column:1/-1;aspect-ratio:3/2}
+.mosaico .m2{grid-row:span 2}
+.mosaico .m3,.mosaico .m4{aspect-ratio:1/1}
+.mosaico .ver{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:99px;background:rgba(5,4,10,.86);border:1px solid rgba(246,224,160,.45);color:var(--gold-hi);font-weight:700;font-size:16px}
+.mosaico:hover .ver{border-color:var(--gold)}
+@media(min-width:900px){
+  .mosaico{grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:12px}
+  .mosaico .m1{grid-column:1;grid-row:1/3;aspect-ratio:auto}
+  .mosaico .m2{grid-column:2;grid-row:1/3}
+  .mosaico .m3,.mosaico .m4{grid-column:3;aspect-ratio:4/3}
+  .mosaico .ver{left:18px;bottom:18px}
+}
+.tr-fin{padding-bottom:0}
+.tr-fin .cierre{margin-top:34px}
+@media(max-width:900px){
+  .tr-li .aw{grid-template-columns:1fr;gap:26px}
+  .tr-li .ph{justify-self:stretch;max-width:none}
+  .tr-li .arch{aspect-ratio:4/3.4;border-radius:220px 220px 16px 16px}
+}
 @media(max-width:900px){
   .hero-inner{padding-bottom:44px}
   .hero-proof{font-size:16px;gap:4px 14px;margin-top:14px}
   .hero-cta{margin-top:20px;gap:10px}
   .hc-1{width:100%}
   .hc-2{flex:1}
-  .hero-steps{display:none}
 }
 .logo3d{margin:14px 0 8px;perspective:900px}
 .logo3d .line{font-family:'Cinzel',serif;font-weight:900;text-transform:uppercase;transform-style:preserve-3d;animation:float3d 7s ease-in-out infinite}
@@ -851,7 +908,6 @@ body.en-arma .cart-fab{display:none}
 html.fx .hero-inner{transform:perspective(1400px) rotateX(calc(var(--my,0)*-2deg)) rotateY(calc(var(--mx,0)*2.6deg));transform-style:preserve-3d}
 html.fx .hero-h1{translate:calc(var(--mx,0)*-12px) calc(var(--my,0)*-7px) 40px}
 html.fx .hero-proof{translate:calc(var(--mx,0)*-6px) calc(var(--my,0)*-4px) 18px}
-html.fx .hero-steps{translate:calc(var(--mx,0)*7px) calc(var(--my,0)*4px) -30px}
 /* Paso 1: la tarjeta se inclina hacia el puntero (o con el giroscopio) y la foto se
    desplaza al reves dentro de su arco, que es lo que da la sensacion de hondura. */
 html.fx .occ{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:border-color .3s,transform .7s var(--ease)}
@@ -946,9 +1002,37 @@ html.fx #shopGrid{perspective:1200px}
       <a class="hc hc-1" href="#/arma" data-entrada="portada" data-i18n="hero.cta1">Build your show</a>
       <a class="hc hc-2" href="https://wa.me/17869924543" target="_blank" rel="noopener"><span class="svg-wrap" data-ic="chat" aria-hidden="true"></span><span>WhatsApp +1 786-992-4543</span></a>
     </div>
-    <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and county</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
   </div>
 </section>
+</div>
+<!-- De aqui en adelante la portada se recorre: un tramo por destino, con su avance real y
+     su enlace a la pagina completa. Lo pinta pintarPortada() con los mismos datos que las
+     paginas (OCASIONES, SERVICES); no hay contenido nuevo. -->
+<div class="tramos" id="tramos">
+  <section class="tr tr-oc" aria-labelledby="trOcT"><div class="aw">
+    <h2 class="tr-h" id="trOcT" data-i18n="arma.t">What are we building the show for?</h2>
+    <div class="occ-grid" id="hOcc"></div>
+    <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a></div>
+  </div></section>
+  <section class="tr tr-svc" aria-labelledby="trSvT"><div class="aw">
+    <h2 class="tr-h" id="trSvT" data-i18n="svc.h1">SkyDancer's 15 services: ten with a starting price and five Liana quotes to order</h2>
+    <ol class="carta" id="hCarta"></ol>
+    <div class="tr-go"><a class="a-btn a-ghost" href="#/servicios" data-i18n="arma.all">See the 15 services →</a></div>
+  </div></section>
+  <section class="tr tr-li" aria-labelledby="trLiT"><div class="aw">
+    <div><h2 class="tr-h" id="trLiT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, founded and directs SkyDancer Productions from Miami</h2>
+      <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p>
+      <a class="a-link" href="#/liana" data-i18n="li.ver">Liana's story →</a></div>
+    <figure class="ph"><div class="arch" id="hLiana"></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+  </div></section>
+  <section class="tr tr-gal" aria-labelledby="trGaT"><div class="aw">
+    <h2 class="tr-h" id="trGaT" data-i18n="gal.h1">The reel and eight services in photos, with 21 pieces of Themed Entertainment and 8 of Interactive Performances</h2>
+    <a class="mosaico" id="hMosaico" href="#/galeria"><span class="ver" data-i18n="hm.gal">See the gallery →</span></a>
+  </div></section>
+  <section class="tr tr-fin" aria-labelledby="trFinT"><div class="aw">
+    <h2 class="tr-h" id="trFinT" data-i18n="menu.n1">Build your show</h2>
+    <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and county</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
+  </div><footer class="cierre" data-cierre="portada"></footer></section>
 </div>
 </main>
 
@@ -1223,7 +1307,7 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','hero.play':'Play background video',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','hm.gal':'See the gallery →','hero.play':'Play background video',
   
   'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -1237,7 +1321,7 @@ const I18N={
   
   'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
   'ui.add':'Add to my show','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','hero.play':'Reproducir el video de fondo',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','hm.gal':'Ver la galería →','hero.play':'Reproducir el video de fondo',
   
   'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
@@ -1795,6 +1879,7 @@ function applyLang(){document.documentElement.lang=lang;
      en el idioma anterior mientras el resto de la pagina ya habia cambiado. */
   if(pmId)openProduct(pmId);
   if(typeof pintarArma==='function'&&currentView)pintarArma();
+  if(portadaLista)pintarPortada();
   if(typeof titulo==='function')titulo();}
 /* Delegado en document a proposito: antes se enlazaba boton por boton al cargar, asi que
    cualquier selector generado despues (el de la ficha de servicio, que se pinta por JS)
@@ -1895,8 +1980,22 @@ const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 function pintarPaso1(){const v=document.getElementById('view-arma');
   pintarPasos(v,1,[SHOW.ocasion&&OCASIONES[SHOW.ocasion]?OCASIONES[SHOW.ocasion].nombre[lang]:'']);
   document.getElementById('armaPlanner').hidden=!SHOW.planner;
-  document.getElementById('occGrid').innerHTML=OCAS_KEYS.map(k=>{const o=OCASIONES[k];
-    return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg" alt="" loading="lazy"></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
+  document.getElementById('occGrid').innerHTML=occHTML('');}
+/* Las cuatro tarjetas de ocasion: las mismas en el paso 1 y en la portada. */
+function occHTML(prio){return OCAS_KEYS.map(k=>{const o=OCASIONES[k];
+    return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg" alt="" loading="lazy"${prio}></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
+/* Tramos de la portada. Se pintan la primera vez que se entra en #/ (no en un enlace
+   directo a otra vista: sus fotos competirian con el LCP de esa vista) y se repintan al
+   cambiar de idioma. Las fotos van con loading=lazy y prioridad baja. */
+let portadaLista=false;
+function pintarPortada(){const g=document.getElementById('hOcc');if(!g)return;portadaLista=true;
+  const baja=' fetchpriority="low"';
+  g.innerHTML=occHTML(baja);
+  document.getElementById('hCarta').innerHTML=SERVICES.map(s=>`<li><a href="#/servicios/${s.id}"><span class="nm">${esc(s.name[lang])}</span><span class="pr">${precioTxt(s)}</span></a></li>`).join('');
+  const li=document.getElementById('hLiana');
+  if(!li.firstChild)li.innerHTML=`<img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy"${baja}>`;
+  const mo=document.getElementById('hMosaico');
+  if(!mo.querySelector('img'))mo.insertAdjacentHTML('afterbegin',['themed','interactive','horaloca','dancers'].map((n,i)=>`<img class="m${i+1}" src="assets/gallery/g-${n}.jpg" alt="" loading="lazy"${baja}>`).join(''));}
 
 /* Pinta la vista del recorrido que este activa (al entrar y al cambiar de idioma). */
 function pintarArma(){const [r0,r1]=rutaActual().split('/');
@@ -1924,7 +2023,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
   if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
-  if(!r0){hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:0,behavior:'instant'});}
+  if(!r0){if(!portadaLista)pintarPortada();hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:0,behavior:'instant'});}
   else showView(vista);
   /* El show pudo cambiar en otra vista (una ocasion elegida, un envio): los botones de
      agregar, el boton flotante y los cierres se ponen al dia al entrar. */

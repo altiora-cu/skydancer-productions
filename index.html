@@ -817,6 +817,18 @@ body.en-arma .cart-fab{display:none}
 @media(max-width:1100px){.li-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.li-cols{grid-template-columns:1fr}.proof .li-cols h2{min-height:0}}
 @media(prefers-reduced-motion:reduce){.li-gancho .arch video{display:none}}
+/* Tanda 6 · pieza 4: Liana en marco vertical recto, con la proporcion de su video
+   (liana-hero.mp4, 720 x 1280). El marco no pasa del 80 % del alto de la pantalla (72 % en
+   el telefono, que ademas lleva dos barras) y reserva su sitio con aspect-ratio. La foto
+   hace de poster debajo del video: es 1021 x 1400, mas ancha que el marco, y se ancla al
+   76 % para que entren la cara y el codo. El video solo se pide al acercarse ([data-defer]). */
+.aw .ph.ph-v{width:min(100%,45vh);width:min(100%,45svh);max-width:none}
+.ph.ph-v .arch{position:relative;aspect-ratio:9/16;border-radius:14px}
+.ph.ph-v .arch img{object-position:76% 0}
+.ph.ph-v .arch video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity .6s}
+.ph.ph-v .arch video[data-woke]{opacity:1}
+@media(max-width:900px){.aw .ph.ph-v{justify-self:center;width:min(100%,40.5vh);width:min(100%,40.5svh)}}
+@media(prefers-reduced-motion:reduce){.ph.ph-v .arch video{display:none}}
 /* Paginas de ocasion: gancho, noche de ejemplo, prueba en papel marfil, boton, otras */
 .oc-gancho{padding:52px 0 60px;background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .oc-gancho .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
@@ -1202,7 +1214,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <div><h2 class="tr-h" id="trLiT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h2>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p>
       <a class="a-link" href="#/liana" data-i18n="li.ver">Liana's story →</a></div>
-    <figure class="ph"><div class="arch" id="hLiana"></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+    <figure class="ph ph-v"><div class="arch" id="hLiana"><video muted loop playsinline preload="none" data-defer aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
   </div></section>
   <section class="tr tr-gal" aria-labelledby="trGaT"><div class="aw">
     <h2 class="tr-h" id="trGaT" data-i18n-html="gal.h1">Digital Gallery, <span class="h-sub">with 21 pieces of Themed Entertainment and 8 of Interactive Performances</span></h2>
@@ -1240,7 +1252,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <div><p class="a-eyebrow" data-i18n="menu.n3">Liana and the team</p>
       <h1 id="lianaT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h1>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p></div>
-    <figure class="ph"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted playsinline preload="none" data-defer aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+    <figure class="ph ph-v"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted loop playsinline preload="none" data-defer aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
   </div></section>
   <section class="li-bio"><div class="aw">
     <p class="a-eyebrow" data-i18n="li.bioK">Her story</p>
@@ -2233,7 +2245,7 @@ function pintarPortada(){const g=document.getElementById('hOcc');if(!g)return;po
   g.innerHTML=occHTML(baja);fila(g);
   const ca=document.getElementById('hCarta');ca.innerHTML=SERVICES.map(s=>svcCard(s,'h3')).join('');fila(ca);
   const li=document.getElementById('hLiana');
-  if(!li.firstChild)li.innerHTML=`<img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy"${baja}>`;
+  if(!li.querySelector('img'))li.insertAdjacentHTML('afterbegin',`<img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy"${baja}>`);
   const mo=document.getElementById('hMosaico');
   if(!mo.querySelector('img'))mo.insertAdjacentHTML('afterbegin',['themed','interactive','horaloca','dancers'].map((n,i)=>`<img class="m${i+1}" src="assets/gallery/g-${n}.jpg" alt="" loading="lazy"${baja}>`).join(''));}
 

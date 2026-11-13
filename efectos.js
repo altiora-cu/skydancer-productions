@@ -117,21 +117,39 @@ if(occGrid){
 
 /* ── Montajes por vista (ScrollTrigger vive dentro de cada .view, que es la que hace
    scroll). Se desmontan al cambiar de vista y se rehacen si la vista se repinta. ── */
-const MONTAJES=[],limpiezas=[];let ctx=null;
-function desmontar(){if(ctx){ctx.revert();ctx=null;}while(limpiezas.length)try{limpiezas.pop()();}catch(e){}}
-function montar(entrada){desmontar();
+const MONTAJES=[],limpiezas=[],avisos=[];let ctx=null,espera=0,enEntrada=false,red=0,retraso=0;
+function desmontar(){clearTimeout(red);enEntrada=false;if(ctx){ctx.revert();ctx=null;}while(limpiezas.length)try{limpiezas.pop()();}catch(e){}}
+/* entra: la vista acaba de abrirse y lo que esta en pantalla sube. tarda: segundos hasta que la
+   vista nueva se ve (lo que dura la salida de la anterior en una View Transition). */
+function montar(entra,tarda){desmontar();
+  /* Este montaje ya cuenta con lo que se acaba de pintar: esos avisos no deben remontar despues. */
+  clearTimeout(espera);avisos.forEach(o=>o.takeRecords());
   /* Sin vista abierta lo que se ve es la portada, que hace scroll con la ventana. */
   if(quieto()||!G)return;const v=vistaActiva()||document.getElementById('home');if(!v)return;
-  ctx=G.context(()=>{MONTAJES.forEach(m=>{if(v.matches(m.sel))try{m.f(v,!!entrada);}catch(e){}});},v);
+  retraso=tarda||0;
+  ctx=G.context(()=>{MONTAJES.forEach(m=>{if(v.matches(m.sel))try{m.f(v,!!entra);}catch(e){}});},v);
+  vigilar(v);
   ST.refresh();}
+/* Si el contenido de una vista cambia de alto sin scroll (un mes del calendario mas corto, un
+   aviso que se va), lo que esperaba bajo el borde puede quedar a la vista: se recalcula. */
+function vigilar(v){
+  if(!('ResizeObserver'in window)||v.id==='home')return;
+  let t=0,primera=true;
+  const ro=new ResizeObserver(()=>{if(primera){primera=false;return;}
+    clearTimeout(t);t=setTimeout(()=>{if(ctx)ST.refresh();},120);});
+  [...v.children].forEach(c=>ro.observe(c));
+  limpiezas.push(()=>{ro.disconnect();clearTimeout(t);});}
 FX.montar=montar;
 alApagar.push(desmontar);
 alEncender.push(()=>conGsap(()=>montar(false)));
 conGsap(()=>montar(false));
 /* Repintados que cambian el DOM de una vista abierta (idioma, filtros del catalogo). */
-let espera=0;const remontar=()=>{clearTimeout(espera);espera=setTimeout(()=>montar(true),80);};
+/* Lo que ya se ve no vuelve a entrar; y si hay una entrada a medias, se espera a que acabe:
+   remontar la desharia de golpe. */
+const remontar=()=>{clearTimeout(espera);espera=setTimeout(function f(){
+  if(enEntrada){espera=setTimeout(f,120);return;}montar(false);},80);};
 ['ocBody','shopGrid','hOcc','hCarta'].forEach(id=>{const el=document.getElementById(id);
-  if(el&&'MutationObserver'in window)new MutationObserver(remontar).observe(el,{childList:true});});
+  if(el&&'MutationObserver'in window){const o=new MutationObserver(remontar);o.observe(el,{childList:true});avisos.push(o);}});
 
 /* B · Paginas de ocasion: parallax en varios planos. */
 MONTAJES.push({sel:'#view-ocasion',f(v){
@@ -158,8 +176,8 @@ MONTAJES.push({sel:'#view-ocasion',f(v){
 
 /* ── C · Transiciones entre vistas, con direccion ─────────────────────────────
    Orden del recorrido: arma (1) → ocasion (2) → arma/fecha (3) → arma/show (4).
-   Entre dos vistas del recorrido gira la pagina (View Transitions); si el navegador
-   no las tiene, o se llega desde la portada o el menu, entran los bloques con GSAP. */
+   Entre dos vistas del recorrido gira la pagina (View Transitions). En todos los caminos los
+   bloques de la vista nueva entran como los tramos de la portada: montar(true) y revelar(). */
 const OCAS=['bodas','empresas','noches','celebraciones','planners'];
 function rango(r){const [a,b]=r.split('/');
   if(a==='arma')return b==='fecha'?3:b==='show'?4:1;
@@ -167,19 +185,6 @@ function rango(r){const [a,b]=r.split('/');
 let rutaUlt=rutaActual();
 const barraDe=v=>v&&v.querySelector('.arma-bar');
 const nombrar=(v,on)=>{const b=barraDe(v);if(b)b.style.viewTransitionName=on?'fx-barra':'';};
-function entrada(v,dir){
-  if(!G||!v||quieto())return null;
-  const aw=v.querySelector('.aw');if(!aw)return null;
-  const items=[];
-  [...aw.children].forEach(el=>{
-    /* Las filas que sangran hasta el borde entran pieza a pieza: giradas enteras desbordan la vista unos px (pasada Z). */
-    if(el.matches('.fila'))items.push(...el.children);
-    else if(el.tagName==='DIV'&&!el.className)items.push(...el.children);
-    else items.push(el);});
-  const vis=items.filter(el=>{const r=el.getBoundingClientRect();return r.height&&r.top<innerHeight;}).slice(0,10);
-  if(!vis.length)return null;
-  return G.from(vis,{opacity:0,y:26,x:dir==='atras'?-34:dir==='adelante'?34:0,rotationX:7,transformPerspective:900,
-    duration:.8,ease:'power3.out',stagger:.055,clearProps:'opacity,transform'});}
 let bajoMenu=false;
 FX.transicion=function(ir,fin){
   /* El menu es un panel sobre la vista: ni al abrirlo ni al cerrarlo sobre la misma
@@ -193,9 +198,9 @@ FX.transicion=function(ir,fin){
   if(document.startViewTransition&&r1>0&&r2>0&&vistaActiva()){
     root.dataset.dir=dir;root.classList.add('vt');desmontar();nombrar(vistaActiva(),true);
     let t;
-    try{t=document.startViewTransition(()=>{nombrar(vistaActiva(),false);ir();nombrar(vistaActiva(),true);});}
-    catch(e){root.classList.remove('vt');ir();montar(false);fin();return;}
-    const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;nombrar(vistaActiva(),false);montar(false);fin();};
+    try{t=document.startViewTransition(()=>{nombrar(vistaActiva(),false);ir();nombrar(vistaActiva(),true);montar(true,.22);});}
+    catch(e){root.classList.remove('vt');delete root.dataset.dir;ir();montar(true);fin();return;}
+    const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;nombrar(vistaActiva(),false);fin();};
     t.finished.then(cerrar,cerrar);return;}
   /* La ficha de un servicio se abre y se cierra sobre el catalogo: nada que animar debajo. */
   if(de.split('/')[0]==='servicios'&&a.split('/')[0]==='servicios'){ir();fin();return;}
@@ -205,37 +210,54 @@ FX.transicion=function(ir,fin){
   if(document.startViewTransition&&vistaActiva()&&a){
     root.dataset.dir='funde';root.classList.add('vt');desmontar();nombrar(vistaActiva(),true);
     let t;
-    try{t=document.startViewTransition(()=>{document.querySelectorAll('.arma-bar').forEach(b=>b.style.viewTransitionName='');ir();nombrar(vistaActiva(),true);montar(true);});}
+    try{t=document.startViewTransition(()=>{document.querySelectorAll('.arma-bar').forEach(b=>b.style.viewTransitionName='');ir();nombrar(vistaActiva(),true);montar(true,.2);});}
     catch(e){root.classList.remove('vt');delete root.dataset.dir;ir();montar(true);fin();return;}
     const cerrar=()=>{root.classList.remove('vt');delete root.dataset.dir;document.querySelectorAll('.arma-bar').forEach(b=>b.style.viewTransitionName='');fin();};
     if(t.ready)t.ready.catch(()=>{});
     t.finished.then(cerrar,cerrar);return;}
-  ir();
-  const v=vistaActiva(),tw=entrada(v,r1>0&&r2>0?dir:'');
-  montar(true);
-  if(tw)tw.eventCallback('onComplete',fin);else fin();};
+  ir();montar(true);fin();};
 
 /* ── D · Scroll ────────────────────────────────────────────────────────────────
    Revelado (tanda 5: un solo lenguaje, sube 36 px y se asienta, escalonado, sin giros que
-   monten una pieza sobre otra): solo lo que esta por debajo del borde al montar; lo que ya se ve no se
-   esconde nunca (ni siquiera un instante). */
+   monten una pieza sobre otra). Lo que esta por debajo del borde al montar espera al scroll.
+   Lo que ya se ve solo se esconde al abrir una vista (entra), y en ese mismo instante: nunca
+   cuando GSAP llega tarde, ni al cambiar de idioma, ni al remontar. Solo transform y opacity:
+   lo oculto ocupa su sitio. */
 const bajoElBorde=el=>el.getBoundingClientRect().top>innerHeight;
-function revelar(v,items){
-  items=items.filter(bajoElBorde);if(!items.length)return;
-  G.set(items,{opacity:0,y:36,transition:'none'});
-  ST.batch(items,{scroller:v.id==='home'?window:v,start:'top bottom-=20',once:true,
-    onEnter:els=>G.to(els,{opacity:1,y:0,duration:.55,ease:'power3.out',stagger:{amount:Math.min(.3,.06*els.length)},overwrite:true,clearProps:'opacity,transform,transition'})});}
+const enPantalla=el=>{const r=el.getBoundingClientRect();return r.height>0&&r.bottom>0&&r.top<=innerHeight&&r.right>0&&r.left<innerWidth;};
+const OCULTO={opacity:0,y:36,transition:'none'};
+const sube=n=>({opacity:1,y:0,duration:.55,ease:'power3.out',stagger:{amount:Math.min(.3,.06*n)},clearProps:'opacity,transform,transition'});
+function revelar(v,items,entra){
+  const abajo=items.filter(bajoElBorde),vis=entra?items.filter(enPantalla):[];
+  if(vis.length){
+    G.set(vis,OCULTO);enEntrada=true;
+    const tw=G.to(vis,{...sube(vis.length),delay:retraso,onComplete(){clearTimeout(red);enEntrada=false;}});
+    /* Red de seguridad: en una pestana en segundo plano requestAnimationFrame se para y los
+       temporizadores no. Pasado el tiempo de la entrada, se da por terminada. */
+    red=setTimeout(()=>tw.progress(1),(retraso+.85)*1000+350);}
+  if(!abajo.length)return;
+  G.set(abajo,OCULTO);
+  ST.batch(abajo,{scroller:v.id==='home'?window:v,start:'top bottom-=20',once:true,
+    onEnter:els=>G.to(els,{...sube(els.length),overwrite:true})});}
 
 /* Tanda 5: la noche de ejemplo ya no se fija ni se apila; sus momentos se revelan como el resto. */
-MONTAJES.push({sel:'#view-ocasion',f(v){
-  revelar(v,[...v.querySelectorAll('.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .mom,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a,.cierre .row,.cierre .pie')]);}});
-/* Liana, galeria y catalogo (tanda 3): lo que queda bajo el borde se revela al bajar. */
-MONTAJES.push({sel:'#view-about',f(v){
-  revelar(v,[...v.querySelectorAll('.li-bio p,.li-cols>div,.li-equipo .aw>*,.cierre .row,.cierre .pie')]);}});
-MONTAJES.push({sel:'#view-gallery',f(v){
-  revelar(v,[...v.querySelectorAll('.gal,.cat-note,.cierre .row,.cierre .pie')]);}});
-MONTAJES.push({sel:'#view-services',f(v){
-  revelar(v,[...v.querySelectorAll('#shopGrid .svc-card,.cat-note,.cierre .row,.cierre .pie')]);}});
+MONTAJES.push({sel:'#view-ocasion',f(v,e){
+  revelar(v,[...v.querySelectorAll('.oc-gancho .aw>div>*,.oc-gancho .ph,.oc-noche .a-eyebrow,.oc-noche h2,.oc-noche .mom,.oc-noche .nota,.oc-noche .opcion,.oc-accion .liana,.oc-accion .box,.oc-accion .viaje,.oc-otras .a-eyebrow,.oc-otras .row a,.cierre .row,.cierre .pie')],e);}});
+/* Liana, galeria y catalogo (tanda 3): lo que queda bajo el borde se revela al bajar. Pasada W:
+   al abrir la vista, tambien entra lo de arriba (titular, entradilla, foto, primeras tarjetas). */
+MONTAJES.push({sel:'#view-about',f(v,e){
+  revelar(v,[...v.querySelectorAll('.li-gancho .aw>div>*,.li-gancho .ph,.li-bio p,.li-prueba .a-eyebrow,.li-cols>div,.li-equipo .aw>*,.cierre .row,.cierre .pie')],e);}});
+MONTAJES.push({sel:'#view-gallery',f(v,e){
+  revelar(v,[...v.querySelectorAll('.a-h1,.a-sub,.gal,.fila-nav,.cat-note,.cierre .row,.cierre .pie')],e);}});
+MONTAJES.push({sel:'#view-services',f(v,e){
+  revelar(v,[...v.querySelectorAll('.a-eyebrow,.a-h1,.a-sub,.perks,#shopGrid .svc-card,.cat-note,.cierre .row,.cierre .pie')],e);}});
+/* Los tres pasos de «Arma tu show» (pasada W). La barra de pasos y la de abajo no entran en la lista. */
+MONTAJES.push({sel:'#view-arma',f(v,e){
+  revelar(v,[...v.querySelectorAll('.a-eyebrow,.a-h1,.occ,.fila-nav,.a-links')],e);}});
+MONTAJES.push({sel:'#view-fecha',f(v,e){
+  revelar(v,[...v.querySelectorAll('.a-main .aw>div>*,.aside')],e);}});
+MONTAJES.push({sel:'#view-show',f(v,e){
+  revelar(v,[...v.querySelectorAll('#sForm>*')],e);}});
 
 /* Portada (tanda 6): cada tramo entra con el lenguaje de la presentacion (sube 36 px y se
    asienta, escalonado): titular, ventanas de ocasion, tarjetas de servicio y los controles

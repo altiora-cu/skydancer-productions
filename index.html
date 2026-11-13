@@ -243,7 +243,8 @@ img{max-width:100%;display:block}
    El destino en el que se esta lleva aria-current y se marca con peso y una raya, no solo
    con color. «Arma tu show» va en contorno: el unico boton lleno de cada pagina sigue
    siendo el suyo. En el telefono la barra conserva marca, idioma y «Menu» (atajo), y los
-   cuatro destinos estan tambien al pie de cada pagina (.pie-nav). */
+   cuatro destinos van en la barra inferior (tanda 6). Al pie de cada pagina (.pie-nav)
+   solo se repiten desde 1000 px, donde esa barra no existe. */
 .hd-nav{display:none}
 @media(min-width:1000px){
   .hd-nav{display:flex;align-items:center;gap:2px;margin-left:auto}
@@ -274,7 +275,8 @@ img{max-width:100%;display:block}
 .pie-nav a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .cierre .pie-nav+.pie{margin-top:8px}
 .cierre.solo-pie .pie-nav{margin-top:0}
-@media(max-width:560px){.pie-nav{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}}
+/* Telefono: la barra inferior ya da estos cuatro destinos; el pie se queda con marca y correo. */
+@media(max-width:999px){.pie-nav{display:none}.cierre .pie-nav+.pie{margin-top:22px}}
 .topbar .lang{padding:2px}
 .topbar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
 body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none;transition:none}

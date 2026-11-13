@@ -198,6 +198,13 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
+/* Pasada V: fuentes de respaldo con el ancho de la fuente web, solo para el titular de Liana y de las paginas
+   de ocasion (.oc-gancho h1). Si Cinzel o Cormorant Garamond llegan tarde, el titular ya parte igual y lo de
+   debajo no sube 35 px al entrar la fuente. Solo se ajusta el ancho (size-adjust); el alto de linea ya es fijo.
+   No se usan en barras, botones ni tarjetas: ahi un respaldo mas ancho partia la barra de arriba a 360 px.
+   Donde no hay Georgia ni Times (Android) la regla no aplica y queda como estaba. */
+@font-face{font-family:'Cinzel Resp';font-weight:100 900;src:local('Times New Roman'),local('TimesNewRomanPSMT');size-adjust:137%}
+@font-face{font-family:'Cormorant Resp';font-style:italic;font-weight:100 900;src:local('Georgia Italic'),local('Georgia-Italic');size-adjust:79%}
 :root{
   --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
   --gold:#e6c25c; --gold-grad:linear-gradient(120deg,#b8912f,#f6e0a0 45%,#e6c25c 70%,#b8912f);
@@ -886,8 +893,8 @@ body.en-arma .cart-fab{display:none}
 /* Paginas de ocasion: gancho, noche de ejemplo, prueba en papel marfil, boton, otras */
 .oc-gancho{padding:52px 0 60px;background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .oc-gancho .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
-.oc-gancho h1{margin-top:16px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:var(--t-h1-it);line-height:1.1;letter-spacing:0}
-.oc-gancho h1 .cz{font-family:'Cinzel',serif;font-style:normal;font-weight:500;font-size:.8em;color:var(--gold-hi);letter-spacing:.01em}
+.oc-gancho h1{margin-top:16px;font-family:'Cormorant Garamond','Cormorant Resp',Georgia,serif;font-style:italic;font-weight:500;font-size:var(--t-h1-it);line-height:1.1;letter-spacing:0}
+.oc-gancho h1 .cz{font-family:'Cinzel','Cinzel Resp',serif;font-style:normal;font-weight:500;font-size:.8em;color:var(--gold-hi);letter-spacing:.01em}
 .oc-gancho .lead{margin-top:20px;max-width:var(--medida-corta);font-size:18px;color:#ddd5ec}
 .oc-gancho .ph{justify-self:end;width:100%;max-width:440px}
 .oc-gancho .arch{aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 18px 18px;border:1px solid rgba(246,224,160,.35);background:#120e1c}

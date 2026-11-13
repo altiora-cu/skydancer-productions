@@ -282,6 +282,17 @@ body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none;transitio
    para que el contenido que pasa por debajo no se mezcle con la marca y el idioma. */
 .topbar{transition:opacity .3s,background .3s}
 body.sin-reel .topbar,body.bajando .topbar{background:rgba(5,4,10,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+/* Pasada U (WCAG 1.4.3): mientras el reel esta detras, la cabecera no tiene fondo y el video pasa por
+   fotogramas claros (medido en 107 fotogramas: los destinos bajaban a 2,06 a 1, «Menu» a 2,24 y el idioma
+   sin elegir a 3,80). Lo que se lee lleva detras una pildora oscura, la misma pieza que el selector de
+   idioma: los destinos en una capsula comun (con «Arma tu show» dentro, como el idioma activo dentro de la
+   suya) y «Menu» en la suya. Va en un ::before, sin tocar la caja de nada: al bajar, cuando la cabecera toma
+   su fondo, la pildora se apaga y todo queda donde estaba. Al reel no se le pone ningun velo nuevo. */
+.topbar .hd-nav,.topbar .ab-menu{position:relative;isolation:isolate}
+.topbar .hd-nav::before,.topbar .ab-menu::before{content:"";position:absolute;z-index:-1;top:-3px;right:-3px;bottom:-3px;left:-3px;border-radius:999px;background:rgba(10,7,18,.72);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);pointer-events:none;transition:opacity .3s}
+body.sin-reel .topbar :is(.hd-nav,.ab-menu)::before,body.bajando .topbar :is(.hd-nav,.ab-menu)::before{opacity:0}
+.topbar .lang{transition:background .3s}
+body:not(.sin-reel):not(.bajando) .topbar .lang{background:rgba(10,7,18,.72)}
 .tb-logo{display:inline-flex;align-items:center;min-height:44px;font-family:'Cinzel',serif;font-weight:900;letter-spacing:.16em;font-size:1rem;color:#fff;text-shadow:0 2px 14px rgba(0,0,0,.55);transition:.3s}
 .tb-logo .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tb-logo:hover{opacity:.85}

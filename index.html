@@ -1063,8 +1063,29 @@ body.en-arma .cart-fab{display:none}
 .s-cred{margin-top:14px;font-family:'Cinzel',serif;font-weight:700;font-size:15px;line-height:1.4;letter-spacing:.02em;color:var(--gold-hi)}
 .send .liana p{color:var(--paper-ink)}
 .send .liana img{border-color:var(--paper-gold)}
-.priv{margin-top:16px;font-size:15px;line-height:1.5;color:var(--paper-mut)}
-.priv:empty{display:none}
+.priv{margin-top:16px;max-width:var(--medida);font-size:16px;line-height:1.5;color:var(--paper-mut)}
+.priv a{display:inline-flex;align-items:center;min-height:44px;font-weight:700;color:var(--paper-ink);text-decoration:underline;text-decoration-color:var(--paper-gold);text-underline-offset:4px}
+.priv a:focus-visible{outline:2px solid var(--paper-gold);outline-offset:3px}
+.checkrow input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+/* Casilla de promociones: opcional, desmarcada y fuera del bloque de envio. Toda la fila se toca. */
+.checkrow.larga{margin-top:10px;padding:10px 0;align-items:flex-start;max-width:var(--medida);font-weight:400;line-height:1.5}
+.checkrow.larga b{font-weight:600}
+.checkrow.larga i{font-style:normal;color:var(--muted)}
+/* Politica de privacidad (#/privacidad): una columna de lectura, titulos en orden. */
+.pr-fecha{margin-top:14px;font-size:16px;color:var(--muted)}
+.pr-fecha:empty{display:none}
+.pr-doc{margin-top:26px;max-width:68ch;font-size:17px;line-height:1.7;color:#ddd5ec;text-align:left}
+.pr-doc p{margin-top:16px}
+.pr-doc .pr-corto{font-size:19px;line-height:1.6;color:var(--ink)}
+.pr-doc h2{margin-top:44px;font-family:'Cinzel',serif;font-weight:500;font-size:clamp(20px,2vw,26px);line-height:1.25;letter-spacing:.01em;color:var(--ink)}
+.pr-doc h2+p{margin-top:12px}
+.pr-doc ul{margin-top:10px;padding-left:1.2em;list-style:disc}
+.pr-doc li{margin-top:6px}
+.pr-doc li::marker{color:var(--gold)}
+.pr-doc b{font-weight:700;color:var(--ink)}
+.pr-doc em{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:1.18em;line-height:1;color:var(--gold-hi)}
+.pr-doc a{padding:11px 0;color:var(--gold-hi);text-decoration:underline;text-decoration-color:rgba(246,224,160,.45);text-underline-offset:4px;overflow-wrap:anywhere}
+.pr-doc a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .send .dato{color:var(--paper-gold);border-color:var(--paper-gold);background:rgba(138,101,22,.08)}
 .send .resumen{margin-top:12px;color:#a3281a}
 .send .row{margin-top:18px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px}
@@ -1404,6 +1425,138 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <footer class="cierre" data-cierre="galeria"></footer>
 </section>
 
+<!-- POLITICA DE PRIVACIDAD (#/privacidad). El texto lo redacta Legal y aqui no se reescribe: se pega tal cual,
+     en los dos idiomas. Lo marcado .pv son datos que faltan y solo se ven en vista previa local. La linea
+     «Vigente desde» la pinta pintarPrivFecha() con PRIV_FECHA. -->
+<section class="view arma" id="view-privacidad" aria-labelledby="privT">
+  <div class="arma-bar" data-armabar="simple"></div>
+  <div class="a-main con-cierre"><div class="aw">
+    <h1 class="a-h1" id="privT" data-i18n="priv.h1">SkyDancer Productions Privacy Policy</h1>
+    <p class="pr-fecha" id="privFecha"></p>
+    <div class="lang-en pr-doc">
+      <p><b>Who we are.</b> <span class="pv dato">[Exact legal name: from Liana]</span> (“SkyDancer Productions”, “we”), 2635 SW 36th Ave, Miami, FL 33133, United States. For anything about your data: <a href="mailto:hola@skydancerproduction.com">hola@skydancerproduction.com</a> or WhatsApp <a href="https://wa.me/17869924543" target="_blank" rel="noopener">+1 786-992-4543</a>.</p>
+      <p class="pr-corto"><b>In short.</b> We use your information only to answer your request and, if you book us, to plan your event. Liana or someone on her team writes to you personally. We don't sell your data, there's no targeted advertising, and the site uses no cookies or analytics tools.</p>
+      <h2>1. What we collect and when</h2>
+      <p><em>While you browse.</em> The site sets no cookies and uses no analytics, social media pixels or tracking tools. It saves the language you chose in your own browser so it shows up next time; we never receive it. Like any website, when you open the site your browser sends its IP address and technical details (browser type, page requested) to Cloudflare, which hosts the site, and to Google, which serves the fonts (Google Fonts).</p>
+      <p><em>When you check a date.</em> To tell you whether a date is open, we send that date to our system. Your IP address is used for a few minutes to limit abusive requests and deletes itself in under two hours. We don't store it with any other information about you.</p>
+      <p><em>While you build your show.</em> What you choose and type (occasion, date, county, venue, guests, services, your vision and your contact details) is kept only in this browser tab so you don't lose it if you go back or reload. We don't receive it until you press “Send”. It is erased when you close the tab, and your contact details are erased after you send.</p>
+      <p><em>When you press “Send”.</em> We receive:</p>
+      <ul>
+        <li>your name and WhatsApp number (required) and your email (if you add it);</li>
+        <li>the occasion, date, county, venue or city, guest range and the services you picked;</li>
+        <li>what you wrote under “Your vision”;</li>
+        <li>whether you're planning the event for a client (planner or venue);</li>
+        <li>the page of the site where you started.</li>
+      </ul>
+      <p>That one click does two things: your request is saved in SkyDancer's internal system, and WhatsApp (or your email) opens with the message already written, which you choose whether to send. The request stays saved even if you don't send the WhatsApp message or the email.</p>
+      <p>Please don't include health details, payment details or ID numbers under “Your vision”. We don't need them.</p>
+      <h2>2. What we use it for</h2>
+      <ul>
+        <li>To reply to you and prepare your quote by hand.</li>
+        <li>To check the team's availability on your date.</li>
+        <li>If you book us, to plan the event with you (schedule, venue, team).</li>
+      </ul>
+      <p>Nothing else. Specifically: we don't sell or rent your data, share it with advertisers, build advertising profiles or run it through artificial intelligence services. <span class="pv dato">[promotions: sentence pending from Legal, plus whether Liana sends promotions today]</span></p>
+      <h2>3. How we contact you</h2>
+      <p>Liana or someone on her team writes to you on WhatsApp at the number you gave us or, if you prefer, by email. These are messages written by a person, not automated, and only about your request and your event. If you don't want any more messages, reply “STOP” and we'll stop.</p>
+      <h2>4. Who sees your data</h2>
+      <ul>
+        <li><b>Liana and SkyDancer's sales team</b>, who prepare your quote.</li>
+        <li><b>Our technology provider</b>, which builds and maintains this site and the internal system, only to keep them running.</li>
+        <li><b>If you book us</b>, the captain and the event team see the date, venue, address and guest count. They don't see your phone number or email. <span class="pv dato">[event WhatsApp group with the client: from Liana]</span></li>
+      </ul>
+      <p>Services we use that process data for us:</p>
+      <ul>
+        <li><b>Cloudflare</b> hosts the site and the internal system and stores your request.</li>
+        <li><b>Google</b> serves the site's fonts and, if you email us, runs our mailbox (Gmail).</li>
+        <li><b>WhatsApp (Meta)</b> carries the messages if you use WhatsApp, under its own terms and privacy policy.</li>
+        <li><b>Vercel</b> receives visits to our old address (skydancer-productions.vercel.app) and redirects them here.</li>
+      </ul>
+      <p>We will only give your data to an authority if a law or a court order requires it.</p>
+      <h2>5. How long we keep it</h2>
+      <p>If we don't end up working together, we delete your request 24 months after our last message. If you book us, we keep the event details for as long as tax and contract obligations require. Our system keeps automatic backups for 30 days; anything we delete is also gone from them after that.</p>
+      <h2>6. What you can ask us</h2>
+      <p>Write to <a href="mailto:hola@skydancerproduction.com">hola@skydancerproduction.com</a> or WhatsApp <a href="https://wa.me/17869924543" target="_blank" rel="noopener">+1 786-992-4543</a> to:</p>
+      <ul>
+        <li>find out what data we have about you;</li>
+        <li>correct it;</li>
+        <li>have us delete it;</li>
+        <li>stop receiving messages from us.</li>
+      </ul>
+      <p>We reply within 30 days. We may ask you to confirm the number or email is yours before we hand over or delete anything.</p>
+      <h2>7. Minors</h2>
+      <p>The form is for people 18 and older. If you're celebrating a quinceañera, please ask your parent or whoever is planning the party to fill in the request. The site isn't directed to children under 13. If we learn that a child under 13 has sent us information, we delete it.</p>
+      <h2>8. Security</h2>
+      <p>The site and the system only work over an encrypted connection (HTTPS). The internal system requires a username and password, and each person sees only what their role needs. If an incident ever affects your data, we will notify you as Florida law requires.</p>
+      <h2>9. If you visit from California</h2>
+      <p>We collect the categories listed in section 1, and the services in section 4 process them. You can review and correct them as explained in section 6. Your browser's “Do Not Track” signals don't change anything here because we don't track you across other sites. Apart from Cloudflare and Google (fonts), no third party collects information about your visit. We don't sell personal information or share it for advertising.</p>
+      <h2>10. Changes</h2>
+      <p>If we change this policy, we update the date at the top. If a change affects what we do with your data (for example, starting to use analytics), we'll say so at the top of this page before it takes effect.</p>
+    </div>
+    <div class="lang-es pr-doc" hidden>
+      <p><b>Quién la firma.</b> <span class="pv dato">[Razón social exacta: dato de Liana]</span> («SkyDancer Productions», «nosotros»), 2635 SW 36th Ave, Miami, FL 33133, Estados Unidos. Para cualquier cosa sobre tus datos: <a href="mailto:hola@skydancerproduction.com">hola@skydancerproduction.com</a> o WhatsApp <a href="https://wa.me/17869924543" target="_blank" rel="noopener">+1 786-992-4543</a>.</p>
+      <p class="pr-corto"><b>En corto.</b> Usamos tus datos solo para responder a tu solicitud y, si nos contratas, para preparar tu evento. Liana o alguien de su equipo te escribe en persona. No vendemos tus datos, no hay publicidad dirigida y el sitio no usa cookies ni herramientas de analítica.</p>
+      <h2>1. Qué datos recogemos y cuándo</h2>
+      <p><em>Mientras navegas.</em> El sitio no pone cookies ni usa analítica, píxeles de redes sociales ni herramientas de seguimiento. Guarda en tu propio navegador el idioma que elegiste, para mostrártelo la próxima vez; ese dato no nos llega. Como cualquier web, al abrir el sitio tu navegador envía su dirección IP y datos técnicos (tipo de navegador, página pedida) a Cloudflare, que aloja el sitio, y a Google, que sirve las tipografías (Google Fonts).</p>
+      <p><em>Cuando consultas una fecha.</em> Para decirte si la fecha está libre, mandamos esa fecha a nuestro sistema. Tu dirección IP se usa unos minutos para limitar consultas abusivas y se borra sola en menos de dos horas. No la guardamos con ningún otro dato tuyo.</p>
+      <p><em>Mientras armas tu show.</em> Lo que eliges y escribes (ocasión, fecha, condado, venue, invitados, servicios, tu idea y tus datos de contacto) se guarda solo en esta pestaña de tu navegador para que no lo pierdas si vas atrás o recargas. No nos llega hasta que pulsas «Enviar». Se borra al cerrar la pestaña y, tras el envío, se borran tus datos de contacto.</p>
+      <p><em>Cuando pulsas «Enviar».</em> Recibimos:</p>
+      <ul>
+        <li>tu nombre y tu número de WhatsApp (obligatorios) y tu correo (si lo dejas);</li>
+        <li>la ocasión, la fecha, el condado, el venue o la ciudad, el rango de invitados y los servicios que marcaste;</li>
+        <li>lo que escribiste en «Tu idea»;</li>
+        <li>si organizas el evento para un cliente (planner o venue);</li>
+        <li>la página del sitio por la que empezaste.</li>
+      </ul>
+      <p>Con ese clic pasan dos cosas: tu solicitud se guarda en el sistema interno de SkyDancer y se abre WhatsApp (o tu correo) con el mensaje ya escrito, que tú decides enviar. La solicitud queda guardada aunque no llegues a enviar el mensaje de WhatsApp o el correo.</p>
+      <p>Por favor, no escribas en «Tu idea» datos de salud, de pago ni números de documentos. No los necesitamos.</p>
+      <h2>2. Para qué los usamos</h2>
+      <ul>
+        <li>Para responderte y preparar a mano tu cotización.</li>
+        <li>Para comprobar la disponibilidad del equipo en tu fecha.</li>
+        <li>Si nos contratas, para organizar el evento contigo (horarios, lugar, equipo).</li>
+      </ul>
+      <p>No los usamos para nada más. En concreto: no los vendemos, no los alquilamos, no los compartimos con anunciantes, no creamos perfiles publicitarios y no los pasamos por servicios de inteligencia artificial. <span class="pv dato">[promociones: frase pendiente de Legal, y de saber por Liana si hoy manda promociones]</span></p>
+      <h2>3. Cómo te contactamos</h2>
+      <p>Liana o una persona de su equipo te escribe por WhatsApp al número que nos diste o, si lo prefieres, por correo. Son mensajes escritos por una persona, no automáticos, y solo sobre tu solicitud y tu evento. Si no quieres más mensajes, contesta «STOP» o «no más» y dejamos de escribirte.</p>
+      <h2>4. Quién ve tus datos</h2>
+      <ul>
+        <li><b>Liana y el equipo comercial de SkyDancer</b>, que preparan tu cotización.</li>
+        <li><b>Nuestro proveedor de tecnología</b>, que construye y mantiene este sitio y el sistema interno, solo para que funcionen.</li>
+        <li><b>Si nos contratas</b>, la capitana y el equipo del evento ven la fecha, el lugar, la dirección y el número de invitados. No ven tu teléfono ni tu correo. <span class="pv dato">[grupo de WhatsApp del evento con el cliente: dato de Liana]</span></li>
+      </ul>
+      <p>Servicios que usamos y que tratan datos por nosotros:</p>
+      <ul>
+        <li><b>Cloudflare</b> aloja el sitio y el sistema interno y guarda tu solicitud.</li>
+        <li><b>Google</b> sirve las tipografías del sitio y, si nos escribes por correo, gestiona nuestro buzón (Gmail).</li>
+        <li><b>WhatsApp (Meta)</b> lleva los mensajes si usas WhatsApp. WhatsApp trata esos mensajes según sus propias condiciones y su política de privacidad.</li>
+        <li><b>Vercel</b> recibe las visitas a nuestra dirección antigua (skydancer-productions.vercel.app) y las redirige aquí.</li>
+      </ul>
+      <p>Solo daremos tus datos a una autoridad si una ley o una orden judicial nos obliga.</p>
+      <h2>5. Cuánto tiempo los guardamos</h2>
+      <p>Si no llegamos a contratar, borramos tu solicitud 24 meses después de nuestro último mensaje. Si nos contratas, guardamos los datos del evento el tiempo que exijan las obligaciones fiscales y contractuales. Nuestro sistema guarda copias de seguridad automáticas durante 30 días; lo que borramos desaparece también de ellas pasado ese plazo.</p>
+      <h2>6. Lo que puedes pedirnos</h2>
+      <p>Escríbenos a <a href="mailto:hola@skydancerproduction.com">hola@skydancerproduction.com</a> o por WhatsApp al <a href="https://wa.me/17869924543" target="_blank" rel="noopener">+1 786-992-4543</a> para:</p>
+      <ul>
+        <li>saber qué datos tuyos tenemos;</li>
+        <li>corregirlos;</li>
+        <li>que los borremos;</li>
+        <li>que dejemos de escribirte.</li>
+      </ul>
+      <p>Te respondemos en un máximo de 30 días. Podemos pedirte que confirmes que el número o el correo es tuyo antes de entregarte o borrar nada.</p>
+      <h2>7. Menores de edad</h2>
+      <p>El formulario es para personas mayores de 18 años. Si celebras unos quince, pide a tu madre, a tu padre o a la persona que organiza la fiesta que llene la solicitud. El sitio no está dirigido a menores de 13 años. Si sabemos que un menor de 13 años nos ha enviado datos, los borramos.</p>
+      <h2>8. Seguridad</h2>
+      <p>El sitio y el sistema funcionan solo con conexión cifrada (HTTPS). Al sistema interno se entra con usuario y contraseña, y cada persona ve solo lo que su función necesita. Si un incidente afectara tus datos, te avisaremos como indica la ley de Florida.</p>
+      <h2>9. Si nos visitas desde California</h2>
+      <p>Recogemos las categorías de datos de la sección 1 y las tratan los servicios de la sección 4. Puedes revisarlos y corregirlos como explica la sección 6. Las señales «Do Not Track» de tu navegador no cambian nada aquí porque no te seguimos por otros sitios. Aparte de Cloudflare y Google (tipografías), ningún tercero recoge datos sobre tu visita. No vendemos ni compartimos datos personales con fines publicitarios.</p>
+      <h2>10. Cambios</h2>
+      <p>Si cambiamos esta política, actualizamos la fecha de arriba. Si el cambio afecta a lo que hacemos con tus datos (por ejemplo, empezar a usar analítica), lo diremos al principio de esta página antes de aplicarlo.</p>
+    </div>
+  </div></div>
+  <footer class="cierre solo-pie" data-cierre="privacidad" data-solo></footer>
+</section>
+
 <!-- ARMA TU SHOW · PASO 1 -->
 <section class="view arma" id="view-arma" aria-labelledby="armaT">
   <div class="arma-bar" data-armabar></div>
@@ -1461,13 +1614,14 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
       </div>
       <div class="sec field"><label for="sCorreo"><span data-i18n="s.correoL">Your email</span> <small data-i18n="f.opc">optional</small></label><input id="sCorreo" class="inp" type="email" autocomplete="email" maxlength="160" aria-describedby="sCorreoErr"><p class="ferr" id="sCorreoErr" hidden></p></div>
       <label class="checkrow"><input type="checkbox" id="sPlanner"><span data-i18n="s.planner">I'm planning this event for a client (planner or venue)</span></label>
+      <label class="checkrow larga"><input type="checkbox" id="sPromo"><span><b data-i18n="s.promo1">I'd like SkyDancer to message me on WhatsApp about open dates and news.</b> <i data-i18n="s.promo2">I can opt out by replying “STOP”. Not required to get my quote.</i></span></label>
       <div class="hp" aria-hidden="true"><label for="sWebsite">Website</label><input id="sWebsite" name="website" type="text" tabindex="-1" autocomplete="off"></div>
       <div class="send">
         <div class="liana"><img src="assets/liana-avatar.jpg" alt="" width="56" height="56" loading="lazy" fetchpriority="low"><div><p data-i18n="s.liana">Liana del Toro, a Cuban-born professional dancer and SkyDancer's creative director, prepares every quote by hand and replies to this WhatsApp number. Asking costs nothing and commits you to nothing.</p></div></div>
+        <!-- Aviso de privacidad: va antes de los botones, para que se lea antes de enviar. Su version viaja con el lead (AVISO_V). -->
+        <div class="priv" id="sPriv"><p data-i18n="s.priv">When you send, your request is saved in SkyDancer's system and WhatsApp or your email opens with your message. Liana or her team will reply on WhatsApp, or by email if you add it, only about this event. We don't sell your data.</p><a href="#/privacidad" data-i18n="pie.priv">Privacy policy</a></div>
         <p class="ferr resumen" id="sFalta" role="alert" hidden></p>
         <div class="row"><button type="button" class="a-btn a-pri" id="sEnviar"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5A8 8 0 1 1 21 12z"/></svg><span>Send to Liana on WhatsApp</span></button><button type="button" class="alt" id="sCorreoBtn" data-i18n="s.correo">Send by email</button></div>
-        <!-- Hueco reservado para el aviso de privacidad. Va SIN texto hasta que Frank cierre las cinco decisiones de la politica; el marcador solo existe en vista previa local. -->
-        <div class="priv" id="sPriv"><span class="pv dato">[aviso de privacidad: pendiente de las decisiones de Frank]</span></div>
       </div>
     </div>
     <div id="sConf" hidden></div>
@@ -1642,6 +1796,9 @@ Object.assign(I18N.es,{
 
 Object.assign(I18N.en,{"f.t": "Date and county, so Liana can check the calendar and travel", "f.sub": "Availability comes from SkyDancer's real calendar. The date is optional.", "f.ocas": "Your event", "f.fecha": "Event date", "f.opc": "optional", "f.condado": "County", "f.venue": "Venue or city", "f.venueh": "With the name of the venue, Liana checks whether it allows fire.", "f.inv": "Guests", "f.seguir": "Continue with the show", "f.hoy": "today", "f.mesAnt": "Previous month", "f.mesSig": "Next month", "f.elige": "Your date", "f.sinfecha": "Pick a day on the calendar. If you don't have a date yet, you can continue without one.", "f.elegiste": "You picked", "f.e.cargando.t": "Checking", "f.e.cargando": "Checking SkyDancer's calendar…", "f.e.libre.t": "Open", "f.e.libre": "That date is open on SkyDancer's calendar.", "f.e.ultima.t": "Last minute", "f.e.ultima": "Less than 7 days to go: Liana will confirm on WhatsApp.", "f.e.ocupada.t": "Booked", "f.e.ocupada": "That date already has an event booked. Message us and Liana will tell you if there is a team available.", "f.e.pasada.t": "Past date", "f.e.pasada": "That date has passed. Pick another one on the calendar.", "f.e.error.t": "No answer", "f.e.error": "We couldn't check the calendar right now; Liana will confirm it on WhatsApp. You can continue.", "f.escribir": "Message on WhatsApp", "f.waOcupada": "Hi Liana, I would like to know if there is a team available on {f}.", "f.quitar": "Clear the date", "r.fecha": "Date", "r.condado": "County", "r.inv": "Guests", "r.sin": "Not yet", "r.sinOcas": "Your event", "r.sinSvc": "No services checked yet; Liana can suggest them.", "r.cambiar": "Change date or county", "r.desc": "Book 3 or more services and save 10% on the quote; book 2 and save 5%.", "r.fine2": "You can change them in step 3. No added-up total: Liana prepares every quote by hand.", "r.fine3": "No added-up total: Liana puts the price together with your date, your venue and your production.", "v.bodas": "Back to the wedding", "v.empresas": "Back to companies", "v.noches": "Back to nights", "v.celebraciones": "Back to celebrations", "v.servicios": "Back to the services", "v.arma": "Back", "s.sub": "Tap a service to check or uncheck it.", "s.svc": "Services", "s.ver": "See photos of the 15 services →", "s.vision": "Your vision", "s.visionPh": "E.g.: schedule, key moments, colors or dress code.", "s.visionPhB": "E.g.: couple’s entrance at 9, Hora Loca after the first dance, white and gold.", "s.nombre": "Your name", "s.req": "required", "s.tel": "Your WhatsApp", "s.telh": "Liana replies to this number.", "s.correoL": "Your email", "s.planner": "I'm planning this event for a client (planner or venue)", "s.liana": "Liana del Toro, a Cuban-born professional dancer and SkyDancer's creative director, prepares every quote by hand and replies to this WhatsApp number. Asking costs nothing and commits you to nothing.", "s.enviar": "Send to Liana on WhatsApp", "s.guardando": "Saving your request…", "s.correo": "Send by email", "s.asunto": "Show request — SkyDancer", "e.nombre": "Your name is missing.", "e.tel": "Your WhatsApp number is missing: Liana replies to it.", "e.telFmt": "Write the number with the country code, like +1 305 555 0101.", "e.correo": "Check the email: it is missing the @ or the domain.", "e.resumen": "Before sending, check:", "e.n.sNombre": "your name", "e.n.sTel": "your WhatsApp", "e.n.sCorreo": "your email", "e.ocas": "Choose the type of event to continue.", "c.k": "Request sent", "c.kWa": "Request on WhatsApp", "c.ok": "Liana has your request and will message you at the number you left.", "c.noAbrioWa": "If WhatsApp didn't open: {wa}.", "c.noAbrioMail": "If your email didn't open: {mail} or WhatsApp {wa}.", "c.soloWa": "Your request went out on WhatsApp.", "c.soloWaP": "Send the message that opened and Liana will reply. If WhatsApp didn't open: {wa}.", "c.soloMail": "Your request went out by email.", "c.soloMailP": "Send the email that opened and Liana will reply. If it didn't open: {mail} or WhatsApp {wa}.", "c.otro": "Build another show", "cart.seguir": "Continue with my show"});
 Object.assign(I18N.es,{"f.t": "Fecha y condado, para que Liana mire el calendario y el viaje", "f.sub": "La disponibilidad sale del calendario real de SkyDancer. La fecha es opcional.", "f.ocas": "Tu evento", "f.fecha": "Fecha del evento", "f.opc": "opcional", "f.condado": "Condado", "f.venue": "Venue o ciudad", "f.venueh": "Con el nombre del salón, Liana revisa si el local permite fuego.", "f.inv": "Invitados", "f.seguir": "Seguir con el show", "f.hoy": "hoy", "f.mesAnt": "Mes anterior", "f.mesSig": "Mes siguiente", "f.elige": "Tu fecha", "f.sinfecha": "Elige un día en el calendario. Si aún no tienes fecha, puedes seguir sin ella.", "f.elegiste": "Elegiste", "f.e.cargando.t": "Mirando", "f.e.cargando": "Mirando el calendario de SkyDancer…", "f.e.libre.t": "Libre", "f.e.libre": "Esa fecha está libre en el calendario de SkyDancer.", "f.e.ultima.t": "Última hora", "f.e.ultima": "Faltan menos de 7 días: Liana te confirma por WhatsApp.", "f.e.ocupada.t": "Ocupada", "f.e.ocupada": "Esa fecha ya tiene un evento reservado. Escríbenos y Liana te dice si hay equipo.", "f.e.pasada.t": "Fecha pasada", "f.e.pasada": "Esa fecha ya pasó. Elige otra en el calendario.", "f.e.error.t": "Sin respuesta", "f.e.error": "No pudimos mirar el calendario ahora; Liana te lo confirma por WhatsApp. Puedes seguir.", "f.escribir": "Escribir por WhatsApp", "f.waOcupada": "Hola Liana, quiero saber si hay equipo para el {f}.", "f.quitar": "Quitar la fecha", "r.fecha": "Fecha", "r.condado": "Condado", "r.inv": "Invitados", "r.sin": "Sin elegir", "r.sinOcas": "Tu evento", "r.sinSvc": "Todavía no hay servicios marcados; Liana te los puede proponer.", "r.cambiar": "Cambiar fecha o condado", "r.desc": "Con 3 servicios o más, 10 % de descuento sobre la cotización; con 2, 5 %.", "r.fine2": "Los cambias en el paso 3. Sin total sumado: Liana prepara cada cotización a mano.", "r.fine3": "Sin total sumado: el precio lo arma Liana con tu fecha, tu venue y tu producción.", "v.bodas": "Volver a la boda", "v.empresas": "Volver a empresas", "v.noches": "Volver a noches", "v.celebraciones": "Volver a celebraciones", "v.servicios": "Volver a los servicios", "v.arma": "Volver", "s.sub": "Toca un servicio para marcarlo o quitarlo.", "s.svc": "Servicios", "s.ver": "Ver las fotos de los 15 servicios →", "s.vision": "Tu visión", "s.visionPh": "Ej.: horario, momentos clave, colores o dress code.", "s.visionPhB": "Ej.: entrada de los novios a las 9, Hora Loca después del vals, colores blanco y dorado.", "s.nombre": "Tu nombre", "s.req": "obligatorio", "s.tel": "Tu WhatsApp", "s.telh": "Liana te contesta a este número.", "s.correoL": "Tu correo", "s.planner": "Organizo este evento para un cliente (planner o venue)", "s.liana": "Liana del Toro, bailarina profesional nacida en Cuba y directora creativa de SkyDancer, prepara cada cotización a mano y te contesta a este WhatsApp. Pedirla no cuesta nada ni te compromete.", "s.enviar": "Enviar a Liana por WhatsApp", "s.guardando": "Guardando tu pedido…", "s.correo": "Enviar por correo", "s.asunto": "Pedido de show — SkyDancer", "e.nombre": "Falta tu nombre.", "e.tel": "Falta tu WhatsApp: Liana te contesta a ese número.", "e.telFmt": "Escribe el número con código de país, como +1 305 555 0101.", "e.correo": "Revisa el correo: le falta la @ o el dominio.", "e.resumen": "Antes de enviar, revisa:", "e.n.sNombre": "tu nombre", "e.n.sTel": "tu WhatsApp", "e.n.sCorreo": "tu correo", "e.ocas": "Elige el tipo de evento para seguir.", "c.k": "Pedido enviado", "c.kWa": "Pedido por WhatsApp", "c.ok": "Liana ya tiene tu pedido y te escribe al número que dejaste.", "c.noAbrioWa": "Si WhatsApp no se abrió: {wa}.", "c.noAbrioMail": "Si tu correo no se abrió: {mail} o WhatsApp {wa}.", "c.soloWa": "Tu pedido salió por WhatsApp.", "c.soloWaP": "Envía el mensaje que se abrió y Liana te contesta. Si WhatsApp no se abrió: {wa}.", "c.soloMail": "Tu pedido salió por correo.", "c.soloMailP": "Envía el correo que se abrió y Liana te contesta. Si no se abrió: {mail} o WhatsApp {wa}.", "c.otro": "Armar otro show", "cart.seguir": "Seguir con mi show"});
+/* Privacidad (13/11/2026): aviso del paso 3 y casilla de promociones. Texto de Legal, tal cual: si cambia, cambia AVISO_V. */
+Object.assign(I18N.en,{"priv.h1":"SkyDancer Productions Privacy Policy","pie.priv":"Privacy policy","s.priv":"When you send, your request is saved in SkyDancer's system and WhatsApp or your email opens with your message. Liana or her team will reply on WhatsApp, or by email if you add it, only about this event. We don't sell your data.","s.promo1":"I'd like SkyDancer to message me on WhatsApp about open dates and news.","s.promo2":"I can opt out by replying “STOP”. Not required to get my quote."});
+Object.assign(I18N.es,{"priv.h1":"Política de privacidad de SkyDancer Productions","pie.priv":"Política de privacidad","s.priv":"Al enviar, tu solicitud se guarda en el sistema de SkyDancer y se abre WhatsApp o tu correo con tu mensaje. Liana o su equipo te responderán por WhatsApp, o por correo si lo dejas, solo sobre este evento. No vendemos tus datos.","s.promo1":"Quiero que SkyDancer me escriba por WhatsApp con fechas libres y novedades.","s.promo2":"Puedo darme de baja con «STOP». No es necesario para recibir mi cotización."});
 
 /* Ocasion → datos. `tipo` es el event_type del panel; `svc`, los servicios que llegan
    marcados (ids de SERVICES = codigos del panel); `opc`, opcionales visibles sin marcar.
@@ -1664,7 +1821,7 @@ const OCAS_KEYS=Object.keys(OCASIONES);
 
 /* Estado del recorrido. Vive en sessionStorage para que Atras y una recarga no lo
    pierdan; si el navegador no deja guardar, el recorrido sigue funcionando igual. */
-const SHOW_VACIO=()=>({ocasion:'',servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
+const SHOW_VACIO=()=>({ocasion:'',servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,promo:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
 /* Lo que vuelve de sessionStorage se trata como entrada no confiable: solo pasan valores
    conocidos (ids de servicio, ocasiones, condados, rangos, fecha ISO, textos acotados). */
 function limpiarShow(o){const b=SHOW_VACIO(),str=(v,n)=>typeof v==='string'?v.slice(0,n):'';
@@ -1675,7 +1832,7 @@ function limpiarShow(o){const b=SHOW_VACIO(),str=(v,n)=>typeof v==='string'?v.sl
   if(['menos_50','50_150','150_400','mas_400'].includes(o.invitados))b.invitados=o.invitados;
   if(['portada','arma','bodas','empresas','noches','celebraciones','planners','catalogo','galeria','liana','contacto'].includes(o.entrada))b.entrada=o.entrada;
   if(['bodas','empresas','noches','celebraciones','servicios','arma'].includes(o.origen))b.origen=o.origen;
-  b.planner=o.planner===true;b.venue=str(o.venue,100);b.nombre=str(o.nombre,120);b.tel=str(o.tel,40);b.correo=str(o.correo,160);b.vision=str(o.vision,1200);
+  b.planner=o.planner===true;b.promo=o.promo===true;b.venue=str(o.venue,100);b.nombre=str(o.nombre,120);b.tel=str(o.tel,40);b.correo=str(o.correo,160);b.vision=str(o.vision,1200);
   if(o.enviado&&typeof o.enviado==='object')b.enviado={via:o.enviado.via==='mail'?'mail':'wa',ok:o.enviado.ok===true};
   return b;}
 function leerShow(){try{const o=JSON.parse(sessionStorage.getItem('sdp_show')||'null');if(o&&typeof o==='object')return limpiarShow(o);}catch(e){}return SHOW_VACIO();}
@@ -1687,6 +1844,10 @@ document.addEventListener('click',e=>{const a=e.target.closest('[data-entrada]')
 
 let lang=localStorage.getItem('sdp_lang')||'en',currentView=null,pmId=null;
 const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
+/* Privacidad. AVISO_V: version del aviso y de la casilla del paso 3 que vio quien envia; viaja con el
+   lead y se cambia cada vez que cambie uno de esos dos textos. PRIV_FECHA: dia en que se publica la
+   politica (AAAA-MM-DD); vacia, la linea «Vigente desde» no se pinta (en vista previa, un marcador). */
+const AVISO_V='2026-11-13',PRIV_FECHA='';
 const money=n=>'$'+n.toLocaleString('en-US');const t=k=>(I18N[lang][k]??k);
 const priceHtml=s=>s.price>0?`<small>${t('ui.from')}</small>${money(s.price)}`:t('ui.quote');
 const precioTxt=s=>s.price>0?t('ui.from')+' '+money(s.price):t('ui.quote');
@@ -1803,9 +1964,12 @@ const cierreHTML=(ent,soloPie)=>{const sigue=(ent==='catalogo'||ent==='galeria')
     :`<a class="a-btn a-pri" href="#/arma" data-entrada="${ent}">${t('hero.cta1')}</a>`;
   return `<div class="aw">${soloPie?'':`<div class="row">${pri}<a class="a-btn a-ghost" href="https://wa.me/${WA}" target="_blank" rel="noopener">${svg('chat')}WhatsApp +1 786-992-4543</a></div>`}
     <nav class="pie-nav" aria-label="${t('nav.pie')}">${NAV.map(([r,k])=>`<a href="#/${r}" data-nav="${r}">${t(k)}</a>`).join('')}</nav>
-    <p class="pie"><b><span class="s">SKY</span>DANCER PRODUCTIONS</b><span>Coral Gables · Miami, FL</span><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>`;};
-function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre);});if(typeof marcarNav==='function')marcarNav();}
+    <p class="pie"><b><span class="s">SKY</span>DANCER PRODUCTIONS</b><span>Coral Gables · Miami, FL</span><a href="mailto:${EMAIL}">${EMAIL}</a><a href="#/privacidad">${t('pie.priv')}</a></p></div>`;};
+function pintarCierres(){document.querySelectorAll('[data-cierre]').forEach(c=>{c.innerHTML=cierreHTML(c.dataset.cierre,c.hasAttribute('data-solo'));});if(typeof marcarNav==='function')marcarNav();}
 /* Liana donde se decide: retrato ligero (4,5 KB) y un hecho de la biografia publicada. */
+function pintarPrivFecha(){const p=document.getElementById('privFecha');if(!p)return;const es=lang==='es';
+  if(PRIV_FECHA){const {y,m,d,dt}=partes(PRIV_FECHA);p.textContent=es?`Vigente desde el ${d} de ${MESES_ES[m-1]} de ${y}`:'Effective '+dt.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});}
+  else p.innerHTML=window.SDP_VISTA?`${es?'Vigente desde el':'Effective'} <span class="pv dato">[${es?'fecha de publicación':'publication date'}]</span>`:'';}
 const lianaHTML=(txt,enlace)=>`<div class="liana"><img src="assets/liana-avatar.jpg" alt="" width="56" height="56" loading="lazy" fetchpriority="low"><div><p>${txt}</p>${enlace?`<a class="a-link" href="#/liana">${t('li.ver')}</a>`:''}</div></div>`;
 function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view-ocasion');
   const O=P.ocas?OCASIONES[P.ocas]:null;
@@ -1964,7 +2128,7 @@ function pintarPaso3(){const v=document.getElementById('view-show'),c=condadoDe(
     return `<button type="button" class="chip svc${on?' on':''}" data-svc="${id}" aria-pressed="${on}"><span class="ck" aria-hidden="true">${on?'✓':'+'}</span>${svcNom(id)}</button>`;}).join('');
   [['sNombre','nombre'],['sTel','tel'],['sCorreo','correo'],['sVision','vision']].forEach(([id,k])=>{const el=document.getElementById(id);if(document.activeElement!==el)el.value=SHOW[k]||'';});
   document.getElementById('sVision').placeholder=t(SHOW.ocasion==='bodas'?'s.visionPhB':'s.visionPh');
-  document.getElementById('sPlanner').checked=!!SHOW.planner;
+  document.getElementById('sPlanner').checked=!!SHOW.planner;document.getElementById('sPromo').checked=!!SHOW.promo;
   pintarEnvio();pintarResumenes();}
 
 /* Mapa de estados del boton: listo · guardando (desactivado) · confirmacion. */
@@ -2008,6 +2172,7 @@ function cuerpoLead(msg){const b={name:SHOW.nombre,phone:SHOW.tel};
   if(SHOW.venue)b.city=SHOW.venue;
   if(SHOW.invitados)b.guests_range=SHOW.invitados;
   b.services=SHOW.servicios.slice();b.message=msg;b.entry_path=SHOW.entrada||'arma';b.planner=!!SHOW.planner;
+  b.promo_ok=!!SHOW.promo;b.aviso_v=AVISO_V;
   b.website=document.getElementById('sWebsite').value;
   return b;}
 /* 400 = algun dato no paso la validacion del panel. El caso probable es un codigo de
@@ -2032,7 +2197,7 @@ function enviar(via){if(enviando)return;
   if(faltan.length){res.textContent=t('e.resumen')+' '+faltan.map(id=>t('e.n.'+id)).join(', ')+'.';res.hidden=false;document.getElementById(faltan[0]).focus();return;}
   res.hidden=true;
   ['sNombre','sTel','sCorreo','sVision'].forEach(id=>{SHOW[{sNombre:'nombre',sTel:'tel',sCorreo:'correo',sVision:'vision'}[id]]=document.getElementById(id).value.trim();});
-  SHOW.planner=document.getElementById('sPlanner').checked;guardarShow();
+  SHOW.planner=document.getElementById('sPlanner').checked;SHOW.promo=document.getElementById('sPromo').checked;guardarShow();
   const msg=armarMensaje(),body=cuerpoLead(msg);
   if(via==='wa')window.open(waUrl(msg),'_blank');
   enviando=true;pintarEnvio();
@@ -2065,6 +2230,7 @@ document.getElementById('fSeguir').addEventListener('click',e=>{if(SHOW.ocasion)
   el.addEventListener('input',()=>{el.dataset.tocado='1';SHOW[k]=el.value.trim();guardarShow();if(el.getAttribute('aria-invalid')==='true'&&!errorDe(id))marcarError(id,'');resumenFaltan();});
   if(id!=='sVision')el.addEventListener('blur',()=>{if(el.dataset.tocado)marcarError(id,errorDe(id));});});
 document.getElementById('sPlanner').addEventListener('change',e=>{SHOW.planner=e.target.checked;guardarShow();});
+document.getElementById('sPromo').addEventListener('change',e=>{SHOW.promo=e.target.checked;guardarShow();});
 document.getElementById('sEnviar').addEventListener('click',()=>enviar('wa'));
 document.getElementById('sCorreoBtn').addEventListener('click',()=>enviar('mail'));
 
@@ -2161,7 +2327,7 @@ function applyLang(){document.documentElement.lang=lang;
   /* El placeholder no es textContent: sin esto el campo de ciudad se quedaba en ingles. */
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(I18N[lang][k]!==undefined)el.placeholder=I18N[lang][k];});
   document.querySelectorAll('.lang-en').forEach(e=>e.hidden=(lang!=='en'));document.querySelectorAll('.lang-es').forEach(e=>e.hidden=(lang!=='es'));
-  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();pintarCierres();
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===lang));renderShop();renderCart();pintarGal();pintarCierres();pintarPrivFecha();
   document.querySelectorAll('[data-i18n-aria]').forEach(el=>{const k=el.getAttribute('data-i18n-aria');if(I18N[lang][k]!==undefined)el.setAttribute('aria-label',I18N[lang][k]);});
   /* El visor se pinta una vez al abrirlo: sin esto se queda en el idioma viejo. */
   if(lbCol)document.getElementById('lbTitle').textContent=lbNom();
@@ -2228,9 +2394,9 @@ function entradaHist(){const s=history.state;
    WhatsApp o poner en una story, y un boton Atras que funciona. Las rutas de
    verdad son otra decision, porque Pages no reescribe y Vercel si.
    Una sola fuente: todo pasa por el hash y hashchange pinta. */
-const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',
+const RUTAS={sobre:'view-about',liana:'view-about',servicios:'view-services',galeria:'view-gallery',arma:'view-arma',privacidad:'view-privacidad',
   bodas:'view-ocasion',empresas:'view-ocasion',noches:'view-ocasion',celebraciones:'view-ocasion',planners:'view-ocasion'};
-const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'menu.n4',arma:'menu.n1'};
+const CLAVE_NAV={sobre:'menu.n3',liana:'menu.n3',servicios:'menu.n2',galeria:'menu.n4',arma:'menu.n1',privacidad:'pie.priv'};
 /* Rutas que forman parte del recorrido «Arma tu show» y entry_path que fijan si se
    llega a ellas directamente (enlace, Instagram, recarga). */
 const ENTRADA_DE={arma:'arma',bodas:'bodas',empresas:'empresas',noches:'noches',celebraciones:'celebraciones',planners:'planners'};

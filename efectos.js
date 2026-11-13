@@ -251,6 +251,9 @@ MONTAJES.push({sel:'#view-gallery',f(v,e){
   revelar(v,[...v.querySelectorAll('.a-h1,.a-sub,.gal,.fila-nav,.cat-note,.cierre .row,.cierre .pie')],e);}});
 MONTAJES.push({sel:'#view-services',f(v,e){
   revelar(v,[...v.querySelectorAll('.a-eyebrow,.a-h1,.a-sub,.perks,#shopGrid .svc-card,.cat-note,.cierre .row,.cierre .pie')],e);}});
+/* Politica de privacidad: entra como las demas; el documento se revela por bloques al bajar. */
+MONTAJES.push({sel:'#view-privacidad',f(v,e){
+  revelar(v,[...v.querySelectorAll('.a-h1,.pr-fecha,.pr-doc>*,.cierre .pie')],e);}});
 /* Los tres pasos de «Arma tu show» (pasada W). La barra de pasos y la de abajo no entran en la lista. */
 MONTAJES.push({sel:'#view-arma',f(v,e){
   revelar(v,[...v.querySelectorAll('.a-eyebrow,.a-h1,.occ,.fila-nav,.a-links')],e);}});

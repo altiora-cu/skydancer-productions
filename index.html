@@ -313,11 +313,16 @@ body.sin-reel .topbar,body.bajando .topbar{background:rgba(5,4,10,.92);backdrop-
    no pisa los botones de la presentacion ni el boton flotante de «Mi show». */
 .hero-motion{position:absolute;z-index:6;right:var(--gut);top:76px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
 body.no-scroll .hero-motion,body.sin-reel .hero-motion{visibility:hidden;pointer-events:none}
-.hero-motion:hover{background:rgba(5,4,10,.78);border-color:var(--gold);transform:scale(1.06)}
-.hero-motion:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.hero-motion .svg-ic{width:20px;height:20px}
-.hero-motion .hm-play,.hero-motion.paused .hm-pause{display:none}
-.hero-motion.paused .hm-play{display:block}
+.hero-motion:hover,.liana-motion:hover{background:rgba(5,4,10,.78);border-color:var(--gold);transform:scale(1.06)}
+.hero-motion:focus-visible,.liana-motion:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.hero-motion .svg-ic,.liana-motion .svg-ic{width:20px;height:20px}
+.hero-motion .hm-play,.hero-motion.paused .hm-pause,.liana-motion .hm-play,.liana-motion.paused .hm-pause{display:none}
+.hero-motion.paused .hm-play,.liana-motion.paused .hm-play{display:block}
+/* Pasada U (WCAG 2.2.2): el video de Liana tambien se repite solo, asi que lleva su pausa. Es la misma
+   pieza que la del reel (44x44, mismo icono), en la esquina de abajo a la derecha del marco, donde el
+   video solo tiene fondo: no pisa ni la cara ni el cuerpo. Con «menos movimiento» no hay video (queda
+   la foto) y por eso tampoco hay boton. */
+.liana-motion{position:absolute;z-index:2;right:10px;bottom:10px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;background:rgba(5,4,10,.55);border:1px solid var(--glass-brd);backdrop-filter:blur(10px);color:var(--ink);cursor:var(--cur),pointer;transition:background .25s,border-color .25s,transform .25s}
 /* PORTADA SOLA (tanda 4, 11/11/2026). La primera pantalla es el reel a pantalla completa
    desde el segundo 0, con la marca, el idioma, la pausa y una senal de scroll: sin titular
    ni botones encima. El h1, la credencial y los dos botones viven en .pres, la seccion
@@ -889,7 +894,7 @@ body.en-arma .cart-fab{display:none}
 .ph.ph-v .arch video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:0;transition:opacity .6s}
 .ph.ph-v .arch video[data-woke]{opacity:1}
 @media(max-width:900px){.aw .ph.ph-v{justify-self:center;width:min(100%,40.5vh);width:min(100%,40.5svh)}}
-@media(prefers-reduced-motion:reduce){.ph.ph-v .arch video{display:none}}
+@media(prefers-reduced-motion:reduce){.ph.ph-v .arch video,.liana-motion{display:none}}
 /* Paginas de ocasion: gancho, noche de ejemplo, prueba en papel marfil, boton, otras */
 .oc-gancho{padding:52px 0 60px;background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .oc-gancho .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
@@ -1275,7 +1280,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <div><h2 class="tr-h" id="trLiT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h2>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p>
       <a class="a-link" href="#/liana" data-i18n="li.ver">Liana's story →</a></div>
-    <figure class="ph ph-v"><div class="arch" id="hLiana"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+    <figure class="ph ph-v"><div class="arch" id="hLiana"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /></video><button class="liana-motion" type="button" aria-pressed="false" aria-label="Pause Liana’s video" data-i18n-aria="liana.pausa"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg></button></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
   </div></section>
   <section class="tr tr-gal" aria-labelledby="trGaT"><div class="aw">
     <h2 class="tr-h" id="trGaT" data-i18n-html="gal.h1">Digital Gallery, <span class="h-sub">with 21 pieces of Themed Entertainment and 8 of Interactive Performances</span></h2>
@@ -1313,7 +1318,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <div><p class="a-eyebrow" data-i18n="menu.n3">Liana and the team</p>
       <h1 id="lianaT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h1>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p></div>
-    <figure class="ph ph-v"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
+    <figure class="ph ph-v"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video><button class="liana-motion" type="button" aria-pressed="false" aria-label="Pause Liana’s video" data-i18n-aria="liana.pausa"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg></button></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
   </div></section>
   <section class="li-bio"><div class="aw">
     <p class="a-eyebrow" data-i18n="li.bioK">Her story</p>
@@ -1558,7 +1563,7 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','nav.main':'Main','nav.pie':'Site','hm.gal':'See the Digital Gallery →','hero.play':'Play background video',
+ en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','nav.main':'Main','nav.pie':'Site','hm.gal':'See the Digital Gallery →','hero.play':'Play background video','liana.pausa':'Pause Liana’s video',
   
   'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
@@ -1572,7 +1577,7 @@ const I18N={
   
   'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
   'ui.add':'Add to my show','pm.mom':'Where it comes in at the event','pm.opc':'optional','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','nav.main':'Principal','nav.pie':'Sitio','hm.gal':'Ver la Galería Digital →','hero.play':'Reproducir el video de fondo',
+ es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','nav.main':'Principal','nav.pie':'Sitio','hm.gal':'Ver la Galería Digital →','hero.play':'Reproducir el video de fondo','liana.pausa':'Pausar el vídeo de Liana',
   
   'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
@@ -2530,7 +2535,8 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
      el video pausado volvia a arrancar solo y el boton no servia de nada. */
   let motionOff=matchMedia('(prefers-reduced-motion:reduce)').matches;
   window.sdpMotionOff=()=>motionOff;
-  function tryPlay(){if(motionOff)return;vids.forEach(v=>{if(v.dataset.fuera)return;try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
+  let lianaOff=false;const esLiana=v=>!!v.closest('.ph-v');
+  function tryPlay(){if(motionOff)return;vids.forEach(v=>{if(v.dataset.fuera||(lianaOff&&esLiana(v)))return;try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
   /* La portada ya hace scroll. Cuando el reel sale de pantalla se para (no gasta bateria
      debajo del resto de la pagina) y su boton de pausa, que es fijo, se retira; la senal
      de scroll se apaga en cuanto se empieza a bajar. */
@@ -2544,6 +2550,20 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
     const baj=()=>document.body.classList.toggle('bajando',window.scrollY>Math.max(8,innerHeight*.03));addEventListener('scroll',baj,{passive:true});baj();}
   if(cue&&pres)cue.onclick=()=>{window.scrollTo({top:Math.round(innerHeight*.14),behavior:motionOff?'instant':'smooth'});
     const h=document.getElementById('presT');if(h){h.setAttribute('tabindex','-1');try{h.focus({preventScroll:true});}catch(e){}}};
+  /* Pasada U (WCAG 2.2.2): el video de Liana (portada y #/liana) lleva su propia pausa. lianaOff la decide la
+     persona y vale para los dos marcos: se queda puesta aunque el marco salga de pantalla y aunque se cambie
+     de vista o de idioma. Si esta parado todo (motionOff: la pausa del reel), su boton tambien lo dice, y
+     pulsarlo vuelve a poner el movimiento en marcha igual que el boton del reel. El nombre del boton no
+     cambia con el estado: el estado lo dice aria-pressed. */
+  const lmBtns=[...document.querySelectorAll('.liana-motion')];
+  const pintarLiana=()=>{const q=motionOff||lianaOff;lmBtns.forEach(b=>{b.classList.toggle('paused',q);b.setAttribute('aria-pressed',String(q));});};
+  lmBtns.forEach(b=>{b.onclick=()=>{
+    if(motionOff||lianaOff){lianaOff=false;
+      if(motionOff){const h=document.getElementById('heroMotion');if(h)h.click();else motionOff=false;}
+      const v=b.parentNode.querySelector('video');if(v&&!v.dataset.woke)wake(v);tryPlay();}
+    else{lianaOff=true;vids.filter(esLiana).forEach(v=>{try{v.pause();}catch(e){}});}
+    pintarLiana();};});
+  pintarLiana();
   const hmBtn=document.getElementById('heroMotion');
   if(hmBtn){
     const pintar=()=>{hmBtn.classList.toggle('paused',motionOff);
@@ -2552,7 +2572,7 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
       hmBtn.setAttribute('aria-pressed',String(motionOff));};
     hmBtn.onclick=()=>{motionOff=!motionOff;
       if(motionOff){vids.forEach(v=>{try{v.pause();}catch(e){}});}else{tryPlay();}
-      pintar();};
+      pintar();pintarLiana();};
     pintar();
   }
   /* Quien pidio menos movimiento ve el poster, no el reel: la media query de CSS solo
@@ -2571,13 +2591,13 @@ entradaHist();if(enCart())try{history.replaceState({k:hClave},'');}catch(e){}
   const inActiveView=v=>{const w=v.closest('.view');return !w||w.classList.contains('active');};
   function wake(v){
     /* Con «menos movimiento» (sistema o boton de pausa) un video diferido no arranca. */
-    if(v.dataset.woke||!inActiveView(v)||motionOff)return;
+    if(v.dataset.woke||!inActiveView(v)||motionOff||(lianaOff&&esLiana(v)))return;
     v.dataset.woke='1';
     v.preload='auto';v.load();vids.push(v);
     /* Tanda 6: liana-hero.mp4 abre con medio segundo de la foto de estudio (fondo claro) y luego pasa a la
        escena oscura. Con el atributo loop ese medio segundo volvia cada 5 s como un destello. El bucle se
        hace aqui: al terminar, vuelve al segundo que diga data-bucle, ya dentro de la escena. */
-    if(v.dataset.bucle)v.addEventListener('ended',()=>{if(motionOff)return;try{v.currentTime=+v.dataset.bucle;const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});
+    if(v.dataset.bucle)v.addEventListener('ended',()=>{if(motionOff||lianaOff)return;try{v.currentTime=+v.dataset.bucle;const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});
     try{const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}
   }
   /* showView() llama aqui: al abrirse una vista hay que mirar lo que ya quedo en pantalla,

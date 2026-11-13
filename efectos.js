@@ -172,7 +172,8 @@ function entrada(v,dir){
   const aw=v.querySelector('.aw');if(!aw)return null;
   const items=[];
   [...aw.children].forEach(el=>{
-    if(el.matches('.occ-grid'))items.push(...el.children);
+    /* Las filas que sangran hasta el borde entran pieza a pieza: giradas enteras desbordan la vista unos px (pasada Z). */
+    if(el.matches('.fila'))items.push(...el.children);
     else if(el.tagName==='DIV'&&!el.className)items.push(...el.children);
     else items.push(el);});
   const vis=items.filter(el=>{const r=el.getBoundingClientRect();return r.height&&r.top<innerHeight;}).slice(0,10);

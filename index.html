@@ -11,8 +11,8 @@
    No es SEO: Google sigue viendo una sola pagina. */
 document.documentElement.classList.add('js');
 window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/\.localhost$/.test(location.hostname);
-(function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues)$/);
-  if(m&&!location.hash){history.replaceState(null,'','/#/'+(m[1]==='planners-y-venues'?'planners':m[1]));}})();
+(function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues|privacidad|privacy)$/);
+  if(m&&!location.hash){history.replaceState(null,'','/#/'+({'planners-y-venues':'planners',privacy:'privacidad'}[m[1]]||m[1]));}})();
 </script>
 <title>SkyDancer Productions · Luxury Event Entertainment · Miami</title>
 <link rel="canonical" href="https://skydancerproduction.com/" />
@@ -192,8 +192,13 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
    navegador la descubria tarde: era el LCP de #/bodas). */
 (function(){var r=(location.hash||'').replace(/^#\/?/,'').split('/')[0],
   f={bodas:'champagne',empresas:'robot',noches:'drummer',celebraciones:'fire',planners:'dancers'}[r],
-  h=f?'assets/services/'+f+'.jpg':(!r?'video%20banner/skydancer-poster.jpg':''),l;
-  if(!h)return;l=document.createElement('link');l.rel='preload';l.as='image';l.href=h;l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
+  h=f?'':(!r?'video%20banner/skydancer-poster.jpg':''),l;
+  if(!h&&!f)return;l=document.createElement('link');l.rel='preload';l.as='image';
+  /* Sin href a proposito: quien no entiende imagesrcset (Safari anterior a 17.2) no precarga nada, en vez de bajar
+     el JPG y despues el WebP. Los anchos y el sizes son los de FOTO_SIZES.arco, mas abajo: se cambian juntos. */
+  if(f){l.setAttribute('imagesrcset',[360,640,900].map(function(w){return 'assets/services/'+f+'-'+w+'.webp '+w+'w';}).join(', '));l.setAttribute('imagesizes','(max-width:999px) 100vw, 500px');}
+  else l.href=h;
+  l.setAttribute('fetchpriority','high');document.head.appendChild(l);})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -279,7 +284,7 @@ img{max-width:100%;display:block}
 /* Telefono: la barra inferior ya da estos cuatro destinos; el pie se queda con marca y correo. */
 @media(max-width:999px){.pie-nav{display:none}.cierre .pie-nav+.pie{margin-top:22px}}
 .topbar .lang{padding:2px}
-.topbar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.topbar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.8125rem}
 body.no-scroll .topbar{opacity:0;visibility:hidden;pointer-events:none;transition:none}
 /* Sobre el reel la cabecera es transparente; en cuanto el reel sale de pantalla toma fondo
    para que el contenido que pasa por debajo no se mezcle con la marca y el idioma. */
@@ -307,7 +312,7 @@ body:not(.sin-reel):not(.bajando) .topbar .lang{background:rgba(10,7,18,.72)}
    de cambiar de idioma. Ahora tambien esta en el menu y en cada barra de vista.
    No hace falta tocar el JS: applyLang() y los onclick usan '.lang button'. */
 .pm-lang{padding:2px}
-.pm-lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.pm-lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.8125rem}
 
 /* HERO */
 .home{position:relative;background:var(--bg)}
@@ -534,7 +539,7 @@ body.no-scroll.solo-menu:not(.sin-reel) .hero-motion{visibility:visible}
 .mn-nav a[aria-current="page"] b{color:var(--gold-hi)}
 .mn-foot{margin-top:auto;padding-top:24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
 .mn-foot .a-btn{min-height:50px;padding:0 22px;font-size:15px}
-.mn-foot .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.mn-foot .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.8125rem}
 .mn-nav a:focus-visible,.mn-x:focus-visible{outline:2px solid var(--gold);outline-offset:-2px}
 @media(prefers-reduced-motion:reduce){.menu,.menu-scrim,.menu-panel{transition:none}}
 
@@ -661,13 +666,13 @@ button.gph:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
 /* VISOR DE COLECCIÓN — las categorías con varias piezas (Themed, Interactive)
    abren aquí. z-index 125: por encima de la ficha de servicio (115) y del
    carrito (110), por debajo del toast (130), que debe seguir viéndose. */
-.gal-chip{position:absolute;top:14px;right:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.08em;background:rgba(10,7,18,.55);border:1px solid rgba(246,224,160,.45);color:var(--gold);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-variant-numeric:tabular-nums}
+.gal-chip{position:absolute;top:14px;right:14px;z-index:3;display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;font-size:.8125rem;font-weight:700;letter-spacing:.08em;background:rgba(10,7,18,.55);border:1px solid rgba(246,224,160,.45);color:var(--gold);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-variant-numeric:tabular-nums}
 .gal-chip .svg-ic{width:14px;height:14px;stroke-width:1.7}
 .lb{position:fixed;inset:0;z-index:125;background:rgba(5,4,10,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;visibility:hidden;transition:opacity .3s ease-out,visibility .3s;display:flex;flex-direction:column}
 .lb.open{opacity:1;visibility:visible;transition:opacity .3s ease-out} /* al abrir, visibility sin transicion (ni aqui ni en el boton de cerrar, que la hereda): si no, focus() llega con el visor aun oculto */
 .lb-head{display:flex;align-items:center;gap:14px;padding:16px 20px;flex:none}
 .lb-title{font-family:'Cinzel',serif;font-size:1rem;letter-spacing:.04em;color:var(--ink)}
-.lb-count{margin-left:auto;font-size:.72rem;letter-spacing:.22em;color:var(--muted);font-variant-numeric:tabular-nums}
+.lb-count{margin-left:auto;font-size:.875rem;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
 .lb-x{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;flex:none;background:rgba(255,255,255,.06);border:1px solid var(--glass-brd);color:var(--ink);font-size:1.5rem;line-height:1;transition:background .25s ease-out,color .25s ease-out,border-color .25s ease-out}
 .lb-x:hover{background:var(--gold);color:#1a1206;border-color:transparent}
 .lb-stage{flex:1;min-height:0;position:relative;display:grid;place-items:center;padding:0 12px}
@@ -767,7 +772,7 @@ body.en-arma .cart-fab{display:none}
   .bn a[aria-current="page"] .svg-ic{fill:rgba(246,224,160,.24)}
   .bn a:focus-visible,.cart-fab:focus-visible{outline:2px solid var(--gold);outline-offset:-4px;border-radius:12px}
   .cart-fab .th{width:24px;height:24px;border-radius:7px;background:#1d1114 50% 20%/cover;box-shadow:0 0 0 1px rgba(246,224,160,.5)}
-  .cart-fab .count{position:absolute;top:7px;left:50%;margin-left:5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--gold-grad);color:#1a1206;font-size:11px;line-height:1}
+  .cart-fab .count{position:absolute;top:7px;left:50%;margin-left:5px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--gold-grad);color:#1a1206;font-size:12px;line-height:1}
   .cart-fab:not(.show){color:#b6adcf}
   .cart-fab:not(.show) .th{background-image:none!important;background-color:transparent;box-shadow:inset 0 0 0 1.5px rgba(182,173,207,.7)}
   .cart-fab:not(.show) .count{background:#2a2338;color:#ddd5ec}
@@ -807,7 +812,7 @@ body.en-arma .cart-fab{display:none}
 .ab-logo .s{background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .ab-r{display:flex;gap:6px;align-items:center}
 .arma-bar .lang{padding:2px}
-.arma-bar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.74rem}
+.arma-bar .lang button{min-width:44px;min-height:44px;padding:0 10px;font-size:.8125rem}
 .ab-menu{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 10px;background:none;border:0;color:#e6dff2;font:700 13px/1 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;cursor:var(--cur),pointer}
 .ab-menu .svg-ic{width:18px;height:18px}
 .ab-menu:hover{color:var(--gold)}
@@ -924,7 +929,7 @@ body.en-arma .cart-fab{display:none}
 .oc-noche .nota{margin-top:10px;max-width:var(--medida);color:var(--muted)}
 .linea{position:relative;margin-top:40px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
 .linea::before{content:"";position:absolute;left:0;right:0;top:15px;height:1px;background:linear-gradient(90deg,var(--gold),rgba(230,194,92,.15))}
-.mom .hora{position:relative;display:inline-flex;align-items:center;gap:10px;padding-right:12px;background:var(--bg2);font:700 13px/1 'Manrope',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-hi)}
+.mom .hora{position:relative;display:inline-flex;align-items:center;gap:10px;padding-right:12px;background:var(--bg2);font:700 14px/1 'Manrope',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-hi)}
 .mom .hora::before{content:"";width:31px;height:31px;border-radius:50%;border:1px solid var(--gold);background:radial-gradient(circle,var(--gold) 0 4px,transparent 5px)}
 .mom .ph{margin-top:22px;aspect-ratio:4/3.7;overflow:hidden;border-radius:200px 200px 14px 14px;background:#120e1c}
 .mom .ph img{width:100%;height:100%;object-fit:cover}
@@ -1979,7 +1984,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
   const moms=P.mom.length?`<section class="oc-noche"><div class="aw">
       <p class="a-eyebrow">${P.nk?L(P.nk):t('oc.noche')}</p><h2>${L(P.h2)}</h2><p class="nota">${L(P.nota)}</p>
       <div class="linea">${P.mom.map(m=>`<article class="mom"><span class="hora">${L(m.h)}</span>
-        <div class="ph"><img src="assets/services/${m.s}.jpg" alt="" loading="lazy"${m.pos?` style="object-position:${m.pos}"`:''}></div>
+        <div class="ph"><img src="assets/services/${m.s}.jpg"${fotoSet(m.s,'mom')} alt="" loading="lazy"${m.pos?` style="object-position:${m.pos}"`:''}></div>
         <h3>${svcNom(m.s)}</h3><p>${L(m.p)}</p><span class="marca">${t('oc.marcado')}</span></article>`).join('')}</div>
       ${P.extra?`<p class="opcion">${L(P.extra)}</p>`:''}</div></section>`:'';
   const datos=P.datos.filter(Boolean),hayPrueba=!!(P.lista.length||datos.length||P.hueco);
@@ -1991,7 +1996,7 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
   document.getElementById('ocBody').innerHTML=`
     <section class="oc-gancho"><div class="aw">
       <div><p class="a-eyebrow">${L(P.k)}</p><h1 id="ocT">${L(P.h1)}</h1>${P.lead?`<p class="lead">${L(P.lead)}</p>`:''}</div>
-      <figure class="ph"><div class="arch"><img src="assets/services/${P.foto}.jpg" alt="${esc(L(P.pie))}" fetchpriority="high"></div><figcaption>${L(P.pie)}</figcaption></figure>
+      <figure class="ph"><div class="arch"><img src="assets/services/${P.foto}.jpg"${fotoSet(P.foto,'arco')} alt="${esc(L(P.pie))}" fetchpriority="high"></div><figcaption>${L(P.pie)}</figcaption></figure>
     </div></section>
     ${moms}
     ${hayPrueba?`<section class="oc-prueba"><div class="aw"><div class="proof${P.hueco?'':' solo'}">
@@ -2087,7 +2092,7 @@ function radios(name,items,valor){return items.map(([v,html])=>`<label class="op
 function resumenHTML(paso){const c=condadoDe(SHOW.condado),e=estadoDispo();
   const est=e==='disponible'?' · '+t('f.e.libre.t').toLowerCase():(e==='ocupada'?' · '+t('f.e.ocupada.t').toLowerCase():'');
   const filas=[[t('r.fecha'),SHOW.fecha?fechaLarga(SHOW.fecha,false)+est:t('r.sin')],[t('r.condado'),c?c.n[lang]+' · '+c.l[lang].toLowerCase():t('r.sin')],[t('r.inv'),SHOW.invitados?rangoTxt(SHOW.invitados):t('r.sin')]];
-  const svc=SHOW.servicios.map(id=>`<li><img src="assets/services/${id}.jpg" alt="" loading="lazy">${svcNom(id)}</li>`).join('');
+  const svc=SHOW.servicios.map(id=>`<li><img src="assets/services/${id}.jpg"${fotoSet(id,'mini')} alt="" loading="lazy">${svcNom(id)}</li>`).join('');
   return `<p class="k">${t('paso.3')}</p><h2>${nombreOcas()||t('r.sinOcas')}</h2>
     <dl>${filas.map(([a,b])=>`<dt>${a}</dt><dd>${b}</dd>`).join('')}</dl>
     ${svc?`<ul>${svc}</ul>`:`<p class="fine">${t('r.sinSvc')}</p>`}
@@ -2261,7 +2266,7 @@ function seguirConShow(){
    movil eso le quitaba ancho de banda a la foto del LCP (4,7 → 7,2 s). */
 const svcCard=(s,h)=>{const on=SHOW.servicios.includes(s.id),n=esc(s.name[lang]);
     return `<article class="svc-card${on?' on':''}">
-      <a class="ph" href="#/servicios/${s.id}" tabindex="-1" aria-hidden="true"><img src="assets/services/${s.id}.jpg" alt="" loading="lazy" fetchpriority="low"></a>
+      <a class="ph" href="#/servicios/${s.id}" tabindex="-1" aria-hidden="true"><img src="assets/services/${s.id}.jpg"${fotoSet(s.id,h==='h3'?'fila':'cat')} alt="" loading="lazy" fetchpriority="low"></a>
       <div class="bd"><${h}><a href="#/servicios/${s.id}">${n}</a></${h}><p class="pr">${precioTxt(s)}${svg('arrow')}</p>${botonSvc(s.id)}</div></article>`;};
 function renderShop(){document.getElementById('shopGrid').innerHTML=SERVICES.map(s=>svcCard(s,'h2')).join('');}
 /* Ficha de servicio (#/servicios/<id>). Todo sale de datos que ya estan en el sitio: la
@@ -2274,7 +2279,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
   c.innerHTML=`
     <button class="pm-close" id="pmClose" type="button" aria-label="${t('menu.cerrar')}">&times;</button>
     <div class="pm-ph"><div class="pm-fotos${dos?'':' una'}" tabindex="0" role="group" aria-label="${n}">
-      ${s.vid&&!quieto?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg" alt="${n}">`}${dos?`<img src="assets/gallery/g-${id}.jpg" alt="" loading="lazy">`:''}</div>
+      ${s.vid&&!quieto?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg"${fotoSet(id,'ficha')} alt="${n}">`}${dos?`<img src="assets/gallery/g-${id}.jpg" alt="" loading="lazy">`:''}</div>
       ${col?`<button type="button" class="pm-col" data-col="${id}">${t('gal.ver').replace('{n}',col.items.length)}</button>`:''}</div>
     <div class="pm-info">
       <h2 id="pmT">${n}</h2>
@@ -2308,12 +2313,12 @@ function pintarGal(){document.querySelectorAll('.gal[data-gsvc]').forEach(g=>{co
 function renderCart(){const n=SHOW.servicios.length,box=document.getElementById('cartItems'),fab=document.getElementById('cartFab'),pn=document.getElementById('cartPanel'),
     P=PAGINAS[SHOW.ocasion],mo=id=>{const i=P?P.mom.findIndex(x=>x.s===id):-1;return i<0?99:i;},ids=SHOW.servicios.slice().sort((a,b)=>mo(a)-mo(b)),
     fi=[...box.querySelectorAll('.rm')].indexOf(document.activeElement),cn=document.getElementById('cartCount'),c=condadoDe(SHOW.condado);
-  if(n&&+cn.textContent!==n){fab.querySelector('.th').style.backgroundImage=`url(assets/services/${SHOW.servicios[n-1]}.jpg)`;
+  if(n&&+cn.textContent!==n){fab.querySelector('.th').style.backgroundImage=`url(assets/services/${SHOW.servicios[n-1]}-360.webp)`;
     if(fab.classList.contains('show')){fab.classList.remove('bump');void fab.offsetWidth;fab.classList.add('bump');}}
   cn.textContent=n;fab.classList.toggle('show',n>0);document.getElementById('miBarra').classList.toggle('show',n>0);document.body.classList.toggle('con-barra',n>0);
   document.getElementById('cartSub').textContent=[nombreOcas(),SHOW.fecha?fechaCorta(SHOW.fecha):'',c?c.n[lang]:''].filter(Boolean).join(' · ');
   box.innerHTML=n?`<ol>${ids.map(id=>{const s=SERVICES.find(x=>x.id===id),nom=esc(s.name[lang]),m=P&&P.mom[mo(id)];
-      return `<li class="ci"><img src="assets/services/${id}.jpg" alt="" loading="lazy"><div class="ci-m">${m?`<i>${m.h[lang]}</i>`:''}<b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ol><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
+      return `<li class="ci"><img src="assets/services/${id}.jpg"${fotoSet(id,'mini')} alt="" loading="lazy"><div class="ci-m">${m?`<i>${m.h[lang]}</i>`:''}<b>${nom}</b><span>${precioTxt(s)}</span></div><button type="button" class="rm" data-svc="${id}" aria-label="${t('ui.remove')}: ${nom}">✕</button></li>`;}).join('')}</ol><button type="button" class="a-link" id="clearAll">${t('ui.clear')}</button>`
     :`<p class="cart-empty">${t('ui.empty')}</p>`;
   document.querySelectorAll('#cartEsc li').forEach((li,i)=>{const on=i?n>=3:n===2;li.classList.toggle('on',on);if(on)li.setAttribute('aria-current','true');else li.removeAttribute('aria-current');});
   document.getElementById('cartDisc').textContent=t(n>=3?'ui.disc3':n===2?'ui.disc2':'r.desc');
@@ -2450,6 +2455,12 @@ function ponerProg(pr,n){const f=n===3&&SHOW.enviado?1:Math.min(1,(n-1+.35+.65*s
   pr.style.transform='scaleX('+f.toFixed(4)+')';pr.dataset.v=String(f.toFixed(4));progUlt=f.toFixed(4);pr.dataset.n=n;}
 const refrescarProg=()=>{const pr=currentView&&document.querySelector('#'+currentView+' [data-prog]');if(pr&&pr.dataset.n)ponerProg(pr,+pr.dataset.n);};
 ['input','change'].forEach(t=>document.addEventListener(t,e=>{if(e.target.closest&&e.target.closest('.view.arma'))requestAnimationFrame(refrescarProg);}));
+/* Fotos de servicio: tres anchos en WebP (360, 640, 900) y el JPG de 900 en src como respaldo. Antes todo sitio
+   bajaba el JPG de 900 px, tambien la tarjeta del telefono, que la pinta a unos 100. El sizes de cada sitio sale
+   de medir su caja a 320, 390, 768, 1024 y 1440; si cambia la maqueta de un sitio, se vuelve a medir el suyo. */
+const FOTO_SIZES={cat:'(max-width:600px) 31vw, (max-width:999px) 42vw, 280px',fila:'242px',occ:'(max-width:480px) 78vw, 370px',
+  arco:'(max-width:999px) 100vw, 500px',mom:'(max-width:999px) 100vw, 430px',ficha:'(max-width:480px) 84vw, 492px',mini:'64px'};
+function fotoSet(id,sitio){return ` srcset="${[360,640,900].map(w=>`assets/services/${id}-${w}.webp ${w}w`).join(', ')}" sizes="${FOTO_SIZES[sitio]}"`;}
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function pintarPaso1(){const v=document.getElementById('view-arma');
@@ -2482,7 +2493,7 @@ function fila(sc){if(!sc)return;if(sc._fila){sc._fila();return;}
   sc._fila=pintar;pintar();}
 /* Las cuatro tarjetas de ocasion: las mismas en el paso 1 y en la portada. */
 function occHTML(prio){return OCAS_KEYS.map(k=>{const o=OCASIONES[k];
-    return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg" alt="" loading="lazy"${prio}></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
+    return `<a class="occ" href="#/${k}"><span class="ph"><img src="assets/services/${o.foto}.jpg"${fotoSet(o.foto,'occ')} alt="" loading="lazy"${prio}></span><span class="tx"><b>${o.nombre[lang]}</b><span class="ln">${o.linea[lang]}</span><span class="go" aria-hidden="true">${t('arma.go')}</span></span></a>`;}).join('');}
 /* Tramos de la portada. Se pintan la primera vez que se entra en #/ (no en un enlace
    directo a otra vista: sus fotos competirian con el LCP de esa vista) y se repintan al
    cambiar de idioma. Las fotos van con loading=lazy y prioridad baja. */

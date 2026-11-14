@@ -2201,6 +2201,9 @@ function cuerpoLead(msg){const b={name:SHOW.nombre,phone:SHOW.tel};
   if(SHOW.invitados)b.guests_range=SHOW.invitados;
   b.services=SHOW.servicios.slice();b.message=msg;b.entry_path=SHOW.entrada||'arma';b.planner=!!SHOW.planner;
   b.promo_ok=!!SHOW.promo;b.aviso_v=AVISO_V;
+  /* Decision 9 (14/11/2026): el idioma en que se envio, para que el panel conteste en ese idioma.
+     El Worker de hoy lo ignora sin dar 400 (lee los campos por nombre). */
+  b.lang=lang==='es'?'es':'en';
   b.website=document.getElementById('sWebsite').value;
   return b;}
 /* 400 = algun dato no paso la validacion del panel. El caso probable es un codigo de

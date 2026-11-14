@@ -1817,7 +1817,9 @@ Object.assign(I18N.es,{"priv.h1":"Política de privacidad de SkyDancer Productio
    marcados (ids de SERVICES = codigos del panel); `opc`, opcionales visibles sin marcar.
    La quinceanera no entra hasta que Liana confirme que las hace.
    `sub` (14/11/2026, decision 7 de Frank): fila opcional en la caja del paso 1 de la pagina
-   de la ocasion. `campo` es el campo del lead que fija; sin elegir, el lead va como antes. */
+   de la ocasion. `campo` es el campo del lead que fija; sin elegir, el lead va como antes.
+   `client_kind` (decision 8) lo lee el panel para el tipo de cliente; un Worker que aun no lo
+   conoce lo ignora sin dar 400 y el cliente entra como `venue`, igual que hoy. */
 const OCASIONES={
  bodas:{tipo:'boda',foto:'greeters',svc:['greeters','sax','horaloca'],opc:['champagne'],
    nombre:{en:'Wedding',es:'Boda'},
@@ -1826,6 +1828,8 @@ const OCASIONES={
    nombre:{en:'Company or brand',es:'Empresa o marca'},
    linea:{en:'Greeters in your brand palette, LED robots and a branded photobooth',es:'Anfitrionas con la paleta de tu marca, robots LED y photobooth con tu marca'}},
  noches:{tipo:'nightlife',foto:'gogo',svc:['gogo','fire','drummer'],opc:[],
+   sub:{campo:'client_kind',leyenda:{es:'Tipo de local',en:'Type of venue'},
+     ops:[['venue',{es:'Club',en:'Club'}],['restaurante',{es:'Restaurante',en:'Restaurant'}],['hotel',{es:'Hotel',en:'Hotel'}]]},
    nombre:{en:'Club, restaurant or hotel',es:'Club, restaurante u hotel'},
    linea:{en:'Gogo dancers, fire within venue rules, a drummer alongside your DJ',es:'Gogo dancers, fuego según las normas del local y baterista junto a tu DJ'}},
  celebraciones:{tipo:'privado',foto:'fire',svc:['robot','fire','gogo'],opc:[],

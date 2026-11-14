@@ -954,6 +954,7 @@ body.en-arma .cart-fab{display:none}
 .oc-accion .box{display:flex;flex-wrap:wrap;align-items:center;gap:16px 22px;padding:26px 28px;border-radius:22px;border:1px solid rgba(246,224,160,.3);background:linear-gradient(135deg,rgba(230,194,92,.14),rgba(5,4,10,0) 70%)}
 .oc-accion .paso{margin-right:auto;max-width:52ch;font-size:16px;color:#e4dcf2}
 .oc-accion .paso b{display:block;font-size:17px;font-weight:800;letter-spacing:.04em;color:var(--gold-hi)}
+.oc-accion .sub{flex:1 1 100%}
 .viaje{margin-top:18px;max-width:var(--medida);font-size:15px;color:var(--muted)}
 .oc-otras{padding:28px 0 48px;border-top:1px solid var(--line)}
 .oc-otras .row{margin-top:14px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
@@ -1814,7 +1815,9 @@ Object.assign(I18N.es,{"priv.h1":"Política de privacidad de SkyDancer Productio
 
 /* Ocasion → datos. `tipo` es el event_type del panel; `svc`, los servicios que llegan
    marcados (ids de SERVICES = codigos del panel); `opc`, opcionales visibles sin marcar.
-   La quinceanera no entra hasta que Liana confirme que las hace. */
+   La quinceanera no entra hasta que Liana confirme que las hace.
+   `sub` (14/11/2026, decision 7 de Frank): fila opcional en la caja del paso 1 de la pagina
+   de la ocasion. `campo` es el campo del lead que fija; sin elegir, el lead va como antes. */
 const OCASIONES={
  bodas:{tipo:'boda',foto:'greeters',svc:['greeters','sax','horaloca'],opc:['champagne'],
    nombre:{en:'Wedding',es:'Boda'},
@@ -1826,6 +1829,8 @@ const OCASIONES={
    nombre:{en:'Club, restaurant or hotel',es:'Club, restaurante u hotel'},
    linea:{en:'Gogo dancers, fire within venue rules, a drummer alongside your DJ',es:'Gogo dancers, fuego según las normas del local y baterista junto a tu DJ'}},
  celebraciones:{tipo:'privado',foto:'fire',svc:['robot','fire','gogo'],opc:[],
+   sub:{campo:'event_type',leyenda:{es:'Tipo de evento',en:'Type of event'},
+     ops:[['grand_opening',{es:'Apertura',en:'Grand opening'}],['festival',{es:'Festival',en:'Festival'}],['privado',{es:'Otra fiesta',en:'Other party'}]]},
    nombre:{en:'Openings, festivals and other parties',es:'Aperturas, festivales y otras fiestas'},
    linea:{en:'LED robots and fire for grand openings; gogo dancers for festivals',es:'Robots LED y fuego para abrir puertas; gogo dancers para festivales'}}
 };
@@ -1833,11 +1838,12 @@ const OCAS_KEYS=Object.keys(OCASIONES);
 
 /* Estado del recorrido. Vive en sessionStorage para que Atras y una recarga no lo
    pierdan; si el navegador no deja guardar, el recorrido sigue funcionando igual. */
-const SHOW_VACIO=()=>({ocasion:'',servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,promo:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
+const SHOW_VACIO=()=>({ocasion:'',sub:{},servicios:[],fecha:'',condado:'',venue:'',invitados:'',planner:false,promo:false,entrada:'',origen:'',nombre:'',tel:'',correo:'',vision:''});
 /* Lo que vuelve de sessionStorage se trata como entrada no confiable: solo pasan valores
    conocidos (ids de servicio, ocasiones, condados, rangos, fecha ISO, textos acotados). */
 function limpiarShow(o){const b=SHOW_VACIO(),str=(v,n)=>typeof v==='string'?v.slice(0,n):'';
   if(OCASIONES[o.ocasion])b.ocasion=o.ocasion;
+  if(o.sub&&typeof o.sub==='object')OCAS_KEYS.forEach(k=>{if(subValido(k,o.sub[k]))b.sub[k]=o.sub[k];});
   if(Array.isArray(o.servicios))b.servicios=o.servicios.filter((x,i,a)=>SERVICES.some(sv=>sv.id===x)&&a.indexOf(x)===i);
   if(/^\d{4}-\d{2}-\d{2}$/.test(o.fecha))b.fecha=o.fecha;
   if(['miami_dade','broward','palm_beach','otro_fl','fuera_fl'].includes(o.condado))b.condado=o.condado;
@@ -1847,6 +1853,8 @@ function limpiarShow(o){const b=SHOW_VACIO(),str=(v,n)=>typeof v==='string'?v.sl
   b.planner=o.planner===true;b.promo=o.promo===true;b.venue=str(o.venue,100);b.nombre=str(o.nombre,120);b.tel=str(o.tel,40);b.correo=str(o.correo,160);b.vision=str(o.vision,1200);
   if(o.enviado&&typeof o.enviado==='object')b.enviado={via:o.enviado.via==='mail'?'mail':'wa',ok:o.enviado.ok===true};
   return b;}
+/* El valor de la fila `sub` de una ocasion, solo si es uno de los suyos. */
+function subValido(k,v){const S=OCASIONES[k]&&OCASIONES[k].sub;return !!S&&S.ops.some(([x])=>x===v);}
 function leerShow(){try{const o=JSON.parse(sessionStorage.getItem('sdp_show')||'null');if(o&&typeof o==='object')return limpiarShow(o);}catch(e){}return SHOW_VACIO();}
 let SHOW=leerShow();
 function guardarShow(){try{sessionStorage.setItem('sdp_show',JSON.stringify(SHOW));}catch(e){}}
@@ -2011,11 +2019,14 @@ function pintarOcasion(key){const P=PAGINAS[key],v=document.getElementById('view
     </div></div></section>`:''}
     <section class="oc-accion"><div class="aw">${lianaHTML(t('li.hecho').replace('{x}',t('li.x.'+key)),true)}<div class="box">
       <p class="paso"><b>${t('paso.w')} 1 ${t('paso.de')} 3${O?' · '+O.nombre[lang]:''}</b>${L(P.paso)}</p>
+      ${O&&O.sub?subHTML(P.ocas):''}
       ${primario}
       <a class="a-btn a-ghost" href="${waUrl(L(P.wa))}" target="_blank" rel="noopener">${ic}WhatsApp</a>
     </div>${P.ocas?`<p class="viaje">${L(VIAJE)}</p>`:''}</div></section>
     <section class="oc-otras"><div class="aw"><p class="a-eyebrow">${t('oc.otras')}</p><div class="row">${otras}</div></div></section>
     <footer class="cierre solo-pie">${cierreHTML(key,true)}</footer>`;}
+function subHTML(k){const S=OCASIONES[k].sub;
+  return `<fieldset class="sub"><legend class="flabel">${S.leyenda[lang]} <small>${t('f.opc')}</small></legend><div class="opts chips">${radios('sub_'+k,S.ops.map(([v,n])=>[v,`<span>${n[lang]}</span>`]),SHOW.sub[k]||'')}</div></fieldset>`;}
 /* Elegir la ocasion desde su pagina: los servicios de la ocasion llegan marcados.
    Si ya era esa ocasion, se respeta lo que la persona cambio. */
 document.addEventListener('click',e=>{
@@ -2179,6 +2190,7 @@ function armarMensaje(){const es=lang==='es',c=condadoDe(SHOW.condado),L2=(a,b)=
 function cuerpoLead(msg){const b={name:SHOW.nombre,phone:SHOW.tel};
   if(SHOW.correo)b.email=SHOW.correo;
   b.event_type=OCASIONES[SHOW.ocasion].tipo;
+  const sv=SHOW.sub[SHOW.ocasion];if(subValido(SHOW.ocasion,sv))b[OCASIONES[SHOW.ocasion].sub.campo]=sv;
   if(SHOW.fecha)b.event_date=SHOW.fecha;
   if(SHOW.condado)b.county=SHOW.condado;
   if(SHOW.venue)b.city=SHOW.venue;
@@ -2231,7 +2243,10 @@ document.addEventListener('click',e=>{
   if(e.target.closest('[data-seguir]')){seguirConShow();return;}
   if(e.target.closest('[data-otro-show]')){SHOW.enviado=null;guardarShow();}});
 document.addEventListener('change',e=>{const r=e.target;if(r.type!=='radio')return;
-  const k={ocas:'ocasion',condado:'condado',inv:'invitados'}[r.name];if(!k)return;
+  const k={ocas:'ocasion',condado:'condado',inv:'invitados'}[r.name];
+  if(!k&&r.name.startsWith('sub_')&&subValido(r.name.slice(4),r.value)){SHOW.sub[r.name.slice(4)]=r.value;guardarShow();
+    r.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.querySelector('input').checked));return;}
+  if(!k)return;
   SHOW[k]=r.value;
   if(k==='ocasion'){if(!SHOW.servicios.length)SHOW.servicios=OCASIONES[r.value].svc.slice();document.getElementById('fOcasErr').hidden=true;pintarPasos(document.getElementById('view-fecha'),2,[nombreOcas()]);}
   guardarShow();r.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.querySelector('input').checked));pintarResumenes();});

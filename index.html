@@ -1346,8 +1346,8 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-l
    y vuelve al subir, como en Safari (la clase ab-oculta la pone el enrutador). Se ve al cargar la vista, con
    cualquier scroll hacia arriba, arriba del todo y con el foco dentro. Solo transform y opacity: la barra es
    sticky y conserva su sitio en el flujo, asi que nada se mueve (CLS 0). Movimiento reducido: sin animacion. */
-.view>.arma-bar{transition:transform .32s var(--ease),opacity .32s var(--ease)}
-.view>.arma-bar.ab-oculta:not(:focus-within){transform:translateY(-100%);opacity:0;pointer-events:none}
+.view>.arma-bar{transition:transform .32s var(--ease)}
+.view>.arma-bar.ab-oculta:not(:focus-within){transform:translateY(-100%);pointer-events:none}
 @media(prefers-reduced-motion:reduce){.view>.arma-bar{transition:none}}
 
 /* ── PIEZA E (opcion C «Cada nombre, su numero», elegida por Frank el 15/11/2026) ──────────────────────

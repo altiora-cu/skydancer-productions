@@ -1292,6 +1292,22 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>*{pointer-
   .topbar .hd-nav .cta{padding:0 16px}
 }
 @media(prefers-reduced-motion:reduce){.topbar{transition:none}}
+/* ── PIEZA 4 (14/11/2026): «Volver» en cada vista interior y en la ficha. Pieza de apoyo
+   (ghost en pildora, como el selector de idioma): no compite con «Arma tu show», el unico
+   boton lleno. 44 px de alto. En el telefono la fila de la marca, el idioma y «Menu» ya esta
+   llena (a 360 px sobran 13 px), asi que Volver va en una segunda fila de la barra, junto al
+   indicador de paso cuando lo hay; desde 1000 px va delante de la marca, en la misma fila.
+   La barra existe desde la carga: no hay salto. */
+.ab-fila{order:3;display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+.ab-fila .stepm{order:0;width:auto;flex:1 1 auto;min-width:0}
+.ab-volver{display:inline-flex;align-items:center;gap:4px;flex:none;min-width:44px;min-height:44px;padding:0 16px 0 8px;border:1px solid var(--line);border-radius:999px;background:rgba(10,7,18,.5);color:#e6dff2;font:700 14px/1 'Manrope',system-ui,sans-serif;cursor:var(--cur),pointer;transition:color .2s,border-color .2s,background .2s}
+.ab-volver .svg-ic{width:20px;height:20px}
+.ab-volver:hover{color:var(--gold-hi);border-color:rgba(246,224,160,.55);background:rgba(230,194,92,.08)}
+.ab-volver:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.pm-volver{position:absolute;z-index:3;top:10px;left:12px;background:rgba(5,4,10,.72);border-color:rgba(255,255,255,.35);color:#fff}
+@media(max-width:999px){.arma-bar{flex-wrap:wrap;row-gap:4px;padding-top:6px;padding-bottom:6px}}
+@media(min-width:1000px){.ab-fila{display:contents}.ab-volver:not(.pm-volver){order:-1;margin-right:4px}}
+@media(prefers-reduced-motion:reduce){.ab-volver{transition:none}}
 
 </style>
 </head>
@@ -1731,6 +1747,7 @@ const ICONS={
  stack:'<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/>',
  chev:'<path d="M9 5l7 7-7 7"/>',
  menu:'<path d="M5 8h14M5 12h14M5 16h14"/>',
+ volver:'<path d="M14.5 5.5 8 12l6.5 6.5"/>',
  play:'<path d="M8 5.5v13l11-6.5z"/>',
  check:'<path d="M4.5 12.4 9.4 17.3 19.5 7.2"/>',
  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
@@ -1746,7 +1763,8 @@ document.querySelectorAll('[data-armabar]').forEach(b=>{b.innerHTML=
   `<nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">Services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Digital Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>`+
   `<div class="ab-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>`+
   `<button class="ab-menu" type="button" data-openmenu>${svg('menu')}<span data-i18n="hero.menu">Menu</span></button></div>`+
-  (b.dataset.armabar==='simple'?'':`<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
+  `<div class="ab-fila"><button class="ab-volver" type="button" data-volver>${svg('volver')}<span data-i18n="v.arma">Back</span></button>`+
+  (b.dataset.armabar==='simple'?'</div>':`<p class="stepm" data-pasom></p></div><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
 document.querySelectorAll('[data-ic]').forEach(el=>el.innerHTML=svg(el.dataset.ic));
 
 const SERVICES=[
@@ -2161,6 +2179,8 @@ function pintarPaso2(){const v=document.getElementById('view-fecha');
   const ven=document.getElementById('fVenue');if(document.activeElement!==ven)ven.value=SHOW.venue;
   const vol=document.getElementById('fVolver'),o=SHOW.origen;
   vol.href='#/'+(VOLVER[o]?o:'arma');vol.textContent='← '+t(VOLVER[o]||'v.arma');
+  /* Si esa pagina es la de debajo en el historial, el enlace retrocede (no apila otra entrada). */
+  vol.onclick=e=>{if(hProf>0&&vol.getAttribute('href')==='#/'+hPrev){e.preventDefault();history.back();}};
   pintarCal();pintarPick();pintarResumenes();
   if(SHOW.fecha&&dispo.fecha!==SHOW.fecha)consultarDispo(SHOW.fecha);}
 
@@ -2312,7 +2332,7 @@ function seguirConShow(){
   if(!SHOW.entrada)SHOW.entrada=currentView==='view-gallery'?'galeria':'catalogo';
   SHOW.origen='servicios';guardarShow();const r=SHOW.ocasion&&SHOW.condado?'arma/show':'arma/fecha',abierto=panel.classList.contains('open')&&enCart();soltarCart();
   /* Desde el panel, el paso sustituye a la entrada del panel: Atras vuelve a donde se estaba. */
-  if(abierto&&location.hash!=='#/'+r){history.replaceState(null,'','#/'+r);dispatchEvent(new HashChangeEvent('hashchange'));}else irA(r);}
+  if(abierto&&location.hash!=='#/'+r){hReemplazo=true;history.replaceState(null,'','#/'+r);dispatchEvent(new HashChangeEvent('hashchange'));}else irA(r);}
 
 /* Catalogo. fetchpriority="low" (10/11/2026): la vista esta oculta al cargar pero ocupa la
    pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en Lighthouse
@@ -2330,6 +2350,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
     mom=OCAS_KEYS.map(k=>{const o=OCASIONES[k],m=PAGINAS[k].mom.find(x=>x.s===id);if(!o.svc.concat(o.opc).includes(id))return '';
       return `<li><a href="#/${k}"><b>${o.nombre[lang]}${m?' · '+m.h[lang]:o.opc.includes(id)?' · '+t('pm.opc'):''}</b>${m?`<span>${m.p[lang]}</span>`:''}</a></li>`;}).join('');
   c.innerHTML=`
+    <button class="ab-volver pm-volver" type="button" data-volver>${svg('volver')}<span>${t('v.arma')}</span></button>
     <button class="pm-close" id="pmClose" type="button" aria-label="${t('menu.cerrar')}">&times;</button>
     <div class="pm-ph"><div class="pm-fotos${dos?'':' una'}" tabindex="0" role="group" aria-label="${n}">
       ${s.vid&&!quieto?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg"${fotoSet(id,'ficha')} alt="${n}">`}${dos?`<img src="assets/gallery/g-${id}.jpg" alt="" loading="lazy">`:''}</div>
@@ -2343,7 +2364,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
     </div>
     <div class="pm-foot">${botonSvc(id)}<button type="button" class="a-link" data-seguir>${t('cart.seguir')} →</button>
       <div class="lang pm-lang" role="group" aria-label="Language"><button data-lang="en"${lang==='en'?' class="on"':''}>EN</button><button data-lang="es"${lang==='es'?' class="on"':''}>ES</button></div></div>`;
-  document.getElementById('pmClose').onclick=()=>irA('servicios');
+  document.getElementById('pmClose').onclick=cerrarFicha;
   document.getElementById('pmOverlay').classList.add('open');document.body.classList.add('no-scroll');
   const foco=()=>{if(pmId===id&&!c.contains(document.activeElement))try{c.querySelector(reabre?'.pm-lang .on':'#pmClose').focus({preventScroll:true});}catch(e){}};
   foco();if(!reabre)setTimeout(foco,400);
@@ -2351,7 +2372,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
 let pmAbre=null;
 function closeProduct(){document.getElementById('pmOverlay').classList.remove('open');pmId=null;if(!currentView)document.body.classList.remove('no-scroll');
   if(currentView==='view-services'&&rutaActual()==='servicios'&&pmAbre&&pmAbre.closest&&pmAbre.closest('#shopGrid')&&document.contains(pmAbre)){saltaFoco=true;try{pmAbre.focus({preventScroll:true});}catch(e){}}}
-document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')irA('servicios');});
+document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')cerrarFicha();});
 
 function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();pintarGal();toast(t('ui.cleared'));}
 /* Galeria: el boton solo sale si el codigo de la pieza existe en SERVICES. */
@@ -2419,7 +2440,11 @@ function closeMenu(devolverFoco){if(!menu.classList.contains('open'))return;
   menuAbre=null;}
 /* Cerrar = volver a lo que habia debajo. Si el menu se abrio navegando, es un Atras de
    verdad; si se llego con un enlace directo a #/menu, no hay a donde volver. */
-function cerrarMenu(){if(menuEnSesion)history.back();else location.replace('#/'+rutaBajo);}
+function cerrarMenu(){if(menuEnSesion)history.back();else reemplazar('#/'+rutaBajo);}
+/* Un destino elegido en el menu ocupa el lugar del menu en el historial: Atras vuelve a lo
+   que habia debajo, no al menu. El destino que ya estaba debajo solo cierra el menu. */
+menu.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  e.preventDefault();const h=a.getAttribute('href');if(menuEnSesion&&h==='#/'+rutaBajo)history.back();else reemplazar(h);});
 /* Trampa de foco comun a los dialogos (menu, «Tu show», ficha y visor): Tab no sale. */
 function atrapar(caja){caja.addEventListener('keydown',e=>{if(e.key!=='Tab')return;
   const f=[...caja.querySelectorAll('a[href],button:not([disabled]),[tabindex="0"]')].filter(x=>x.getClientRects().length),x=document.activeElement;if(!f.length||x.tagName==='VIDEO')return;
@@ -2440,10 +2465,23 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    volver a ella (Atras o Adelante) se repone. Una entrada nueva empieza arriba, salvo la
    ficha de un servicio, que se abre y se cierra sobre el catalogo sin moverlo. */
 let hClave=0,hSerie=Date.now(),navAltura=null;const hPos=new Map();
+/* Pieza 4 (14/11/2026): cada entrada lleva tambien d (cuantas entradas del sitio hay debajo
+   en el historial) y p (la ruta de la de debajo). Volver retrocede de verdad si hay sitio
+   debajo; si se entro directo a una vista, va a la portada sustituyendo la entrada, sin salir
+   del sitio. Lo que no es un paso nuevo (el menu, un paso que sustituye al panel) se navega
+   con reemplazar(): ocupa el lugar de la entrada actual y conserva su d y su p, asi Atras no
+   reabre el menu ni la ficha cerrada. */
+let hProf=-1,hPrev='',hReemplazo=false;
 const alturaActual=()=>{const v=currentView&&document.getElementById(currentView);return v?v.scrollTop:window.scrollY;};
 function entradaHist(){const s=history.state;
-  if(s&&typeof s.k==='number'){hClave=s.k;return true;}
-  hClave=++hSerie;try{history.replaceState({k:hClave},'');}catch(e){}return false;}
+  if(s&&typeof s.k==='number'){hClave=s.k;hProf=typeof s.d==='number'?s.d:0;hPrev=typeof s.p==='string'?s.p:'';return true;}
+  if(hReemplazo)hProf=Math.max(hProf,0);else{hPrev=hProf<0?'':rutaBajo;hProf++;}hReemplazo=false;
+  hClave=++hSerie;try{history.replaceState({k:hClave,d:hProf,p:hPrev},'');}catch(e){}return false;}
+function reemplazar(h){if(location.hash===h){aplicarRuta();return;}hReemplazo=true;location.replace(h);}
+function volver(raiz){if(hProf>0)history.back();else reemplazar(raiz);}
+function cerrarFicha(){volver('#/servicios');}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-volver]');if(!b)return;e.preventDefault();
+  if(b.closest('#pmOverlay'))cerrarFicha();else volver('#/');});
 /* ── Enrutador por hash ──────────────────────────────────────────────────────
    Antes las vistas eran solo una clase: todo era index.html, nada se podia
    enlazar y el boton Atras del navegador —o el gesto de volver en movil— se
@@ -2586,7 +2624,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const enPaso3=r0==='arma'&&r1==='show';
   /* La confirmacion vive en el paso 3; al salir de ahi el recorrido empieza de cero. */
   if(SHOW.enviado&&!enPaso3){SHOW.enviado=null;guardarShow();}
-  if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
+  if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){hReemplazo=true;location.replace('#/arma/fecha');return;}
   if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
   if(!r0){if(!portadaLista)pintarPortada();hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:navAltura||0,behavior:'instant'});}
@@ -2624,13 +2662,14 @@ document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'
 const panel=document.getElementById('cartPanel'),dim=document.getElementById('dim');
 /* Abrir el panel deja una entrada en el historial (misma URL): Atras lo cierra. */
 const enCart=()=>!!(history.state&&history.state.cart);
-function abrirCart(nueva){panel.classList.add('open');dim.classList.add('on');if(nueva)try{history.pushState({k:hClave,cart:1},'');}catch(e){}
+function abrirCart(nueva){panel.classList.add('open');dim.classList.add('on');if(nueva)try{history.pushState({k:hClave,d:hProf+1,p:rutaBajo,cart:1},'');hProf++;hPrev=rutaBajo;}catch(e){}
   try{document.getElementById('cartClose').focus({preventScroll:true});}catch(e){}}
 document.getElementById('cartFab').onclick=()=>abrirCart(1);
 function soltarCart(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');dim.classList.remove('on');
   const fab=document.getElementById('cartFab');if(fab.getClientRects().length)try{fab.focus({preventScroll:true});}catch(e){}}
 function closeCart(){if(panel.classList.contains('open')&&enCart())history.back();else soltarCart();}
-addEventListener('popstate',()=>{if(enCart())abrirCart();else soltarCart();});
+addEventListener('popstate',()=>{const s=history.state;if(s&&typeof s.d==='number'){hProf=s.d;hPrev=typeof s.p==='string'?s.p:'';}
+  if(enCart())abrirCart();else soltarCart();});
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
 atrapar(panel);
 
@@ -2732,7 +2771,7 @@ addEventListener('keydown',e=>{
     else if(e.key==='ArrowLeft')lbIr(-1);
     return;
   }
-  if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();}
+  if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)cerrarFicha();else if(panel.classList.contains('open'))closeCart();}
 });
 /* Vista previa local: ?demo=paso3, ?demo=confirmacion o ?demo=sinpanel rellenan un
    recorrido de ejemplo para revisar pantallas sin pulsar (Safari del simulador).

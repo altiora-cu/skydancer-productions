@@ -1270,6 +1270,29 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
    Tanda 5: la noche de ejemplo ya no se fija ni apila sus momentos como cartas (una foto
    tapaba a la otra); sus momentos entran como el resto, uno tras otro. */
 
+/* ── PIEZA 1 (14/11/2026): la barra de la portada, compacta y en la esquina, oculta mientras
+   el reel esta solo. Aparece con el primer scroll (la misma senal «bajando» que trae la barra
+   inferior del telefono y se va al volver arriba, como ella), con el menu abierto sobre la
+   portada (solo-menu) y en cuanto el foco del teclado entra en ella (:focus-within), y no se
+   va mientras lo tenga. Se oculta con opacidad y desplazamiento: es fija, no ocupa sitio en
+   el flujo y nada se mueve (CLS 0). Sin visibility:hidden, para que Tab la alcance.
+   Los objetivos tactiles siguen en 44 px; lo que baja es la letra y el aire. Sin JS no hay
+   html.js y la barra se queda a la vista. */
+.topbar{min-height:0;padding-block:6px;gap:6px 12px;transition:opacity .3s var(--ease),transform .4s var(--ease),background .3s}
+html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within){opacity:0;transform:translateY(-100%)}
+html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>*{pointer-events:none}
+.topbar .tb-logo{font-size:.875rem;letter-spacing:.14em}
+.topbar .lang button{padding:0 8px;font-size:.75rem}
+.topbar .ab-menu{font-size:12px}
+@media(max-width:999px){.topbar{padding-inline:12px}}
+@media(min-width:1000px){
+  .topbar{padding-inline:20px}
+  .topbar .hd-nav a{padding:0 12px;font-size:14px}
+  .topbar .hd-nav a::after{left:12px;right:12px}
+  .topbar .hd-nav .cta{padding:0 16px}
+}
+@media(prefers-reduced-motion:reduce){.topbar{transition:none}}
+
 </style>
 </head>
 <body>

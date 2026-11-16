@@ -1286,9 +1286,13 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
    el flujo y nada se mueve (CLS 0). Sin visibility:hidden, para que Tab la alcance.
    Los objetivos tactiles siguen en 44 px; lo que baja es la letra y el aire. Sin JS no hay
    html.js y la barra se queda a la vista. */
-.topbar{min-height:0;padding-block:6px;gap:6px 12px;transition:opacity .3s var(--ease),transform .4s var(--ease),background .3s}
-html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within){opacity:0;transform:translateY(-100%)}
-html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>*{pointer-events:none}
+/* Pieza A (decision de Frank, 15/11/2026): la marca SKYDANCER se queda siempre a la vista arriba a la izquierda
+   (es el candidato a LCP de la portada: con toda la barra oculta Lighthouse daba NO_LCP); lo que se oculta hasta
+   el primer scroll es el resto de la barra (idioma y «Menu», y la navegacion en escritorio), con las mismas
+   reglas de foco y de menu abierto. */
+.topbar{min-height:0;padding-block:6px;gap:6px 12px;transition:background .3s}
+.topbar>:not(.tb-logo){transition:opacity .3s var(--ease),transform .4s var(--ease)}
+html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-logo){opacity:0;transform:translateY(-100%);pointer-events:none}
 .topbar .tb-logo{font-size:.875rem;letter-spacing:.14em}
 .topbar .lang button{padding:0 8px}
 @media(max-width:999px){.topbar{padding-inline:12px}}
@@ -1298,7 +1302,7 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>*{pointer-
   .topbar .hd-nav a::after{left:12px;right:12px}
   .topbar .hd-nav .cta{padding:0 16px}
 }
-@media(prefers-reduced-motion:reduce){.topbar{transition:none}}
+@media(prefers-reduced-motion:reduce){.topbar,.topbar>:not(.tb-logo){transition:none}}
 /* ── PIEZA 4 (14/11/2026): «Volver» en cada vista interior y en la ficha. Pieza de apoyo
    (ghost en pildora, como el selector de idioma): no compite con «Arma tu show», el unico
    boton lleno. 44 px de alto. En el telefono la fila de la marca, el idioma y «Menu» ya esta

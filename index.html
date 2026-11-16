@@ -2487,7 +2487,9 @@ function entradaHist(){const s=history.state;
   hClave=++hSerie;try{history.replaceState({k:hClave,d:hProf,p:hPrev},'');}catch(e){}return false;}
 function reemplazar(h){if(location.hash===h){aplicarRuta();return;}hReemplazo=true;location.replace(h);}
 function volver(raiz){if(hProf>0)history.back();else reemplazar(raiz);}
-function cerrarFicha(){volver('#/servicios');}
+/* Cerrar la ficha retrocede si debajo esta lo que habia antes de abrirla; si debajo hay otra
+   ficha (se salto de una a otra por la direccion) o se entro directo, va al catalogo. */
+function cerrarFicha(){if(hProf>0&&!/^servicios\//.test(hPrev))history.back();else reemplazar('#/servicios');}
 document.addEventListener('click',e=>{const b=e.target.closest('[data-volver]');if(!b)return;e.preventDefault();
   if(b.closest('#pmOverlay'))cerrarFicha();else volver('#/');});
 /* ── Enrutador por hash ──────────────────────────────────────────────────────

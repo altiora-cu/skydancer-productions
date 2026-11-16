@@ -1597,11 +1597,11 @@ html.fx #hCarta h3.t3-act:has(a[href$="/sax"]),html.fx #hCarta h3.t3-act:has(a[h
       <h2>1. What we collect and when</h2>
       <p><em>While you browse.</em> The site sets no cookies and uses no analytics, social media pixels or tracking tools. It saves the language you chose in your own browser so it shows up next time. We only receive it if you send us a request, as explained below. Like any website, when you open the site your browser sends its IP address and technical details (browser type, page requested) to Cloudflare, which hosts the site, and to Google, which serves the fonts (Google Fonts).</p>
       <p><em>When you check a date.</em> To tell you whether a date is open, we send that date to our system. Your IP address is used for a few minutes to limit abusive requests and deletes itself in under two hours. We don't store it with any other information about you.</p>
-      <p><em>While you build your show.</em> What you choose and type (occasion, date, county, venue, guests, services, your vision and your contact details) is kept only in this browser tab so you don't lose it if you go back or reload. We don't receive it until you press “Send”. It is erased when you close the tab, and your contact details are erased after you send.</p>
+      <p><em>While you build your show.</em> What you choose and type (occasion, date, location, venue, guests, services, your vision and your contact details) is kept only in this browser tab so you don't lose it if you go back or reload. We don't receive it until you press “Send”. It is erased when you close the tab, and your contact details are erased after you send.</p>
       <p><em>When you press “Send”.</em> We receive:</p>
       <ul>
         <li>your name and WhatsApp number (required) and your email (if you add it);</li>
-        <li>the occasion, date, county, venue or city, guest range and the services you picked;</li>
+        <li>the occasion, the date, the area you chose under “Location” (Miami-Dade, Broward, Palm Beach, Rest of Florida or Outside Florida), the venue or city, the guest range and the services you picked;</li>
         <li>what you wrote under “Your vision”;</li>
         <li>whether you're planning the event for a client (planner or venue) and, for show nights, the type of venue (club, restaurant or hotel);</li>
         <li>the page of the site where you started;</li>
@@ -1661,11 +1661,11 @@ html.fx #hCarta h3.t3-act:has(a[href$="/sax"]),html.fx #hCarta h3.t3-act:has(a[h
       <h2>1. Qué datos recogemos y cuándo</h2>
       <p><em>Mientras navegas.</em> El sitio no pone cookies ni usa analítica, píxeles de redes sociales ni herramientas de seguimiento. Guarda en tu propio navegador el idioma que elegiste, para mostrártelo la próxima vez. Solo nos llega si nos envías una solicitud, como se explica más abajo. Como cualquier web, al abrir el sitio tu navegador envía su dirección IP y datos técnicos (tipo de navegador, página pedida) a Cloudflare, que aloja el sitio, y a Google, que sirve las tipografías (Google Fonts).</p>
       <p><em>Cuando consultas una fecha.</em> Para decirte si la fecha está libre, mandamos esa fecha a nuestro sistema. Tu dirección IP se usa unos minutos para limitar consultas abusivas y se borra sola en menos de dos horas. No la guardamos con ningún otro dato tuyo.</p>
-      <p><em>Mientras armas tu show.</em> Lo que eliges y escribes (ocasión, fecha, condado, venue, invitados, servicios, tu idea y tus datos de contacto) se guarda solo en esta pestaña de tu navegador para que no lo pierdas si vas atrás o recargas. No nos llega hasta que pulsas «Enviar». Se borra al cerrar la pestaña y, tras el envío, se borran tus datos de contacto.</p>
+      <p><em>Mientras armas tu show.</em> Lo que eliges y escribes (ocasión, fecha, lugar, venue, invitados, servicios, tu idea y tus datos de contacto) se guarda solo en esta pestaña de tu navegador para que no lo pierdas si vas atrás o recargas. No nos llega hasta que pulsas «Enviar». Se borra al cerrar la pestaña y, tras el envío, se borran tus datos de contacto.</p>
       <p><em>Cuando pulsas «Enviar».</em> Recibimos:</p>
       <ul>
         <li>tu nombre y tu número de WhatsApp (obligatorios) y tu correo (si lo dejas);</li>
-        <li>la ocasión, la fecha, el condado, el venue o la ciudad, el rango de invitados y los servicios que marcaste;</li>
+        <li>la ocasión, la fecha, la zona que elegiste en «Lugar» (Miami-Dade, Broward, Palm Beach, Resto de Florida o Fuera de Florida), el venue o la ciudad, el rango de invitados y los servicios que marcaste;</li>
         <li>lo que escribiste en «Tu idea»;</li>
         <li>si organizas el evento para un cliente (planner o venue) y, en las noches con show, el tipo de local (club, restaurante u hotel);</li>
         <li>la página del sitio por la que empezaste;</li>
@@ -2026,7 +2026,7 @@ const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
 /* Privacidad. AVISO_V: version del aviso y de la casilla del paso 3 que vio quien envia; viaja con el
    lead y se cambia cada vez que cambie uno de esos dos textos. PRIV_FECHA: dia en que se publica la
    politica (AAAA-MM-DD); vacia, la linea «Vigente desde» no se pinta (en vista previa, un marcador). */
-const AVISO_V='2026-11-13',PRIV_FECHA='2026-11-14';
+const AVISO_V='2026-11-13',PRIV_FECHA='2026-11-16';
 const money=n=>'$'+n.toLocaleString('en-US');const t=k=>(I18N[lang][k]??k);
 const priceHtml=s=>s.price>0?`<small>${t('ui.from')}</small>${money(s.price)}`:t('ui.quote');
 const precioTxt=s=>s.price>0?t('ui.from')+' '+money(s.price):t('ui.quote');

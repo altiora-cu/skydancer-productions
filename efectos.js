@@ -304,8 +304,11 @@ const escena=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&ar
 const fuera=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)armado.add(e.target);}),{threshold:0});
 function partir(){
   document.querySelectorAll(HL).forEach(el=>{
-    if(el.querySelector(':scope>.t3-letras'))return;
+    if(el.querySelector('.t3-letras'))return;
     const txt=el.textContent.trim();if(!txt)return;let i=0;
+    /* En un anfitrion flex (el enlace de la carta) la capa se alinearia como elemento flex: el texto va antes en
+       su propio span en linea, y ese span es el anfitrion. */
+    if(/flex|grid/.test(getComputedStyle(el).display)){const sp=document.createElement('span');sp.append(...el.childNodes);el.append(sp);el=sp;}
     const capa=document.createElement('span');capa.className='t3-letras';capa.setAttribute('aria-hidden','true');
     capa.innerHTML=txt.split(/\s+/).map(w=>'<span class="t3-w">'+[...w].map(ch=>`<i class="t3-l" style="--i:${i++}" data-l="${ch.replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';')}"></i>`).join('')+'</span>').join('<i class="t3-l t3-esp"></i>');
     el.prepend(capa);el.classList.add('t3-div');});}

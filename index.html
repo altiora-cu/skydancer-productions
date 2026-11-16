@@ -1394,8 +1394,10 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-l
    transparente y es el que leen los lectores de pantalla. */
 #home .hero-h1 .n-hl,#hCarta h3:has(a[href$="/horaloca"]),#pmT[data-t3=hl]{--cara:#ffb35f;--c:#e19330;--o:#2a0c02;color:var(--cara)}
 #home .hero-h1 .n-hl,#hCarta h3 a[href$="/horaloca"],#pmT[data-t3=hl]{white-space:nowrap}
-.t3-div{position:relative;color:transparent!important;text-shadow:none!important}
-.t3-letras{position:absolute;left:0;top:0;white-space:nowrap;color:var(--cara,currentColor);pointer-events:none}
+.t3-div{color:transparent!important;text-shadow:none!important}
+/* Sin left/top: la capa cae en su sitio estatico, al principio del texto. El anfitrion no se posiciona: en la
+   carta es el enlace, y su ::after (que hace tocable toda la tarjeta) tiene que seguir midiendose con la tarjeta. */
+.t3-letras{position:absolute;white-space:nowrap;color:var(--cara,currentColor);pointer-events:none}
 .t3-w{display:inline-block}
 .t3-l{display:inline-block;font-style:normal}
 .t3-l::before{content:attr(data-l)}

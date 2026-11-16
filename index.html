@@ -219,6 +219,13 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
    Donde no hay Georgia ni Times (Android) la regla no aplica y queda como estaba. */
 @font-face{font-family:'Cinzel Resp';font-weight:100 900;src:local('Times New Roman'),local('TimesNewRomanPSMT');size-adjust:137%}
 @font-face{font-family:'Cormorant Resp';font-style:italic;font-weight:100 900;src:local('Georgia Italic'),local('Georgia-Italic');size-adjust:79%}
+/* Pieza D (15/11/2026): el texto mas largo de 2b volvio a mover la cabecera de las paginas de ocasion al llegar
+   Manrope (noches a 360: el antetitulo pasaba de 3 a 2 lineas; bodas a 390 y empresas en WebKit: la entradilla
+   de 5 a 6). Manrope es mas estrecha que Helvetica/Arial en mayusculas (0,95 con el espaciado) y mas ancha en
+   minusculas (1,02): dos respaldos medidos, uno para el antetitulo y otro para la entradilla, solo en
+   .oc-gancho. */
+@font-face{font-family:'Manrope Resp Mayus';font-weight:100 900;src:local('Helvetica'),local('Arial'),local('ArialMT');size-adjust:92.5%}
+@font-face{font-family:'Manrope Resp';font-weight:100 900;src:local('Helvetica'),local('Arial'),local('ArialMT');size-adjust:100.5%}
 :root{
   --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
   --gold:#e6c25c; --gold-grad:linear-gradient(120deg,#b8912f,#f6e0a0 45%,#e6c25c 70%,#b8912f);
@@ -460,6 +467,10 @@ body.carga .tramos{transition:none}
 }
 /* Pantallas bajas (320 x 568, 375 x 667): arco mas corto para que el tramo quepa en dos pantallas. */
 @media(max-width:1099px) and (max-height:700px){.svc-fila .svc-card .ph{aspect-ratio:1/.9}}
+/* Pieza D (15/11/2026): WebKit calculaba la proporcion de la foto con el ancho de la tarjeta sin restar los
+   margenes (210 px en vez de 190 a 320 x 568) y la fila de la portada crecia 35 px: tramo de 1169 en 1136.
+   Con el ancho explicito (el de la tarjeta menos sus 10 + 10 px) los dos motores dan el mismo alto. */
+.svc-fila .svc-card .ph{width:calc(100% - 20px)}
 @media(min-width:1100px){.svc-fila{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}}
 .tr-li{background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .tr-li .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
@@ -794,6 +805,14 @@ body.en-arma .cart-fab{display:none}
 @media(max-width:359px){.bn a,.cart-fab,.cart-fab:not(.show),body.en-arma .cart-fab{font-size:11px;padding:0 2px}}
 /* Pantallas bajas (320 x 568): la presentacion baja 12 px para no rozar el boton de pausa del reel. */
 @media(max-width:999px) and (max-height:600px){.hero-inner{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
+/* Pieza D (15/11/2026): con el texto de 2b la prueba en ingles ocupa tres lineas a 320 x 568 y la presentacion
+   subia 24 px, hasta pisar la pausa del reel. En pantallas bajas los dos botones bajan a 46 px (el objetivo
+   tactil sigue por encima de 44) y el aire entre bloques se aprieta: 26 px menos, sin tocar la letra. */
+@media(max-width:999px) and (max-height:600px){.hero-cta .hc{min-height:46px}.hero-proof{margin-top:10px}.hero-cta{margin-top:14px}}
+/* Pieza D: a 320 x 568 la barra de la vista ocupa dos filas (con Volver) y el marco vertical de Liana (9:16)
+   pasaba de lo que cabe entre ella y la barra del pie (409 de 393). En las vistas se limita tambien por el alto
+   libre; en pantallas de 667 px o mas manda el 40,5svh de siempre. */
+@media(max-width:900px){.view .aw .ph.ph-v{width:min(100%,40.5svh,calc((100svh - 176px)*9/16))}}
 @media(prefers-reduced-motion:reduce){.mi-barra,.bn a::before,.cart-fab::before,.toast{transition:none!important}}
 .overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
 .overlay-dim.on{opacity:1;visibility:visible}
@@ -928,6 +947,10 @@ body.en-arma .cart-fab{display:none}
 .oc-gancho h1{margin-top:16px;font-family:'Cormorant Garamond','Cormorant Resp',Georgia,serif;font-style:italic;font-weight:500;font-size:var(--t-h1-it);line-height:1.1;letter-spacing:0}
 .oc-gancho h1 .cz{font-family:'Cinzel','Cinzel Resp',serif;font-style:normal;font-weight:500;font-size:.8em;color:var(--gold-hi);letter-spacing:.01em}
 .oc-gancho .lead{margin-top:20px;max-width:var(--medida-corta);font-size:18px;color:#ddd5ec}
+.oc-gancho .a-eyebrow{font-family:'Manrope','Manrope Resp Mayus',sans-serif}
+/* 50ch de Manrope (0,6098 em por caracter) en em: el ancho de la entradilla ya no depende de la fuente que haya
+   llegado (con ch, el respaldo cambiaba el ancho de la caja en escritorio). */
+.oc-gancho .lead{font-family:'Manrope','Manrope Resp',sans-serif;max-width:30.49em}
 .oc-gancho .ph{justify-self:end;width:100%;max-width:440px}
 .oc-gancho .arch{aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 18px 18px;border:1px solid rgba(246,224,160,.35);background:#120e1c}
 .oc-gancho .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 0}

@@ -1319,6 +1319,13 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-l
 @media(max-width:999px){.arma-bar{flex-wrap:wrap;row-gap:4px;padding-top:6px;padding-bottom:6px}}
 @media(min-width:1000px){.ab-fila{display:contents}.ab-volver:not(.pm-volver){order:-1;margin-right:4px}}
 @media(prefers-reduced-motion:reduce){.ab-volver{transition:none}}
+/* ── PIEZA B (decision de Frank, 15/11/2026): en las vistas interiores la barra con Volver se esconde al bajar
+   y vuelve al subir, como en Safari (la clase ab-oculta la pone el enrutador). Se ve al cargar la vista, con
+   cualquier scroll hacia arriba, arriba del todo y con el foco dentro. Solo transform y opacity: la barra es
+   sticky y conserva su sitio en el flujo, asi que nada se mueve (CLS 0). Movimiento reducido: sin animacion. */
+.view>.arma-bar{transition:transform .32s var(--ease),opacity .32s var(--ease)}
+.view>.arma-bar.ab-oculta:not(:focus-within){transform:translateY(-100%);opacity:0;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.view>.arma-bar{transition:none}}
 
 </style>
 </head>
@@ -2470,6 +2477,17 @@ function showView(id){const sale=currentView&&currentView!==id?document.getEleme
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));const v=document.getElementById(id);if(v)v.classList.add('active');
   if(sale){sale.classList.add('sale');setTimeout(()=>sale.classList.remove('sale'),460);}
   currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
+/* Pieza B (decision de Frank, 15/11/2026): en las vistas interiores la barra con Volver se esconde al bajar y
+   vuelve con cualquier scroll hacia arriba, como en Safari. Al entrar en una vista se ve (barraVista, tras
+   reponer el scroll, asi la reposicion de Atras no la esconde); arriba del todo y con el foco dentro
+   (:focus-within, en el CSS) tambien. Solo cambia una clase: el CSS la mueve con transform y opacity. */
+const abUlt=new WeakMap();
+function barraVista(v){const b=v&&v.querySelector(':scope>.arma-bar');if(!b)return;b.classList.remove('ab-oculta');abUlt.set(v,v.scrollTop);}
+document.addEventListener('scroll',e=>{const v=e.target;if(!(v instanceof Element)||!v.classList.contains('view')||!v.classList.contains('active'))return;
+  const b=v.querySelector(':scope>.arma-bar');if(!b)return;const y=v.scrollTop,u=abUlt.has(v)?abUlt.get(v):y,d=y-u;
+  if(y<=b.offsetHeight){b.classList.remove('ab-oculta');abUlt.set(v,y);}
+  else if(d>6){b.classList.add('ab-oculta');abUlt.set(v,y);}
+  else if(d<-2){b.classList.remove('ab-oculta');abUlt.set(v,y);}},{capture:true,passive:true});
 function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));
   if(currentView){const b=document.body;b.classList.add('vuelve');setTimeout(()=>b.classList.remove('vuelve'),450);}currentView=null;}
 /* Atras devuelve a la misma altura. Cada entrada del historial lleva una clave en
@@ -2653,7 +2671,8 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   if(quiere&&pmId!==quiere)openProduct(quiere);
   else if(!quiere&&pmId)closeProduct();
   if(r0){const v=document.getElementById(vista);
-    if(navAltura!=null)v.scrollTop=navAltura;else if(!(vista===vistaAntes&&r0===antes&&r0==='servicios'))v.scrollTop=0;}
+    if(navAltura!=null)v.scrollTop=navAltura;else if(!(vista===vistaAntes&&r0===antes&&r0==='servicios'))v.scrollTop=0;
+    barraVista(v);}
   navAltura=null;
   marcarNav();
   titulo();}

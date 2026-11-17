@@ -274,3 +274,81 @@ let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{if(c
 
 /* @piezas */
 })();
+
+/* ── PIEZA E (opcion C «Cada nombre, su numero», elegida por Frank el 15/11/2026) ──────────────────────
+   El canto de cada titulo mira al centro de la pantalla (o, con raton, cae lejos del puntero): se escriben
+   --dx/--dy en un cuadro por scroll, solo en los titulos visibles. Cada nombre hace su numero una vez al
+   entrar en el 65 % de arriba de la pantalla, otra al pasar el raton o al tocarlo, y se rearma al salir.
+   «Hora Loca» se parte en letras con la primera interaccion (y solo si hay movimiento), nunca al cargar: una capa de letras con
+   aria-hidden delante del texto real (que se queda, transparente, para los lectores de pantalla y para
+   innerText; las letras son contenido generado). Asi el nombre accesible sigue siendo «Hora Loca».
+   Quieto si: movimiento reducido, pausa del reel (sin html.fx), ahorro de datos, poca memoria, o si el
+   propio telefono no aguanta (media de los ultimos 30 cuadros de scroll > 40 ms). El CSS esta en index.html. */
+(function(){
+const R=document.documentElement;
+const VISTAS='#svcT,#lianaT,#galT,#armaT,#fechaT,#showT,#ocT,#pmT';
+const BASE='#home .hero-h1,#tramos .tr-h,#hOcc .occ b,#hCarta .svc-card h3,'+VISTAS;
+const ACTORES='#home .hero-h1 :is(.n-hl,.n-led,.n-fuego,.n-oro),#tramos .tr-h,#hOcc .occ b,#hCarta .svc-card h3,'+VISTAS;
+const HL='#home .hero-h1 .n-hl,#hCarta h3 a[href$="/horaloca"],#pmT[data-t3=hl]';
+const MAT={fire:'fuego',robot:'led',horaloca:'hl',sax:'metal',drummer:'metal'};
+const mq=matchMedia('(prefers-reduced-motion: reduce)'),fino=matchMedia('(hover:hover) and (pointer:fine)');
+const con=navigator.connection;
+let ligero=!!(con&&con.saveData)||!!(navigator.deviceMemory&&navigator.deviceMemory<=2);
+const vivo=()=>R.classList.contains('fx')&&!mq.matches&&!ligero;
+let base=[],vis=new Set(),ptr=null,pend=false,muestras=[],tPrev=0,listo=false,porScroll=false;
+const armado=new WeakSet(),visto=new WeakSet();
+const enPantalla=e=>{const v=e.closest('.view');return !v||v.classList.contains('active');};
+const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target):vis.delete(e.target));pedir();},{rootMargin:'15% 0px'});
+/* Escena: el 65 % de arriba de la pantalla. Entrar = numero; salir de la pantalla = rearmar. */
+const escena=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&armado.has(e.target)&&enPantalla(e.target)){armado.delete(e.target);numero(e.target);}}),{rootMargin:'0px 0px -35% 0px',threshold:.75});
+const fuera=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)armado.add(e.target);}),{threshold:0});
+function partir(){
+  document.querySelectorAll(HL).forEach(el=>{
+    if(el.querySelector('.t3-letras'))return;
+    const txt=el.textContent.trim();if(!txt)return;let i=0;
+    /* En un anfitrion flex (el enlace de la carta) la capa se alinearia como elemento flex: el texto va antes en
+       su propio span en linea, y ese span es el anfitrion. */
+    if(/flex|grid/.test(getComputedStyle(el).display)){const sp=document.createElement('span');sp.append(...el.childNodes);el.append(sp);el=sp;}
+    const capa=document.createElement('span');capa.className='t3-letras';capa.setAttribute('aria-hidden','true');
+    capa.innerHTML=txt.split(/\s+/).map(w=>'<span class="t3-w">'+[...w].map(ch=>`<i class="t3-l" style="--i:${i++}" data-l="${ch.replace(/[&<>"]/g,c=>'&#'+c.charCodeAt(0)+';')}"></i>`).join('')+'</span>').join('<i class="t3-l t3-esp"></i>');
+    el.prepend(capa);el.classList.add('t3-div');});}
+function material(){const pm=document.getElementById('pmT');if(!pm)return;
+  const id=(location.hash.match(/servicios\/([a-z]+)/)||[])[1];const m=MAT[id]||'oro';if(pm.dataset.t3!==m)pm.dataset.t3=m;}
+function recoger(){
+  io.disconnect();escena.disconnect();fuera.disconnect();vis.clear();material();
+  if(listo&&vivo())partir();
+  base=[...document.querySelectorAll(BASE)];base.forEach(e=>io.observe(e));
+  document.querySelectorAll(ACTORES).forEach(e=>{if(listo&&!visto.has(e))armado.add(e);visto.add(e);escena.observe(e);fuera.observe(e);});}
+const cl=(v,a=-1,b=1)=>v<a?a:v>b?b:v;
+function numero(e){if(!listo||!vivo()||!e)return;e.classList.remove('t3-act');void e.offsetWidth;e.classList.add('t3-act');}
+function cuadro(t){
+  pend=false;
+  /* Telefono lento: se miden solo los cuadros que pide el scroll (los ultimos 30 seguidos, menos de 200 ms entre
+     uno y otro); si la media pasa de 40 ms (menos de 25 cuadros por segundo), el 3D se apaga para esa visita. */
+  if(porScroll){if(tPrev&&t-tPrev<200){muestras.push(t-tPrev);if(muestras.length>30)muestras.shift();if(muestras.length===30&&muestras.reduce((a,b)=>a+b)/30>40){ligero=true;limpiar();return;}}else muestras=[];tPrev=t;porScroll=false;}
+  if(!vivo()){limpiar();return;}
+  const W=innerWidth,H=innerHeight;
+  vis.forEach(e=>{if(!enPantalla(e))return;
+    const r=e.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;let dx,dy;
+    if(ptr&&fino.matches){dx=cl((cx-ptr.x)/520);dy=cl((cy-ptr.y)/360);}
+    else{dx=cl(-(cx-W/2)/(W/2)*.9+.15);dy=cl(-(cy-H/2)/(H/2)*1.1+.35);}
+    e.style.setProperty('--dx',dx.toFixed(3));e.style.setProperty('--dy',dy.toFixed(3));});}
+function limpiar(){base.forEach(e=>{e.style.removeProperty('--dx');e.style.removeProperty('--dy');if(!e.getAttribute('style'))e.removeAttribute('style');});document.querySelectorAll('.t3-act').forEach(e=>e.classList.remove('t3-act'));}
+function pedir(){if(!pend){pend=true;requestAnimationFrame(cuadro);}}
+/* Primera interaccion: parte «Hora Loca» y arma los numeros de lo que ya esta en pantalla. */
+function empezar(){if(listo)return;listo=true;if(vivo())partir();document.querySelectorAll(ACTORES).forEach(e=>armado.add(e));recoger();}
+const op={passive:true,capture:true};
+['scroll','pointerdown','keydown'].forEach(ev=>document.addEventListener(ev,empezar,op));
+document.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'){empezar();ptr={x:e.clientX,y:e.clientY};pedir();}},{passive:true});
+document.addEventListener('scroll',()=>{porScroll=true;pedir();},op);
+addEventListener('resize',pedir,{passive:true});
+document.addEventListener('pointerleave',()=>{ptr=null;pedir();});
+document.addEventListener('pointerdown',e=>{const t=e.target.closest&&e.target.closest(ACTORES);if(t)numero(t);},{passive:true});
+document.addEventListener('pointerover',e=>{if(e.pointerType!=='mouse')return;const t=e.target.closest&&e.target.closest(ACTORES);if(t&&!t.contains(e.relatedTarget))numero(t);},{passive:true});
+document.addEventListener('animationend',e=>{if(e.target.classList.contains('t3-act'))e.target.classList.remove('t3-act');});
+let tm;new MutationObserver(()=>{clearTimeout(tm);tm=setTimeout(()=>{recoger();pedir();},120);}).observe(document.body,{childList:true,subtree:true});
+addEventListener('hashchange',()=>setTimeout(()=>{material();},0));
+new MutationObserver(()=>{if(listo&&vivo())partir();pedir();}).observe(R,{attributes:true,attributeFilter:['class']});
+mq.addEventListener&&mq.addEventListener('change',pedir);
+recoger();pedir();
+})();

@@ -14,7 +14,7 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
 (function(){var m=location.pathname.replace(/\/+$/,'').match(/^\/(bodas|empresas|noches|celebraciones|planners-y-venues|privacidad|privacy)$/);
   if(m&&!location.hash){history.replaceState(null,'','/#/'+({'planners-y-venues':'planners',privacy:'privacidad'}[m[1]]||m[1]));}})();
 </script>
-<title>SkyDancer Productions · Luxury Event Entertainment · Miami</title>
+<title>SkyDancer Productions · Hora Loca Miami, LED Robots &amp; Fire · Nationwide</title>
 <link rel="canonical" href="https://skydancerproduction.com/" />
 <!-- El dominio propio es la URL buena desde el 20/10/2026. Puede haber copias viejas sirviendo
      lo mismo (el alias de Vercel, GitHub Pages): sin canonical eso es contenido duplicado y
@@ -24,7 +24,7 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
  "@context": "https://schema.org",
  "@type": "EntertainmentBusiness",
  "name": "SkyDancer Productions",
- "description": "Luxury event entertainment in Miami: professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions.",
+ "description": "Luxury event entertainment based in Miami, for events nationwide: professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions. No travel fee in Miami-Dade; the rest of Florida is quoted by location, and outside Florida transport and lodging are quoted separately.",
  "url": "https://skydancerproduction.com/",
  "telephone": "+1-786-992-4543",
  "email": "Skydancerproduction@gmail.com",
@@ -50,6 +50,14 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
   {
    "@type": "AdministrativeArea",
    "name": "Palm Beach County"
+  },
+  {
+   "@type": "State",
+   "name": "Florida"
+  },
+  {
+   "@type": "Country",
+   "name": "United States"
   }
  ],
  "founder": {
@@ -174,12 +182,12 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
  }
 }
 </script>
-<meta name="description" content="SkyDancer Productions — luxury event entertainment in Miami. Professional dancers, Hora Loca, LED robots, fire performers, live musicians and custom productions." />
+<meta name="description" content="Luxury event entertainment based in Miami, for events nationwide: dancers, Hora Loca, LED robots, fire performers and live musicians. No travel fee in Miami-Dade; outside Florida, transport and lodging are quoted separately." />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="SkyDancer Productions" />
 <meta property="og:url" content="https://skydancerproduction.com/" />
-<meta property="og:title" content="SkyDancer Productions · Hora Loca, LED robots, fire and live dancers in Miami" />
-<meta property="og:description" content="Event entertainment in Miami directed by Liana del Toro: Hora Loca, LED robots, fire performers, dancers and live musicians. Build your show and send it on WhatsApp." />
+<meta property="og:title" content="SkyDancer Productions · Hora Loca, LED robots, fire and live dancers · Miami &amp; nationwide" />
+<meta property="og:description" content="Miami-based event entertainment directed by Liana del Toro: Hora Loca, LED robots, fire performers, dancers and live musicians, for events nationwide. Outside Florida, transport and lodging are quoted separately." />
 <meta property="og:image" content="https://skydancerproduction.com/assets/og-skydancer.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -211,6 +219,13 @@ window.SDP_VISTA=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)||/
    Donde no hay Georgia ni Times (Android) la regla no aplica y queda como estaba. */
 @font-face{font-family:'Cinzel Resp';font-weight:100 900;src:local('Times New Roman'),local('TimesNewRomanPSMT');size-adjust:137%}
 @font-face{font-family:'Cormorant Resp';font-style:italic;font-weight:100 900;src:local('Georgia Italic'),local('Georgia-Italic');size-adjust:79%}
+/* Pieza D (15/11/2026): el texto mas largo de 2b volvio a mover la cabecera de las paginas de ocasion al llegar
+   Manrope (noches a 360: el antetitulo pasaba de 3 a 2 lineas; bodas a 390 y empresas en WebKit: la entradilla
+   de 5 a 6). Manrope es mas estrecha que Helvetica/Arial en mayusculas (0,95 con el espaciado) y mas ancha en
+   minusculas (1,02): dos respaldos medidos, uno para el antetitulo y otro para la entradilla, solo en
+   .oc-gancho. */
+@font-face{font-family:'Manrope Resp Mayus';font-weight:100 900;src:local('Helvetica'),local('Arial'),local('ArialMT');size-adjust:92.5%}
+@font-face{font-family:'Manrope Resp';font-weight:100 900;src:local('Helvetica'),local('Arial'),local('ArialMT');size-adjust:100.5%}
 :root{
   --bg:#05040a; --ink:#f4f0ff; --muted:#b6adcf; --line:rgba(255,255,255,.14);
   --gold:#e6c25c; --gold-grad:linear-gradient(120deg,#b8912f,#f6e0a0 45%,#e6c25c 70%,#b8912f);
@@ -452,6 +467,10 @@ body.carga .tramos{transition:none}
 }
 /* Pantallas bajas (320 x 568, 375 x 667): arco mas corto para que el tramo quepa en dos pantallas. */
 @media(max-width:1099px) and (max-height:700px){.svc-fila .svc-card .ph{aspect-ratio:1/.9}}
+/* Pieza D (15/11/2026): WebKit calculaba la proporcion de la foto con el ancho de la tarjeta sin restar los
+   margenes (210 px en vez de 190 a 320 x 568) y la fila de la portada crecia 35 px: tramo de 1169 en 1136.
+   Con el ancho explicito (el de la tarjeta menos sus 10 + 10 px) los dos motores dan el mismo alto. */
+.svc-fila .svc-card .ph{width:calc(100% - 20px)}
 @media(min-width:1100px){.svc-fila{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}}
 .tr-li{background:radial-gradient(60% 70% at 85% 30%,rgba(230,194,92,.12),transparent 70%)}
 .tr-li .aw{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
@@ -786,6 +805,14 @@ body.en-arma .cart-fab{display:none}
 @media(max-width:359px){.bn a,.cart-fab,.cart-fab:not(.show),body.en-arma .cart-fab{font-size:11px;padding:0 2px}}
 /* Pantallas bajas (320 x 568): la presentacion baja 12 px para no rozar el boton de pausa del reel. */
 @media(max-width:999px) and (max-height:600px){.hero-inner{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px))}}
+/* Pieza D (15/11/2026): con el texto de 2b la prueba en ingles ocupa tres lineas a 320 x 568 y la presentacion
+   subia 24 px, hasta pisar la pausa del reel. En pantallas bajas los dos botones bajan a 46 px (el objetivo
+   tactil sigue por encima de 44) y el aire entre bloques se aprieta: 26 px menos, sin tocar la letra. */
+@media(max-width:999px) and (max-height:600px){.hero-cta .hc{min-height:46px}.hero-proof{margin-top:10px}.hero-cta{margin-top:14px}}
+/* Pieza D: a 320 x 568 la barra de la vista ocupa dos filas (con Volver) y el marco vertical de Liana (9:16)
+   pasaba de lo que cabe entre ella y la barra del pie (409 de 393). En las vistas se limita tambien por el alto
+   libre; en pantallas de 667 px o mas manda el 40,5svh de siempre. */
+@media(max-width:900px){.view .aw .ph.ph-v{width:min(100%,40.5svh,calc((100svh - 176px)*9/16))}}
 @media(prefers-reduced-motion:reduce){.mi-barra,.bn a::before,.cart-fab::before,.toast{transition:none!important}}
 .overlay-dim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;opacity:0;visibility:hidden;transition:.4s}
 .overlay-dim.on{opacity:1;visibility:visible}
@@ -920,6 +947,10 @@ body.en-arma .cart-fab{display:none}
 .oc-gancho h1{margin-top:16px;font-family:'Cormorant Garamond','Cormorant Resp',Georgia,serif;font-style:italic;font-weight:500;font-size:var(--t-h1-it);line-height:1.1;letter-spacing:0}
 .oc-gancho h1 .cz{font-family:'Cinzel','Cinzel Resp',serif;font-style:normal;font-weight:500;font-size:.8em;color:var(--gold-hi);letter-spacing:.01em}
 .oc-gancho .lead{margin-top:20px;max-width:var(--medida-corta);font-size:18px;color:#ddd5ec}
+.oc-gancho .a-eyebrow{font-family:'Manrope','Manrope Resp Mayus',sans-serif}
+/* 50ch de Manrope (0,6098 em por caracter) en em: el ancho de la entradilla ya no depende de la fuente que haya
+   llegado (con ch, el respaldo cambiaba el ancho de la caja en escritorio). */
+.oc-gancho .lead{font-family:'Manrope','Manrope Resp',sans-serif;max-width:30.49em}
 .oc-gancho .ph{justify-self:end;width:100%;max-width:440px}
 .oc-gancho .arch{aspect-ratio:3/4;overflow:hidden;border-radius:999px 999px 18px 18px;border:1px solid rgba(246,224,160,.35);background:#120e1c}
 .oc-gancho .arch img{width:100%;height:100%;object-fit:cover;object-position:50% 0}
@@ -1270,13 +1301,132 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
    Tanda 5: la noche de ejemplo ya no se fija ni apila sus momentos como cartas (una foto
    tapaba a la otra); sus momentos entran como el resto, uno tras otro. */
 
+/* ── PIEZA 1 (14/11/2026): la barra de la portada, compacta y en la esquina, oculta mientras
+   el reel esta solo. Aparece con el primer scroll (la misma senal «bajando» que trae la barra
+   inferior del telefono y se va al volver arriba, como ella), con el menu abierto sobre la
+   portada (solo-menu) y en cuanto el foco del teclado entra en ella (:focus-within), y no se
+   va mientras lo tenga. Se oculta con opacidad y desplazamiento: es fija, no ocupa sitio en
+   el flujo y nada se mueve (CLS 0). Sin visibility:hidden, para que Tab la alcance.
+   Los objetivos tactiles siguen en 44 px; lo que baja es la letra y el aire. Sin JS no hay
+   html.js y la barra se queda a la vista. */
+/* Pieza A (decision de Frank, 15/11/2026): la marca SKYDANCER se queda siempre a la vista arriba a la izquierda
+   (es el candidato a LCP de la portada: con toda la barra oculta Lighthouse daba NO_LCP); lo que se oculta hasta
+   el primer scroll es el resto de la barra (idioma y «Menu», y la navegacion en escritorio), con las mismas
+   reglas de foco y de menu abierto. */
+.topbar{min-height:0;padding-block:6px;gap:6px 12px;transition:background .3s}
+.topbar>:not(.tb-logo){transition:opacity .3s var(--ease),transform .4s var(--ease)}
+html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-logo){opacity:0;transform:translateY(-100%);pointer-events:none}
+.topbar .tb-logo{font-size:.875rem;letter-spacing:.14em}
+.topbar .lang button{padding:0 8px}
+@media(max-width:999px){.topbar{padding-inline:12px}}
+@media(min-width:1000px){
+  .topbar{padding-inline:20px}
+  .topbar .hd-nav a{padding:0 12px;font-size:14px}
+  .topbar .hd-nav a::after{left:12px;right:12px}
+  .topbar .hd-nav .cta{padding:0 16px}
+}
+@media(prefers-reduced-motion:reduce){.topbar,.topbar>:not(.tb-logo){transition:none}}
+/* ── PIEZA 4 (14/11/2026): «Volver» en cada vista interior y en la ficha. Pieza de apoyo
+   (ghost en pildora, como el selector de idioma): no compite con «Arma tu show», el unico
+   boton lleno. 44 px de alto. En el telefono la fila de la marca, el idioma y «Menu» ya esta
+   llena (a 360 px sobran 13 px), asi que Volver va en una segunda fila de la barra, junto al
+   indicador de paso cuando lo hay; desde 1000 px va delante de la marca, en la misma fila.
+   La barra existe desde la carga: no hay salto. */
+.ab-fila{order:3;display:flex;align-items:center;gap:12px;width:100%;min-width:0}
+.ab-fila .stepm{order:0;width:auto;flex:1 1 auto;min-width:0}
+.ab-volver{display:inline-flex;align-items:center;gap:4px;flex:none;min-width:44px;min-height:44px;padding:0 16px 0 8px;border:1px solid var(--line);border-radius:999px;background:rgba(10,7,18,.5);color:#e6dff2;font:700 14px/1 'Manrope',system-ui,sans-serif;cursor:var(--cur),pointer;transition:color .2s,border-color .2s,background .2s}
+.ab-volver .svg-ic{width:20px;height:20px}
+.ab-volver:hover{color:var(--gold-hi);border-color:rgba(246,224,160,.55);background:rgba(230,194,92,.08)}
+.ab-volver:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.pm-volver{position:absolute;z-index:3;top:10px;left:12px;background:rgba(5,4,10,.72);border-color:rgba(255,255,255,.35);color:#fff}
+@media(max-width:999px){.arma-bar{flex-wrap:wrap;row-gap:4px;padding-top:6px;padding-bottom:6px}}
+@media(min-width:1000px){.ab-fila{display:contents}.ab-volver:not(.pm-volver){order:-1;margin-right:4px}}
+@media(prefers-reduced-motion:reduce){.ab-volver{transition:none}}
+/* ── PIEZA B (decision de Frank, 15/11/2026): en las vistas interiores la barra con Volver se esconde al bajar
+   y vuelve al subir, como en Safari (la clase ab-oculta la pone el enrutador). Se ve al cargar la vista, con
+   cualquier scroll hacia arriba, arriba del todo y con el foco dentro. Solo transform y opacity: la barra es
+   sticky y conserva su sitio en el flujo, asi que nada se mueve (CLS 0). Movimiento reducido: sin animacion. */
+.view>.arma-bar{transition:transform .32s var(--ease)}
+.view>.arma-bar.ab-oculta:not(:focus-within){transform:translateY(-100%);pointer-events:none}
+@media(prefers-reduced-motion:reduce){.view>.arma-bar{transition:none}}
+
+/* ── PIEZA E (opcion C «Cada nombre, su numero», elegida por Frank el 15/11/2026) ──────────────────────
+   Cada nombre lleva el material de su numero: fuego (Espectaculo de Fuego, «fuego» del titular), luz LED
+   (Show de Robots LED, «robots LED»), Hora Loca (naranja quieta; los cuatro colores del confeti solo durante
+   la ola), metal de los musicos (Saxofonista y Baterista) y oro para el resto. Colores sacados de las fotos
+   de cada numero: naranja #e19330 del fuego y de la Hora Loca, azul #4aa8e8 y magenta #d84aae del LED,
+   laton #d9b46a y el oro del sitio #e6c25c.
+   Alcance: los 26 titulos de la portada y el h1 de cada vista interior (servicios, ficha, liana, galeria, las
+   cinco paginas de ocasion y los tres pasos de «Arma tu show»). Privacidad queda plana.
+   El relieve es CSS fijo desde el primer pintado (sin JS se ve igual, quieto). efectos.js escribe --dx/--dy
+   (el canto mira al centro de la pantalla o cae lejos del puntero) y pone .t3-act para el numero: una vez al
+   entrar en el 65 % de arriba de la pantalla, al pasar el raton o al tocarlo. Nunca background-clip:text con
+   text-shadow (la sombra tapa la cara): el oro degradado del logo lleva su relieve con drop-shadow.
+   Movimiento reducido, pausa del reel, ahorro de datos o telefono lento: material y canto, quietos. */
+@property --c{syntax:'<color>';inherits:true;initial-value:#e6c25c}
+@property --gla{syntax:'<number>';inherits:true;initial-value:0}
+/* Los valores de partida van en el titulo; los nombres del titular y las letras de la ola los heredan, pero
+   declaran su propia sombra para usar su propio --c. */
+#home .hero-h1,#tramos .tr-h,#hOcc .occ b,#hCarta .svc-card h3,#svcT,#lianaT,#galT,#armaT,#fechaT,#showT,#ocT,#pmT{--dx:.2;--dy:.6;--u:1.3px;--c:#e6c25c;--o:#24170a}
+#home .hero-h1,#home .hero-h1 :is(.n-hl,.n-led,.n-fuego,.n-oro),#tramos .tr-h,#hOcc .occ b,#hCarta .svc-card h3,#svcT,#lianaT,#galT,#armaT,#fechaT,#showT,#ocT,#pmT,.t3-l{
+  text-shadow:
+    calc(var(--dx)*var(--u)) calc(var(--dy)*var(--u)) 0 var(--c),
+    calc(var(--dx)*var(--u)*2) calc(var(--dy)*var(--u)*2) 0 color-mix(in oklab,var(--c) 78%,var(--o)),
+    calc(var(--dx)*var(--u)*3) calc(var(--dy)*var(--u)*3) 0 color-mix(in oklab,var(--c) 56%,var(--o)),
+    calc(var(--dx)*var(--u)*4) calc(var(--dy)*var(--u)*4) 0 color-mix(in oklab,var(--c) 36%,var(--o)),
+    calc(var(--dx)*var(--u)*5) calc(var(--dy)*var(--u)*5) 0 color-mix(in oklab,var(--c) 18%,var(--o)),
+    0 0 calc(4px + var(--gla)*26px) color-mix(in oklab,var(--c) calc(var(--gla)*80%),transparent)}
+/* La cara de la letra: la tinta del sitio en la portada (18:1 sobre el fondo); en las vistas cada titular
+   conserva su color (el oro claro de .cz incluido). */
+#home .hero-h1,#tramos .tr-h,#hOcc .occ b,#hCarta .svc-card h3{--cara:#f4f0ff;color:var(--cara)}
+#hOcc .occ b,#hCarta .svc-card h3{--u:.9px}
+#hCarta .svc-card h3 a{color:inherit}
+#home .hero-h1 .h-sub,#tramos .tr-h .h-sub,.view h1 .h-sub{text-shadow:none}
+/* El titular: «y» y «en vivo» con canto violeta neutro; cada nombre con el suyo. */
+#home .hero-h1{--c:#5b4a8a;--o:#0b0816}
+#home .hero-h1 .n-oro{--c:#e6c25c;--o:#24170a}
+#home .hero-h1 .n-fuego,#hCarta h3:has(a[href$="/fire"]),#pmT[data-t3=fuego]{--cara:#ffd89a;--c:#e19330;--o:#3a0e04;color:var(--cara)}
+#home .hero-h1 .n-led,#hCarta h3:has(a[href$="/robot"]),#pmT[data-t3=led]{--cara:#eef7ff;--c:#4aa8e8;--o:#0b0820;color:var(--cara)}
+#hCarta h3:has(a[href$="/sax"]),#hCarta h3:has(a[href$="/drummer"]),#pmT[data-t3=metal]{--c:#d9b46a;--o:#1c140c}
+/* Hora Loca: naranja quieta (cara #ffb35f, mas honda que el ambar del fuego, y canto #e19330); los cuatro
+   colores del confeti solo en el canto y solo durante la ola. «Hora Loca» va en una sola linea, asi la capa de letras que pinta la ola
+   (efectos.js la pone delante del texto, con aria-hidden) cae encima del texto real, que queda
+   transparente y es el que leen los lectores de pantalla. */
+#home .hero-h1 .n-hl,#hCarta h3:has(a[href$="/horaloca"]),#pmT[data-t3=hl]{--cara:#ffb35f;--c:#e19330;--o:#2a0c02;color:var(--cara)}
+#home .hero-h1 .n-hl,#hCarta h3 a[href$="/horaloca"],#pmT[data-t3=hl]{white-space:nowrap}
+.t3-div{color:transparent!important;text-shadow:none!important}
+/* Sin left/top: la capa cae en su sitio estatico, al principio del texto. El anfitrion no se posiciona: en la
+   carta es el enlace, y su ::after (que hace tocable toda la tarjeta) tiene que seguir midiendose con la tarjeta. */
+.t3-letras{position:absolute;white-space:nowrap;color:var(--cara,currentColor);pointer-events:none}
+.t3-w{display:inline-block}
+.t3-l{display:inline-block;font-style:normal}
+.t3-l::before{content:attr(data-l)}
+.t3-esp::before{content:"\00a0"}
+.t3-l:nth-child(4n+1){--c2:#e6c25c}.t3-l:nth-child(4n+2){--c2:#d84aae}.t3-l:nth-child(4n+3){--c2:#4aa8e8}.t3-l:nth-child(4n){--c2:#e19330}
+/* El logo: oro degradado con background-clip, asi que el relieve va con drop-shadow (no text-shadow). */
+.tb-logo .s{filter:drop-shadow(0 1px 0 #87611b) drop-shadow(0 1px 0 #3a2808)}
+.tb-logo{text-shadow:0 1px 0 #87611b,0 2px 0 #3a2808,0 2px 14px rgba(0,0,0,.55)}
+.tb-logo .s{text-shadow:none}
+/* Los numeros (una vez, 0,8-1,2 s). */
+@keyframes t3-oro{0%{--gla:0}35%{--gla:1}100%{--gla:0}}
+@keyframes t3-fuego{0%{--gla:0;--c:#e19330}12%{--gla:.9;--c:#ffb347}22%{--gla:.5;--c:#e0581c}35%{--gla:1;--c:#ffc861}48%{--gla:.6;--c:#e19330}62%{--gla:.85;--c:#ff9a3c}80%{--gla:.4;--c:#e0581c}100%{--gla:0;--c:#e19330}}
+@keyframes t3-led{0%{--gla:.2;--c:#4aa8e8}30%{--gla:1;--c:#d84aae}60%{--gla:.8;--c:#4aa8e8}80%{--gla:1;--c:#d84aae}100%{--gla:0;--c:#4aa8e8}}
+@keyframes t3-ola{0%,100%{transform:none;--c:#e19330}30%{transform:translateY(-.32em) rotate(-7deg);--c:var(--c2)}60%{transform:translateY(.04em) rotate(3deg);--c:var(--c2)}}
+@keyframes t3-golpe{0%,40%,80%{transform:none}8%,48%{transform:scale(1.07)}}
+html.fx .t3-act{animation:t3-oro .8s cubic-bezier(.22,1,.36,1) 1}
+html.fx .n-fuego.t3-act,html.fx #hCarta h3.t3-act:has(a[href$="/fire"]),html.fx #pmT.t3-act[data-t3=fuego]{animation:t3-fuego 1.2s cubic-bezier(.4,0,.6,1) 1}
+html.fx .n-led.t3-act,html.fx #hCarta h3.t3-act:has(a[href$="/robot"]),html.fx #pmT.t3-act[data-t3=led]{animation:t3-led 1s steps(1,end) 1}
+html.fx .n-hl.t3-act,html.fx #hCarta h3.t3-act:has(a[href$="/horaloca"]),html.fx #pmT.t3-act[data-t3=hl]{animation:t3-oro 1.1s cubic-bezier(.22,1,.36,1) 1}
+html.fx .t3-act .t3-l{animation:t3-ola .55s cubic-bezier(.3,.7,.3,1.3) calc(var(--i)*45ms) 1 both}
+html.fx #hCarta h3.t3-act:has(a[href$="/sax"]),html.fx #hCarta h3.t3-act:has(a[href$="/drummer"]),html.fx #pmT.t3-act[data-t3=metal]{transform-origin:0 100%;animation:t3-golpe 1s cubic-bezier(.2,.8,.3,1) 1}
+@media (prefers-reduced-motion:reduce){html .t3-act,html .t3-act .t3-l{animation:none}}
 </style>
 </head>
 <body>
 
 <div class="topbar">
   <a class="tb-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>
-  <nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">The 15 services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Digital Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>
+  <nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">Services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Digital Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>
   <div class="tb-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en" class="on">EN</button><button data-lang="es">ES</button></div>
     <button class="ab-menu" id="openMenu" type="button"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg><span data-i18n="hero.menu">Menu</span></button></div>
 </div>
@@ -1294,7 +1444,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
 </div>
 <section class="pres" id="pres" aria-labelledby="presT">
   <div class="hero-inner">
-    <h1 class="hero-h1" id="presT" data-i18n-html="hero.h1">Hora Loca, LED robots, fire and live dancers <span class="h-sub">for Miami events, <em>directed by Liana del Toro</em></span></h1>
+    <h1 class="hero-h1" id="presT" data-i18n-html="hero.h1"><span class="n-hl">Hora Loca</span>, <span class="n-led">LED robots</span>, <span class="n-fuego">fire</span> and live <span class="n-oro">dancers</span> <span class="h-sub">based in Miami, for events nationwide, <em>directed by Liana del Toro</em></span></h1>
     <p class="hero-proof"><span data-i18n="cred.h">The team has performed at SLS Miami Beach, the Sagamore and the National Hotel</span></p>
     <div class="hero-cta">
       <a class="hc hc-1" href="#/arma" data-entrada="portada" data-i18n="hero.cta1">Build your show</a>
@@ -1313,12 +1463,13 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a></div>
   </div></section>
   <section class="tr tr-svc" aria-labelledby="trSvT"><div class="aw">
-    <h2 class="tr-h" id="trSvT" data-i18n-html="svc.h1">SkyDancer's 15 services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span></h2>
+    <h2 class="tr-h" id="trSvT" data-i18n-html="svc.h1">SkyDancer's services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span></h2>
     <div class="svc-fila fila" id="hCarta" role="group" aria-labelledby="trSvT"></div>
-    <div class="tr-go"><a class="a-btn a-ghost" href="#/servicios" data-i18n="arma.all">See the 15 services →</a></div>
+    <p class="cat-note" data-i18n="svc.viaje">Outside Florida, transport and lodging are quoted separately.</p>
+    <div class="tr-go"><a class="a-btn a-ghost" href="#/servicios" data-i18n="arma.all">See the services →</a></div>
   </div></section>
   <section class="tr tr-li" aria-labelledby="trLiT"><div class="aw">
-    <div><h2 class="tr-h" id="trLiT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h2>
+    <div><h2 class="tr-h" id="trLiT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded SkyDancer Productions and directs its productions</span></h2>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p>
       <a class="a-link" href="#/liana" data-i18n="li.ver">Liana's story →</a></div>
     <figure class="ph ph-v"><div class="arch" id="hLiana"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /></video><button class="liana-motion" type="button" aria-pressed="false" aria-label="Pause Liana’s video" data-i18n-aria="liana.pausa"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg></button></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
@@ -1329,7 +1480,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   </div></section>
   <section class="tr tr-fin" aria-labelledby="trFinT"><div class="aw">
     <h2 class="tr-h" id="trFinT" data-i18n="menu.n1">Build your show</h2>
-    <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and county</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
+    <ol class="hero-steps"><li><b>1</b><span data-i18n="hero.s1">Your event: wedding, brand, club…</span></li><li><b>2</b><span data-i18n="hero.s2">Date and location</span></li><li><b>3</b><span data-i18n="hero.s3">Your show, sent to Liana on WhatsApp</span></li></ol>
   </div><footer class="cierre" data-cierre="portada"></footer></section>
 </div>
 </main>
@@ -1340,8 +1491,8 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <div class="menu-panel">
     <div class="mn-head"><p class="a-eyebrow" id="menuT" data-i18n="hero.menu">Menu</p><button class="mn-x" id="menuBack" type="button"><span data-i18n="menu.cerrar">Close</span><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <nav class="mn-nav" aria-labelledby="menuT">
-      <a href="#/arma" data-mn="arma"><span class="n" aria-hidden="true">1</span><span><b data-i18n="menu.n1">Build your show</b><span class="d" data-i18n="menu.d1">Three steps: your event, date and county, and your show sent to Liana on WhatsApp</span></span><span class="go" data-ic="arrow"></span></a>
-      <a href="#/servicios" data-mn="servicios"><span class="n" aria-hidden="true">2</span><span><b data-i18n="menu.n2">The 15 services</b><span class="d" data-i18n="menu.d2">From dancers and Hora Loca to LED robots and fire, each with its photo and starting price</span></span><span class="go" data-ic="arrow"></span></a>
+      <a href="#/arma" data-mn="arma"><span class="n" aria-hidden="true">1</span><span><b data-i18n="menu.n1">Build your show</b><span class="d" data-i18n="menu.d1">Three steps: your event, the date and where it is (in Florida or any other state), and your show sent to Liana on WhatsApp</span></span><span class="go" data-ic="arrow"></span></a>
+      <a href="#/servicios" data-mn="servicios"><span class="n" aria-hidden="true">2</span><span><b data-i18n="menu.n2">Services</b><span class="d" data-i18n="menu.d2">From dancers and Hora Loca to LED robots and fire, each with its photo and starting price</span></span><span class="go" data-ic="arrow"></span></a>
       <a href="#/liana" data-mn="liana"><span class="n" aria-hidden="true">3</span><span><b data-i18n="menu.n3">Liana and the team</b><span class="d" data-i18n="menu.d3">Liana del Toro, Cuban-born professional dancer, founder and creative director</span></span><span class="go" data-ic="arrow"></span></a>
       <a href="#/galeria" data-mn="galeria"><span class="n" aria-hidden="true">4</span><span><b data-i18n="menu.n4">Digital Gallery</b><span class="d" data-i18n="menu.d4">The reel and photos of eight services at Miami events</span></span><span class="go" data-ic="arrow"></span></a>
     </nav>
@@ -1357,7 +1508,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <div class="arma-bar" data-armabar="simple"></div>
   <section class="oc-gancho li-gancho"><div class="aw">
     <div><p class="a-eyebrow" data-i18n="menu.n3">Liana and the team</p>
-      <h1 id="lianaT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span></h1>
+      <h1 id="lianaT" data-i18n-html="li.h1"><span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded SkyDancer Productions and directs its productions</span></h1>
       <p class="lead" data-i18n="li.lead">Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.</p></div>
     <figure class="ph ph-v"><div class="arch"><img src="assets/liana-founder.jpg" alt="Liana del Toro" width="1021" height="1400" loading="lazy" fetchpriority="low"><video muted playsinline preload="none" data-defer data-bucle="0.6" aria-hidden="true"><source src="assets/liana-hero.mp4" type="video/mp4" /><source src="assets/liana-founder.mp4" type="video/mp4" /></video><button class="liana-motion" type="button" aria-pressed="false" aria-label="Pause Liana’s video" data-i18n-aria="liana.pausa"><svg class="svg-ic hm-pause" viewBox="0 0 24 24" aria-hidden="true"><line x1="9.5" y1="7" x2="9.5" y2="17"/><line x1="14.5" y1="7" x2="14.5" y2="17"/></svg><svg class="svg-ic hm-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 6.6 17.5 12l-9 5.4Z"/></svg></button></div><figcaption data-i18n="founder.role">Founder &amp; Creative Director · Skydancer Productions</figcaption></figure>
   </div></section>
@@ -1397,7 +1548,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <div class="arma-bar" data-armabar="simple"></div>
   <div class="a-main con-cierre"><div class="aw">
     <p class="a-eyebrow" data-i18n="svc.k">Catalog</p>
-    <h1 class="a-h1" id="svcT" data-i18n-html="svc.h1">SkyDancer's 15 services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span></h1>
+    <h1 class="a-h1" id="svcT" data-i18n-html="svc.h1">SkyDancer's services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span></h1>
     <p class="a-sub" data-i18n="svc.sub">Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.</p>
     <ul class="perks">
       <li data-i18n="perk.p1">Book 2 · save 5%</li>
@@ -1405,7 +1556,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
       <li data-i18n="perk.p3">Returning clients · 10% off</li>
     </ul>
     <div class="cat" id="shopGrid"></div>
-    <p class="cat-note" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.</p>
+    <p class="cat-note" data-i18n="svc.note">Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements. Outside Florida, transport and lodging are quoted separately.</p>
   </div></div>
   <footer class="cierre" data-cierre="catalogo"></footer>
 </section>
@@ -1446,11 +1597,11 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
       <h2>1. What we collect and when</h2>
       <p><em>While you browse.</em> The site sets no cookies and uses no analytics, social media pixels or tracking tools. It saves the language you chose in your own browser so it shows up next time. We only receive it if you send us a request, as explained below. Like any website, when you open the site your browser sends its IP address and technical details (browser type, page requested) to Cloudflare, which hosts the site, and to Google, which serves the fonts (Google Fonts).</p>
       <p><em>When you check a date.</em> To tell you whether a date is open, we send that date to our system. Your IP address is used for a few minutes to limit abusive requests and deletes itself in under two hours. We don't store it with any other information about you.</p>
-      <p><em>While you build your show.</em> What you choose and type (occasion, date, county, venue, guests, services, your vision and your contact details) is kept only in this browser tab so you don't lose it if you go back or reload. We don't receive it until you press “Send”. It is erased when you close the tab, and your contact details are erased after you send.</p>
+      <p><em>While you build your show.</em> What you choose and type (occasion, date, location, venue, guests, services, your vision and your contact details) is kept only in this browser tab so you don't lose it if you go back or reload. We don't receive it until you press “Send”. It is erased when you close the tab, and your contact details are erased after you send.</p>
       <p><em>When you press “Send”.</em> We receive:</p>
       <ul>
         <li>your name and WhatsApp number (required) and your email (if you add it);</li>
-        <li>the occasion, date, county, venue or city, guest range and the services you picked;</li>
+        <li>the occasion, the date, the area you chose under “Location” (Miami-Dade, Broward, Palm Beach, Rest of Florida or Outside Florida), the venue or city, the guest range and the services you picked;</li>
         <li>what you wrote under “Your vision”;</li>
         <li>whether you're planning the event for a client (planner or venue) and, for show nights, the type of venue (club, restaurant or hotel);</li>
         <li>the page of the site where you started;</li>
@@ -1510,11 +1661,11 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
       <h2>1. Qué datos recogemos y cuándo</h2>
       <p><em>Mientras navegas.</em> El sitio no pone cookies ni usa analítica, píxeles de redes sociales ni herramientas de seguimiento. Guarda en tu propio navegador el idioma que elegiste, para mostrártelo la próxima vez. Solo nos llega si nos envías una solicitud, como se explica más abajo. Como cualquier web, al abrir el sitio tu navegador envía su dirección IP y datos técnicos (tipo de navegador, página pedida) a Cloudflare, que aloja el sitio, y a Google, que sirve las tipografías (Google Fonts).</p>
       <p><em>Cuando consultas una fecha.</em> Para decirte si la fecha está libre, mandamos esa fecha a nuestro sistema. Tu dirección IP se usa unos minutos para limitar consultas abusivas y se borra sola en menos de dos horas. No la guardamos con ningún otro dato tuyo.</p>
-      <p><em>Mientras armas tu show.</em> Lo que eliges y escribes (ocasión, fecha, condado, venue, invitados, servicios, tu idea y tus datos de contacto) se guarda solo en esta pestaña de tu navegador para que no lo pierdas si vas atrás o recargas. No nos llega hasta que pulsas «Enviar». Se borra al cerrar la pestaña y, tras el envío, se borran tus datos de contacto.</p>
+      <p><em>Mientras armas tu show.</em> Lo que eliges y escribes (ocasión, fecha, lugar, venue, invitados, servicios, tu idea y tus datos de contacto) se guarda solo en esta pestaña de tu navegador para que no lo pierdas si vas atrás o recargas. No nos llega hasta que pulsas «Enviar». Se borra al cerrar la pestaña y, tras el envío, se borran tus datos de contacto.</p>
       <p><em>Cuando pulsas «Enviar».</em> Recibimos:</p>
       <ul>
         <li>tu nombre y tu número de WhatsApp (obligatorios) y tu correo (si lo dejas);</li>
-        <li>la ocasión, la fecha, el condado, el venue o la ciudad, el rango de invitados y los servicios que marcaste;</li>
+        <li>la ocasión, la fecha, la zona que elegiste en «Lugar» (Miami-Dade, Broward, Palm Beach, Resto de Florida o Fuera de Florida), el venue o la ciudad, el rango de invitados y los servicios que marcaste;</li>
         <li>lo que escribiste en «Tu idea»;</li>
         <li>si organizas el evento para un cliente (planner o venue) y, en las noches con show, el tipo de local (club, restaurante u hotel);</li>
         <li>la página del sitio por la que empezaste;</li>
@@ -1580,7 +1731,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
     <h1 class="a-h1" id="armaT" data-i18n="arma.t">What are we building the show for?</h1>
     <p class="a-note" id="armaPlanner" hidden data-i18n="arma.planner">You are planning for a client: choose your client's occasion. In step 3 the box "I'm planning this for a client" will already be checked.</p>
     <div class="occ-grid fila" id="occGrid" role="group" aria-labelledby="armaT"></div>
-    <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a><a class="a-link" href="#/servicios" data-i18n="arma.all">See the 15 services</a></div>
+    <div class="a-links"><a class="a-link" href="#/planners" data-i18n="arma.planners">Planning for a client? Planners and venues, this way</a><a class="a-link" href="#/servicios" data-i18n="arma.all">See the services</a></div>
   </div></div>
 </section>
 
@@ -1595,14 +1746,14 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
   <div class="arma-bar" data-armabar></div>
   <div class="a-main"><div class="aw a-grid">
     <div>
-      <h1 class="a-h1" id="fechaT" data-i18n="f.t">Date and county, so Liana can check the calendar and travel</h1>
+      <h1 class="a-h1" id="fechaT" data-i18n="f.t">Date and location, so Liana can check the calendar and travel</h1>
       <p class="a-sub" data-i18n="f.sub">Availability comes from SkyDancer's real calendar.</p>
       <fieldset class="blk" id="fOcasion" hidden><legend class="flabel" data-i18n="f.ocas">Your event</legend><div class="opts chips" id="fOcasChips"></div><p class="ferr" id="fOcasErr" role="alert" hidden></p></fieldset>
       <div class="blk"><p class="flabel"><span id="calLbl" data-i18n="f.fecha">Event date</span> <small data-i18n="f.opc">optional</small></p>
         <div class="cal"><div class="month" id="calMes" role="group" aria-labelledby="calLbl"></div><div class="picked" id="calPick" aria-live="polite"></div></div></div>
-      <fieldset class="blk"><legend class="flabel" data-i18n="f.condado">County</legend><div class="opts counties" id="fCondados"></div></fieldset>
+      <fieldset class="blk"><legend class="flabel" data-i18n="f.condado">Location</legend><div class="opts counties" id="fCondados"></div></fieldset>
       <div class="blk two">
-        <div class="field"><label for="fVenue"><span data-i18n="f.venue">Venue or city</span> <small data-i18n="f.opc">optional</small></label><input id="fVenue" class="inp" type="text" maxlength="100" autocomplete="off" data-i18n-ph="brief.cityph" placeholder="Miami Beach, Coral Gables…"><p class="help" data-i18n="f.venueh">With the name of the venue, Liana checks whether it allows fire.</p></div>
+        <div class="field"><label for="fVenue"><span data-i18n="f.venue">Venue or city</span> <small data-i18n="f.opc">optional</small></label><input id="fVenue" class="inp" type="text" maxlength="100" autocomplete="off" data-i18n-ph="brief.cityph" placeholder="Miami Beach, Coral Gables or your city"><p class="help" data-i18n="f.venueh">With the name of the venue, Liana checks whether it allows fire.</p></div>
         <fieldset class="field"><legend class="flabel" data-i18n="f.inv">Guests</legend><div class="opts chips" id="fInv"></div></fieldset>
       </div>
       <div class="go"><a class="a-btn a-pri" href="#/arma/show" id="fSeguir" data-i18n="f.seguir">Continue with the show</a><a class="a-link back" id="fVolver" href="#/arma">← Back</a></div>
@@ -1621,7 +1772,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
       <p class="a-sub" data-i18n="s.sub">Tap a service to check or uncheck it.</p>
       <div class="msum" id="sMsum"></div>
       <fieldset class="sec"><legend class="flabel" data-i18n="s.svc">Services</legend><div class="chips" id="sChips"></div>
-        <p class="more"><a class="a-link" href="#/servicios" data-i18n="s.ver">See photos of the 15 services →</a></p></fieldset>
+        <p class="more"><a class="a-link" href="#/servicios" data-i18n="s.ver">See photos of each service →</a></p></fieldset>
       <div class="sec field"><label for="sVision"><span data-i18n="s.vision">Your vision</span> <small data-i18n="f.opc">optional</small></label><textarea id="sVision" class="inp txt" rows="4" maxlength="1200"></textarea></div>
       <div class="sec two">
         <div class="field"><label for="sNombre"><span data-i18n="s.nombre">Your name</span><span class="req" data-i18n="s.req">required</span></label><input id="sNombre" class="inp" type="text" autocomplete="name" maxlength="120" aria-describedby="sNombreErr" aria-required="true"><p class="ferr" id="sNombreErr" hidden></p></div>
@@ -1662,7 +1813,7 @@ html.fx .menu.open .mn-foot{animation:fx-sube .7s .36s cubic-bezier(.16,1,.3,1) 
 </div>
 
 <!-- TU SHOW fuera del recorrido: el carrito del catalogo se fundio con el show (mismo estado que el paso 3) -->
-<div class="mi-barra" id="miBarra"><div class="mb-in"><div class="toast" id="toast" role="status" aria-live="polite"></div><nav class="bn" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n-aria="menu.n2" aria-label="The 15 services"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"/></svg><span data-i18n="bn.svc">Services</span></a><a href="#/liana" data-nav="liana" data-i18n-aria="menu.n3" aria-label="Liana and the team"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 19.5c.6-3.6 3.5-5.6 7.2-5.6s6.6 2 7.2 5.6z"/></svg><span data-i18n="bn.li">Liana</span></a><a href="#/galeria" data-nav="galeria" data-i18n-aria="menu.n4" aria-label="Digital Gallery"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 16l4.5-4.5 4 4 3-3 5.5 5.5" fill="none"/></svg><span data-i18n="bn.gal">Gallery</span></a><a href="#/arma" data-nav="arma" data-i18n-aria="menu.n1" aria-label="Build your show"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.5 5.300 5.800.7-4.300 4 1.1 5.800L12 16.5l-5.1 2.800 1.1-5.800-4.300-4 5.800-.7z"/></svg><span data-i18n="menu.n1">Build your show</span></a></nav><button class="cart-fab" id="cartFab" type="button"><span class="th" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button></div></div>
+<div class="mi-barra" id="miBarra"><div class="mb-in"><div class="toast" id="toast" role="status" aria-live="polite"></div><nav class="bn" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n-aria="menu.n2" aria-label="Services"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 4.5h6v6h-6zM13.5 4.5h6v6h-6zM4.5 13.5h6v6h-6zM13.5 13.5h6v6h-6z"/></svg><span data-i18n="bn.svc">Services</span></a><a href="#/liana" data-nav="liana" data-i18n-aria="menu.n3" aria-label="Liana and the team"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.8 19.5c.6-3.6 3.5-5.6 7.2-5.6s6.6 2 7.2 5.6z"/></svg><span data-i18n="bn.li">Liana</span></a><a href="#/galeria" data-nav="galeria" data-i18n-aria="menu.n4" aria-label="Digital Gallery"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="M3.5 16l4.5-4.5 4 4 3-3 5.5 5.5" fill="none"/></svg><span data-i18n="bn.gal">Gallery</span></a><a href="#/arma" data-nav="arma" data-i18n-aria="menu.n1" aria-label="Build your show"><svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.5 5.300 5.800.7-4.300 4 1.1 5.800L12 16.5l-5.1 2.800 1.1-5.800-4.300-4 5.800-.7z"/></svg><span data-i18n="menu.n1">Build your show</span></a></nav><button class="cart-fab" id="cartFab" type="button"><span class="th" aria-hidden="true"></span><span data-i18n="cart.fab">My show</span><span class="count" id="cartCount">0</span></button></div></div>
 <div class="overlay-dim" id="dim"></div>
 <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartT">
   <div class="cart-head"><button class="x" id="cartClose" type="button" data-i18n-aria="menu.cerrar" aria-label="Close">&times;</button><h2 id="cartT" data-i18n="cart.title">Your show</h2><p id="cartSub"></p></div>
@@ -1708,6 +1859,7 @@ const ICONS={
  stack:'<rect x="3" y="7" width="13" height="13" rx="2"/><path d="M7 4h11a2 2 0 0 1 2 2v11"/>',
  chev:'<path d="M9 5l7 7-7 7"/>',
  menu:'<path d="M5 8h14M5 12h14M5 16h14"/>',
+ volver:'<path d="M14.5 5.5 8 12l6.5 6.5"/>',
  play:'<path d="M8 5.5v13l11-6.5z"/>',
  check:'<path d="M4.5 12.4 9.4 17.3 19.5 7.2"/>',
  cart:'<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M3 4h2l2.2 11.4a1.5 1.5 0 0 0 1.5 1.2h8.6a1.5 1.5 0 0 0 1.5-1.2L21 8H6"/>'
@@ -1720,10 +1872,11 @@ const svg=n=>`<svg class="svg-ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS
 document.querySelectorAll('[data-armabar]').forEach(b=>{b.innerHTML=
   `<a class="ab-logo" href="#/" aria-label="SkyDancer Productions"><span class="s">SKY</span>DANCER</a>`+
   (b.dataset.armabar==='simple'?'':`<ol class="steps" data-pasos></ol>`)+
-  `<nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">The 15 services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Digital Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>`+
+  `<nav class="hd-nav" data-i18n-aria="nav.main" aria-label="Main"><a href="#/servicios" data-nav="servicios" data-i18n="menu.n2">Services</a><a href="#/liana" data-nav="liana" data-i18n="menu.n3">Liana and the team</a><a href="#/galeria" data-nav="galeria" data-i18n="menu.n4">Digital Gallery</a><a class="cta" href="#/arma" data-nav="arma" data-i18n="menu.n1">Build your show</a></nav>`+
   `<div class="ab-r"><div class="lang" role="group" aria-label="Language"><button data-lang="en">EN</button><button data-lang="es">ES</button></div>`+
   `<button class="ab-menu" type="button" data-openmenu>${svg('menu')}<span data-i18n="hero.menu">Menu</span></button></div>`+
-  (b.dataset.armabar==='simple'?'':`<p class="stepm" data-pasom></p><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
+  `<div class="ab-fila"><button class="ab-volver" type="button" data-volver>${svg('volver')}<span data-i18n="v.arma">Back</span></button>`+
+  (b.dataset.armabar==='simple'?'</div>':`<p class="stepm" data-pasom></p></div><div class="prog" aria-hidden="true"><i data-prog></i></div>`);});
 document.querySelectorAll('[data-ic]').forEach(el=>el.innerHTML=svg(el.dataset.ic));
 
 const SERVICES=[
@@ -1731,7 +1884,7 @@ const SERVICES=[
  {id:'gogo',price:275,name:{en:'Gogo Dancers',es:'Gogo Dancers'},desc:{en:'High-energy entertainment for nightclubs, festivals, rooftop parties, private events and brand activations. Costumes and styles from elegant to themed productions.',es:'Entretenimiento de alta energía para clubes, festivales, rooftops, eventos privados y activaciones de marca. Vestuarios y estilos de elegante a producciones temáticas.'}},
  {id:'greeters',price:350,name:{en:'Luxury Greeters',es:'Anfitrionas de Lujo'},desc:{en:'Elegant or themed greeters welcome guests, assist with photo opportunities and enhance the atmosphere from the moment attendees arrive. Costumes customizable to your theme, brand or palette.',es:'Anfitrionas elegantes o temáticas reciben a los invitados, apoyan en las fotos y elevan la atmósfera desde el primer momento. Vestuario personalizable a tu tema, marca o paleta.'}},
  {id:'robot',price:500,name:{en:'LED Robot Show',es:'Show de Robots LED'},desc:{en:'Futuristic LED robot performances that command attention at grand openings, luxury events and brand activations.',es:'Espectáculos futuristas de robots LED que captan toda la atención en aperturas, eventos de lujo y activaciones de marca.'}},
- {id:'fire',price:500,name:{en:'Fire Performer',es:'Espectáculo de Fuego'},desc:{en:'Breathtaking choreographed fire routines with music, precision and strict safety standards. Perfect for grand openings, luxury events, festivals and private parties — per venue regulations.',es:'Impactantes rutinas coreografiadas de fuego con música, precisión y estrictos estándares de seguridad. Ideal para aperturas, eventos de lujo, festivales y fiestas privadas — según regulaciones del venue.'}},
+ {id:'fire',price:500,name:{en:'Fire Performer',es:'Espectáculo de Fuego'},desc:{en:'Breathtaking choreographed fire routines with music, precision and strict safety standards. Perfect for grand openings, luxury events, festivals and private parties — per venue regulations. Subject to venue and local fire department approval.',es:'Impactantes rutinas coreografiadas de fuego con música, precisión y estrictos estándares de seguridad. Ideal para aperturas, eventos de lujo, festivales y fiestas privadas — según regulaciones del venue. Sujeto a la aprobación del venue y del cuerpo de bomberos local.'}},
  {id:'sax',price:450,name:{en:'Live Saxophonist',es:'Saxofonista en Vivo'},desc:{en:'Solo or alongside a DJ — the perfect atmosphere for cocktail hours, weddings, luxury dinners, corporate events and nightlife experiences.',es:'Solo o junto a un DJ — la atmósfera perfecta para cócteles, bodas, cenas de lujo, eventos corporativos y experiencias nocturnas.'}},
  {id:'drummer',price:350,name:{en:'Live Drummer',es:'Baterista en Vivo'},desc:{en:'Unmatched energy solo or alongside DJs and dancers — an interactive experience that keeps guests engaged. Ideal for weddings, clubs, festivals, corporate events and private celebrations.',es:'Energía inigualable solo o junto a DJs y bailarines — una experiencia interactiva que mantiene a los invitados enganchados. Ideal para bodas, clubes, festivales, eventos corporativos y celebraciones privadas.'}},
  {id:'champagne',price:1200,name:{en:'Champagne Dress Experience',es:'Champagne Dress Experience'},desc:{en:'Luxury, hospitality and visual impact combined. A beautifully costumed performer welcomes guests while serving champagne or signature beverages. Ideal for weddings, VIP events, grand openings and galas — dress styles customizable to your palette or theme.',es:'Lujo, hospitalidad e impacto visual combinados. Una performer con un vestuario espectacular recibe a los invitados mientras sirve champagne o bebidas de autor. Ideal para bodas, eventos VIP, aperturas y galas — el vestido se personaliza a tu paleta o tema.'}},
@@ -1745,72 +1898,72 @@ const SERVICES=[
 ];
 
 const I18N={
- en:{'hero.kicker':'Luxury Event Entertainment · Miami','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','nav.main':'Main','nav.pie':'Site','hm.gal':'See the Digital Gallery →','liana.pausa':'Pause Liana’s video',
+ en:{'hero.kicker':'Hora Loca Miami, LED Robots & Fire · Nationwide','hero.cta1':'See services & pricing','hero.wa':'WhatsApp us at +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Dancers · Greeters · Live Shows','hero.menu':'Menu','hero.pause':'Pause background video','hero.cue':'See the introduction','nav.main':'Main','nav.pie':'Site','hm.gal':'See the Digital Gallery →','liana.pausa':'Pause Liana’s video',
   
   'nav.about':'About the Company',
   'founder.role':'Founder & Creative Director · Skydancer Productions',
   'about.p2':'From professional dancers and Hora Loca to LED robots, fire performers and live musicians, every production is tailored to your vision, venue and brand.',
   'creds.c1t':'Hotels where the team has performed','creds.c2t':'Restaurants and nightlife where the team has performed','creds.c3t':'Theater: has performed at','creds.c4t':'Music videos and TV Liana has danced in','creds.c4a':'Cuban bands & live TV shows',
-  'svc.sub':'Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.','svc.h1':'SkyDancer\'s 15 services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span>','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements.',
+  'svc.sub':'Tap “Add to my show” on the ones you want: they arrive checked in step 3, where you send it to Liana.','svc.h1':'SkyDancer\'s services: <span class="h-sub">ten with a starting price and five Liana quotes to order</span>','svc.note':'Starting prices are provided as a reference. Every event is unique — a customized quote is prepared based on your vision, venue, date and production requirements. Outside Florida, transport and lodging are quoted separately.',
   'perk.p1':'Book 2 · save 5%','perk.p2':'Book 3+ · save 10%','perk.p3':'Returning clients · 10% off',
   'gal.ver':'See all {n} pieces','gal.h1':'Digital Gallery, <span class="h-sub">with 21 pieces of Themed Entertainment and 8 of Interactive Performances</span>','gal.sub':'If something you see fits your event, add it: it arrives checked in step 3 of your show.','gal.reel':'Showreel','gal.reelx':'Live from Miami','gal.k1':'Professional Dancers','gal.k2':'Hora Loca','gal.k3':'Themed Entertainment','gal.k4':'Luxury Greeters','gal.k5':'Choreographed Shows','gal.k6':'Custom Event Productions','gal.k7':'Gogo Dancers','gal.k8':'Interactive Performances','gal.note':'Real moments from SkyDancer productions across Miami.',
   
   
   
-  'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
+  'cart.title':'Your show','cart.fab':'My show','brief.cityph':'Miami Beach, Coral Gables or your city','brief.g1':'Under 50','brief.g2':'50 to 150','brief.g3':'150 to 400','brief.g4':'400 or more',
   'ui.add':'Add to my show','pm.mom':'Where it comes in at the event','pm.opc':'optional','ui.remove':'Remove','ui.in':'In your show · remove','ui.quote':'Custom Quote','ui.from':'From','ui.empty':'No services in your show yet. Add the ones you want; Liana can also suggest them.','ui.added':'Added to your show','ui.removed':'Removed from your show','ui.clear':'Clear all','ui.cleared':'Cleared','ui.disc2':'Discount · 2 services (5%)','ui.disc3':'Discount · 3+ services (10%)'},
- es:{'hero.kicker':'Entretenimiento de Lujo · Miami','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','nav.main':'Principal','nav.pie':'Sitio','hm.gal':'Ver la Galería Digital →','liana.pausa':'Pausar el video de Liana',
+ es:{'hero.kicker':'Hora Loca en Miami, robots LED y fuego · Todo EE. UU.','hero.cta1':'Ver servicios y precios','hero.wa':'Escríbenos por WhatsApp al +1 786-992-4543','hero.prod':'PRODUCTIONS','hero.tag':'Bailarines · Anfitrionas · Shows en Vivo','hero.menu':'Menú','hero.pause':'Pausar el video de fondo','hero.cue':'Ver la presentación','nav.main':'Principal','nav.pie':'Sitio','hm.gal':'Ver la Galería Digital →','liana.pausa':'Pausar el video de Liana',
   
   'nav.about':'Sobre la Compañía',
   'founder.role':'Fundadora y Directora Creativa · Skydancer Productions',
   'about.p2':'Desde bailarines profesionales y Hora Loca hasta robots LED, espectáculos de fuego y músicos en vivo, cada producción se diseña a la medida de tu visión, locación y marca.',
   'creds.c1t':'Hoteles donde ha actuado el equipo','creds.c2t':'Restaurantes y nightlife donde ha actuado el equipo','creds.c3t':'Teatro: ha actuado en','creds.c4t':'Videos musicales y TV en los que ha bailado Liana','creds.c4a':'Bandas cubanas y shows de TV en vivo',
-  'svc.sub':'Toca «Agregar a mi show» en los que te interesen: llegan marcados al paso 3, donde se lo envías a Liana.','svc.h1':'Los 15 servicios de SkyDancer: <span class="h-sub">diez con precio «Desde» y cinco que Liana cotiza a medida</span>','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción.',
+  'svc.sub':'Toca «Agregar a mi show» en los que te interesen: llegan marcados al paso 3, donde se lo envías a Liana.','svc.h1':'Servicios de SkyDancer: <span class="h-sub">diez con precio «Desde» y cinco que Liana cotiza a medida</span>','svc.note':'Los precios iniciales son una referencia. Cada evento es único — se prepara una cotización personalizada según tu visión, locación, fecha y requerimientos de producción. Fuera de Florida, el transporte y el alojamiento se cotizan aparte.',
   'perk.p1':'Contrata 2 · ahorra 5%','perk.p2':'Contrata 3+ · ahorra 10%','perk.p3':'Clientes que regresan · 10%',
   'gal.ver':'Ver las {n} piezas','gal.h1':'Galería Digital, <span class="h-sub">con 21 piezas de Entretenimiento Temático y 8 de Performances Interactivos</span>','gal.sub':'Si algo de lo que ves va con tu evento, agrégalo: llega marcado al paso 3 de tu show.','gal.reel':'Showreel','gal.reelx':'En vivo desde Miami','gal.k1':'Bailarines Profesionales','gal.k2':'Hora Loca','gal.k3':'Entretenimiento Temático','gal.k4':'Anfitrionas de Lujo','gal.k5':'Shows Coreografiados','gal.k6':'Producciones a Medida','gal.k7':'Gogo Dancers','gal.k8':'Performances Interactivos','gal.note':'Momentos reales de producciones SkyDancer en Miami.',
   
   
   
-  'cart.title':'Tu show','cart.fab':'Mi show','brief.cityph':'Miami Beach, Coral Gables…','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más',
+  'cart.title':'Tu show','cart.fab':'Mi show','brief.cityph':'Miami Beach, Coral Gables o tu ciudad','brief.g1':'Menos de 50','brief.g2':'De 50 a 150','brief.g3':'De 150 a 400','brief.g4':'400 o más',
   'ui.add':'Agregar a mi show','pm.mom':'Dónde entra en el evento','pm.opc':'opcional','ui.remove':'Quitar','ui.in':'En tu show · quitar','ui.quote':'Cotización','ui.from':'Desde','ui.empty':'Todavía no hay servicios en tu show. Agrega los que te interesen; Liana también te los puede proponer.','ui.added':'Agregado a tu show','ui.removed':'Quitado de tu show','ui.clear':'Vaciar todo','ui.cleared':'Vaciado','ui.disc2':'Descuento · 2 servicios (5%)','ui.disc3':'Descuento · 3+ servicios (10%)'}
 };
 
 /* «Arma tu show»: textos nuevos. Copy de la decision del 9/11/2026, seccion 7. */
 Object.assign(I18N.en,{
- 'hero.h1':'Hora Loca, LED robots, fire and live dancers <span class="h-sub">for Miami events, <em>directed by Liana del Toro</em></span>',
+ 'hero.h1':'<span class="n-hl">Hora Loca</span>, <span class="n-led">LED robots</span>, <span class="n-fuego">fire</span> and live <span class="n-oro">dancers</span> <span class="h-sub">based in Miami, for events nationwide, <em>directed by Liana del Toro</em></span>',
  'cred.h':'The team has performed at SLS Miami Beach, the Sagamore and the National Hotel','cred.s':'Has performed at the Sagamore, National Hotel and SLS Miami Beach',
- 'hero.cta1':'Build your show','hero.s1':'Your event: wedding, brand, club…','hero.s2':'Date and county','hero.s3':'Your show, sent to Liana on WhatsApp',
- 'menu.n1':'Build your show','menu.n2':'The 15 services','menu.n3':'Liana and the team','menu.n4':'Digital Gallery','bn.svc':'Services','bn.li':'Liana','bn.gal':'Gallery','menu.cerrar':'Close','lb.prev':'Previous','lb.next':'Next',
- 'menu.d1':'Three steps: your event, date and county, and your show sent to Liana on WhatsApp','menu.d2':'From dancers and Hora Loca to LED robots and fire, each with its photo and starting price','menu.d3':'Liana del Toro, Cuban-born professional dancer, founder and creative director','menu.d4':'The reel and photos of eight services at Miami events',
+ 'hero.cta1':'Build your show','hero.s1':'Your event: wedding, brand, club…','hero.s2':'Date and location','hero.s3':'Your show, sent to Liana on WhatsApp',
+ 'menu.n1':'Build your show','menu.n2':'Services','menu.n3':'Liana and the team','menu.n4':'Digital Gallery','bn.svc':'Services','bn.li':'Liana','bn.gal':'Gallery','menu.cerrar':'Close','lb.prev':'Previous','lb.next':'Next',
+ 'menu.d1':'Three steps: your event, the date and where it is (in Florida or any other state), and your show sent to Liana on WhatsApp','menu.d2':'From dancers and Hora Loca to LED robots and fire, each with its photo and starting price','menu.d3':'Liana del Toro, Cuban-born professional dancer, founder and creative director','menu.d4':'The reel and photos of eight services at Miami events',
  'arma.k':'Build your show','arma.t':'What are we building the show for?','arma.go':'See a sample show →',
  'arma.planner':'You are planning for a client: choose your client\'s occasion. In step 3 the box "I\'m planning this for a client" will already be checked.',
- 'arma.planners':'Planning for a client? Planners and venues, this way','arma.all':'See the 15 services →',
- 'paso.1':'Your event','paso.2':'Date and county','paso.3':'Your show','paso.w':'Step','paso.de':'of',
+ 'arma.planners':'Planning for a client? Planners and venues, this way','arma.all':'See the services →','svc.viaje':'Outside Florida, transport and lodging are quoted separately.',
+ 'paso.1':'Your event','paso.2':'Date and location','paso.3':'Your show','paso.w':'Step','paso.de':'of',
  'oc.noche':'Sample night','oc.marcado':'Checked in your show','oc.otras':'Other occasions',
- 'li.h1':'<span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded and directs SkyDancer Productions from Miami</span>',
+ 'li.h1':'<span class="cz">Liana del Toro</span>, a Cuban-born professional dancer, <span class="h-sub">founded SkyDancer Productions and directs its productions</span>',
  'li.lead':'Dancer, model, producer and creative director. The team she directs has performed at SLS Miami Beach, the Sagamore and the National Hotel.',
  'svc.k':'Catalog','li.bioK':'Her story','li.prK':'Where the team has performed','li.eqK':'The team','li.ver':'Liana\'s story →',
- 'li.hecho':'Liana del Toro, a Cuban-born professional dancer and the founder of SkyDancer Productions, directs the company\'s productions for {x} from Miami.',
+ 'li.hecho':'Liana del Toro, a Cuban-born professional dancer and the founder of SkyDancer Productions, directs the company\'s productions for {x}.',
  'li.x.bodas':'weddings','li.x.empresas':'corporate events','li.x.noches':'luxury hotels and restaurants','li.x.celebraciones':'festivals and private celebrations','li.x.planners':'corporate events, luxury hotels, weddings and festivals'});
 Object.assign(I18N.es,{
- 'hero.h1':'Hora Loca, robots LED, fuego y bailarines en vivo <span class="h-sub">para eventos en Miami, <em>dirigidos por Liana del Toro</em></span>',
+ 'hero.h1':'<span class="n-hl">Hora Loca</span>, <span class="n-led">robots LED</span>, <span class="n-fuego">fuego</span> y <span class="n-oro">bailarines</span> en vivo <span class="h-sub">con base en Miami, para eventos en todo\u00a0EE.\u00a0UU., <em>dirigidos por Liana del Toro</em></span>',
  'cred.h':'El equipo ha actuado en SLS Miami Beach, Sagamore y National Hotel','cred.s':'Ha actuado en Sagamore, National Hotel y SLS Miami Beach',
- 'hero.cta1':'Arma tu show','hero.s1':'Tu evento: boda, marca, club…','hero.s2':'Fecha y condado','hero.s3':'Tu show, enviado a Liana por WhatsApp',
- 'menu.n1':'Arma tu show','menu.n2':'Los 15 servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería Digital','bn.svc':'Servicios','bn.li':'Liana','bn.gal':'Galería','menu.cerrar':'Cerrar','lb.prev':'Anterior','lb.next':'Siguiente',
- 'menu.d1':'Tres pasos: tu evento, fecha y condado, y tu show enviado a Liana por WhatsApp','menu.d2':'De bailarines y Hora Loca a robots LED y fuego, cada uno con su foto y su precio «Desde»','menu.d3':'Liana del Toro, bailarina profesional nacida en Cuba, fundadora y directora creativa','menu.d4':'El reel y las fotos de ocho servicios en eventos de Miami',
+ 'hero.cta1':'Arma tu show','hero.s1':'Tu evento: boda, marca, club…','hero.s2':'Fecha y lugar','hero.s3':'Tu show, enviado a Liana por WhatsApp',
+ 'menu.n1':'Arma tu show','menu.n2':'Servicios','menu.n3':'Liana y el equipo','menu.n4':'Galería Digital','bn.svc':'Servicios','bn.li':'Liana','bn.gal':'Galería','menu.cerrar':'Cerrar','lb.prev':'Anterior','lb.next':'Siguiente',
+ 'menu.d1':'Tres pasos: tu evento, la fecha y dónde es (en Florida o en cualquier estado), y tu show enviado a Liana por WhatsApp','menu.d2':'De bailarines y Hora Loca a robots LED y fuego, cada uno con su foto y su precio «Desde»','menu.d3':'Liana del Toro, bailarina profesional nacida en Cuba, fundadora y directora creativa','menu.d4':'El reel y las fotos de ocho servicios en eventos de Miami',
  'arma.k':'Arma tu show','arma.t':'¿Para qué evento armamos el show?','arma.go':'Ver un show de ejemplo →',
  'arma.planner':'Organizas para un cliente: elige la ocasión de tu cliente. En el paso 3 la casilla «Organizo este evento para un cliente» ya irá marcada.',
- 'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los 15 servicios →',
- 'paso.1':'Tu evento','paso.2':'Fecha y condado','paso.3':'Tu show','paso.w':'Paso','paso.de':'de',
+ 'arma.planners':'¿Organizas eventos para clientes? Planners y venues, por aquí','arma.all':'Ver los servicios →','svc.viaje':'Fuera de Florida, el transporte y el alojamiento se cotizan aparte.',
+ 'paso.1':'Tu evento','paso.2':'Fecha y lugar','paso.3':'Tu show','paso.w':'Paso','paso.de':'de',
  'oc.noche':'Noche de ejemplo','oc.marcado':'Marcado en tu show','oc.otras':'Otras ocasiones',
- 'li.h1':'<span class="cz">Liana del Toro</span>, bailarina profesional nacida en Cuba, <span class="h-sub">fundó y dirige SkyDancer Productions desde Miami</span>',
+ 'li.h1':'<span class="cz">Liana del Toro</span>, bailarina profesional nacida en Cuba, <span class="h-sub">fundó SkyDancer Productions y dirige sus producciones</span>',
  'li.lead':'Bailarina, modelo, productora y directora creativa. El equipo que dirige ha actuado en SLS Miami Beach, Sagamore y National Hotel.',
  'svc.k':'Catálogo','li.bioK':'Su historia','li.prK':'Dónde ha actuado el equipo','li.eqK':'El equipo','li.ver':'La historia de Liana →',
- 'li.hecho':'Liana del Toro, bailarina profesional nacida en Cuba y fundadora de SkyDancer Productions, dirige desde Miami las producciones de la compañía para {x}.',
+ 'li.hecho':'Liana del Toro, bailarina profesional nacida en Cuba y fundadora de SkyDancer Productions, dirige las producciones de la compañía para {x}.',
  'li.x.bodas':'bodas','li.x.empresas':'eventos corporativos','li.x.noches':'hoteles de lujo y restaurantes','li.x.celebraciones':'festivales y celebraciones privadas','li.x.planners':'eventos corporativos, hoteles de lujo, bodas y festivales'});
 
-Object.assign(I18N.en,{"f.t": "Date and county, so Liana can check the calendar and travel", "f.sub": "Availability comes from SkyDancer's real calendar. The date is optional.", "f.ocas": "Your event", "f.fecha": "Event date", "f.opc": "optional", "f.condado": "County", "f.venue": "Venue or city", "f.venueh": "With the name of the venue, Liana checks whether it allows fire.", "f.inv": "Guests", "f.seguir": "Continue with the show", "f.hoy": "today", "f.mesAnt": "Previous month", "f.mesSig": "Next month", "f.elige": "Your date", "f.sinfecha": "Pick a day on the calendar. If you don't have a date yet, you can continue without one.", "f.elegiste": "You picked", "f.e.cargando.t": "Checking", "f.e.cargando": "Checking SkyDancer's calendar…", "f.e.libre.t": "Open", "f.e.libre": "That date is open on SkyDancer's calendar.", "f.e.ultima.t": "Last minute", "f.e.ultima": "Less than 7 days to go: Liana will confirm on WhatsApp.", "f.e.ocupada.t": "Booked", "f.e.ocupada": "That date already has an event booked. Message us and Liana will tell you if there is a team available.", "f.e.pasada.t": "Past date", "f.e.pasada": "That date has passed. Pick another one on the calendar.", "f.e.error.t": "No answer", "f.e.error": "We couldn't check the calendar right now; Liana will confirm it on WhatsApp. You can continue.", "f.escribir": "Message on WhatsApp", "f.waOcupada": "Hi Liana, I would like to know if there is a team available on {f}.", "f.quitar": "Clear the date", "r.fecha": "Date", "r.condado": "County", "r.inv": "Guests", "r.sin": "Not yet", "r.sinOcas": "Your event", "r.sinSvc": "No services checked yet; Liana can suggest them.", "r.cambiar": "Change date or county", "r.desc": "Book 3 or more services and save 10% on the quote; book 2 and save 5%.", "r.fine2": "You can change them in step 3. No added-up total: Liana prepares every quote by hand.", "r.fine3": "No added-up total: Liana puts the price together with your date, your venue and your production.", "v.bodas": "Back to the wedding", "v.empresas": "Back to companies", "v.noches": "Back to nights", "v.celebraciones": "Back to celebrations", "v.servicios": "Back to the services", "v.arma": "Back", "s.sub": "Tap a service to check or uncheck it.", "s.svc": "Services", "s.ver": "See photos of the 15 services →", "s.vision": "Your vision", "s.visionPh": "E.g.: schedule, key moments, colors or dress code.", "s.visionPhB": "E.g.: couple’s entrance at 9, Hora Loca after the first dance, white and gold.", "s.nombre": "Your name", "s.req": "required", "s.tel": "Your WhatsApp", "s.telh": "Liana replies to this number.", "s.correoL": "Your email", "s.planner": "I'm planning this event for a client (planner or venue)", "s.liana": "Liana del Toro, a Cuban-born professional dancer and SkyDancer's creative director, prepares every quote by hand and replies to this WhatsApp number. Asking costs nothing and commits you to nothing.", "s.enviar": "Send to Liana on WhatsApp", "s.guardando": "Saving your request…", "s.correo": "Send by email", "s.asunto": "Show request — SkyDancer", "e.nombre": "Your name is missing.", "e.tel": "Your WhatsApp number is missing: Liana replies to it.", "e.telFmt": "Write the number with the country code, like +1 305 555 0101.", "e.correo": "Check the email: it is missing the @ or the domain.", "e.resumen": "Before sending, check:", "e.n.sNombre": "your name", "e.n.sTel": "your WhatsApp", "e.n.sCorreo": "your email", "e.ocas": "Choose the type of event to continue.", "c.k": "Request sent", "c.kWa": "Request on WhatsApp", "c.ok": "Liana has your request and will message you at the number you left.", "c.noAbrioWa": "If WhatsApp didn't open: {wa}.", "c.noAbrioMail": "If your email didn't open: {mail} or WhatsApp {wa}.", "c.soloWa": "Your request went out on WhatsApp.", "c.soloWaP": "Send the message that opened and Liana will reply. If WhatsApp didn't open: {wa}.", "c.soloMail": "Your request went out by email.", "c.soloMailP": "Send the email that opened and Liana will reply. If it didn't open: {mail} or WhatsApp {wa}.", "c.otro": "Build another show", "cart.seguir": "Continue with my show"});
-Object.assign(I18N.es,{"f.t": "Fecha y condado, para que Liana mire el calendario y el viaje", "f.sub": "La disponibilidad sale del calendario real de SkyDancer. La fecha es opcional.", "f.ocas": "Tu evento", "f.fecha": "Fecha del evento", "f.opc": "opcional", "f.condado": "Condado", "f.venue": "Venue o ciudad", "f.venueh": "Con el nombre del salón, Liana revisa si el local permite fuego.", "f.inv": "Invitados", "f.seguir": "Seguir con el show", "f.hoy": "hoy", "f.mesAnt": "Mes anterior", "f.mesSig": "Mes siguiente", "f.elige": "Tu fecha", "f.sinfecha": "Elige un día en el calendario. Si aún no tienes fecha, puedes seguir sin ella.", "f.elegiste": "Elegiste", "f.e.cargando.t": "Mirando", "f.e.cargando": "Mirando el calendario de SkyDancer…", "f.e.libre.t": "Libre", "f.e.libre": "Esa fecha está libre en el calendario de SkyDancer.", "f.e.ultima.t": "Última hora", "f.e.ultima": "Faltan menos de 7 días: Liana te confirma por WhatsApp.", "f.e.ocupada.t": "Ocupada", "f.e.ocupada": "Esa fecha ya tiene un evento reservado. Escríbenos y Liana te dice si hay equipo.", "f.e.pasada.t": "Fecha pasada", "f.e.pasada": "Esa fecha ya pasó. Elige otra en el calendario.", "f.e.error.t": "Sin respuesta", "f.e.error": "No pudimos mirar el calendario ahora; Liana te lo confirma por WhatsApp. Puedes seguir.", "f.escribir": "Escribir por WhatsApp", "f.waOcupada": "Hola Liana, quiero saber si hay equipo para el {f}.", "f.quitar": "Quitar la fecha", "r.fecha": "Fecha", "r.condado": "Condado", "r.inv": "Invitados", "r.sin": "Sin elegir", "r.sinOcas": "Tu evento", "r.sinSvc": "Todavía no hay servicios marcados; Liana te los puede proponer.", "r.cambiar": "Cambiar fecha o condado", "r.desc": "Con 3 servicios o más, 10 % de descuento sobre la cotización; con 2, 5 %.", "r.fine2": "Los cambias en el paso 3. Sin total sumado: Liana prepara cada cotización a mano.", "r.fine3": "Sin total sumado: el precio lo arma Liana con tu fecha, tu venue y tu producción.", "v.bodas": "Volver a la boda", "v.empresas": "Volver a empresas", "v.noches": "Volver a noches", "v.celebraciones": "Volver a celebraciones", "v.servicios": "Volver a los servicios", "v.arma": "Volver", "s.sub": "Toca un servicio para marcarlo o quitarlo.", "s.svc": "Servicios", "s.ver": "Ver las fotos de los 15 servicios →", "s.vision": "Tu visión", "s.visionPh": "Ej.: horario, momentos clave, colores o dress code.", "s.visionPhB": "Ej.: entrada de los novios a las 9, Hora Loca después del vals, colores blanco y dorado.", "s.nombre": "Tu nombre", "s.req": "obligatorio", "s.tel": "Tu WhatsApp", "s.telh": "Liana te contesta a este número.", "s.correoL": "Tu correo", "s.planner": "Organizo este evento para un cliente (planner o venue)", "s.liana": "Liana del Toro, bailarina profesional nacida en Cuba y directora creativa de SkyDancer, prepara cada cotización a mano y te contesta a este WhatsApp. Pedirla no cuesta nada ni te compromete.", "s.enviar": "Enviar a Liana por WhatsApp", "s.guardando": "Guardando tu pedido…", "s.correo": "Enviar por correo", "s.asunto": "Pedido de show — SkyDancer", "e.nombre": "Falta tu nombre.", "e.tel": "Falta tu WhatsApp: Liana te contesta a ese número.", "e.telFmt": "Escribe el número con código de país, como +1 305 555 0101.", "e.correo": "Revisa el correo: le falta la @ o el dominio.", "e.resumen": "Antes de enviar, revisa:", "e.n.sNombre": "tu nombre", "e.n.sTel": "tu WhatsApp", "e.n.sCorreo": "tu correo", "e.ocas": "Elige el tipo de evento para seguir.", "c.k": "Pedido enviado", "c.kWa": "Pedido por WhatsApp", "c.ok": "Liana ya tiene tu pedido y te escribe al número que dejaste.", "c.noAbrioWa": "Si WhatsApp no se abrió: {wa}.", "c.noAbrioMail": "Si tu correo no se abrió: {mail} o WhatsApp {wa}.", "c.soloWa": "Tu pedido salió por WhatsApp.", "c.soloWaP": "Envía el mensaje que se abrió y Liana te contesta. Si WhatsApp no se abrió: {wa}.", "c.soloMail": "Tu pedido salió por correo.", "c.soloMailP": "Envía el correo que se abrió y Liana te contesta. Si no se abrió: {mail} o WhatsApp {wa}.", "c.otro": "Armar otro show", "cart.seguir": "Seguir con mi show"});
+Object.assign(I18N.en,{"f.t": "Date and location, so Liana can check the calendar and travel", "f.sub": "Availability comes from SkyDancer's real calendar. The date is optional.", "f.ocas": "Your event", "f.fecha": "Event date", "f.opc": "optional", "f.condado": "Location", "f.venue": "Venue or city", "f.venueh": "With the name of the venue, Liana checks whether it allows fire.", "f.inv": "Guests", "f.seguir": "Continue with the show", "f.hoy": "today", "f.mesAnt": "Previous month", "f.mesSig": "Next month", "f.elige": "Your date", "f.sinfecha": "Pick a day on the calendar. If you don't have a date yet, you can continue without one.", "f.elegiste": "You picked", "f.e.cargando.t": "Checking", "f.e.cargando": "Checking SkyDancer's calendar…", "f.e.libre.t": "Open", "f.e.libre": "That date is open on SkyDancer's calendar.", "f.e.ultima.t": "Last minute", "f.e.ultima": "Less than 7 days to go: Liana will confirm on WhatsApp.", "f.e.ocupada.t": "Booked", "f.e.ocupada": "That date already has an event booked. Message us and Liana will tell you if there is a team available.", "f.e.pasada.t": "Past date", "f.e.pasada": "That date has passed. Pick another one on the calendar.", "f.e.error.t": "No answer", "f.e.error": "We couldn't check the calendar right now; Liana will confirm it on WhatsApp. You can continue.", "f.escribir": "Message on WhatsApp", "f.waOcupada": "Hi Liana, I would like to know if there is a team available on {f}.", "f.quitar": "Clear the date", "r.fecha": "Date", "r.condado": "Location", "r.inv": "Guests", "r.sin": "Not yet", "r.sinOcas": "Your event", "r.sinSvc": "No services checked yet; Liana can suggest them.", "r.cambiar": "Change date or location", "r.desc": "Book 3 or more services and save 10% on the quote; book 2 and save 5%.", "r.fine2": "You can change them in step 3. No added-up total: Liana prepares every quote by hand.", "r.fine3": "No added-up total: Liana puts the price together with your date, your venue and your production.", "v.bodas": "Back to the wedding", "v.empresas": "Back to companies", "v.noches": "Back to nights", "v.celebraciones": "Back to celebrations", "v.servicios": "Back to the services", "v.arma": "Back", "s.sub": "Tap a service to check or uncheck it.", "s.svc": "Services", "s.ver": "See photos of each service →", "s.vision": "Your vision", "s.visionPh": "E.g.: schedule, key moments, colors or dress code.", "s.visionPhB": "E.g.: couple’s entrance at 9, Hora Loca after the first dance, white and gold.", "s.nombre": "Your name", "s.req": "required", "s.tel": "Your WhatsApp", "s.telh": "Liana replies to this number.", "s.correoL": "Your email", "s.planner": "I'm planning this event for a client (planner or venue)", "s.liana": "Liana del Toro, a Cuban-born professional dancer and SkyDancer's creative director, prepares every quote by hand and replies to this WhatsApp number. Asking costs nothing and commits you to nothing.", "s.enviar": "Send to Liana on WhatsApp", "s.guardando": "Saving your request…", "s.correo": "Send by email", "s.asunto": "Show request — SkyDancer", "e.nombre": "Your name is missing.", "e.tel": "Your WhatsApp number is missing: Liana replies to it.", "e.telFmt": "Write the number with the country code, like +1 305 555 0101.", "e.correo": "Check the email: it is missing the @ or the domain.", "e.resumen": "Before sending, check:", "e.n.sNombre": "your name", "e.n.sTel": "your WhatsApp", "e.n.sCorreo": "your email", "e.ocas": "Choose the type of event to continue.", "c.k": "Request sent", "c.kWa": "Request on WhatsApp", "c.ok": "Liana has your request and will message you at the number you left.", "c.noAbrioWa": "If WhatsApp didn't open: {wa}.", "c.noAbrioMail": "If your email didn't open: {mail} or WhatsApp {wa}.", "c.soloWa": "Your request went out on WhatsApp.", "c.soloWaP": "Send the message that opened and Liana will reply. If WhatsApp didn't open: {wa}.", "c.soloMail": "Your request went out by email.", "c.soloMailP": "Send the email that opened and Liana will reply. If it didn't open: {mail} or WhatsApp {wa}.", "c.otro": "Build another show", "cart.seguir": "Continue with my show"});
+Object.assign(I18N.es,{"f.t": "Fecha y lugar, para que Liana mire el calendario y el viaje", "f.sub": "La disponibilidad sale del calendario real de SkyDancer. La fecha es opcional.", "f.ocas": "Tu evento", "f.fecha": "Fecha del evento", "f.opc": "opcional", "f.condado": "Lugar", "f.venue": "Venue o ciudad", "f.venueh": "Con el nombre del salón, Liana revisa si el local permite fuego.", "f.inv": "Invitados", "f.seguir": "Seguir con el show", "f.hoy": "hoy", "f.mesAnt": "Mes anterior", "f.mesSig": "Mes siguiente", "f.elige": "Tu fecha", "f.sinfecha": "Elige un día en el calendario. Si aún no tienes fecha, puedes seguir sin ella.", "f.elegiste": "Elegiste", "f.e.cargando.t": "Mirando", "f.e.cargando": "Mirando el calendario de SkyDancer…", "f.e.libre.t": "Libre", "f.e.libre": "Esa fecha está libre en el calendario de SkyDancer.", "f.e.ultima.t": "Última hora", "f.e.ultima": "Faltan menos de 7 días: Liana te confirma por WhatsApp.", "f.e.ocupada.t": "Ocupada", "f.e.ocupada": "Esa fecha ya tiene un evento reservado. Escríbenos y Liana te dice si hay equipo.", "f.e.pasada.t": "Fecha pasada", "f.e.pasada": "Esa fecha ya pasó. Elige otra en el calendario.", "f.e.error.t": "Sin respuesta", "f.e.error": "No pudimos mirar el calendario ahora; Liana te lo confirma por WhatsApp. Puedes seguir.", "f.escribir": "Escribir por WhatsApp", "f.waOcupada": "Hola Liana, quiero saber si hay equipo para el {f}.", "f.quitar": "Quitar la fecha", "r.fecha": "Fecha", "r.condado": "Lugar", "r.inv": "Invitados", "r.sin": "Sin elegir", "r.sinOcas": "Tu evento", "r.sinSvc": "Todavía no hay servicios marcados; Liana te los puede proponer.", "r.cambiar": "Cambiar fecha o lugar", "r.desc": "Con 3 servicios o más, 10 % de descuento sobre la cotización; con 2, 5 %.", "r.fine2": "Los cambias en el paso 3. Sin total sumado: Liana prepara cada cotización a mano.", "r.fine3": "Sin total sumado: el precio lo arma Liana con tu fecha, tu venue y tu producción.", "v.bodas": "Volver a la boda", "v.empresas": "Volver a empresas", "v.noches": "Volver a noches", "v.celebraciones": "Volver a celebraciones", "v.servicios": "Volver a los servicios", "v.arma": "Volver", "s.sub": "Toca un servicio para marcarlo o quitarlo.", "s.svc": "Servicios", "s.ver": "Ver las fotos de cada servicio →", "s.vision": "Tu visión", "s.visionPh": "Ej.: horario, momentos clave, colores o dress code.", "s.visionPhB": "Ej.: entrada de los novios a las 9, Hora Loca después del vals, colores blanco y dorado.", "s.nombre": "Tu nombre", "s.req": "obligatorio", "s.tel": "Tu WhatsApp", "s.telh": "Liana te contesta a este número.", "s.correoL": "Tu correo", "s.planner": "Organizo este evento para un cliente (planner o venue)", "s.liana": "Liana del Toro, bailarina profesional nacida en Cuba y directora creativa de SkyDancer, prepara cada cotización a mano y te contesta a este WhatsApp. Pedirla no cuesta nada ni te compromete.", "s.enviar": "Enviar a Liana por WhatsApp", "s.guardando": "Guardando tu pedido…", "s.correo": "Enviar por correo", "s.asunto": "Pedido de show — SkyDancer", "e.nombre": "Falta tu nombre.", "e.tel": "Falta tu WhatsApp: Liana te contesta a ese número.", "e.telFmt": "Escribe el número con código de país, como +1 305 555 0101.", "e.correo": "Revisa el correo: le falta la @ o el dominio.", "e.resumen": "Antes de enviar, revisa:", "e.n.sNombre": "tu nombre", "e.n.sTel": "tu WhatsApp", "e.n.sCorreo": "tu correo", "e.ocas": "Elige el tipo de evento para seguir.", "c.k": "Pedido enviado", "c.kWa": "Pedido por WhatsApp", "c.ok": "Liana ya tiene tu pedido y te escribe al número que dejaste.", "c.noAbrioWa": "Si WhatsApp no se abrió: {wa}.", "c.noAbrioMail": "Si tu correo no se abrió: {mail} o WhatsApp {wa}.", "c.soloWa": "Tu pedido salió por WhatsApp.", "c.soloWaP": "Envía el mensaje que se abrió y Liana te contesta. Si WhatsApp no se abrió: {wa}.", "c.soloMail": "Tu pedido salió por correo.", "c.soloMailP": "Envía el correo que se abrió y Liana te contesta. Si no se abrió: {mail} o WhatsApp {wa}.", "c.otro": "Armar otro show", "cart.seguir": "Seguir con mi show"});
 /* Privacidad (13/11/2026): aviso del paso 3 y casilla de promociones. Texto de Legal, tal cual: si cambia, cambia AVISO_V. */
 Object.assign(I18N.en,{"priv.h1":"SkyDancer Productions Privacy Policy","pie.priv":"Privacy policy","s.priv":"When you send, your request is saved in SkyDancer's system and WhatsApp or your email opens with your message. Liana or her team will reply on WhatsApp, or by email if you add it, only about this event. We don't sell your data.","s.promo1":"I'd like SkyDancer to message me on WhatsApp about open dates and news.","s.promo2":"I can opt out by replying “STOP”. Not required to get my quote."});
 Object.assign(I18N.es,{"priv.h1":"Política de privacidad de SkyDancer Productions","pie.priv":"Política de privacidad","s.priv":"Al enviar, tu solicitud se guarda en el sistema de SkyDancer y se abre WhatsApp o tu correo con tu mensaje. Liana o su equipo te responderán por WhatsApp, o por correo si lo dejas, solo sobre este evento. No vendemos tus datos.","s.promo1":"Quiero que SkyDancer me escriba por WhatsApp con fechas libres y novedades.","s.promo2":"Puedo darme de baja con «STOP». No es necesario para recibir mi cotización."});
@@ -1873,7 +2026,7 @@ const WA='17869924543',EMAIL='Skydancerproduction@gmail.com';
 /* Privacidad. AVISO_V: version del aviso y de la casilla del paso 3 que vio quien envia; viaja con el
    lead y se cambia cada vez que cambie uno de esos dos textos. PRIV_FECHA: dia en que se publica la
    politica (AAAA-MM-DD); vacia, la linea «Vigente desde» no se pinta (en vista previa, un marcador). */
-const AVISO_V='2026-11-13',PRIV_FECHA='2026-11-14';
+const AVISO_V='2026-11-13',PRIV_FECHA='2026-11-17';
 const money=n=>'$'+n.toLocaleString('en-US');const t=k=>(I18N[lang][k]??k);
 const priceHtml=s=>s.price>0?`<small>${t('ui.from')}</small>${money(s.price)}`:t('ui.quote');
 const precioTxt=s=>s.price>0?t('ui.from')+' '+money(s.price):t('ui.quote');
@@ -1890,12 +2043,12 @@ const VIAJE={es:'Viaje: sin cargo en Miami-Dade · puede aplicar en Broward y Pa
   en:'Travel: no fee in Miami-Dade · may apply in Broward and Palm Beach · rest of Florida quoted by location · out of state, transport and lodging separate.'};
 const PAGINAS={
  bodas:{ocas:'bodas',foto:'champagne',pie:{es:'Champagne Dress Experience · opcional en bodas',en:'Champagne Dress Experience · optional at weddings'},
-  corto:{es:'Bodas',en:'Weddings'},titulo:{es:'Bodas en Miami',en:'Miami weddings'},
-  k:{es:'Bodas · de Miami-Dade a Palm Beach',en:'Weddings · Miami-Dade to Palm Beach'},
-  h1:{es:'<span class="cz">Bodas en Miami</span> con Anfitrionas de Lujo al llegar, <span class="h-sub">saxofón en vivo en el cóctel y Hora Loca para la pista</span>',
-      en:'<span class="cz">Miami weddings</span> with Luxury Greeters at the door, <span class="h-sub">live sax at cocktail hour and Hora Loca for the dance floor</span>'},
-  lead:{es:'Liana del Toro arma la propuesta a mano con tu fecha, tu venue y tus invitados. En Miami-Dade no hay cargo de viaje; en Broward y Palm Beach puede aplicar.',
-        en:'Liana del Toro puts the proposal together by hand with your date, your venue and your guests. There is no travel fee in Miami-Dade; in Broward and Palm Beach one may apply.'},
+  corto:{es:'Bodas',en:'Weddings'},titulo:{es:'Bodas en Florida y el resto de EE. UU.',en:'Weddings in Florida and across the U.S.'},
+  k:{es:'Bodas · Base en Miami, eventos en todo\u00a0EE.\u00a0UU.',en:'Weddings · Miami\u2011based, events nationwide'},
+  h1:{es:'<span class="cz">Bodas en Florida y el resto de EE.\u00a0UU.</span> con Anfitrionas de Lujo al llegar, <span class="h-sub">saxofón en vivo en el cóctel y Hora Loca para la pista</span>',
+      en:'<span class="cz">Weddings in Florida and across the U.S.</span> with Luxury Greeters at the door, <span class="h-sub">live sax at cocktail hour and Hora Loca for the dance floor</span>'},
+  lead:{es:'Liana del Toro arma la propuesta a mano con tu fecha, tu venue y tus invitados, en Florida o en cualquier estado de EE.\u00a0UU. En Miami-Dade no hay cargo de viaje; fuera de Florida, el transporte y el alojamiento se cotizan aparte.',
+        en:'Liana del Toro puts the proposal together by hand with your date, your venue and your guests, in Florida or anywhere in the U.S. There is no travel fee in Miami-Dade; outside Florida, transport and lodging are quoted separately.'},
   h2:{es:'Llegada, cóctel y fiesta: los tres servicios que ya van marcados en tu show',en:'Arrival, cocktail hour and party: the three services already checked in your show'},
   nota:{es:'En el paso 3 los puedes quitar o cambiar. Sin precio sumado: Liana cotiza cada boda a mano.',en:'You can remove or change them in step 3. No added-up total: Liana quotes every wedding by hand.'},
   mom:[{h:{es:'Llegada',en:'Arrival'},s:'greeters',p:{es:'Reciben a tus invitados y ayudan con las fotos desde que llegan; el vestuario va con tu paleta.',en:'They welcome your guests and help with photos from the moment they arrive; costumes match your palette.'}},
@@ -1906,13 +2059,13 @@ const PAGINAS={
   lista:[['Sagamore Hotel','Miami Beach'],['National Hotel','Miami Beach'],['SLS Hotel','Miami Beach']],
   datos:[dato('bodas al año: ','weddings per year: ')],hueco:dato('testimonio real de una pareja, con permiso escrito: ','real testimonial from a couple, with written permission: '),
   cta:{es:'Armar el show de mi boda',en:'Build my wedding show'},
-  paso:{es:'Sigue con la fecha y el condado; los tres servicios ya van marcados.',en:'Next: date and county. The three services are already checked.'},
+  paso:{es:'Sigue con la fecha y el lugar; los tres servicios ya van marcados.',en:'Next: date and location. The three services are already checked.'},
   wa:{es:'Hola Liana, quiero armar el show de mi boda.',en:'Hi Liana, I would like to build the show for my wedding.'}},
  empresas:{ocas:'empresas',foto:'robot',nk:{es:'Evento de ejemplo',en:'Sample event'},pie:{es:'Show de Robots LED',en:'LED Robot Show'},
   corto:{es:'Empresas',en:'Companies'},titulo:{es:'Empresas y marcas',en:'Companies and brands'},
-  k:{es:'Empresas y marcas · Miami',en:'Companies and brands · Miami'},
-  h1:{es:'<span class="cz">Activaciones de marca</span> y eventos de empresa en Miami, <span class="h-sub">con Anfitrionas de Lujo, Show de Robots LED y Experiencia Photobooth dirigidos por Liana del Toro</span>',
-      en:'<span class="cz">Brand activations</span> and corporate events in Miami, <span class="h-sub">with Luxury Greeters, an LED Robot Show and a Photobooth Experience directed by Liana del Toro</span>'},
+  k:{es:'Empresas y marcas · Base en Miami, eventos en todo\u00a0EE.\u00a0UU.',en:'Companies and brands · Miami\u2011based, events nationwide'},
+  h1:{es:'<span class="cz">Activaciones de marca</span> y eventos de empresa en Miami y en todo\u00a0EE.\u00a0UU., <span class="h-sub">con Anfitrionas de Lujo, Show de Robots LED y Experiencia Photobooth dirigidos por Liana del Toro</span>',
+      en:'<span class="cz">Brand activations</span> and corporate events in Miami and nationwide, <span class="h-sub">with Luxury Greeters, an LED Robot Show and a Photobooth Experience directed by Liana del Toro</span>'},
   lead:{es:'Anfitrionas vestidas con la paleta de tu marca, Show de Robots LED para la apertura y Experiencia Photobooth con tu marca. Con Coordinación de Entretenimiento, SkyDancer coordina a cada performer durante el evento.',
         en:'Greeters dressed in your brand palette, an LED Robot Show for the opening and a branded Photobooth Experience. With Event Entertainment Coordination, SkyDancer coordinates every performer during the event.'},
   h2:{es:'Llegada, apertura y evento: los cuatro servicios que ya van marcados en tu show',en:'Arrival, opening and event: the four services already checked in your show'},
@@ -1925,11 +2078,11 @@ const PAGINAS={
   lista:[['Sagamore Hotel','Miami Beach'],['National Hotel','Miami Beach'],['SLS Hotel','Miami Beach']],
   datos:[dato('empresas o marcas que se puedan nombrar: ','companies or brands we can name: ')],hueco:null,
   cta:{es:'Pedir la propuesta para mi evento',en:'Request my event proposal'},
-  paso:{es:'Sigue con la fecha y el condado; los cuatro servicios ya van marcados.',en:'Next: date and county. The four services are already checked.'},
+  paso:{es:'Sigue con la fecha y el lugar; los cuatro servicios ya van marcados.',en:'Next: date and location. The four services are already checked.'},
   wa:{es:'Hola Liana, quiero una propuesta para un evento de empresa.',en:'Hi Liana, I would like a proposal for a company event.'}},
  noches:{ocas:'noches',foto:'drummer',pie:{es:'Baterista en Vivo',en:'Live Drummer'},
   corto:{es:'Noches',en:'Nights'},titulo:{es:'Clubs, restaurantes y hoteles',en:'Clubs, restaurants and hotels'},
-  k:{es:'Clubs, restaurantes y hoteles · Miami',en:'Clubs, restaurants and hotels · Miami'},
+  k:{es:'Clubs, restaurantes y hoteles · Base en Miami, eventos en todo\u00a0EE.\u00a0UU.',en:'Clubs, restaurants and hotels · Miami\u2011based, events nationwide'},
   h1:{es:'<span class="cz">Noches con show</span> para tu club, restaurante u hotel, <span class="h-sub">con el equipo que ha actuado en Giselle, Wet Brickell y Villa Azur</span>',
       en:'<span class="cz">Show nights</span> for your club, restaurant or hotel, <span class="h-sub">from the team that has performed at Giselle, Wet Brickell and Villa Azur</span>'},
   lead:{es:'Gogo Dancers, Espectáculo de Fuego dentro de las normas de tu local y Baterista en Vivo junto a tu DJ. Si vuelves a reservar con nosotros, tienes 10 % de descuento como cliente recurrente.',
@@ -1944,7 +2097,7 @@ const PAGINAS={
   lista:[['Giselle','Miami'],['Wet Brickell','Brickell'],['Villa Azur','Miami Beach']],
   datos:[{es:'También ha actuado en Kuba Cabana, Casa Ya\'X, MAÜ Miami y The Moon Wynwood; en hoteles, en Sagamore, National y SLS Miami Beach.',en:'It has also performed at Kuba Cabana, Casa Ya\'X, MAÜ Miami and The Moon Wynwood; in hotels, at the Sagamore, the National and SLS Miami Beach.'}],hueco:null,
   cta:{es:'Armar mis noches',en:'Plan my show nights'},
-  paso:{es:'Sigue con la fecha de la primera noche y el condado; los tres servicios ya van marcados.',en:'Next: the date of the first night and the county. The three services are already checked.'},
+  paso:{es:'Sigue con la fecha de la primera noche y el lugar; los tres servicios ya van marcados.',en:'Next: the date of the first night and the location. The three services are already checked.'},
   wa:{es:'Hola Liana, quiero armar noches con show para mi local.',en:'Hi Liana, I would like to plan show nights for my venue.'}},
  celebraciones:{ocas:'celebraciones',foto:'fire',pie:{es:'Espectáculo de Fuego',en:'Fire Performer'},
   corto:{es:'Celebraciones',en:'Celebrations'},titulo:{es:'Aperturas, festivales y otras fiestas',en:'Openings, festivals and other parties'},
@@ -1960,13 +2113,13 @@ const PAGINAS={
   pk:{es:'Antes de armar tu show',en:'Before you build your show'},ph2:null,lista:[],
   datos:[dato('','')],hueco:null,
   cta:{es:'Armar mi show',en:'Build my show'},
-  paso:{es:'Sigue con la fecha y el condado; los tres servicios ya van marcados.',en:'Next: date and county. The three services are already checked.'},
+  paso:{es:'Sigue con la fecha y el lugar; los tres servicios ya van marcados.',en:'Next: date and location. The three services are already checked.'},
   wa:{es:'Hola Liana, quiero armar el show para una apertura, festival u otra fiesta.',en:'Hi Liana, I would like to build a show for an opening, festival or other party.'}},
  planners:{ocas:null,foto:'dancers',pie:{es:'Bailarines Profesionales',en:'Professional Dancers'},
   corto:{es:'Planners y venues',en:'Planners and venues'},titulo:{es:'Planners y venues',en:'Planners and venues'},
-  k:{es:'Planners y venues · de Miami-Dade a Palm Beach',en:'Planners and venues · Miami-Dade to Palm Beach'},
-  h1:{es:'<span class="cz">Para planners y venues:</span> un solo contacto, Liana del Toro, <span class="h-sub">para bailarines, músicos, robots LED y fuego en el mismo evento, de Miami-Dade a Palm Beach</span>',
-      en:'<span class="cz">For planners and venues:</span> one contact, Liana del Toro, <span class="h-sub">for dancers, musicians, LED robots and fire at the same event, from Miami-Dade to Palm Beach</span>'},
+  k:{es:'Planners y venues · Base en Miami, eventos en todo\u00a0EE.\u00a0UU.',en:'Planners and venues · Miami\u2011based, events nationwide'},
+  h1:{es:'<span class="cz">Para planners y venues:</span> un solo contacto, Liana del Toro, <span class="h-sub">para bailarines, músicos, robots LED y fuego en el mismo evento, en cualquier estado de EE.\u00a0UU.</span>',
+      en:'<span class="cz">For planners and venues:</span> one contact, Liana del Toro, <span class="h-sub">for dancers, musicians, LED robots and fire at the same event, anywhere in the U.S.</span>'},
   lead:{es:'Liana te manda la propuesta armada a mano y la fecha queda reservada con el depósito. Viaje: sin cargo en Miami-Dade, puede aplicar en Broward y Palm Beach, cotizado por ubicación en el resto de Florida, y transporte y alojamiento aparte fuera del estado.',
         en:'Liana sends you a proposal put together by hand, and the date is held with the deposit. Travel: no fee in Miami-Dade, may apply in Broward and Palm Beach, quoted by location in the rest of Florida, and transport and lodging separate outside the state.'},
   h2:null,mom:[],extra:null,
@@ -2138,6 +2291,8 @@ function pintarPaso2(){const v=document.getElementById('view-fecha');
   const ven=document.getElementById('fVenue');if(document.activeElement!==ven)ven.value=SHOW.venue;
   const vol=document.getElementById('fVolver'),o=SHOW.origen;
   vol.href='#/'+(VOLVER[o]?o:'arma');vol.textContent='← '+t(VOLVER[o]||'v.arma');
+  /* Si esa pagina es la de debajo en el historial, el enlace retrocede (no apila otra entrada). */
+  vol.onclick=e=>{if(hProf>0&&vol.getAttribute('href')==='#/'+hPrev){e.preventDefault();history.back();}};
   pintarCal();pintarPick();pintarResumenes();
   if(SHOW.fecha&&dispo.fecha!==SHOW.fecha)consultarDispo(SHOW.fecha);}
 
@@ -2184,7 +2339,7 @@ function armarMensaje(){const es=lang==='es',c=condadoDe(SHOW.condado),L2=(a,b)=
   let m=L2('Hola Liana, quiero armar un show con SkyDancer.','Hi Liana, I would like to build a show with SkyDancer.')+'\n\n';
   m+=L2('Ocasión: ','Occasion: ')+nombreOcas()+'\n';
   if(SHOW.fecha)m+=L2('Fecha: ','Date: ')+fechaLarga(SHOW.fecha,true)+'\n';
-  if(c)m+=L2('Condado: ','County: ')+c.n[lang]+'\n';
+  if(c)m+=L2('Lugar: ','Location: ')+c.n[lang]+'\n';
   if(SHOW.venue)m+=L2('Venue o ciudad: ','Venue or city: ')+SHOW.venue+'\n';
   if(SHOW.invitados)m+=L2('Invitados: ','Guests: ')+rangoTxt(SHOW.invitados)+'\n';
   m+='\n'+(SHOW.servicios.length?L2('Servicios:','Services:')+'\n'+SHOW.servicios.map(id=>'• '+svcNom(id)).join('\n'):L2('Servicios: todavía ninguno; espero tu propuesta.','Services: none yet; I would like your suggestion.'))+'\n';
@@ -2289,7 +2444,7 @@ function seguirConShow(){
   if(!SHOW.entrada)SHOW.entrada=currentView==='view-gallery'?'galeria':'catalogo';
   SHOW.origen='servicios';guardarShow();const r=SHOW.ocasion&&SHOW.condado?'arma/show':'arma/fecha',abierto=panel.classList.contains('open')&&enCart();soltarCart();
   /* Desde el panel, el paso sustituye a la entrada del panel: Atras vuelve a donde se estaba. */
-  if(abierto&&location.hash!=='#/'+r){history.replaceState(null,'','#/'+r);dispatchEvent(new HashChangeEvent('hashchange'));}else irA(r);}
+  if(abierto&&location.hash!=='#/'+r){hReemplazo=true;history.replaceState(null,'','#/'+r);dispatchEvent(new HashChangeEvent('hashchange'));}else irA(r);}
 
 /* Catalogo. fetchpriority="low" (10/11/2026): la vista esta oculta al cargar pero ocupa la
    pantalla, y Chrome a veces subia sus primeras fotos a prioridad alta; en Lighthouse
@@ -2307,6 +2462,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
     mom=OCAS_KEYS.map(k=>{const o=OCASIONES[k],m=PAGINAS[k].mom.find(x=>x.s===id);if(!o.svc.concat(o.opc).includes(id))return '';
       return `<li><a href="#/${k}"><b>${o.nombre[lang]}${m?' · '+m.h[lang]:o.opc.includes(id)?' · '+t('pm.opc'):''}</b>${m?`<span>${m.p[lang]}</span>`:''}</a></li>`;}).join('');
   c.innerHTML=`
+    <button class="ab-volver pm-volver" type="button" data-volver>${svg('volver')}<span>${t('v.arma')}</span></button>
     <button class="pm-close" id="pmClose" type="button" aria-label="${t('menu.cerrar')}">&times;</button>
     <div class="pm-ph"><div class="pm-fotos${dos?'':' una'}" tabindex="0" role="group" aria-label="${n}">
       ${s.vid&&!quieto?`<video autoplay muted loop playsinline preload="metadata" poster="assets/services/${id}.jpg"><source src="assets/services/${id}.mp4" type="video/mp4"></video>`:`<img src="assets/services/${id}.jpg"${fotoSet(id,'ficha')} alt="${n}">`}${dos?`<img src="assets/gallery/g-${id}.jpg" alt="" loading="lazy">`:''}</div>
@@ -2320,7 +2476,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
     </div>
     <div class="pm-foot">${botonSvc(id)}<button type="button" class="a-link" data-seguir>${t('cart.seguir')} →</button>
       <div class="lang pm-lang" role="group" aria-label="Language"><button data-lang="en"${lang==='en'?' class="on"':''}>EN</button><button data-lang="es"${lang==='es'?' class="on"':''}>ES</button></div></div>`;
-  document.getElementById('pmClose').onclick=()=>irA('servicios');
+  document.getElementById('pmClose').onclick=cerrarFicha;
   document.getElementById('pmOverlay').classList.add('open');document.body.classList.add('no-scroll');
   const foco=()=>{if(pmId===id&&!c.contains(document.activeElement))try{c.querySelector(reabre?'.pm-lang .on':'#pmClose').focus({preventScroll:true});}catch(e){}};
   foco();if(!reabre)setTimeout(foco,400);
@@ -2328,7 +2484,7 @@ function openProduct(id){const reabre=pmId===id;if(!pmId)pmAbre=document.activeE
 let pmAbre=null;
 function closeProduct(){document.getElementById('pmOverlay').classList.remove('open');pmId=null;if(!currentView)document.body.classList.remove('no-scroll');
   if(currentView==='view-services'&&rutaActual()==='servicios'&&pmAbre&&pmAbre.closest&&pmAbre.closest('#shopGrid')&&document.contains(pmAbre)){saltaFoco=true;try{pmAbre.focus({preventScroll:true});}catch(e){}}}
-document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')irA('servicios');});
+document.getElementById('pmOverlay').addEventListener('click',e=>{if(e.target.id==='pmOverlay')cerrarFicha();});
 
 function clearCart(){if(!SHOW.servicios.length)return;SHOW.servicios=[];guardarShow();sincronizarSvc();pintarGal();toast(t('ui.cleared'));}
 /* Galeria: el boton solo sale si el codigo de la pieza existe en SERVICES. */
@@ -2396,7 +2552,11 @@ function closeMenu(devolverFoco){if(!menu.classList.contains('open'))return;
   menuAbre=null;}
 /* Cerrar = volver a lo que habia debajo. Si el menu se abrio navegando, es un Atras de
    verdad; si se llego con un enlace directo a #/menu, no hay a donde volver. */
-function cerrarMenu(){if(menuEnSesion)history.back();else location.replace('#/'+rutaBajo);}
+function cerrarMenu(){if(menuEnSesion)history.back();else reemplazar('#/'+rutaBajo);}
+/* Un destino elegido en el menu ocupa el lugar del menu en el historial: Atras vuelve a lo
+   que habia debajo, no al menu. El destino que ya estaba debajo solo cierra el menu. */
+menu.addEventListener('click',e=>{const a=e.target.closest('a[href^="#/"]');if(!a||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+  e.preventDefault();const h=a.getAttribute('href');if(menuEnSesion&&h==='#/'+rutaBajo)history.back();else reemplazar(h);});
 /* Trampa de foco comun a los dialogos (menu, «Tu show», ficha y visor): Tab no sale. */
 function atrapar(caja){caja.addEventListener('keydown',e=>{if(e.key!=='Tab')return;
   const f=[...caja.querySelectorAll('a[href],button:not([disabled]),[tabindex="0"]')].filter(x=>x.getClientRects().length),x=document.activeElement;if(!f.length||x.tagName==='VIDEO')return;
@@ -2410,6 +2570,17 @@ function showView(id){const sale=currentView&&currentView!==id?document.getEleme
   document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));const v=document.getElementById(id);if(v)v.classList.add('active');
   if(sale){sale.classList.add('sale');setTimeout(()=>sale.classList.remove('sale'),460);}
   currentView=id;document.body.classList.add('no-scroll');if(window.sweepDeferred)setTimeout(window.sweepDeferred,60);}
+/* Pieza B (decision de Frank, 15/11/2026): en las vistas interiores la barra con Volver se esconde al bajar y
+   vuelve con cualquier scroll hacia arriba, como en Safari. Al entrar en una vista se ve (barraVista, tras
+   reponer el scroll, asi la reposicion de Atras no la esconde); arriba del todo y con el foco dentro
+   (:focus-within, en el CSS) tambien. Solo cambia una clase: el CSS la mueve con transform y opacity. */
+const abUlt=new WeakMap();
+function barraVista(v){const b=v&&v.querySelector(':scope>.arma-bar');if(!b)return;b.classList.remove('ab-oculta');abUlt.set(v,v.scrollTop);}
+document.addEventListener('scroll',e=>{const v=e.target;if(!(v instanceof Element)||!v.classList.contains('view')||!v.classList.contains('active'))return;
+  const b=v.querySelector(':scope>.arma-bar');if(!b)return;const y=v.scrollTop,u=abUlt.has(v)?abUlt.get(v):y,d=y-u;
+  if(y<=b.offsetHeight){b.classList.remove('ab-oculta');abUlt.set(v,y);}
+  else if(d>6){b.classList.add('ab-oculta');abUlt.set(v,y);}
+  else if(d<-2){b.classList.remove('ab-oculta');abUlt.set(v,y);}},{capture:true,passive:true});
 function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','sale'));
   if(currentView){const b=document.body;b.classList.add('vuelve');setTimeout(()=>b.classList.remove('vuelve'),450);}currentView=null;}
 /* Atras devuelve a la misma altura. Cada entrada del historial lleva una clave en
@@ -2417,10 +2588,25 @@ function hideViews(){document.querySelectorAll('.view').forEach(v=>v.classList.r
    volver a ella (Atras o Adelante) se repone. Una entrada nueva empieza arriba, salvo la
    ficha de un servicio, que se abre y se cierra sobre el catalogo sin moverlo. */
 let hClave=0,hSerie=Date.now(),navAltura=null;const hPos=new Map();
+/* Pieza 4 (14/11/2026): cada entrada lleva tambien d (cuantas entradas del sitio hay debajo
+   en el historial) y p (la ruta de la de debajo). Volver retrocede de verdad si hay sitio
+   debajo; si se entro directo a una vista, va a la portada sustituyendo la entrada, sin salir
+   del sitio. Lo que no es un paso nuevo (el menu, un paso que sustituye al panel) se navega
+   con reemplazar(): ocupa el lugar de la entrada actual y conserva su d y su p, asi Atras no
+   reabre el menu ni la ficha cerrada. */
+let hProf=-1,hPrev='',hReemplazo=false;
 const alturaActual=()=>{const v=currentView&&document.getElementById(currentView);return v?v.scrollTop:window.scrollY;};
 function entradaHist(){const s=history.state;
-  if(s&&typeof s.k==='number'){hClave=s.k;return true;}
-  hClave=++hSerie;try{history.replaceState({k:hClave},'');}catch(e){}return false;}
+  if(s&&typeof s.k==='number'){hClave=s.k;hProf=typeof s.d==='number'?s.d:0;hPrev=typeof s.p==='string'?s.p:'';return true;}
+  if(hReemplazo)hProf=Math.max(hProf,0);else{hPrev=hProf<0?'':rutaBajo;hProf++;}hReemplazo=false;
+  hClave=++hSerie;try{history.replaceState({k:hClave,d:hProf,p:hPrev},'');}catch(e){}return false;}
+function reemplazar(h){if(location.hash===h){aplicarRuta();return;}hReemplazo=true;location.replace(h);}
+function volver(raiz){if(hProf>0)history.back();else reemplazar(raiz);}
+/* Cerrar la ficha retrocede si debajo esta lo que habia antes de abrirla; si debajo hay otra
+   ficha (se salto de una a otra por la direccion) o se entro directo, va al catalogo. */
+function cerrarFicha(){if(hProf>0&&!/^servicios\//.test(hPrev))history.back();else reemplazar('#/servicios');}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-volver]');if(!b)return;e.preventDefault();
+  if(b.closest('#pmOverlay'))cerrarFicha();else volver('#/');});
 /* ── Enrutador por hash ──────────────────────────────────────────────────────
    Antes las vistas eran solo una clase: todo era index.html, nada se podia
    enlazar y el boton Atras del navegador —o el gesto de volver en movil— se
@@ -2563,7 +2749,7 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   const enPaso3=r0==='arma'&&r1==='show';
   /* La confirmacion vive en el paso 3; al salir de ahi el recorrido empieza de cero. */
   if(SHOW.enviado&&!enPaso3){SHOW.enviado=null;guardarShow();}
-  if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){location.replace('#/arma/fecha');return;}
+  if(enPaso3&&!SHOW.ocasion&&!SHOW.enviado){hReemplazo=true;location.replace('#/arma/fecha');return;}
   if(r0==='arma'&&r1==='fecha'&&currentView!=='view-fecha'){pedirOcas=!SHOW.ocasion;calY=0;}
   if(esRecorrido(r0)&&!SHOW.entrada&&!SHOW.enviado){SHOW.entrada=ENTRADA_DE[r0];guardarShow();}
   if(!r0){if(!portadaLista)pintarPortada();hideViews();document.body.classList.remove('no-scroll');window.scrollTo({top:navAltura||0,behavior:'instant'});}
@@ -2578,7 +2764,8 @@ function aplicarRuta(){const [r0,r1]=rutaActual().split('/');
   if(quiere&&pmId!==quiere)openProduct(quiere);
   else if(!quiere&&pmId)closeProduct();
   if(r0){const v=document.getElementById(vista);
-    if(navAltura!=null)v.scrollTop=navAltura;else if(!(vista===vistaAntes&&r0===antes&&r0==='servicios'))v.scrollTop=0;}
+    if(navAltura!=null)v.scrollTop=navAltura;else if(!(vista===vistaAntes&&r0===antes&&r0==='servicios'))v.scrollTop=0;
+    barraVista(v);}
   navAltura=null;
   marcarNav();
   titulo();}
@@ -2601,13 +2788,14 @@ document.querySelectorAll('[data-openmenu]').forEach(b=>b.onclick=()=>irA('menu'
 const panel=document.getElementById('cartPanel'),dim=document.getElementById('dim');
 /* Abrir el panel deja una entrada en el historial (misma URL): Atras lo cierra. */
 const enCart=()=>!!(history.state&&history.state.cart);
-function abrirCart(nueva){panel.classList.add('open');dim.classList.add('on');if(nueva)try{history.pushState({k:hClave,cart:1},'');}catch(e){}
+function abrirCart(nueva){panel.classList.add('open');dim.classList.add('on');if(nueva)try{history.pushState({k:hClave,d:hProf+1,p:rutaBajo,cart:1},'');hProf++;hPrev=rutaBajo;}catch(e){}
   try{document.getElementById('cartClose').focus({preventScroll:true});}catch(e){}}
 document.getElementById('cartFab').onclick=()=>abrirCart(1);
 function soltarCart(){if(!panel.classList.contains('open'))return;panel.classList.remove('open');dim.classList.remove('on');
   const fab=document.getElementById('cartFab');if(fab.getClientRects().length)try{fab.focus({preventScroll:true});}catch(e){}}
 function closeCart(){if(panel.classList.contains('open')&&enCart())history.back();else soltarCart();}
-addEventListener('popstate',()=>{if(enCart())abrirCart();else soltarCart();});
+addEventListener('popstate',()=>{const s=history.state;if(s&&typeof s.d==='number'){hProf=s.d;hPrev=typeof s.p==='string'?s.p:'';}
+  if(enCart())abrirCart();else soltarCart();});
 document.getElementById('cartClose').onclick=closeCart;dim.onclick=closeCart;
 atrapar(panel);
 
@@ -2709,7 +2897,7 @@ addEventListener('keydown',e=>{
     else if(e.key==='ArrowLeft')lbIr(-1);
     return;
   }
-  if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)irA('servicios');else if(panel.classList.contains('open'))closeCart();}
+  if(e.key==='Escape'){if(menu.classList.contains('open'))cerrarMenu();else if(pmId)cerrarFicha();else if(panel.classList.contains('open'))closeCart();}
 });
 /* Vista previa local: ?demo=paso3, ?demo=confirmacion o ?demo=sinpanel rellenan un
    recorrido de ejemplo para revisar pantallas sin pulsar (Safari del simulador).

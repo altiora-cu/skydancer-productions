@@ -1341,6 +1341,16 @@ html.js body:not(.bajando):not(.solo-menu) .topbar:not(:focus-within)>:not(.tb-l
 .pm-volver{position:absolute;z-index:3;top:10px;left:12px;background:rgba(5,4,10,.72);border-color:rgba(255,255,255,.35);color:#fff}
 @media(max-width:999px){.arma-bar{flex-wrap:wrap;row-gap:4px;padding-top:6px;padding-bottom:6px}}
 @media(min-width:1000px){.ab-fila{display:contents}.ab-volver:not(.pm-volver){order:-1;margin-right:4px}}
+/* Pieza 5 (17/11/2026, P2 de la auditoria): en escritorio la ficha ya tiene la X; su «Volver» repetia el cierre.
+   Y en las barras sin pasos (Servicios, Liana) Volver sube a la fila de la marca desde 700 px: medido en
+   Chromium y WebKit, ES y EN, cabe sin solape ni desborde hasta 600. «Arma tu show», con pasos, no cambia. */
+@media(min-width:1000px){.pm-volver{display:none}}
+@media(min-width:700px) and (max-width:999px){[data-armabar=simple] .ab-fila{display:contents}[data-armabar=simple] .ab-volver{order:-1;margin-right:4px}[data-armabar=simple] .ab-logo{margin-right:auto}}
+/* Pieza 6 (17/11/2026): de 1000 a 1024 px el idioma bajaba a otra fila (Volver + marca + nav completo + idioma pedian
+   ~1029 px en EN y ~1010 en ES: la barra interior conservaba el nav grande de origen). En ese tramo usa los mismos
+   rellenos compactos que ya tiene la barra de la portada (12 px por enlace, 16 en «Arma tu show») y un hueco de 10 px.
+   Sin tocar letra ni enlaces; desde 1100 y por debajo de 1000 nada cambia. */
+@media(min-width:1000px) and (max-width:1099px){[data-armabar=simple]{column-gap:10px}[data-armabar=simple] .hd-nav a{padding:0 12px}[data-armabar=simple] .hd-nav a::after{left:12px;right:12px}[data-armabar=simple] .hd-nav .cta{padding:0 16px}}
 @media(prefers-reduced-motion:reduce){.ab-volver{transition:none}}
 /* ── PIEZA B (decision de Frank, 15/11/2026): en las vistas interiores la barra con Volver se esconde al bajar
    y vuelve al subir, como en Safari (la clase ab-oculta la pone el enrutador). Se ve al cargar la vista, con
